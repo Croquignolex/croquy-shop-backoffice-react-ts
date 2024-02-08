@@ -1,0 +1,67 @@
+import React, { FC, ReactElement, Suspense, useContext, useReducer, useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { AbsoluteCenter, Box, Spinner } from "@chakra-ui/react";
+
+import { Routes } from "./routes";
+import { getLocaleStorageItem } from "./helpers/localStorageHelpers";
+import {
+    initialGlobalUserState,
+    USER_GLOBAL_STATE_TRUST_UNAUTHORIZED,
+    USER_GLOBAL_STATE_UPDATE_DATA,
+    UserContext,
+    USER_GLOBAL_STATE_TRUST_AUTHORIZED,
+    userReducer
+} from "./contexts/UserContext";
+import {UserGlobalStateUpdateDataPayloadType} from "./types/userTypes";
+
+const SuspenseLoader: FC = (): ReactElement => {
+    return (
+        <Box position='relative' h='100vh'>
+            <AbsoluteCenter axis='both'>
+                <Spinner color='green.500' size='xl' />
+            </AbsoluteCenter>
+        </Box>
+    );
+};
+
+const GlobalState: FC = (): ReactElement => {
+    const { globalUserState, setGlobalUserState } = useContext(UserContext);
+
+    useEffect((): void => {
+        const userPersistedData: any = getLocaleStorageItem('user');
+
+        if(userPersistedData) {
+            const userGlobalStateUpdateDataPayload: UserGlobalStateUpdateDataPayloadType = userPersistedData;
+
+            setGlobalUserState({ type: USER_GLOBAL_STATE_TRUST_AUTHORIZED });
+            setGlobalUserState({ type: USER_GLOBAL_STATE_UPDATE_DATA, payload: userGlobalStateUpdateDataPayload });
+        } else {
+            setGlobalUserState({ type: USER_GLOBAL_STATE_TRUST_UNAUTHORIZED });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    if(!globalUserState.isTrustedData) {
+        return <SuspenseLoader />;
+    }
+
+    return (
+        <Routes isAuthorized={globalUserState.isAuthorized} />
+    );
+};
+
+const App: FC = (): ReactElement => {
+    const [globalUserState, setGlobalUserState] = useReducer(userReducer, initialGlobalUserState);
+
+    return (
+        <UserContext.Provider value={{ globalUserState, setGlobalUserState }}>
+            <Suspense fallback={<SuspenseLoader />}>
+                <BrowserRouter>
+                    <GlobalState />
+                </BrowserRouter>
+            </Suspense>
+        </UserContext.Provider>
+    );
+};
+
+export default App;

@@ -1,12 +1,28 @@
-import React, {FC, ReactElement} from "react";
-import {Outlet} from "react-router-dom";
-import {Box} from "@chakra-ui/react";
+import React, { FC, ReactElement } from "react";
+import { Outlet } from "react-router-dom";
+import {Box, Container, Flex, Stack, Text} from "@chakra-ui/react";
+
+import Footer from "../components/Footer";
+import {appInfo} from "../constants/envConstants";
 
 const AuthLayout: FC = (): ReactElement => {
     return (
         <Box minH="100vh">
-            CustomerAuthLayout
-            <Outlet />
+            <Flex h={20} alignItems="center" borderBottomWidth={1}>
+                <Container maxW={'6xl'}>
+                    <Flex>
+                        <Box>
+                            <Text fontSize="2xl" fontWeight="bold">
+                                {appInfo.fullName}
+                            </Text>
+                        </Box>
+                    </Flex>
+                </Container>
+            </Flex>
+            <Stack mt={10} pb={75}>
+                <Outlet />
+            </Stack>
+            <Footer />
         </Box>
     );
 };

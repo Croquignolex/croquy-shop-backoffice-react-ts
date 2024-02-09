@@ -1,7 +1,8 @@
-import flattenDeep from "lodash/flattenDeep";
+import lodash from "lodash";
 import { CreateToastFnReturn } from "@chakra-ui/react";
 
-import { AlertStatusEnumType } from "../types/otherTypes";
+import {AlertStatusEnumType, ErrorAlertType} from "../types/otherTypes";
+import {AxiosError} from "axios";
 
 // Custom log
 export const log = (message: string, data: any|null = null, highPriority: boolean = false): void => {
@@ -39,7 +40,7 @@ export const formatString = (text: string, maxCharacters: number): string => {
 // Flatten nested routes
 export const generateFlattenRoutes = (routes: any[]): any[] => {
     if (!routes) return [];
-    return flattenDeep(routes.map(({ routes: subRoutes, ...rest }) => [rest, generateFlattenRoutes(subRoutes)]));
+    return lodash.flattenDeep(routes.map(({ routes: subRoutes, ...rest }) => [rest, generateFlattenRoutes(subRoutes)]));
 };
 
 // Toast alert
@@ -48,3 +49,17 @@ export const toastAlert = (toast: CreateToastFnReturn, title: string, status: Al
 
     toast({title, status});
 };
+
+// Error alert
+export const errorAlert = (error: AxiosError, customMessages: any[] = []): ErrorAlertType => {
+    let message: string = "";
+
+    switch (error.code) {
+        case "ERR_NETWORK":
+            const customMessage: any = lodash.find(customMessages, "ERR_NETWORK");
+            message = customMessage ? customMessage["ERR_NETWORK"] : "Merci de vérifier la connexion internet";
+            break;
+    }
+
+    return { show: true, status: AlertStatusEnumType.error, message };
+}

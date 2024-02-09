@@ -1,11 +1,18 @@
-import {apiBaseURL} from "../constants/envConstants";
+import { apiBaseURL } from "../constants/envConstants";
+import { LoginRequestType } from "../pages/login/loginPageData";
+import { authApiURI } from "../constants/apiURIConstants";
+import { postRequest } from "./axiosHelpers";
 
-const API_V1_URL: string = `${apiBaseURL}`;
+const API_V1_URL: string = `${apiBaseURL}/v1/backoffice`;
+const API_V2_URL: string = `${apiBaseURL}/v2/backoffice`;
+
+export const loginRequest = ({ email, password }: LoginRequestType): Promise<any> => {
+    const url: string = joinBaseUrlWithParams(API_V1_URL + authApiURI.login);
+    return postRequest(url, { email, password });
+};
 
 // Build complete url
-const joinBaseUrlWithParams = (to: string, params?: URLParamType[], queries?: URLParamType[]): string => {
-    let url: string = API_V1_URL + to;
-
+const joinBaseUrlWithParams = (url: string, params?: URLParamType[], queries?: URLParamType[]): string => {
     if(params) {
         params.forEach((param: URLParamType): void => {
             url = url.replace(`{${param.param}}`, `${encodeURIComponent(param.value)}`);

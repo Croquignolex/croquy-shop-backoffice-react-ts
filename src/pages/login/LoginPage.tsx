@@ -1,25 +1,25 @@
 import React, { ReactElement } from "react";
+import { Form, Formik, FormikProps } from "formik";
+import { Container, Flex, Heading, Stack } from "@chakra-ui/react";
 
-// import useLoginPageHook from "./useLoginPageHook";
+import TextField from "../../components/form/TextField";
+import PasswordField from "../../components/form/PasswordField";
+import { initialValues, LoginFormType, loginSchema } from "./loginPageData";
+import useLoginPageHook from "./useLoginPageHook";
+import DisplayAlert from "../../components/DisplayAlert";
+import SubmitButton from "../../components/form/SumitButton";
 
 const LoginPage = (): ReactElement => {
-    // const { handleLogin, isLoading, alertData } = useLoginPageHook();
+    const { handleLogin, isPending, alertData } = useLoginPageHook();
 
     return (
         <>
-            Customer login page
-            {/*<Container mt={4} maxW={'xl'}>
+            <Container mt={4} maxW={'xl'}>
                 <Flex align={'center'} justify={'center'}>
                     <Stack w={'full'}>
-                        <Heading fontSize={'2xl'} alignSelf='center'>Bienvenue</Heading>
-                        <Box alignSelf='center' mt={2}>
-                            Nouveau sur {appInfo.name}?
-                            <Text as='u' fontWeight='bold' ml={1}>
-                                <Link to={routes.register.path}>Incrivez-vous</Link>
-                            </Text>
-                        </Box>
+                        <Heading fontSize={'2xl'} alignSelf='center' mb={3}>Bienvenue</Heading>
                         <DisplayAlert data={alertData} />
-                        <Stack my={6}>
+                        <Stack mt={3} mb={6}>
                             <Formik initialValues={initialValues} validationSchema={loginSchema} onSubmit={handleLogin}>
                                 {(props: FormikProps<LoginFormType>) => (
                                     <Form>
@@ -35,41 +35,14 @@ const LoginPage = (): ReactElement => {
                                             isInvalid={!!props.errors.password && !!props.touched.password}
                                             errorMessage={props.errors.password}
                                         />
-                                        <SubmitButton isLoading={isLoading} label="Connexion"></SubmitButton>
+                                        <SubmitButton isLoading={isPending} label="Connexion"></SubmitButton>
                                     </Form>
                                 )}
                             </Formik>
                         </Stack>
-                        <Stack>
-                            <Text as='u' fontWeight='bold'>
-                                <Link to="#">Vous avez des difficultés à vous connecter?</Link>
-                            </Text>
-
-                            <Text mt={2}>
-                                Ou connectez-vous avec
-                            </Text>
-
-                            <HStack mt={2}>
-                                <Stack w={'full'}>
-                                    <Button backgroundColor='white' color="red" borderWidth={1} rounded='full' leftIcon={<FaGoogle />}>
-                                        Google
-                                    </Button>
-                                </Stack>
-                                <Stack w={'full'}>
-                                    <Button backgroundColor='white' color="blue" borderWidth={1} rounded='full' leftIcon={<FaFacebook />}>
-                                        Facebook
-                                    </Button>
-                                </Stack>
-                                <Stack w={'full'}>
-                                    <Button backgroundColor='white' color="black" borderWidth={1} rounded='full' leftIcon={<FaApple />}>
-                                        Apple
-                                    </Button>
-                                </Stack>
-                            </HStack>
-                        </Stack>
                     </Stack>
                 </Flex>
-            </Container>*/}
+            </Container>
         </>
     );
 };

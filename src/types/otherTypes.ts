@@ -1,5 +1,12 @@
-import {LazyExoticComponent, ReactElement} from "react";
+import { LazyExoticComponent, ReactElement } from "react";
 import { IconType } from "react-icons";
+import {AxiosError} from "axios";
+
+export interface ErrorAlertType {
+    show: boolean,
+    status: AlertStatusEnumType,
+    message: string
+}
 
 export enum AlertStatusEnumType {
     info = 'info',
@@ -7,6 +14,31 @@ export enum AlertStatusEnumType {
     success = 'success',
     warning = 'warning',
     loading = 'loading',
+}
+
+export interface BreadcrumbItemsType {
+    path: string,
+    key: string,
+    label: string,
+}
+
+export interface HeaderMenuItemType {
+    path: string,
+    name: string,
+    key: string,
+    icon: IconType,
+    title: string,
+    background: string,
+    color: string,
+}
+
+export interface SidebarMenuItemType {
+    path: string,
+    name: string,
+    key: string,
+    icon: IconType,
+    title: string,
+    isActive: boolean,
 }
 
 export interface ReducerActionType {
@@ -28,4 +60,49 @@ export interface MainRouteType extends ErrorRouteType {
     breadcrumb: [],
     onSidebar: boolean,
     onHeader: boolean,
+}
+
+export interface FormDisabledFieldProps {
+    label?: string;
+    name: string;
+    noLabel?: boolean;
+}
+
+export interface FormFieldProps extends FormDisabledFieldProps {
+    isInvalid: boolean;
+    errorMessage?: string;
+}
+
+export interface FormSelectOptionType {
+    label: string;
+    key: string,
+}
+
+export interface SelectFormFieldProps extends FormFieldProps {
+    values: FormSelectOptionType[];
+}
+
+export interface FormCustomDisabledPhoneFieldProps {
+    label?: string;
+    code: string,
+    number: string,
+    noLabel?: boolean;
+}
+
+export interface RequestResponseType {
+    data?: any;
+    error?: AxiosError | null;
+    isError?: boolean;
+    isIdle?: boolean;
+    isPending?: boolean;
+    isPaused?: boolean;
+    isSuccess?: boolean;
+    failureCount?: number;
+    failureReason?: AxiosError | null;
+    mutate?: any;
+    mutateAsync?: any;
+    reset?: any;
+    status?: string;
+    submittedAt?: number;
+    variables?: any;
 }

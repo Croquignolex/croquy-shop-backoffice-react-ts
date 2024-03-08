@@ -1,14 +1,18 @@
 import { apiBaseURL } from "../constants/envConstants";
-import { LoginRequestType } from "../pages/login/loginPageData";
+import { LoginRequestDataType } from "../pages/login/loginPageData";
 import { authApiURI } from "../constants/apiURIConstants";
 import { postRequest } from "./axiosHelpers";
+import { log } from "./generalHelpers";
 
-const API_V1_URL: string = `${apiBaseURL}/v1/backoffice`;
-const API_V2_URL: string = `${apiBaseURL}/v2/backoffice`;
+const API_V1_URL: string = `${apiBaseURL}/api/v1/backoffice`;
+const API_V2_URL: string = `${apiBaseURL}/api/v2/backoffice`;
 
-export const loginRequest = ({ email, password }: LoginRequestType): Promise<any> => {
+export const loginRequest = ({ username, password }: LoginRequestDataType): Promise<any> => {
     const url: string = joinBaseUrlWithParams(API_V1_URL + authApiURI.login);
-    return postRequest(url, { email, password });
+
+    log("Login request", {url, username, password});
+
+    return postRequest(url, { username, password }, {headers: {public: true}});
 };
 
 // Build complete url
@@ -27,6 +31,8 @@ const joinBaseUrlWithParams = (url: string, params?: URLParamType[], queries?: U
             else url = `${url}&${query.param}=${query.value}`;
         });
     }
+
+    log("Build url", {url, params, queries});
 
     return url;
 };

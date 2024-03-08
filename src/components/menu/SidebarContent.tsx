@@ -1,13 +1,14 @@
 import React, { FC, ReactElement } from 'react';
-import { Box, Flex, Text, CloseButton, BoxProps, Button, Stack } from "@chakra-ui/react";
-// import { Link } from "react-router-dom";
+import { Box, Flex, Text, CloseButton, BoxProps, Stack } from "@chakra-ui/react";
 
 import NavItem from "./NavItem";
 import { SidebarMenuItemType } from "../../types/otherTypes";
 import { appInfo } from "../../constants/envConstants";
-// import { routes } from "../../constants/routeConstants";
+import { log } from "../../helpers/generalHelpers";
 
 const SidebarContent: FC<SidebarContentProps> = ({ onClose, menuItems, ...rest }): ReactElement => {
+    log("PageBreadcrumb component", {onClose, menuItems, rest});
+
     return (
         <Box
             transition="3s ease"

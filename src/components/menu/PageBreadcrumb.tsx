@@ -4,8 +4,11 @@ import { BreadcrumbItem, BreadcrumbLink, Breadcrumb } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 import { BreadcrumbItemsType } from "../../types/otherTypes";
+import { log } from "../../helpers/generalHelpers";
 
 const PageBreadcrumb: FC<PageBreadcrumbProps> = ({ pageTitle, items }) => {
+    log("PageBreadcrumb component", {pageTitle, items});
+
     return (
         <Breadcrumb spacing='8px' separator={<FiChevronRight />} mb={4}>
             {items.map((item: BreadcrumbItemsType): ReactElement => (

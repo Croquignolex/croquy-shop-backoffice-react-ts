@@ -7,12 +7,11 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import { mainRoutes } from "../../routes/mainRoutes";
 import { loginRequest } from "../../helpers/apiRequestsHelpers";
 import { setLocaleStorageItem } from "../../helpers/localStorageHelpers";
-import { USER_GLOBAL_STATE_TRUST_AUTHORIZED, USER_GLOBAL_STATE_UPDATE_DATA, UserContext } from "../../contexts/UserContext";
+import { USER_GLOBAL_STATE_TRUST_AUTHORIZED, USER_GLOBAL_STATE_UPDATE_LOGIN_DATA, UserContext } from "../../contexts/UserContext";
 import { ErrorAlertType, RequestResponseType } from "../../types/otherTypes";
 import { AlertStatusEnumType } from "../../types/otherTypes";
 import { errorAlert, toastAlert } from "../../helpers/generalHelpers";
-import { UserGlobalStateUpdateDataPayloadType } from "../../types/userTypes";
-import { LoginFormType } from "./loginPageData";
+import { LoginFormType, LoginResponseDataType } from "./loginPageData";
 
 const useLoginPageHook = (): any => {
     const [alertData, setAlertData] = useState<ErrorAlertType | null>(null);
@@ -24,16 +23,19 @@ const useLoginPageHook = (): any => {
     const { isPending, mutate }: RequestResponseType = useMutation({
         mutationFn: loginRequest,
         onError: (error: AxiosError): void => {
-            setAlertData(errorAlert(error));
+            setAlertData(errorAlert(error, "Combinaison login ou mot de passe incorrect"));
         },
-        onSuccess: (data): void => {
-            const userGlobalStateUpdateDataPayload: UserGlobalStateUpdateDataPayloadType = data;
-            const toastMessage: string = `Bienvenue ${userGlobalStateUpdateDataPayload.firstName} ${userGlobalStateUpdateDataPayload.lastName}`;
+        onSuccess: (data: any): void => {
+            const {accessToken, refreshToken} = data.data;
+            const responseData: LoginResponseDataType = data.data;
+            const toastMessage: string = `Bienvenue ${responseData.firstName}`;
 
-            setLocaleStorageItem('user', userGlobalStateUpdateDataPayload);
+            setLocaleStorageItem('user', responseData);
+            setLocaleStorageItem('access-token', accessToken);
+            setLocaleStorageItem('refresh-token', refreshToken);
 
             setGlobalUserState({type: USER_GLOBAL_STATE_TRUST_AUTHORIZED});
-            setGlobalUserState({type: USER_GLOBAL_STATE_UPDATE_DATA, payload: userGlobalStateUpdateDataPayload});
+            setGlobalUserState({type: USER_GLOBAL_STATE_UPDATE_LOGIN_DATA, payload: responseData});
 
             navigate(mainRoutes.home.path);
 
@@ -41,7 +43,7 @@ const useLoginPageHook = (): any => {
         }
     });
 
-    const handleLogin = ({ email, password }: LoginFormType): void => mutate({ email, password });
+    const handleLogin = ({ username, password }: LoginFormType): void => mutate({ username, password });
 
     return { handleLogin, isPending, alertData };
 };

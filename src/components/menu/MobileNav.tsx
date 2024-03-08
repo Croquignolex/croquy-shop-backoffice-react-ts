@@ -10,18 +10,23 @@ import { USER_GLOBAL_STATE_CLEAR_DATA, UserContext } from "../../contexts/UserCo
 import { authRoutes } from "../../routes/authRoutes";
 import { HeaderMenuItemType } from "../../types/otherTypes";
 import { removeLocaleStorageItem } from "../../helpers/localStorageHelpers";
+import { log } from "../../helpers/generalHelpers";
 
 const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
     const { globalUserState, setGlobalUserState } = useContext(UserContext);
     const navigate: NavigateFunction = useNavigate();
 
     const handleLogout = (): void => {
+        log("Handle logout event");
+
         removeLocaleStorageItem('user');
 
         setGlobalUserState({ type: USER_GLOBAL_STATE_CLEAR_DATA });
 
         navigate(authRoutes.login.path);
     };
+
+    log("MobileNav component", {onOpen, menuItems, rest});
 
     return (
         <Flex

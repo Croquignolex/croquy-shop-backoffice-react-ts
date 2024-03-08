@@ -1,8 +1,12 @@
 import React, { ReactElement } from "react";
-import {Button, Heading, Stack, Text} from "@chakra-ui/react";
-import {Link} from "react-router-dom";
+import { Button, Heading, Stack, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+
+import { log } from "../helpers/generalHelpers";
 
 const NotFoundPage = (): ReactElement => {
+    log("NotFoundPage component");
+
     return (
         <>
             <Stack w={'full'} alignItems='center'>

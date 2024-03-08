@@ -3,7 +3,11 @@ import { Input, FormLabel, FormErrorMessage, FormControl, HStack, Select, Icon }
 import { Field } from "formik";
 import { FiAlertCircle } from "react-icons/fi";
 
+import { log } from "../../helpers/generalHelpers";
+
 const CustomDateField: FC<FormCustomDateFieldProps> = ({ label = '', day, month, year, noLabel = false, isInvalid, errorMessage }): ReactElement => {
+    log("CustomDateField component", {label, day, month, year, noLabel, isInvalid, errorMessage});
+
     return (
         <FormControl isInvalid={isInvalid} mb={4}>
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}

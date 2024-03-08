@@ -25,13 +25,13 @@ const theme: Dict = extendTheme({
 });
 
 root.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <ChakraProvider theme={theme} toastOptions={{ defaultOptions: { position: 'top' } }}>
             <QueryClientProvider client={queryClient}>
                 <App />
             </QueryClientProvider>
         </ChakraProvider>
-    </React.StrictMode>
+   // </React.StrictMode>
 );
 
 

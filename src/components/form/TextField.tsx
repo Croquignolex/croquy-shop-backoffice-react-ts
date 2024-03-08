@@ -4,8 +4,11 @@ import { Field } from "formik";
 
 import { FormFieldProps } from "../../types/otherTypes";
 import { FiAlertCircle } from "react-icons/fi";
+import { log } from "../../helpers/generalHelpers";
 
 const TextField: FC<FormFieldProps> = ({ label = '', name, noLabel = false, isInvalid, errorMessage }): ReactElement => {
+    log("TextField component", {label, name, noLabel, isInvalid, errorMessage});
+
     return (
         <FormControl isInvalid={isInvalid} mb={4}>
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}

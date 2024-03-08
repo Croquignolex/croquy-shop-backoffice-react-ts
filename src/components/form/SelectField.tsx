@@ -4,8 +4,11 @@ import { FormLabel, FormErrorMessage, FormControl, Select, Icon } from "@chakra-
 import { Field } from "formik";
 
 import { FormSelectOptionType, SelectFormFieldProps } from "../../types/otherTypes";
+import { log } from "../../helpers/generalHelpers";
 
 const SelectField: FC<SelectFormFieldProps> = ({ label = '', name, values = [], noLabel = false, isInvalid, errorMessage }): ReactElement => {
+    log("SubmitButton component", {label, name, values, noLabel, isInvalid, errorMessage});
+
     return (
         <FormControl isInvalid={isInvalid} mb={4}>
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}

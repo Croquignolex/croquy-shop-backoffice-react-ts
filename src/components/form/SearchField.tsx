@@ -2,7 +2,11 @@ import React, { ReactElement, FC } from "react";
 import { Input, InputGroup, InputLeftElement, IconButton } from "@chakra-ui/react";
 import { FiSearch } from "react-icons/fi";
 
+import { log } from "../../helpers/generalHelpers";
+
 const SearchField: FC<SearchFieldProps> = ({ name }): ReactElement => {
+    log("SearchField component", {name});
+
     return (
         <InputGroup>
             <InputLeftElement>

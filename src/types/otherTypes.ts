@@ -13,7 +13,12 @@ export enum AlertStatusEnumType {
     error = 'error',
     success = 'success',
     warning = 'warning',
-    loading = 'loading',
+}
+
+export enum LogLevelEnumType {
+    info = 'info',
+    error = 'error',
+    warning = 'warn',
 }
 
 export interface BreadcrumbItemsType {

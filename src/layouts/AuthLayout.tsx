@@ -1,11 +1,14 @@
 import React, { FC, ReactElement } from "react";
 import { Outlet } from "react-router-dom";
-import {Box, Container, Flex, Stack, Text} from "@chakra-ui/react";
+import { Box, Container, Flex, Stack, Text } from "@chakra-ui/react";
 
 import Footer from "../components/Footer";
-import {appInfo} from "../constants/envConstants";
+import { appInfo } from "../constants/envConstants";
+import { log } from "../helpers/generalHelpers";
 
 const AuthLayout: FC = (): ReactElement => {
+    log("AuthLayout component");
+
     return (
         <Box minH="100vh">
             <Flex h={20} alignItems="center" borderBottomWidth={1}>

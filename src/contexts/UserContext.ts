@@ -1,9 +1,10 @@
 import { Context, createContext } from "react";
 
 import { ReducerActionType } from "../types/otherTypes";
-import {UserGlobalStateUpdateDataPayloadType, UserGlobalStateType} from "../types/userTypes";
+import { log } from "../helpers/generalHelpers";
+import { LoginResponseDataType } from "../pages/login/loginPageData";
 
-export const USER_GLOBAL_STATE_UPDATE_DATA: string = 'USER_GLOBAL_STATE_UPDATE_DATA';
+export const USER_GLOBAL_STATE_UPDATE_LOGIN_DATA: string = 'USER_GLOBAL_STATE_UPDATE_LOGIN_DATA';
 export const USER_GLOBAL_STATE_TRUST_UNAUTHORIZED: string = 'USER_GLOBAL_STATE_TRUSTED_UNAUTHORIZED';
 export const USER_GLOBAL_STATE_TRUST_AUTHORIZED: string = 'USER_GLOBAL_STATE_TRUSTED_AUTHORIZED';
 export const USER_GLOBAL_STATE_CLEAR_DATA: string = 'USER_GLOBAL_STATE_CLEAR_DATA';
@@ -14,12 +15,16 @@ export const initialGlobalUserState: UserGlobalStateType = {
     emailAddress: '',
     lastName: '',
     firstName: '',
-    id: '',
+    username: '',
     phoneNumber: '',
+    role: '',
 };
 
 export const userReducer = (state: UserGlobalStateType = initialGlobalUserState, action: ReducerActionType): UserGlobalStateType => {
+    log("UserContext reducer", {state, action});
+
     let nextState: UserGlobalStateType;
+
     switch (action.type) {
 
         case USER_GLOBAL_STATE_TRUST_UNAUTHORIZED:
@@ -30,15 +35,13 @@ export const userReducer = (state: UserGlobalStateType = initialGlobalUserState,
             nextState = {...state, isTrustedData: true, isAuthorized: true};
             return nextState || state;
 
-        case USER_GLOBAL_STATE_UPDATE_DATA:
-            const payload: UserGlobalStateUpdateDataPayloadType = action.payload;
+        case USER_GLOBAL_STATE_UPDATE_LOGIN_DATA:
+            const loginDataPayload: LoginResponseDataType = action.payload;
             nextState = {
                 ...state,
-                firstName: payload.firstName,
-                lastName: payload.lastName,
-                emailAddress: payload.emailAddress,
-                phoneNumber: payload.phoneNumber,
-                id: payload.id,
+                firstName: loginDataPayload.firstName,
+                username: loginDataPayload.username,
+                role: loginDataPayload.role,
             };
             return nextState || state;
 
@@ -50,5 +53,16 @@ export const userReducer = (state: UserGlobalStateType = initialGlobalUserState,
             return state;
     }
 };
+
+interface UserGlobalStateType {
+    isTrustedData: boolean;
+    isAuthorized: boolean;
+    lastName: string;
+    firstName: string;
+    emailAddress: string;
+    phoneNumber: string;
+    username: string;
+    role: string;
+}
 
 export const UserContext: Context<any> = createContext(null);

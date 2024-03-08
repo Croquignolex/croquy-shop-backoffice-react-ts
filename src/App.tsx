@@ -7,14 +7,16 @@ import { getLocaleStorageItem } from "./helpers/localStorageHelpers";
 import {
     initialGlobalUserState,
     USER_GLOBAL_STATE_TRUST_UNAUTHORIZED,
-    USER_GLOBAL_STATE_UPDATE_DATA,
     UserContext,
     USER_GLOBAL_STATE_TRUST_AUTHORIZED,
-    userReducer
+    userReducer, USER_GLOBAL_STATE_UPDATE_LOGIN_DATA
 } from "./contexts/UserContext";
-import {UserGlobalStateUpdateDataPayloadType} from "./types/userTypes";
+import { log } from "./helpers/generalHelpers";
+import {LoginResponseDataType} from "./pages/login/loginPageData";
 
 const SuspenseLoader: FC = (): ReactElement => {
+    log("SuspenseLoader component");
+
     return (
         <Box position='relative' h='100vh'>
             <AbsoluteCenter axis='both'>
@@ -31,13 +33,15 @@ const GlobalState: FC = (): ReactElement => {
         const userPersistedData: any = getLocaleStorageItem('user');
 
         if(userPersistedData) {
-            const userGlobalStateUpdateDataPayload: UserGlobalStateUpdateDataPayloadType = userPersistedData;
+            const data: LoginResponseDataType = userPersistedData;
 
             setGlobalUserState({ type: USER_GLOBAL_STATE_TRUST_AUTHORIZED });
-            setGlobalUserState({ type: USER_GLOBAL_STATE_UPDATE_DATA, payload: userGlobalStateUpdateDataPayload });
+            setGlobalUserState({ type: USER_GLOBAL_STATE_UPDATE_LOGIN_DATA, payload: data });
         } else {
             setGlobalUserState({ type: USER_GLOBAL_STATE_TRUST_UNAUTHORIZED });
         }
+
+        log("Init user data (refresh)", {userPersistedData});
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -52,6 +56,8 @@ const GlobalState: FC = (): ReactElement => {
 
 const App: FC = (): ReactElement => {
     const [globalUserState, setGlobalUserState] = useReducer(userReducer, initialGlobalUserState);
+
+    log("App component");
 
     return (
         <UserContext.Provider value={{ globalUserState, setGlobalUserState }}>

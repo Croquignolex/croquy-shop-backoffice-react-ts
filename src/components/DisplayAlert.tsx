@@ -2,11 +2,14 @@ import React, { FC, ReactElement } from "react";
 import { AlertIcon, Alert } from "@chakra-ui/react";
 
 import { ErrorAlertType } from "../types/otherTypes";
+import { log } from "../helpers/generalHelpers";
 
 const DisplayAlert: FC<DisplayAlertProps> = ({ data }): ReactElement | null => {
     if(data === null || data === undefined || !data?.show) {
         return null;
     }
+
+    log("DisplayAlert component", {data});
 
     return (
         <Alert status={data.status} rounded='xl' mx={1}>

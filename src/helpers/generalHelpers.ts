@@ -1,27 +1,27 @@
 import lodash from "lodash";
 import { CreateToastFnReturn } from "@chakra-ui/react";
 
-import {AlertStatusEnumType, ErrorAlertType} from "../types/otherTypes";
-import {AxiosError} from "axios";
+import { AlertStatusEnumType, ErrorAlertType, LogLevelEnumType } from "../types/otherTypes";
+import { AxiosError } from "axios";
 
 // Custom log
-export const log = (message: string, data: any|null = null, highPriority: boolean = false): void => {
+export const log = (message: string, data: any|null = null, level: LogLevelEnumType = LogLevelEnumType.info): void => {
     // Only in local environment
-    if (process.env.NODE_ENV !== 'production' || highPriority) {
-        console.log(Array(60).fill('#').join(''));
-        console.log(`Message: ${message}`);
-        console.log(`Date: ${new Date()}`);
-        data && console.log({data});
-        console.log(Array(60).fill('#').join(''));
+    if (process.env.NODE_ENV !== 'production') {
+        console.log(`[${new Date().toLocaleString()}] ${message}`)
+        console[level](data)
     }
 };
 
 // Search a needle in a string
 export const needleSearch = (set: any, needle: string): boolean => {
     if(set !== null && set !== '' && set !== undefined && set) {
+        log("Needle found", {set, needle});
+
         return set.toString().toLowerCase().indexOf(needle.toLowerCase()) !== -1;
     }
 
+    log("Needle not found", {set, needle});
     return false;
 };
 
@@ -29,10 +29,14 @@ export const needleSearch = (set: any, needle: string): boolean => {
 export const formatString = (text: string, maxCharacters: number): string => {
     try {
         if(text.length > maxCharacters) {
-            return text.substring(0, maxCharacters) + '...';
+            let formattedString: string = text.substring(0, maxCharacters) + '...';
+
+            log("String formatted", {text, maxCharacters, formattedString});
+
+            return formattedString;
         }
     } catch (e) {
-        log("Format string function error", {text, maxCharacters, exception: e});
+        log("String format error", {text, maxCharacters, e});
     }
     return text;
 };
@@ -47,19 +51,18 @@ export const generateFlattenRoutes = (routes: any[]): any[] => {
 export const toastAlert = (toast: CreateToastFnReturn, title: string, status: AlertStatusEnumType = AlertStatusEnumType.success): void => {
     toast.closeAll();
 
+    log("Show toast alert", {toast, title, status});
+
     toast({title, status});
 };
 
 // Error alert
-export const errorAlert = (error: AxiosError, customMessages: any[] = []): ErrorAlertType => {
-    let message: string = "";
+export const errorAlert = (error: AxiosError, customMessage: string): ErrorAlertType => {
+    let message: string = customMessage;
 
-    switch (error.code) {
-        case "ERR_NETWORK":
-            const customMessage: any = lodash.find(customMessages, "ERR_NETWORK");
-            message = customMessage ? customMessage["ERR_NETWORK"] : "Merci de vérifier la connexion internet";
-            break;
-    }
+    if(error.code === "ERR_NETWORK") message = "Merci de vérifier la connexion internet";
+
+    log("Show error alert", {error, customMessage, message});
 
     return { show: true, status: AlertStatusEnumType.error, message };
 }

@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from "react";
 import { Outlet, Navigate, Route, Routes as ReactRoutes } from "react-router-dom";
 
-import { generateFlattenRoutes } from "../helpers/generalHelpers";
+import { generateFlattenRoutes, log } from "../helpers/generalHelpers";
 import { mainRoutes } from "./mainRoutes";
 import MainLayout from "../layouts/MainLayout";
 import ErrorLayout from "../layouts/ErrorLayout";
@@ -27,6 +27,8 @@ export const routesDefinition = [
 ];
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({ isAuthorized, isErrorPage, isAuthPage }): ReactElement => {
+    log("Route redirection", {isAuthorized, isErrorPage, isAuthPage});
+
     if(!isErrorPage) {
         if(isAuthorized && isAuthPage) {
             return <Navigate to={mainRoutes.home.path} />;
@@ -44,6 +46,8 @@ const renderRoutes = (mainRoutes: any[]) => {
     const Routes: FC<{ isAuthorized: boolean }> = ({ isAuthorized }) => {
         const layouts: ReactElement[] = mainRoutes.map(({ layout: Layout, routes, isAuthPage, isErrorPage }, index: number) => {
             const subRoutes: any[] = generateFlattenRoutes(routes);
+
+            log("Render correspondent route component", {mainRoutes, isAuthorized, Layout, routes, isAuthPage, isErrorPage, subRoutes});
 
             return (
                 <Route key={index} element={<Layout />}>

@@ -8,9 +8,12 @@ import { initialValues, LoginFormType, loginSchema } from "./loginPageData";
 import useLoginPageHook from "./useLoginPageHook";
 import DisplayAlert from "../../components/DisplayAlert";
 import SubmitButton from "../../components/form/SumitButton";
+import { log } from "../../helpers/generalHelpers";
 
 const LoginPage = (): ReactElement => {
     const { handleLogin, isPending, alertData } = useLoginPageHook();
+
+    log("LoginPage component", {handleLogin, isPending, alertData});
 
     return (
         <>
@@ -24,10 +27,10 @@ const LoginPage = (): ReactElement => {
                                 {(props: FormikProps<LoginFormType>) => (
                                     <Form>
                                         <TextField
-                                            label="Votre addresse email"
-                                            name="email"
-                                            isInvalid={!!props.errors.email && !!props.touched.email}
-                                            errorMessage={props.errors.email}
+                                            label="Votre identifiant"
+                                            name="username"
+                                            isInvalid={!!props.errors.username && !!props.touched.username}
+                                            errorMessage={props.errors.username}
                                         />
                                         <PasswordField
                                             label="Votre mot de passe"

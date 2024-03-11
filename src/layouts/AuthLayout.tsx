@@ -15,8 +15,8 @@ const AuthLayout: FC = (): ReactElement => {
                 <Container maxW={'6xl'}>
                     <Flex>
                         <Box>
-                            <Text fontSize="2xl" fontWeight="bold">
-                                {appInfo.fullName}
+                            <Text fontSize="xl" fontWeight="bold">
+                                {appInfo.name}
                             </Text>
                         </Box>
                     </Flex>

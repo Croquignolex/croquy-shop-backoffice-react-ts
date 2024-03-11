@@ -27,17 +27,7 @@ export interface BreadcrumbItemsType {
     label: string,
 }
 
-export interface HeaderMenuItemType {
-    path: string,
-    name: string,
-    key: string,
-    icon: IconType,
-    title: string,
-    background: string,
-    color: string,
-}
-
-export interface SidebarMenuItemType {
+export interface MenuItemType {
     path: string,
     name: string,
     key: string,

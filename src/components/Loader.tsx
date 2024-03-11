@@ -13,13 +13,13 @@ const Loader: FC<LoaderProps> = ({ isLoading, center = true }): ReactElement | n
     if(center) {
         return (
             <Center>
-                <Spinner color='blue.500' />
+                <Spinner color='orange' />
             </Center>
         )
     }
 
     return (
-        <Spinner color='blue.500' />
+        <Spinner color='orange' />
     );
 };
 

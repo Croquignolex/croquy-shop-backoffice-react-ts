@@ -13,13 +13,11 @@ const NavItem: FC<NavItemProps> = ({ icon, path, isActive, children, ...rest }):
             <Flex
                 align="center"
                 p="4"
-                mx="4"
-                borderRadius="lg"
+                mr="4"
                 role="group"
                 cursor="pointer"
-                _hover={{ fontSize: '1.1rem', color: 'black' }}
-                color={isActive ? 'black' : 'gray'}
-                fontSize={isActive ? '1.1rem' : '1rem'}
+                _hover={{ background: 'orange' }}
+                background={isActive ? 'orange' : 'white'}
                 {...rest}
             >
                 { icon && (<Icon mr="4" as={icon} fontSize='1.3rem' />) }

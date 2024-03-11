@@ -37,9 +37,9 @@ const useLoginPageHook = (): any => {
             setGlobalUserState({type: USER_GLOBAL_STATE_TRUST_AUTHORIZED});
             setGlobalUserState({type: USER_GLOBAL_STATE_UPDATE_LOGIN_DATA, payload: responseData});
 
-            navigate(mainRoutes.home.path);
+            navigate(mainRoutes.dashboard.path);
 
-            toastAlert(toast, toastMessage, AlertStatusEnumType.info);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
         }
     });
 

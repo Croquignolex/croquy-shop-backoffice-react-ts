@@ -12,7 +12,7 @@ import { authRoutes } from "./authRoutes";
 export const routesDefinition = [
     {
         layout: MainLayout,
-        routes: [mainRoutes.home]
+        routes: [mainRoutes.dashboard]
     },
     {
         layout: AuthLayout,
@@ -31,7 +31,7 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({ isAuthorized, isErrorPage, is
 
     if(!isErrorPage) {
         if(isAuthorized && isAuthPage) {
-            return <Navigate to={mainRoutes.home.path} />;
+            return <Navigate to={mainRoutes.dashboard.path} />;
         }
 
         if(!isAuthorized && !isAuthPage) {

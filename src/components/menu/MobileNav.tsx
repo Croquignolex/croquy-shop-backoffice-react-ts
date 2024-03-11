@@ -8,7 +8,7 @@ import {
 
 import { USER_GLOBAL_STATE_CLEAR_DATA, UserContext } from "../../contexts/UserContext";
 import { authRoutes } from "../../routes/authRoutes";
-import { HeaderMenuItemType } from "../../types/otherTypes";
+import { MenuItemType } from "../../types/otherTypes";
 import { removeLocaleStorageItem } from "../../helpers/localStorageHelpers";
 import { log } from "../../helpers/generalHelpers";
 
@@ -30,7 +30,7 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
 
     return (
         <Flex
-            height="20"
+            height="60px"
             alignItems="center"
             justifyContent={{ base: 'space-between', md: 'flex-end' }}
             {...rest}
@@ -48,12 +48,12 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
                     <Menu>
                         <MenuButton
                             transition="all 0.3s"
-                            _focus={{ boxShadow: 'none' }}
-                            _hover={{ color: 'blue.500' }}
-                            _expanded={{ color: 'blue.500' }}
+                            _focus={{ fontWeight: 'none' }}
+                            _hover={{ fontWeight: 'bold' }}
+                            _expanded={{ fontWeight: 'bold' }}
                         >
                             <HStack>
-                                <Avatar bg='gray.200' icon={<FiUser fontSize='1.5rem' color='black'/>} />
+                                <Avatar bg='orange' icon={<FiUser fontSize='1.5rem' color='black'/>} />
                                 <VStack display={{ base: 'none', md: 'flex' }} alignItems="flex-start">
                                     <Text fontSize="sm">{globalUserState.firstName}</Text>
                                 </VStack>
@@ -63,26 +63,25 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
                             </HStack>
                         </MenuButton>
                         <MenuList>
-                            {menuItems.map((route: HeaderMenuItemType): ReactElement => (
+                            {menuItems.map((route: MenuItemType): ReactElement => (
                                 <MenuItem
                                     as={Link}
                                     to={route.path}
                                     key={route.name}
-                                    background={route.background}
-                                    color={route.color}
-                                    _hover={{ bg: 'gray.100', color: 'black' }}
+                                    background={route.isActive ? 'orange' : 'white'}
+                                    _hover={{ bg: 'orange', color: 'black' }}
                                 >
                                     <Icon mr="2" as={route.icon} />
                                     {route.title}
                                 </MenuItem>
                             ))}
-                            <MenuItem icon={<FiSettings />}>
+                            <MenuItem icon={<FiSettings />} _hover={{ bg: 'orange' }} bg={"white"}>
                                 Paramètres
                             </MenuItem>
-                            <MenuItem icon={<FiHelpCircle />}>
+                            <MenuItem icon={<FiHelpCircle />} _hover={{ bg: 'orange' }}>
                                 Centre d'aide
                             </MenuItem>
-                            <MenuItem color={'red.500'} icon={<FiLogOut />} onClick={handleLogout}>
+                            <MenuItem color={'red'} icon={<FiLogOut />} onClick={handleLogout} _hover={{ bg: 'orange', color: 'black' }}>
                                 Déconnexion
                             </MenuItem>
                         </MenuList>
@@ -95,7 +94,7 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
 
 interface MobileNavProps extends FlexProps {
     onOpen: () => void,
-    menuItems: HeaderMenuItemType[],
+    menuItems: MenuItemType[],
 }
 
 export default MobileNav;

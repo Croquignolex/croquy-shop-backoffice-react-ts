@@ -20,7 +20,7 @@ const LoginPage = (): ReactElement => {
             <Container mt={4} maxW={'xl'}>
                 <Flex align={'center'} justify={'center'}>
                     <Stack w={'full'}>
-                        <Heading fontSize={'2xl'} alignSelf='center' mb={3}>Bienvenue</Heading>
+                        <Heading fontSize={'xl'} alignSelf='center' mb={3}>Bienvenue</Heading>
                         <DisplayAlert data={alertData} />
                         <Stack mt={3} mb={6}>
                             <Formik initialValues={initialValues} validationSchema={loginSchema} onSubmit={handleLogin}>

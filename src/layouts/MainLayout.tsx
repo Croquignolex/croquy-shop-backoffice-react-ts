@@ -4,7 +4,7 @@ import lodash from "lodash";
 import { Box, Container, Drawer, DrawerContent, Heading, useDisclosure, Stack } from "@chakra-ui/react";
 
 import { log } from "../helpers/generalHelpers";
-import { BreadcrumbItemsType, MenuItemType, MainRouteType } from "../types/otherTypes";
+import { BreadcrumbItemsType, MenuItemType, MainRouteType, BreadcrumbType } from "../types/otherTypes";
 import SidebarContent from "../components/menu/SidebarContent";
 import MobileNav from "../components/menu/MobileNav";
 import PageBreadcrumb from "../components/menu/PageBreadcrumb";
@@ -46,10 +46,10 @@ const MainLayout: FC = (): ReactElement => {
     const {pageTitle, breadcrumbItems}: any = useMemo((): any => {
         const currentRoute: MainRouteType = lodash.toArray(mainRoutes).find((route: MainRouteType): boolean => currentPath === route.path);
 
-        const breadcrumbItems: BreadcrumbItemsType[] = currentRoute.breadcrumb.map((item: any) => ({
-            path: item?.path,
-            label: item?.label,
-            key: item?.label
+        const breadcrumbItems: BreadcrumbItemsType[] = currentRoute.breadcrumb.map((item: BreadcrumbType): BreadcrumbItemsType => ({
+            path: item.path,
+            label: item.label,
+            key: item.label
         }));
 
         return {pageTitle: currentRoute.title, breadcrumbItems}
@@ -69,7 +69,7 @@ const MainLayout: FC = (): ReactElement => {
             <Stack ml={{ base: 0, md: 60 }} pb={75}>
                 <Container maxW='7xl' mt={70}>
                     <PageBreadcrumb pageTitle={pageTitle} items={breadcrumbItems} />
-                    <Heading as='h1' pt={2} pb={4}>{pageTitle}</Heading>
+                    <Heading as='h1' pt={2} pb={4} fontSize={"xl"}> {pageTitle}</Heading>
                     <Outlet />
                 </Container>
             </Stack>

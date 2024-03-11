@@ -1,51 +1,29 @@
 import React, { ReactElement } from "react";
-import { Form, Formik, FormikProps } from "formik";
-import { Container, Flex, Heading, Stack } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { Box, Flex, Button, Stack } from "@chakra-ui/react";
 
-import TextField from "../../components/form/TextField";
-import PasswordField from "../../components/form/PasswordField";
-import { initialValues, LoginFormType, loginSchema } from "./usersPageData";
 import useUsersPageHook from "./useUsersPageHook";
 import DisplayAlert from "../../components/DisplayAlert";
-import SubmitButton from "../../components/form/SumitButton";
+import Loader from "../../components/Loader";
+import SearchField from "../../components/form/SearchField";
 import { log } from "../../helpers/generalHelpers";
+import { mainRoutes } from "../../routes/mainRoutes";
 
 const UsersPage = (): ReactElement => {
-    const { handleLogin, isPending, alertData } = useUsersPageHook();
+    const { isLoading, users, alertData } = useUsersPageHook();
 
-    log("LoginPage component", {handleLogin, isPending, alertData});
+    log("UsersPage component", {isLoading, users, alertData});
 
     return (
         <>
-            <Container mt={4} maxW={'xl'}>
-                <Flex align={'center'} justify={'center'}>
-                    <Stack w={'full'}>
-                        <Heading fontSize={'xl'} alignSelf='center' mb={3}>Bienvenue</Heading>
-                        <DisplayAlert data={alertData} />
-                        <Stack mt={3} mb={6}>
-                            <Formik initialValues={initialValues} validationSchema={loginSchema} onSubmit={handleLogin}>
-                                {(props: FormikProps<LoginFormType>) => (
-                                    <Form>
-                                        <TextField
-                                            label="Votre identifiant"
-                                            name="username"
-                                            isInvalid={!!props.errors.username && !!props.touched.username}
-                                            errorMessage={props.errors.username}
-                                        />
-                                        <PasswordField
-                                            label="Votre mot de passe"
-                                            name="password"
-                                            isInvalid={!!props.errors.password && !!props.touched.password}
-                                            errorMessage={props.errors.password}
-                                        />
-                                        <SubmitButton isLoading={isPending} label="Connexion"></SubmitButton>
-                                    </Form>
-                                )}
-                            </Formik>
-                        </Stack>
-                    </Stack>
-                </Flex>
-            </Container>
+            <Stack>
+                <Loader isLoading={isLoading} />
+                <DisplayAlert data={alertData} />
+
+                {/*<SimpleGrid columns={{ lg: 2, sm: 2}} spacing={4} mt={4}>
+                    {accounts.map((account: AccountModelType): ReactElement => <AccountCard account={account} />)}
+                </SimpleGrid>*/}
+            </Stack>
         </>
     );
 };

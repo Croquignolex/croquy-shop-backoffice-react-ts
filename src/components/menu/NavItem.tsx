@@ -16,6 +16,7 @@ const NavItem: FC<NavItemProps> = ({ icon, path, isActive, children, ...rest }):
                 mr="4"
                 role="group"
                 cursor="pointer"
+                borderRightRadius={"3xl"}
                 _hover={{ fontWeight: isActive ? '' : 'bold', background: isActive ? '' : 'gray.100' }}
                 background={isActive ? 'orange.500' : ''}
                 color={isActive ? 'white' : ''}

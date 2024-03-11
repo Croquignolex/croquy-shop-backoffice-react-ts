@@ -4,6 +4,7 @@ import { lazy, LazyExoticComponent, ReactElement } from "react";
 
 const LazyDashboardPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/DashboardPage'));
 const LazyUsersPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/users/UsersPage'));
+const LazyAddUserPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/users/UsersPage'));
 
 const dashboard: MainRouteType = {
     name: 'dashboard',
@@ -27,6 +28,17 @@ const users: MainRouteType = {
     breadcrumb: []
 };
 
+const addUser: MainRouteType = {
+    name: 'add-user',
+    title: 'Nouvel utilisateur',
+    component: LazyAddUserPage,
+    path: '/users/create',
+    icon: FiUsers,
+    onSidebar: false,
+    onHeader: false,
+    breadcrumb: [{path: '/users', label: 'Utilisateurs'}]
+};
+
 export const mainRoutes: any = {
-    dashboard, users
+    dashboard, users, addUser
 };

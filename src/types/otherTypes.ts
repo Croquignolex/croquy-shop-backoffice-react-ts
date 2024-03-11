@@ -1,6 +1,7 @@
 import { LazyExoticComponent, ReactElement } from "react";
 import { IconType } from "react-icons";
 import {AxiosError} from "axios";
+import {array} from "yup";
 
 export interface ErrorAlertType {
     show: boolean,
@@ -50,9 +51,15 @@ export interface ErrorRouteType {
 
 export interface AuthRoutType extends ErrorRouteType {}
 
+
+export interface BreadcrumbType {
+    path: string;
+    label: string;
+}
+
 export interface MainRouteType extends ErrorRouteType {
     icon: IconType,
-    breadcrumb: [],
+    breadcrumb: Array<BreadcrumbType>,
     onSidebar: boolean,
     onHeader: boolean,
 }

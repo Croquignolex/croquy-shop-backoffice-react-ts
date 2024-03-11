@@ -53,7 +53,7 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
                             _expanded={{ fontWeight: 'bold' }}
                         >
                             <HStack>
-                                <Avatar bg='orange' icon={<FiUser fontSize='1.5rem' color='black'/>} />
+                                <Avatar bg='orange.500' icon={<FiUser fontSize='1.5rem' color='white' />} />
                                 <VStack display={{ base: 'none', md: 'flex' }} alignItems="flex-start">
                                     <Text fontSize="sm">{globalUserState.firstName}</Text>
                                 </VStack>
@@ -68,20 +68,21 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
                                     as={Link}
                                     to={route.path}
                                     key={route.name}
-                                    background={route.isActive ? 'orange' : 'white'}
-                                    _hover={{ bg: 'orange', color: 'black' }}
+                                    background={route.isActive ? 'orange.600' : ''}
+                                    _hover={{ fontWeight: route.isActive ? '' : 'bold' }}
+                                    color={route.isActive ? 'white' : ''}
                                 >
                                     <Icon mr="2" as={route.icon} />
                                     {route.title}
                                 </MenuItem>
                             ))}
-                            <MenuItem icon={<FiSettings />} _hover={{ bg: 'orange' }} bg={"white"}>
+                            <MenuItem icon={<FiSettings />} _hover={{ fontWeight: 'bold' }}>
                                 Paramètres
                             </MenuItem>
-                            <MenuItem icon={<FiHelpCircle />} _hover={{ bg: 'orange' }}>
+                            <MenuItem icon={<FiHelpCircle />} _hover={{ fontWeight: 'bold' }}>
                                 Centre d'aide
                             </MenuItem>
-                            <MenuItem color={'red'} icon={<FiLogOut />} onClick={handleLogout} _hover={{ bg: 'orange', color: 'black' }}>
+                            <MenuItem color={'red'} icon={<FiLogOut />} onClick={handleLogout} _hover={{ fontWeight: 'bold' }}>
                                 Déconnexion
                             </MenuItem>
                         </MenuList>

@@ -7,7 +7,7 @@ import { appInfo } from "../../constants/envConstants";
 import { log } from "../../helpers/generalHelpers";
 
 const SidebarContent: FC<SidebarContentProps> = ({ onClose, menuItems, ...rest }): ReactElement => {
-    log("PageBreadcrumb component", {onClose, menuItems, rest});
+    log("SidebarContent component", {onClose, menuItems, rest});
 
     return (
         <Box transition="3s ease" w={{ base: 'full', md: 60 }} pos="fixed" h="full"{...rest}>
@@ -18,7 +18,7 @@ const SidebarContent: FC<SidebarContentProps> = ({ onClose, menuItems, ...rest }
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             {menuItems.map((route: MenuItemType): ReactElement => (
-                <NavItem key={route.name} path={route.path} icon={route.icon} isActive={true}>
+                <NavItem key={route.name} path={route.path} icon={route.icon} isActive={route.isActive}>
                     {route.title}
                 </NavItem>
             ))}

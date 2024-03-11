@@ -8,21 +8,22 @@ import ErrorLayout from "../layouts/ErrorLayout";
 import { errorRoutes } from "./errorRoutes";
 import AuthLayout from "../layouts/AuthLayout";
 import { authRoutes } from "./authRoutes";
+import lodash from "lodash";
 
 export const routesDefinition = [
     {
         layout: MainLayout,
-        routes: [mainRoutes.dashboard]
+        routes: mainRoutes
     },
     {
         layout: AuthLayout,
         isAuthPage: true,
-        routes: [authRoutes.login]
+        routes: authRoutes
     },
     {
         layout: ErrorLayout,
         isErrorPage: true,
-        routes: [errorRoutes.notFound]
+        routes: errorRoutes
     },
 ];
 
@@ -45,7 +46,7 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({ isAuthorized, isErrorPage, is
 const renderRoutes = (mainRoutes: any[]) => {
     const Routes: FC<{ isAuthorized: boolean }> = ({ isAuthorized }) => {
         const layouts: ReactElement[] = mainRoutes.map(({ layout: Layout, routes, isAuthPage, isErrorPage }, index: number) => {
-            const subRoutes: any[] = generateFlattenRoutes(routes);
+            const subRoutes: any[] = generateFlattenRoutes(lodash.toArray(routes));
 
             log("Render correspondent route component", {mainRoutes, isAuthorized, Layout, routes, isAuthPage, isErrorPage, subRoutes});
 

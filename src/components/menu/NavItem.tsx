@@ -16,8 +16,9 @@ const NavItem: FC<NavItemProps> = ({ icon, path, isActive, children, ...rest }):
                 mr="4"
                 role="group"
                 cursor="pointer"
-                _hover={{ background: 'orange' }}
-                background={isActive ? 'orange' : 'white'}
+                _hover={{ fontWeight: isActive ? '' : 'bold', background: isActive ? '' : 'gray.100' }}
+                background={isActive ? 'orange.500' : ''}
+                color={isActive ? 'white' : ''}
                 {...rest}
             >
                 { icon && (<Icon mr="4" as={icon} fontSize='1.3rem' />) }

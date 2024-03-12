@@ -1,13 +1,8 @@
-import React, { ReactElement } from "react";
-import { Link } from "react-router-dom";
-import { Box, Flex, Button, Stack } from "@chakra-ui/react";
+import React, {ReactElement} from "react";
 
 import useUsersPageHook from "./useUsersPageHook";
-import DisplayAlert from "../../components/DisplayAlert";
-import Loader from "../../components/Loader";
-import SearchField from "../../components/form/SearchField";
 import { log } from "../../helpers/generalHelpers";
-import { mainRoutes } from "../../routes/mainRoutes";
+import DataTable from "../../components/DataTable";
 
 const UsersPage = (): ReactElement => {
     const { isLoading, users, alertData } = useUsersPageHook();
@@ -16,14 +11,19 @@ const UsersPage = (): ReactElement => {
 
     return (
         <>
-            <Stack>
-                <Loader isLoading={isLoading} />
-                <DisplayAlert data={alertData} />
-
-                {/*<SimpleGrid columns={{ lg: 2, sm: 2}} spacing={4} mt={4}>
-                    {accounts.map((account: AccountModelType): ReactElement => <AccountCard account={account} />)}
-                </SimpleGrid>*/}
-            </Stack>
+            <DataTable
+                alertData={alertData}
+                isLoading={isLoading}
+                currentPage={2}
+                pages={5}
+                handleSearch={(e: string) => {console.log("Search", e)}}
+                handleAddItem={() => {console.log("Add")}}
+                handleNextPage={() => {console.log("next")}}
+                handlePreviousPage={() => {console.log("previous")}}
+                headers={["Nom", "Age", "Email", "bonon"]}
+                data={[{nom: "Alex", age: "50", email: "tjnjn@ffff.fr"}, {nom: "Alex", age: "50", bonon: 95, email: "rfvr"}]}
+            >
+            </DataTable>
         </>
     );
 };

@@ -16,13 +16,12 @@ const PasswordField: FC<FormFieldProps> = ({ label, name, noLabel = false, isInv
 
     return (
         <FormControl isInvalid={isInvalid} mb={6}>
-            {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}
+            {!noLabel && <FormLabel fontSize='sm' fontWeight='normal'>{label}</FormLabel>}
 
             <InputGroup>
                 <InputRightElement>
                     <IconButton
                         h='1.75rem'
-                        mt={2}
                         variant="text"
                         aria-label={ showPassword ? 'Mask password' : 'Reveal password' }
                         icon={ showPassword ? <FiEyeOff /> : <FiEye /> }
@@ -30,7 +29,7 @@ const PasswordField: FC<FormFieldProps> = ({ label, name, noLabel = false, isInv
                     />
                 </InputRightElement>
 
-                <Field as={Input} name={name} type={ showPassword ? 'text' : 'password' } size='lg' borderColor="black" rounded='lg' />
+                <Field as={Input} name={name} type={ showPassword ? 'text' : 'password' } size="md" borderColor="gray.300" />
             </InputGroup>
 
             <FormErrorMessage><Icon mr="2" as={FiAlertCircle} /> {errorMessage}</FormErrorMessage>

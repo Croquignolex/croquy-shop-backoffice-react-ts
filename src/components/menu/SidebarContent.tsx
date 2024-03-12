@@ -28,7 +28,7 @@ const SidebarContent: FC<SidebarContentProps> = ({ onClose, menuItems, ...rest }
 
 interface SidebarContentProps extends BoxProps {
     onClose: () => void,
-    menuItems: MenuItemType[],
+    menuItems: Array<MenuItemType>,
 }
 
 export default SidebarContent;

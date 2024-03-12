@@ -33,7 +33,7 @@ const PageBreadcrumb: FC<PageBreadcrumbProps> = ({ pageTitle, items }) => {
 
 interface PageBreadcrumbProps {
     pageTitle: string,
-    items: BreadcrumbItemsType[],
+    items: Array<BreadcrumbItemsType>,
 }
 
 export default PageBreadcrumb;

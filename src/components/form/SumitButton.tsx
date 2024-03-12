@@ -7,15 +7,15 @@ const SubmitButton: FC<FormSubmitButtonProps> = ({ label = 'Confirmer', colorSch
     log("SubmitButton component", {label, colorScheme, variant, isLoading, isDisabled});
 
     return (
-        <Stack mt={10}>
+        <Stack>
             <Button
                 colorScheme={colorScheme}
                 variant={variant}
                 isLoading={isLoading}
                 isDisabled={isDisabled}
                 type='submit'
-                size='lg'
-                rounded='full'
+                size='md'
+                fontWeight="none"
             >
                 {label}
             </Button>

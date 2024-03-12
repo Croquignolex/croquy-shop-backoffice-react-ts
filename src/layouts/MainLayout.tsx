@@ -4,12 +4,12 @@ import lodash from "lodash";
 import { Box, Container, Drawer, DrawerContent, Heading, useDisclosure, Stack } from "@chakra-ui/react";
 
 import { log } from "../helpers/generalHelpers";
-import { BreadcrumbItemsType, MenuItemType, MainRouteType, BreadcrumbType } from "../types/otherTypes";
 import SidebarContent from "../components/menu/SidebarContent";
 import MobileNav from "../components/menu/MobileNav";
 import PageBreadcrumb from "../components/menu/PageBreadcrumb";
 import Footer from "../components/Footer";
-import { mainRoutes } from "../routes/mainRoutes";
+import { mainRoutes, MainRouteType } from "../routes/mainRoutes";
+import { MenuItemType } from "../helpers/globalTypesHelper";
 
 const MainLayout: FC = (): ReactElement => {
     log("MainLayout component");
@@ -17,7 +17,7 @@ const MainLayout: FC = (): ReactElement => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { pathname: currentPath } = useLocation();
 
-    const headerMenuItems: MenuItemType[] = useMemo((): any[] => (
+    const headerMenuItems: Array<MenuItemType> = useMemo((): Array<any> => (
         lodash.toArray(mainRoutes)
             .filter((route: MainRouteType): boolean => route.onHeader)
             .map((route: MainRouteType): MenuItemType => ({
@@ -30,7 +30,7 @@ const MainLayout: FC = (): ReactElement => {
             }))
     ), [currentPath]);
 
-    const sidebarMenuItems: MenuItemType[] = useMemo((): any[] => (
+    const sidebarMenuItems: Array<MenuItemType> = useMemo((): Array<any> => (
         lodash.toArray(mainRoutes)
             .filter((route: MainRouteType): boolean => route.onSidebar)
             .map((route: MainRouteType): MenuItemType => ({
@@ -43,17 +43,7 @@ const MainLayout: FC = (): ReactElement => {
             }))
     ), [currentPath]);
 
-    const {pageTitle, breadcrumbItems}: any = useMemo((): any => {
-        const currentRoute: MainRouteType = lodash.toArray(mainRoutes).find((route: MainRouteType): boolean => currentPath === route.path);
-
-        const breadcrumbItems: BreadcrumbItemsType[] = currentRoute.breadcrumb.map((item: BreadcrumbType): BreadcrumbItemsType => ({
-            path: item.path,
-            label: item.label,
-            key: item.label
-        }));
-
-        return {pageTitle: currentRoute.title, breadcrumbItems}
-    }, [currentPath]);
+    const currentRoute: any = useMemo((): MainRouteType => lodash.toArray(mainRoutes).find((route: MainRouteType): boolean => currentPath === route.path), [currentPath]);
 
     return (
         <Box minH="100vh">
@@ -68,12 +58,11 @@ const MainLayout: FC = (): ReactElement => {
             </Container>
             <Stack ml={{ base: 0, md: 60 }} pb={75}>
                 <Container maxW='7xl' mt={70}>
-                    <PageBreadcrumb pageTitle={pageTitle} items={breadcrumbItems} />
-                    <Heading as='h1' pt={2} pb={4} fontSize={"xl"}> {pageTitle}</Heading>
+                    <PageBreadcrumb pageTitle={currentRoute.pageTitle} items={currentRoute.breadcrumb} />
+                    <Heading as='h1' pt={2} pb={4} fontSize={"xl"}> {currentRoute.pageTitle}</Heading>
                     <Outlet />
                 </Container>
             </Stack>
-            {/*<Box h={100} />*/}
             <Footer />
         </Box>
     );

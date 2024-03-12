@@ -3,10 +3,10 @@ import {Input, FormLabel, FormErrorMessage, FormControl, HStack, Icon} from "@ch
 import { Field } from "formik";
 import {FiAlertCircle} from "react-icons/fi";
 
-import { FormCustomDisabledPhoneFieldProps } from "../../types/otherTypes";
+import { CustomDisabledPhoneFieldProps } from "./CustomDisabledPhoneField";
 import { log } from "../../helpers/generalHelpers";
 
-const CustomPhoneField: FC<FormCustomPhoneFieldProps> = ({ label = '', code, number, noLabel = false, isInvalid, errorMessage }): ReactElement => {
+const CustomPhoneField: FC<CustomPhoneFieldProps> = ({ label = '', code, number, noLabel = false, isInvalid, errorMessage }): ReactElement => {
     log("CustomPhoneField component", {label, code, number, noLabel, isInvalid, errorMessage});
 
     return (
@@ -24,7 +24,7 @@ const CustomPhoneField: FC<FormCustomPhoneFieldProps> = ({ label = '', code, num
     );
 };
 
-interface FormCustomPhoneFieldProps extends FormCustomDisabledPhoneFieldProps {
+interface CustomPhoneFieldProps extends CustomDisabledPhoneFieldProps {
     label?: string;
     noLabel?: boolean;
     isInvalid: boolean;

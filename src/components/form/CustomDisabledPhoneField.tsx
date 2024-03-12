@@ -2,10 +2,9 @@ import React, { ReactElement, FC } from "react";
 import {Input, FormLabel, FormControl, HStack} from "@chakra-ui/react";
 import { Field } from "formik";
 
-import { FormCustomDisabledPhoneFieldProps } from "../../types/otherTypes";
 import { log } from "../../helpers/generalHelpers";
 
-const CustomDisabledPhoneField: FC<FormCustomDisabledPhoneFieldProps> = ({ label = '', code, number, noLabel = false }): ReactElement => {
+const CustomDisabledPhoneField: FC<CustomDisabledPhoneFieldProps> = ({ label = '', code, number, noLabel = false }): ReactElement => {
     log("CustomDisabledPhoneField component", {label, code, number, noLabel});
 
     return (
@@ -20,5 +19,12 @@ const CustomDisabledPhoneField: FC<FormCustomDisabledPhoneFieldProps> = ({ label
         </FormControl>
     );
 };
+
+export interface CustomDisabledPhoneFieldProps {
+    label?: string;
+    code: string,
+    number: string,
+    noLabel?: boolean;
+}
 
 export default CustomDisabledPhoneField;

@@ -1,8 +1,10 @@
-import { MainRouteType } from "../types/otherTypes";
 import { FiHome, FiUsers } from "react-icons/fi";
 import { lazy, LazyExoticComponent, ReactElement } from "react";
 
-const LazyDashboardPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/DashboardPage'));
+import { IconType } from "react-icons";
+import { BreadcrumbItemsType } from "../components/menu/PageBreadcrumb";
+
+const LazyDashboardPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/dashboard/DashboardPage'));
 const LazyUsersPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/users/UsersPage'));
 const LazyAddUserPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/users/UsersPage'));
 
@@ -38,6 +40,17 @@ const addUser: MainRouteType = {
     onHeader: false,
     breadcrumb: [{path: '/users', label: 'Utilisateurs'}]
 };
+
+export interface MainRouteType {
+    icon: IconType,
+    breadcrumb: Array<BreadcrumbItemsType>,
+    onSidebar: boolean,
+    onHeader: boolean,
+    name: string,
+    title: string,
+    component: LazyExoticComponent<() => ReactElement>,
+    path: string,
+}
 
 export const mainRoutes: any = {
     dashboard, users, addUser

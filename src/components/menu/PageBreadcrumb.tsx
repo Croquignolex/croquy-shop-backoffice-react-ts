@@ -3,7 +3,6 @@ import { FiChevronRight, FiHome } from "react-icons/fi";
 import { BreadcrumbItem, BreadcrumbLink, Breadcrumb } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-import { BreadcrumbItemsType } from "../../types/otherTypes";
 import { log } from "../../helpers/generalHelpers";
 import { mainRoutes } from "../../routes/mainRoutes";
 
@@ -17,8 +16,8 @@ const PageBreadcrumb: FC<PageBreadcrumbProps> = ({ pageTitle, items }) => {
                     <FiHome />
                 </BreadcrumbLink>
             </BreadcrumbItem>
-            {items.map((item: BreadcrumbItemsType): ReactElement => (
-                <BreadcrumbItem key={item.key}>
+            {items.map((item: BreadcrumbItemsType, index: number): ReactElement => (
+                <BreadcrumbItem key={index}>
                     <BreadcrumbLink as={Link} to={item.path} color={"orange.500"}>
                         {item.label}
                     </BreadcrumbLink>
@@ -34,6 +33,11 @@ const PageBreadcrumb: FC<PageBreadcrumbProps> = ({ pageTitle, items }) => {
 interface PageBreadcrumbProps {
     pageTitle: string,
     items: Array<BreadcrumbItemsType>,
+}
+
+export interface BreadcrumbItemsType {
+    path: string,
+    label: string,
 }
 
 export default PageBreadcrumb;

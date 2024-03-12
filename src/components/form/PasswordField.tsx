@@ -6,10 +6,10 @@ import {
 import { Field } from "formik";
 import { FiAlertCircle, FiEye, FiEyeOff } from "react-icons/fi";
 
-import { FormFieldProps } from "../../types/otherTypes";
 import { log } from "../../helpers/generalHelpers";
+import { TextFieldProps } from "./TextField";
 
-const PasswordField: FC<FormFieldProps> = ({ label, name, noLabel = false, isInvalid, errorMessage }): ReactElement => {
+const PasswordField: FC<TextFieldProps> = ({ label, name, noLabel = false, isInvalid, errorMessage }): ReactElement => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     log("PasswordField component", {label, name, noLabel, isInvalid, errorMessage});

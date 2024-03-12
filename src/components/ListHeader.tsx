@@ -6,7 +6,7 @@ import { log } from "../helpers/generalHelpers";
 import Loader from "./Loader";
 import DisplayAlert from "./DisplayAlert";
 import SearchField from "./form/SearchField";
-import { ErrorAlertType } from "../types/otherTypes";
+import { ErrorAlertType } from "../helpers/globalTypesHelper";
 
 const ListHeader: FC<ListHeaderProps> = ({ isLoading, alertData, handleAddItem, hasData = true, handleSearch }): ReactElement => {
     log("ListHeader component", {isLoading, alertData, handleAddItem, handleSearch});

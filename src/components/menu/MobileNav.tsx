@@ -8,9 +8,9 @@ import {
 
 import { USER_GLOBAL_STATE_CLEAR_DATA, UserContext } from "../../contexts/UserContext";
 import { authRoutes } from "../../routes/authRoutes";
-import { MenuItemType } from "../../types/otherTypes";
 import { removeLocaleStorageItem } from "../../helpers/localStorageHelpers";
 import { log } from "../../helpers/generalHelpers";
+import { MenuItemType } from "../../helpers/globalTypesHelper";
 
 const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
     const { globalUserState, setGlobalUserState } = useContext(UserContext);
@@ -68,7 +68,7 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
                                     as={Link}
                                     to={route.path}
                                     key={route.name}
-                                    background={route.isActive ? 'orange.600' : ''}
+                                    background={route.isActive ? 'orange.500' : ''}
                                     _hover={{ fontWeight: route.isActive ? '' : 'bold' }}
                                     color={route.isActive ? 'white' : ''}
                                 >
@@ -95,7 +95,7 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
 
 interface MobileNavProps extends FlexProps {
     onOpen: () => void,
-    menuItems: MenuItemType[],
+    menuItems: Array<MenuItemType>,
 }
 
 export default MobileNav;

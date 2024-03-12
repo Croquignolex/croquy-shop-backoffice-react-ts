@@ -2,10 +2,9 @@ import React, { ReactElement, FC } from "react";
 import { Input, FormLabel, FormControl } from "@chakra-ui/react";
 import { Field } from "formik";
 
-import { FormDisabledFieldProps } from "../../types/otherTypes";
 import { log } from "../../helpers/generalHelpers";
 
-const TextDisabledField: FC<FormDisabledFieldProps> = ({ label, name, noLabel = false }): ReactElement => {
+const TextDisabledField: FC<TextDisabledFieldProps> = ({ label, name, noLabel = false }): ReactElement => {
     log("TextDisabledField component", {label, name, noLabel});
 
     return (
@@ -16,5 +15,11 @@ const TextDisabledField: FC<FormDisabledFieldProps> = ({ label, name, noLabel = 
         </FormControl>
     );
 };
+
+export interface TextDisabledFieldProps {
+    label?: string;
+    name: string;
+    noLabel?: boolean;
+}
 
 export default TextDisabledField;

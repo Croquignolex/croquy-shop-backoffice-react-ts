@@ -1,7 +1,7 @@
 import { apiBaseURL } from "../constants/envConstants";
 import { LoginRequestDataType } from "../pages/login/loginPageData";
-import { authApiURI } from "../constants/apiURIConstants";
-import { postRequest } from "./axiosHelpers";
+import {authApiURI, usersApiURI} from "../constants/apiURIConstants";
+import { postRequest, getRequest } from "./axiosHelpers";
 import { log } from "./generalHelpers";
 
 const API_V1_URL: string = `${apiBaseURL}/api/v1/backoffice`;
@@ -15,8 +15,16 @@ export const loginRequest = ({ username, password }: LoginRequestDataType): Prom
     return postRequest(url, { username, password }, {headers: {public: true}});
 };
 
+export const usersRequest = (): Promise<any> => {
+    const url: string = joinBaseUrlWithParams(API_V1_URL + usersApiURI.list);
+
+    log("Users request", {url});
+
+    return getRequest(url);
+};
+
 // Build complete url
-const joinBaseUrlWithParams = (url: string, params?: URLParamType[], queries?: URLParamType[]): string => {
+const joinBaseUrlWithParams = (url: string, params?: Array<URLParamType>, queries?: Array<URLParamType>): string => {
     if(params) {
         params.forEach((param: URLParamType): void => {
             url = url.replace(`{${param.param}}`, `${encodeURIComponent(param.value)}`);

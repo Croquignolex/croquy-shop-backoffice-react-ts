@@ -1,26 +1,26 @@
 import { useContext, useState } from "react";
 import { AxiosError } from "axios";
 import { CreateToastFnReturn, useToast } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
 import { mainRoutes } from "../../routes/mainRoutes";
 import { loginRequest } from "../../helpers/apiRequestsHelpers";
 import { setLocaleStorageItem } from "../../helpers/localStorageHelpers";
 import { USER_GLOBAL_STATE_TRUST_AUTHORIZED, USER_GLOBAL_STATE_UPDATE_LOGIN_DATA, UserContext } from "../../contexts/UserContext";
-import { ErrorAlertType, RequestResponseType } from "../../types/otherTypes";
-import { AlertStatusEnumType } from "../../types/otherTypes";
+import { ErrorAlertType } from "../../helpers/globalTypesHelper";
+import { AlertStatusEnumType } from "../../helpers/globalTypesHelper";
 import { errorAlert, toastAlert } from "../../helpers/generalHelpers";
 import { LoginFormType, LoginResponseDataType } from "./loginPageData";
 
 const useLoginPageHook = (): any => {
-    const [alertData, setAlertData] = useState<ErrorAlertType | null>(null);
+    const [alertData, setAlertData] = useState<ErrorAlertType>({show: false});
 
     const toast: CreateToastFnReturn = useToast();
     const navigate: NavigateFunction = useNavigate();
     const { setGlobalUserState } = useContext(UserContext);
 
-    const { isPending, mutate }: RequestResponseType = useMutation({
+    const loginResponse: UseMutationResult<any, AxiosError, any, any> = useMutation({
         mutationFn: loginRequest,
         onError: (error: AxiosError): void => {
             setAlertData(errorAlert(error, "Combinaison login ou mot de passe incorrect"));
@@ -43,9 +43,9 @@ const useLoginPageHook = (): any => {
         }
     });
 
-    const handleLogin = ({ username, password }: LoginFormType): void => mutate({ username, password });
+    const handleLogin = ({ username, password }: LoginFormType): void => loginResponse.mutate({ username, password });
 
-    return { handleLogin, isPending, alertData };
+    return { handleLogin, isPending: loginResponse.isPending, alertData };
 };
 
 export default useLoginPageHook;

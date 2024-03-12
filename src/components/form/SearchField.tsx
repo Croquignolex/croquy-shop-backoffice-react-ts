@@ -31,7 +31,7 @@ const SearchField: FC<SearchFieldProps> = ({ handleSearch = (): void => {} }): R
     );
 };
 
-export interface SearchFieldProps {
+interface SearchFieldProps {
     handleSearch?: (a: string) => void,
 }
 

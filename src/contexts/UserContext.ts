@@ -1,6 +1,6 @@
 import { Context, createContext } from "react";
 
-import { ReducerActionType } from "../types/otherTypes";
+import { ReducerActionType } from "../helpers/globalTypesHelper";
 import { log } from "../helpers/generalHelpers";
 import { LoginResponseDataType } from "../pages/login/loginPageData";
 
@@ -54,15 +54,12 @@ export const userReducer = (state: UserGlobalStateType = initialGlobalUserState,
     }
 };
 
-interface UserGlobalStateType {
+interface UserGlobalStateType extends LoginResponseDataType {
     isTrustedData: boolean;
     isAuthorized: boolean;
     lastName: string;
-    firstName: string;
     emailAddress: string;
     phoneNumber: string;
-    username: string;
-    role: string;
 }
 
 export const UserContext: Context<any> = createContext(null);

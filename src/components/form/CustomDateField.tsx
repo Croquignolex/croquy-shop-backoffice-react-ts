@@ -5,7 +5,7 @@ import { FiAlertCircle } from "react-icons/fi";
 
 import { log } from "../../helpers/generalHelpers";
 
-const CustomDateField: FC<FormCustomDateFieldProps> = ({ label = '', day, month, year, noLabel = false, isInvalid, errorMessage }): ReactElement => {
+const CustomDateField: FC<CustomDateFieldProps> = ({ label = '', day, month, year, noLabel = false, isInvalid, errorMessage }): ReactElement => {
     log("CustomDateField component", {label, day, month, year, noLabel, isInvalid, errorMessage});
 
     return (
@@ -29,9 +29,9 @@ const CustomDateField: FC<FormCustomDateFieldProps> = ({ label = '', day, month,
     );
 };
 
-const months: string[] = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
+const months: Array<string> = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
 
-interface FormCustomDateFieldProps {
+interface CustomDateFieldProps {
     label?: string;
     day: string,
     month: string,

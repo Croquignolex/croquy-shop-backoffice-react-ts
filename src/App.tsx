@@ -4,6 +4,9 @@ import { AbsoluteCenter, Box, Spinner } from "@chakra-ui/react";
 
 import { Routes } from "./routes";
 import { getLocaleStorageItem } from "./helpers/localStorageHelpers";
+import { initialGlobalUsersState, UsersContext, usersReducer } from "./contexts/UsersContext";
+import { log } from "./helpers/generalHelpers";
+import { LoginResponseDataType } from "./pages/login/loginPageData";
 import {
     initialGlobalUserState,
     USER_GLOBAL_STATE_TRUST_UNAUTHORIZED,
@@ -11,8 +14,6 @@ import {
     USER_GLOBAL_STATE_TRUST_AUTHORIZED,
     userReducer, USER_GLOBAL_STATE_UPDATE_LOGIN_DATA
 } from "./contexts/UserContext";
-import { log } from "./helpers/generalHelpers";
-import {LoginResponseDataType} from "./pages/login/loginPageData";
 
 const SuspenseLoader: FC = (): ReactElement => {
     log("SuspenseLoader component");
@@ -56,16 +57,19 @@ const GlobalState: FC = (): ReactElement => {
 
 const App: FC = (): ReactElement => {
     const [globalUserState, setGlobalUserState] = useReducer(userReducer, initialGlobalUserState);
+    const [globalUsersState, setGlobalUsersState] = useReducer(usersReducer, initialGlobalUsersState);
 
     log("App component");
 
     return (
         <UserContext.Provider value={{ globalUserState, setGlobalUserState }}>
-            <Suspense fallback={<SuspenseLoader />}>
-                <BrowserRouter>
-                    <GlobalState />
-                </BrowserRouter>
-            </Suspense>
+            <UsersContext.Provider value={{ globalUsersState, setGlobalUsersState }}>
+                <Suspense fallback={<SuspenseLoader />}>
+                    <BrowserRouter>
+                        <GlobalState />
+                    </BrowserRouter>
+                </Suspense>
+            </UsersContext.Provider>
         </UserContext.Provider>
     );
 };

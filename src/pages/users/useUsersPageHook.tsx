@@ -1,51 +1,45 @@
 import { useContext, useState } from "react";
 import { AxiosError } from "axios";
-import { CreateToastFnReturn, useToast } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
-import { mainRoutes } from "../../routes/mainRoutes";
-import { loginRequest } from "../../helpers/apiRequestsHelpers";
-import { setLocaleStorageItem } from "../../helpers/localStorageHelpers";
-import { USER_GLOBAL_STATE_TRUST_AUTHORIZED, USER_GLOBAL_STATE_UPDATE_LOGIN_DATA, UserContext } from "../../contexts/UserContext";
-import { ErrorAlertType, RequestResponseType } from "../../types/otherTypes";
-import { AlertStatusEnumType } from "../../types/otherTypes";
-import { errorAlert, toastAlert } from "../../helpers/generalHelpers";
-import { LoginFormType, LoginResponseDataType } from "./usersPageData";
+import { usersRequest } from "../../helpers/apiRequestsHelpers";
+import { USERS_GLOBAL_STATE_UPDATE_FULL_DATA, UsersContext } from "../../contexts/UsersContext";
+import { ErrorAlertType } from "../../helpers/globalTypesHelper";
+import { errorAlert } from "../../helpers/generalHelpers";
+import { UsersResponseDataType } from "./usersPageData";
 
 const useUsersPageHook = (): any => {
-    const [alertData, setAlertData] = useState<ErrorAlertType | null>(null);
+    let alertData: ErrorAlertType = {show: false};
 
-    const toast: CreateToastFnReturn = useToast();
-    const navigate: NavigateFunction = useNavigate();
-    const { setGlobalUserState } = useContext(UserContext);
+    const { globalUsersState, setGlobalUsersState } = useContext(UsersContext);
 
-    const { isPending, mutate }: RequestResponseType = useMutation({
-        mutationFn: loginRequest,
-        onError: (error: AxiosError): void => {
-            setAlertData(errorAlert(error, "Combinaison login ou mot de passe incorrect"));
-        },
-        onSuccess: (data: any): void => {
-            const {accessToken, refreshToken} = data.data;
-            const responseData: LoginResponseDataType = data.data;
-            const toastMessage: string = `Bienvenue ${responseData.firstName}`;
+    const [usersQueryEnabled, setUsersQueryEnabled] = useState<boolean>(true)
+    const [users, setUsers] = useState<UsersResponseDataType>(globalUsersState);
 
-            setLocaleStorageItem('user', responseData);
-            setLocaleStorageItem('access-token', accessToken);
-            setLocaleStorageItem('refresh-token', refreshToken);
-
-            setGlobalUserState({type: USER_GLOBAL_STATE_TRUST_AUTHORIZED});
-            setGlobalUserState({type: USER_GLOBAL_STATE_UPDATE_LOGIN_DATA, payload: responseData});
-
-            navigate(mainRoutes.dashboard.path);
-
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
-        }
+    const usersResponse: UseQueryResult<any, AxiosError> = useQuery({
+        queryKey: ["users"],
+        queryFn: () => usersRequest(),
+        enabled: usersQueryEnabled,
     });
 
-    const handleLogin = ({ username, password }: LoginFormType): void => mutate({ username, password });
+    if(usersResponse.isError) {
+        console.log(usersResponse.error)
+        alertData = errorAlert(usersResponse.error);
+    }
 
-    return { handleLogin, isPending, alertData };
+    if(usersQueryEnabled && usersResponse.isSuccess) {
+        setUsersQueryEnabled(false);
+
+        let responseData: UsersResponseDataType = usersResponse.data;
+
+        setGlobalUsersState({type: USERS_GLOBAL_STATE_UPDATE_FULL_DATA, payload: responseData})
+
+        setUsers(responseData);
+    }
+
+    const isPending: boolean = usersResponse.isPending;
+
+    return { users, isPending, alertData };
 };
 
 export default useUsersPageHook;

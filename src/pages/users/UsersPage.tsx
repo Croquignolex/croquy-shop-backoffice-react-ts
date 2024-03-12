@@ -5,15 +5,15 @@ import { log } from "../../helpers/generalHelpers";
 import DataTable from "../../components/DataTable";
 
 const UsersPage = (): ReactElement => {
-    const { isLoading, users, alertData } = useUsersPageHook();
+    const { isPending, users, alertData } = useUsersPageHook();
 
-    log("UsersPage component", {isLoading, users, alertData});
+    log("UsersPage component", {isPending, users, alertData});
 
     return (
         <>
             <DataTable
                 alertData={alertData}
-                isLoading={isLoading}
+                isLoading={isPending}
                 currentPage={2}
                 pages={5}
                 handleSearch={(e: string) => {console.log("Search", e)}}

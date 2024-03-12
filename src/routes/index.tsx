@@ -1,4 +1,5 @@
 import React, { FC, ReactElement } from "react";
+import lodash from "lodash";
 import { Outlet, Navigate, Route, Routes as ReactRoutes } from "react-router-dom";
 
 import { generateFlattenRoutes, log } from "../helpers/generalHelpers";
@@ -8,7 +9,6 @@ import ErrorLayout from "../layouts/ErrorLayout";
 import { errorRoutes } from "./errorRoutes";
 import AuthLayout from "../layouts/AuthLayout";
 import { authRoutes } from "./authRoutes";
-import lodash from "lodash";
 
 export const routesDefinition = [
     {
@@ -43,12 +43,12 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({ isAuthorized, isErrorPage, is
     return <Outlet />;
 };
 
-const renderRoutes = (mainRoutes: any[]) => {
+const renderRoutes = (allRoutes: Array<any>) => {
     const Routes: FC<{ isAuthorized: boolean }> = ({ isAuthorized }) => {
-        const layouts: ReactElement[] = mainRoutes.map(({ layout: Layout, routes, isAuthPage, isErrorPage }, index: number) => {
-            const subRoutes: any[] = generateFlattenRoutes(lodash.toArray(routes));
+        const layouts: Array<ReactElement> = allRoutes.map(({ layout: Layout, routes, isAuthPage, isErrorPage }, index: number) => {
+            const subRoutes: Array<any> = generateFlattenRoutes(lodash.toArray(routes));
 
-            log("Render correspondent route component", {mainRoutes, isAuthorized, Layout, routes, isAuthPage, isErrorPage, subRoutes});
+            log("Render correspondent route component", {allRoutes, isAuthorized, Layout, routes, isAuthPage, isErrorPage, subRoutes});
 
             return (
                 <Route key={index} element={<Layout />}>

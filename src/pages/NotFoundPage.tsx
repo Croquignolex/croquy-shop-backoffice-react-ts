@@ -10,7 +10,7 @@ const NotFoundPage = (): ReactElement => {
     return (
         <>
             <Stack w={'full'} alignItems='center'>
-                <Heading fontSize={'9xl'} color="red.500">
+                <Heading fontSize={'9xl'} color="orange.500">
                     404
                 </Heading>
                 <Text fontSize="18px" mx={5} fontWeight='bold'>
@@ -19,7 +19,7 @@ const NotFoundPage = (): ReactElement => {
                 <Text mb={6}>
                     La page que vous cherchez semble ne pas exister
                 </Text>
-                <Button colorScheme='blue' as={Link} to='/' rounded='full'>
+                <Button colorScheme='orange' as={Link} to='/' rounded='md'>
                     Retour à l'accueil
                 </Button>
             </Stack>

@@ -1,15 +1,15 @@
 import lodash from "lodash";
 import { CreateToastFnReturn } from "@chakra-ui/react";
 
-import { AlertStatusEnumType, ErrorAlertType, LogLevelEnumType } from "../types/otherTypes";
+import { AlertStatusEnumType, ErrorAlertType } from "./globalTypesHelper";
 import { AxiosError } from "axios";
 
 // Custom log
-export const log = (message: string, data: any|null = null, level: LogLevelEnumType = LogLevelEnumType.info): void => {
+export const log = (message: string, data?: any): void => {
     // Only in local environment
     if (process.env.NODE_ENV !== 'production') {
         console.log(`[${new Date().toLocaleString()}] ${message}`)
-        console[level](data)
+        console.info(data)
     }
 };
 
@@ -42,7 +42,7 @@ export const formatString = (text: string, maxCharacters: number): string => {
 };
 
 // Flatten nested routes
-export const generateFlattenRoutes = (routes: any[]): any[] => {
+export const generateFlattenRoutes = (routes: Array<any>): Array<any> => {
     if (!routes) return [];
     return lodash.flattenDeep(routes.map(({ routes: subRoutes, ...rest }) => [rest, generateFlattenRoutes(subRoutes)]));
 };
@@ -57,10 +57,13 @@ export const toastAlert = (toast: CreateToastFnReturn, title: string, status: Al
 };
 
 // Error alert
-export const errorAlert = (error: AxiosError, customMessage: string): ErrorAlertType => {
+export const errorAlert = (error?: AxiosError, customMessage: string = ""): ErrorAlertType => {
     let message: string = customMessage;
 
-    if(error.code === "ERR_NETWORK") message = "Merci de vérifier la connexion internet";
+    if(error) {
+        if(error.code === "ERR_NETWORK") message = "Problème de connexion avec le système. Merci de contacter l'administrateur";
+        else if(error.code === "ERR_BAD_RESPONSE") message = "Problème interne du système. Merci de contacter l'administrateur";
+    }
 
     log("Show error alert", {error, customMessage, message});
 

@@ -2,22 +2,6 @@ export const authApiURI = {
     login: '/auth/login',
 };
 
-export const accountApiURI = {
-    fetch: '/account/{accountId}',
-    updateAddress: '/account/{accountId}/addaddress',
-};
-
-export const contactsApiURI = {
-    fetch: '/account/{accountId}/transferrecipient',
-    add: '/account/{accountId}/transferrecipient',
-};
-
-export const accountsApiURI = {
-    fetch: '/account/{accountId}/transferpayer',
-    add: '/account/{accountId}/transferpayer',
-};
-
-export const transfersApiURI = {
-    fetch: '/account/{accountId}/transfers',
-    addMtnToMtn: '/cmmtncmmtntransfer/{accountId}/account',
+export const usersApiURI = {
+    list: '/users',
 };

@@ -1,24 +1,19 @@
-import * as Yup from "yup";
-
-import { formValidationMessage } from "../../constants/generalConstants";
-
-export const initialValues: LoginFormType = { username: '', password: '' };
-
-export const loginSchema: Yup.ObjectSchema<LoginFormType> = Yup.object().shape({
-    username: Yup.string().required(formValidationMessage.required),
-    password: Yup.string().required(formValidationMessage.required),
-});
-
-export interface LoginRequestDataType {
-    username: string,
-    password: string
+export interface UsersResponseDataType {
+    list: Array<SimpleUserType>;
+    pages: number,
+    currentPage: number,
 }
 
-export interface LoginResponseDataType {
-    firstName: string;
+export interface UsersNeedleResponseDataType {
+    list: Array<SimpleUserType>;
+    needle: string,
+}
+
+interface SimpleUserType {
+    lastName: string;
+    emailAddress: string;
+    phoneNumber: string;
     username: string;
     role: string;
+    avatar: string;
 }
-
-export interface LoginFormType extends LoginRequestDataType {}
-

@@ -3,8 +3,8 @@ import { FiAlertCircle } from "react-icons/fi";
 import { FormLabel, FormErrorMessage, FormControl, Select, Icon } from "@chakra-ui/react";
 import { Field } from "formik";
 
-import { FormSelectOptionType, SelectFormFieldProps } from "../../types/otherTypes";
 import { log } from "../../helpers/generalHelpers";
+import { TextFieldProps } from "./TextField";
 
 const SelectField: FC<SelectFormFieldProps> = ({ label = '', name, values = [], noLabel = false, isInvalid, errorMessage }): ReactElement => {
     log("SubmitButton component", {label, name, values, noLabel, isInvalid, errorMessage});
@@ -24,5 +24,14 @@ const SelectField: FC<SelectFormFieldProps> = ({ label = '', name, values = [], 
         </FormControl>
     );
 };
+
+interface SelectFormFieldProps extends TextFieldProps {
+    values: Array<FormSelectOptionType>;
+}
+
+interface FormSelectOptionType {
+    label: string;
+    key: string,
+}
 
 export default SelectField;

@@ -2,7 +2,7 @@ import React, { FC, MouseEventHandler, ReactElement } from "react";
 import { TableContainer, Table, Thead, Tr, Th, Tbody, Td, Stack, Alert } from "@chakra-ui/react";
 
 import { log } from "../helpers/generalHelpers";
-import { AlertStatusEnumType, ErrorAlertType } from "../types/otherTypes";
+import { AlertStatusEnumType, ErrorAlertType } from "../helpers/globalTypesHelper";
 import Pagination from "./Pagination";
 import ListHeader from "./ListHeader";
 

@@ -2,11 +2,11 @@ import React, { ReactElement, FC } from "react";
 import { Input, FormLabel, FormErrorMessage, FormControl, Icon } from "@chakra-ui/react";
 import { Field } from "formik";
 
-import { FormFieldProps } from "../../types/otherTypes";
 import { FiAlertCircle } from "react-icons/fi";
 import { log } from "../../helpers/generalHelpers";
+import { TextDisabledFieldProps } from "./TextDisabledField";
 
-const TextField: FC<FormFieldProps> = ({ label = '', name, noLabel = false, isInvalid, errorMessage }): ReactElement => {
+const TextField: FC<TextFieldProps> = ({ label = '', name, noLabel = false, isInvalid, errorMessage }): ReactElement => {
     log("TextField component", {label, name, noLabel, isInvalid, errorMessage});
 
     return (
@@ -19,5 +19,10 @@ const TextField: FC<FormFieldProps> = ({ label = '', name, noLabel = false, isIn
         </FormControl>
     );
 };
+
+export interface TextFieldProps extends TextDisabledFieldProps {
+    isInvalid: boolean;
+    errorMessage?: string;
+}
 
 export default TextField;

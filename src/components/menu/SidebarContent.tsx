@@ -2,9 +2,9 @@ import React, { FC, ReactElement } from 'react';
 import { Box, Flex, Text, CloseButton, BoxProps } from "@chakra-ui/react";
 
 import NavItem from "./NavItem";
-import { MenuItemType } from "../../types/otherTypes";
 import { appInfo } from "../../constants/envConstants";
 import { log } from "../../helpers/generalHelpers";
+import { MenuItemType } from "../../helpers/globalTypesHelper";
 
 const SidebarContent: FC<SidebarContentProps> = ({ onClose, menuItems, ...rest }): ReactElement => {
     log("SidebarContent component", {onClose, menuItems, rest});

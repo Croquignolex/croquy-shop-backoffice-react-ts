@@ -2,15 +2,11 @@ import React, {FC, MouseEventHandler, ReactElement} from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Box, HStack, Button, Spacer, ButtonGroup } from "@chakra-ui/react";
 
-import { log } from "../helpers/generalHelpers";
-
 const Pagination: FC<PaginationProps> = ({ show, currentPage = 0, pages = 0 ,
                                            handlePreviousPage, handleNextPage }): ReactElement | null => {
     if(!show) {
         return null;
     }
-
-    log("Pagination component", {show, currentPage, pages, handlePreviousPage, handleNextPage});
 
     return (
         <HStack>

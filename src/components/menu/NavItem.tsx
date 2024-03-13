@@ -3,11 +3,7 @@ import { Box, Flex, Icon, FlexProps } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 import { Link } from "react-router-dom";
 
-import { log } from "../../helpers/generalHelpers";
-
 const NavItem: FC<NavItemProps> = ({ icon, path, isActive, children, ...rest }): ReactElement => {
-    log("NavItem component", {icon, path, isActive, children, rest});
-
     return (
         <Box as={Link} to={path} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
             <Flex

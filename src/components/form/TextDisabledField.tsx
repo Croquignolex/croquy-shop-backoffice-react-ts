@@ -2,11 +2,7 @@ import React, { ReactElement, FC } from "react";
 import { Input, FormLabel, FormControl } from "@chakra-ui/react";
 import { Field } from "formik";
 
-import { log } from "../../helpers/generalHelpers";
-
 const TextDisabledField: FC<TextDisabledFieldProps> = ({ label, name, noLabel = false }): ReactElement => {
-    log("TextDisabledField component", {label, name, noLabel});
-
     return (
         <FormControl mb={4}>
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}

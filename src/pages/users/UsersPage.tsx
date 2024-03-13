@@ -1,13 +1,10 @@
 import React, {ReactElement} from "react";
 
 import useUsersPageHook from "./useUsersPageHook";
-import { log } from "../../helpers/generalHelpers";
 import DataTable from "../../components/DataTable";
 
 const UsersPage = (): ReactElement => {
     const { isPending, users, alertData } = useUsersPageHook();
-
-    log("UsersPage component", {isPending, users, alertData});
 
     return (
         <>

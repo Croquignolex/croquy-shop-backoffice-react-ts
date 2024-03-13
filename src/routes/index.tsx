@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from "react";
 import lodash from "lodash";
 import { Outlet, Navigate, Route, Routes as ReactRoutes } from "react-router-dom";
 
-import { generateFlattenRoutes, log } from "../helpers/generalHelpers";
+import { generateFlattenRoutes } from "../helpers/generalHelpers";
 import { mainRoutes } from "./mainRoutes";
 import MainLayout from "../layouts/MainLayout";
 import ErrorLayout from "../layouts/ErrorLayout";
@@ -28,8 +28,6 @@ export const routesDefinition = [
 ];
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({ isAuthorized, isErrorPage, isAuthPage }): ReactElement => {
-    log("Route redirection", {isAuthorized, isErrorPage, isAuthPage});
-
     if(!isErrorPage) {
         if(isAuthorized && isAuthPage) {
             return <Navigate to={mainRoutes.dashboard.path} />;
@@ -47,8 +45,6 @@ const renderRoutes = (allRoutes: Array<any>) => {
     const Routes: FC<{ isAuthorized: boolean }> = ({ isAuthorized }) => {
         const layouts: Array<ReactElement> = allRoutes.map(({ layout: Layout, routes, isAuthPage, isErrorPage }, index: number) => {
             const subRoutes: Array<any> = generateFlattenRoutes(lodash.toArray(routes));
-
-            log("Render correspondent route component", {allRoutes, isAuthorized, Layout, routes, isAuthPage, isErrorPage, subRoutes});
 
             return (
                 <Route key={index} element={<Layout />}>

@@ -3,12 +3,9 @@ import { FiChevronRight, FiHome } from "react-icons/fi";
 import { BreadcrumbItem, BreadcrumbLink, Breadcrumb } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-import { log } from "../../helpers/generalHelpers";
 import { mainRoutes } from "../../routes/mainRoutes";
 
 const PageBreadcrumb: FC<PageBreadcrumbProps> = ({ pageTitle, items }) => {
-    log("PageBreadcrumb component", {pageTitle, items});
-
     return (
         <Breadcrumb spacing='8px' separator={<FiChevronRight />} mb={4}>
             <BreadcrumbItem>

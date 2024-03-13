@@ -5,7 +5,7 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { usersRequest } from "../../helpers/apiRequestsHelpers";
 import { USERS_GLOBAL_STATE_UPDATE_FULL_DATA, UsersContext } from "../../contexts/UsersContext";
 import { ErrorAlertType } from "../../helpers/globalTypesHelper";
-import { errorAlert } from "../../helpers/generalHelpers";
+import { errorAlert, log } from "../../helpers/generalHelpers";
 import { UsersResponseDataType } from "./usersPageData";
 
 const useUsersPageHook = (): any => {
@@ -23,8 +23,9 @@ const useUsersPageHook = (): any => {
     });
 
     if(usersResponse.isError) {
-        console.log(usersResponse.error)
         alertData = errorAlert(usersResponse.error);
+
+        log("Users list failure", usersResponse.error);
     }
 
     if(usersQueryEnabled && usersResponse.isSuccess) {
@@ -35,6 +36,8 @@ const useUsersPageHook = (): any => {
         setGlobalUsersState({type: USERS_GLOBAL_STATE_UPDATE_FULL_DATA, payload: responseData})
 
         setUsers(responseData);
+
+        log("Users list successful", responseData);
     }
 
     const isPending: boolean = usersResponse.isPending;

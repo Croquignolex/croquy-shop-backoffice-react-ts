@@ -2,11 +2,7 @@ import React, { ReactElement, FC } from "react";
 import {Input, FormLabel, FormControl, HStack} from "@chakra-ui/react";
 import { Field } from "formik";
 
-import { log } from "../../helpers/generalHelpers";
-
 const CustomDisabledPhoneField: FC<CustomDisabledPhoneFieldProps> = ({ label = '', code, number, noLabel = false }): ReactElement => {
-    log("CustomDisabledPhoneField component", {label, code, number, noLabel});
-
     return (
         <FormControl mb={4}>
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}

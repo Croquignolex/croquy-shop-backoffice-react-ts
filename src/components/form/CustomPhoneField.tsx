@@ -4,11 +4,8 @@ import { Field } from "formik";
 import {FiAlertCircle} from "react-icons/fi";
 
 import { CustomDisabledPhoneFieldProps } from "./CustomDisabledPhoneField";
-import { log } from "../../helpers/generalHelpers";
 
 const CustomPhoneField: FC<CustomPhoneFieldProps> = ({ label = '', code, number, noLabel = false, isInvalid, errorMessage }): ReactElement => {
-    log("CustomPhoneField component", {label, code, number, noLabel, isInvalid, errorMessage});
-
     return (
         <FormControl isInvalid={isInvalid} mb={4}>
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}

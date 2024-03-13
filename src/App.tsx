@@ -5,7 +5,6 @@ import { AbsoluteCenter, Box, Spinner } from "@chakra-ui/react";
 import { Routes } from "./routes";
 import { getLocaleStorageItem } from "./helpers/localStorageHelpers";
 import { initialGlobalUsersState, UsersContext, usersReducer } from "./contexts/UsersContext";
-import { log } from "./helpers/generalHelpers";
 import { LoginResponseDataType } from "./pages/login/loginPageData";
 import {
     initialGlobalUserState,
@@ -16,8 +15,6 @@ import {
 } from "./contexts/UserContext";
 
 const SuspenseLoader: FC = (): ReactElement => {
-    log("SuspenseLoader component");
-
     return (
         <Box position='relative' h='100vh'>
             <AbsoluteCenter axis='both'>
@@ -41,8 +38,6 @@ const GlobalState: FC = (): ReactElement => {
         } else {
             setGlobalUserState({ type: USER_GLOBAL_STATE_TRUST_UNAUTHORIZED });
         }
-
-        log("Init user data (refresh)", {userPersistedData});
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -58,8 +53,6 @@ const GlobalState: FC = (): ReactElement => {
 const App: FC = (): ReactElement => {
     const [globalUserState, setGlobalUserState] = useReducer(userReducer, initialGlobalUserState);
     const [globalUsersState, setGlobalUsersState] = useReducer(usersReducer, initialGlobalUsersState);
-
-    log("App component");
 
     return (
         <UserContext.Provider value={{ globalUserState, setGlobalUserState }}>

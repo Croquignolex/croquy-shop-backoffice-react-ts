@@ -8,12 +8,9 @@ import { initialValues, LoginFormType, loginSchema } from "./loginPageData";
 import useLoginPageHook from "./useLoginPageHook";
 import DisplayAlert from "../../components/DisplayAlert";
 import SubmitButton from "../../components/form/SumitButton";
-import { log } from "../../helpers/generalHelpers";
 
 const LoginPage = (): ReactElement => {
     const { handleLogin, isPending, alertData } = useLoginPageHook();
-
-    log("LoginPage component", {handleLogin, isPending, alertData});
 
     return (
         <>

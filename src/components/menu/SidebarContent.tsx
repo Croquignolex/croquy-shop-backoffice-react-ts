@@ -3,12 +3,9 @@ import { Box, Flex, Text, CloseButton, BoxProps } from "@chakra-ui/react";
 
 import NavItem from "./NavItem";
 import { appInfo } from "../../constants/envConstants";
-import { log } from "../../helpers/generalHelpers";
 import { MenuItemType } from "../../helpers/globalTypesHelper";
 
 const SidebarContent: FC<SidebarContentProps> = ({ onClose, menuItems, ...rest }): ReactElement => {
-    log("SidebarContent component", {onClose, menuItems, rest});
-
     return (
         <Box transition="3s ease" w={{ base: 'full', md: 60 }} pos="fixed" h="full"{...rest}>
             <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">

@@ -1,7 +1,6 @@
 import React, { FC, MouseEventHandler, ReactElement } from "react";
 import { TableContainer, Table, Thead, Tr, Th, Tbody, Td, Stack, Alert } from "@chakra-ui/react";
 
-import { log } from "../helpers/generalHelpers";
 import { AlertStatusEnumType, ErrorAlertType } from "../helpers/globalTypesHelper";
 import Pagination from "./Pagination";
 import ListHeader from "./ListHeader";
@@ -15,8 +14,6 @@ const DataTable: FC<DataTableProps> = ({ isLoading, alertData, currentPage = 0, 
             </Alert>
         );
     }
-
-    log("DataTable component", {isLoading, alertData, handleAddItem});
 
     if(keys.length === 0) {
         headers.forEach((header: string) => keys.push(header.toLowerCase()));

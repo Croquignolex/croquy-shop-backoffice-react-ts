@@ -9,19 +9,16 @@ export const log = (message: string, data?: any): void => {
     // Only in local environment
     if (process.env.NODE_ENV !== 'production') {
         console.log(`[${new Date().toLocaleString()}] ${message}`)
-        console.info(data)
+        console.info({data})
     }
 };
 
 // Search a needle in a string
 export const needleSearch = (set: any, needle: string): boolean => {
     if(set !== null && set !== '' && set !== undefined && set) {
-        log("Needle found", {set, needle});
-
         return set.toString().toLowerCase().indexOf(needle.toLowerCase()) !== -1;
     }
 
-    log("Needle not found", {set, needle});
     return false;
 };
 
@@ -29,14 +26,10 @@ export const needleSearch = (set: any, needle: string): boolean => {
 export const formatString = (text: string, maxCharacters: number): string => {
     try {
         if(text.length > maxCharacters) {
-            let formattedString: string = text.substring(0, maxCharacters) + '...';
-
-            log("String formatted", {text, maxCharacters, formattedString});
-
-            return formattedString;
+            return text.substring(0, maxCharacters) + '...';
         }
     } catch (e) {
-        log("String format error", {text, maxCharacters, e});
+        log("String format Exception", {e});
     }
     return text;
 };
@@ -51,8 +44,6 @@ export const generateFlattenRoutes = (routes: Array<any>): Array<any> => {
 export const toastAlert = (toast: CreateToastFnReturn, title: string, status: AlertStatusEnumType = AlertStatusEnumType.success): void => {
     toast.closeAll();
 
-    log("Show toast alert", {toast, title, status});
-
     toast({title, status});
 };
 
@@ -64,8 +55,6 @@ export const errorAlert = (error?: AxiosError, customMessage: string = ""): Erro
         if(error.code === "ERR_NETWORK") message = "Problème de connexion avec le système. Merci de contacter l'administrateur";
         else if(error.code === "ERR_BAD_RESPONSE") message = "Problème interne du système. Merci de contacter l'administrateur";
     }
-
-    log("Show error alert", {error, customMessage, message});
 
     return { show: true, status: AlertStatusEnumType.error, message };
 }

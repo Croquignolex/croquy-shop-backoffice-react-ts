@@ -10,7 +10,7 @@ import { setLocaleStorageItem } from "../../helpers/localStorageHelpers";
 import { USER_GLOBAL_STATE_TRUST_AUTHORIZED, USER_GLOBAL_STATE_UPDATE_LOGIN_DATA, UserContext } from "../../contexts/UserContext";
 import { ErrorAlertType } from "../../helpers/globalTypesHelper";
 import { AlertStatusEnumType } from "../../helpers/globalTypesHelper";
-import { errorAlert, toastAlert } from "../../helpers/generalHelpers";
+import { errorAlert, log, toastAlert } from "../../helpers/generalHelpers";
 import { LoginFormType, LoginResponseDataType } from "./loginPageData";
 
 const useLoginPageHook = (): any => {
@@ -24,6 +24,8 @@ const useLoginPageHook = (): any => {
         mutationFn: loginRequest,
         onError: (error: AxiosError): void => {
             setAlertData(errorAlert(error, "Combinaison login ou mot de passe incorrect"));
+
+            log("Login failure", {error});
         },
         onSuccess: (data: any): void => {
             const {accessToken, refreshToken} = data.data;
@@ -40,6 +42,8 @@ const useLoginPageHook = (): any => {
             navigate(mainRoutes.dashboard.path);
 
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+
+            log("Login successful", responseData);
         }
     });
 

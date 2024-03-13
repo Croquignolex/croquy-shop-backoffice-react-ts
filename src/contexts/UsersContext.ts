@@ -1,7 +1,6 @@
 import { Context, createContext } from "react";
 
 import { ReducerActionType } from "../helpers/globalTypesHelper";
-import { log } from "../helpers/generalHelpers";
 import { UsersNeedleResponseDataType, UsersResponseDataType } from "../pages/users/usersPageData";
 
 export const USERS_GLOBAL_STATE_UPDATE_FULL_DATA: string = 'USERS_GLOBAL_STATE_UPDATE_FULL_DATA';
@@ -15,8 +14,6 @@ export const initialGlobalUsersState: UsersGlobalStateType = {
 };
 
 export const usersReducer = (state: UsersGlobalStateType = initialGlobalUsersState, action: ReducerActionType): UsersGlobalStateType => {
-    log("UsersContext reducer", {state, action});
-
     let nextState: UsersGlobalStateType;
 
     switch (action.type) {

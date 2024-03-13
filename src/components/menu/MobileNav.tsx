@@ -17,7 +17,7 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
     const navigate: NavigateFunction = useNavigate();
 
     const handleLogout = (): void => {
-        log("Handle logout event");
+        log("Logout successful", globalUserState);
 
         removeLocaleStorageItem('user');
 
@@ -25,8 +25,6 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
 
         navigate(authRoutes.login.path);
     };
-
-    log("MobileNav component", {onOpen, menuItems, rest});
 
     return (
         <Flex

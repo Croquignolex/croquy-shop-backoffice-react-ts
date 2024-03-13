@@ -2,11 +2,7 @@ import React, {ReactElement, FC, useState, ChangeEvent} from "react";
 import { Input, InputGroup, InputLeftElement, IconButton } from "@chakra-ui/react";
 import { FiSearch } from "react-icons/fi";
 
-import { log } from "../../helpers/generalHelpers";
-
 const SearchField: FC<SearchFieldProps> = ({ handleSearch = (): void => {} }): ReactElement => {
-    log("SearchField component", {handleSearch});
-
     const [needle, setNeedle] = useState<string>("");
 
     const handleNeedle = (e: ChangeEvent<HTMLInputElement>): void => {

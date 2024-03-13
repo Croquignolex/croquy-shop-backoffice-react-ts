@@ -3,7 +3,6 @@ import { Outlet, useLocation } from "react-router-dom";
 import lodash from "lodash";
 import { Box, Container, Drawer, DrawerContent, Heading, useDisclosure, Stack } from "@chakra-ui/react";
 
-import { log } from "../helpers/generalHelpers";
 import SidebarContent from "../components/menu/SidebarContent";
 import MobileNav from "../components/menu/MobileNav";
 import PageBreadcrumb from "../components/menu/PageBreadcrumb";
@@ -12,8 +11,6 @@ import { mainRoutes, MainRouteType } from "../routes/mainRoutes";
 import { MenuItemType } from "../helpers/globalTypesHelper";
 
 const MainLayout: FC = (): ReactElement => {
-    log("MainLayout component");
-
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { pathname: currentPath } = useLocation();
 

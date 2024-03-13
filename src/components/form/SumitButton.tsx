@@ -1,11 +1,7 @@
 import React, { ReactElement, FC } from "react";
 import { Button, Stack } from "@chakra-ui/react";
 
-import { log } from "../../helpers/generalHelpers";
-
 const SubmitButton: FC<FormSubmitButtonProps> = ({ label = 'Confirmer', colorScheme = 'orange', variant = 'solid', isLoading = false, isDisabled = false }): ReactElement => {
-    log("SubmitButton component", {label, colorScheme, variant, isLoading, isDisabled});
-
     return (
         <Stack>
             <Button

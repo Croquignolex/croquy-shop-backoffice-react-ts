@@ -2,15 +2,12 @@ import React, {FC, MouseEventHandler, ReactElement} from "react";
 import { FiPlus } from "react-icons/fi";
 import { Box, HStack, Button, Spacer } from "@chakra-ui/react";
 
-import { log } from "../helpers/generalHelpers";
 import Loader from "./Loader";
 import DisplayAlert from "./DisplayAlert";
 import SearchField from "./form/SearchField";
 import { ErrorAlertType } from "../helpers/globalTypesHelper";
 
 const ListHeader: FC<ListHeaderProps> = ({ isLoading, alertData, handleAddItem, hasData = true, handleSearch }): ReactElement => {
-    log("ListHeader component", {isLoading, alertData, handleAddItem, handleSearch});
-
     return (
         <>
             <Loader isLoading={isLoading} />

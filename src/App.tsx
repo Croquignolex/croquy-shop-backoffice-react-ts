@@ -5,7 +5,7 @@ import { AbsoluteCenter, Box, Spinner } from "@chakra-ui/react";
 import { Routes } from "./routes";
 import { getLocaleStorageItem } from "./helpers/localStorageHelpers";
 import { initialGlobalUsersState, UsersContext, usersReducer } from "./contexts/UsersContext";
-import { LoginResponseDataType } from "./pages/login/loginPageData";
+import { LoginResponseDataType } from "./pages/login/loginData";
 import {
     initialGlobalUserState,
     USER_GLOBAL_STATE_TRUST_UNAUTHORIZED,

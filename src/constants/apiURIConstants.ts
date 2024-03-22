@@ -9,4 +9,5 @@ export const usersApiURI = {
 
 export const shopsApiURI = {
     list: '/shops',
+    delete: '/shops/{id}',
 };

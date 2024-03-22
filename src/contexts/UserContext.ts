@@ -1,7 +1,7 @@
 import { Context, createContext } from "react";
 
 import { ReducerActionType } from "../helpers/globalTypesHelper";
-import { LoginResponseDataType } from "../pages/login/loginPageData";
+import { LoginResponseDataType } from "../pages/login/loginData";
 
 export const USER_GLOBAL_STATE_UPDATE_LOGIN_DATA: string = 'USER_GLOBAL_STATE_UPDATE_LOGIN_DATA';
 export const USER_GLOBAL_STATE_TRUST_UNAUTHORIZED: string = 'USER_GLOBAL_STATE_TRUSTED_UNAUTHORIZED';

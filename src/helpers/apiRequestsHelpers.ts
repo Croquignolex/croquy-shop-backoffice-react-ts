@@ -1,12 +1,12 @@
 import { apiBaseURL } from "../constants/envConstants";
-import { LoginRequestDataType } from "../pages/login/loginPageData";
+import { LoginRequestDataType } from "../pages/login/loginData";
 import { authApiURI, shopsApiURI, usersApiURI } from "../constants/apiURIConstants";
-import { postRequest, getRequest } from "./axiosHelpers";
+import { postRequest, getRequest, deleteRequest } from "./axiosHelpers";
 
 const API_V1_URL: string = `${apiBaseURL}/api/v1/backoffice`;
 const API_V2_URL: string = `${apiBaseURL}/api/v2/backoffice`;
 
-export const loginRequest = ({ username, password }: LoginRequestDataType): Promise<any> => {
+export const loginRequest = ({username, password}: LoginRequestDataType): Promise<any> => {
     const url: string = joinBaseUrlWithParams(API_V1_URL + authApiURI.login);
 
     return postRequest(url, { username, password }, {headers: {public: true}});
@@ -23,6 +23,13 @@ export const shopsRequest = (page: number, size: number, needle: string): Promis
     const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.list, [], queries);
 
     return getRequest(url);
+};
+
+export const deleteShop = (id: string): Promise<any> => {
+    const queries: Array<URLParamType> = [{param: "id", value: id}];
+    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.delete, queries);
+
+    return deleteRequest(url);
 };
 
 export const usersRequest = (): Promise<any> => {

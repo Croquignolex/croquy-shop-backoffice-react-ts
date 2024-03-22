@@ -1,27 +1,46 @@
 import { useState } from "react";
 import { AxiosError } from "axios";
 import {useDisclosure} from "@chakra-ui/react";
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import {useQuery, UseQueryResult} from "@tanstack/react-query";
 
-import { shopsRequest } from "../../helpers/apiRequestsHelpers";
+import {shopsRequest} from "../../helpers/apiRequestsHelpers";
 import { ErrorAlertType } from "../../helpers/globalTypesHelper";
 import {errorAlert, log} from "../../helpers/generalHelpers";
-import {defaultSelectedShop, defaultShopsResponseData, ShopsResponseDataType, ShopType} from "./shopsPageData";
+import {
+    defaultSelectedShop, defaultShopsResponseData,
+    ShopsHookType, ShopsResponseDataType, ShopType
+} from "./shopsData";
 
-const useShopsPageHook = (): any => {
+const useShopsHook = (): ShopsHookType => {
     const { onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose } = useDisclosure();
-    let alertData: ErrorAlertType = {show: false};
+    let shopsAlertData: ErrorAlertType = {show: false};
 
     const [searchNeedle, setSearchNeedle] = useState<string>("");
     const [selectedShop, setSelectedShop] = useState<ShopType>(defaultSelectedShop);
     const [shopsQueryEnabled, setShopsQueryEnabled] = useState<boolean>(true);
     const [shopsResponseData, setShopsResponseData] = useState<ShopsResponseDataType>(defaultShopsResponseData);
 
-    const usersResponse: UseQueryResult<any, AxiosError> = useQuery({
+    const shopsResponse: UseQueryResult<any, AxiosError> = useQuery({
         queryKey: ["shops"],
         queryFn: () => shopsRequest(shopsResponseData.number, shopsResponseData.size, searchNeedle),
         enabled: shopsQueryEnabled,
     });
+
+    if(shopsResponse.isError) {
+        shopsAlertData = errorAlert(shopsResponse.error);
+
+        log("Shops list failure", shopsResponse);
+    }
+
+    if(shopsQueryEnabled && shopsResponse.isSuccess && !shopsResponse.isFetching) {
+        setShopsQueryEnabled(false);
+
+        setShopsResponseData(shopsResponse.data.data);
+
+        log("Shops list successful", shopsResponse);
+    }
+
+    const isShopsPending: boolean = shopsResponse.isFetching;
 
     const fetchPaginatedShops = (next: boolean): void => {
         if(next && !shopsResponseData.last) setShopsResponseData({...shopsResponseData, number: shopsResponseData.number + 1});
@@ -42,40 +61,16 @@ const useShopsPageHook = (): any => {
         onDeleteModalOpen();
     }
 
-    const handleDelete = (): void => {
-        console.log({selectedShop})
-
-        onDeleteModalClose();
+    const closeModal = (reloadShops: boolean = false): void => {
+        // onDeleteModalClose();
+console.log({reloadShops})
+        // if(reloadShops) setShopsQueryEnabled(true);
     }
-
-    if(usersResponse.isError) {
-        alertData = errorAlert(usersResponse.error);
-
-        log("Shops list failure", usersResponse);
-    }
-
-    if(shopsQueryEnabled && usersResponse.isSuccess && !usersResponse.isFetching) {
-        setShopsQueryEnabled(false);
-
-        setShopsResponseData(usersResponse.data.data);
-
-        log("Shops list successful", usersResponse);
-    }
-
-    const isPending: boolean = usersResponse.isFetching;
 
     return {
-        shopsResponseData,
-        isPending,
-        alertData,
-        fetchPaginatedShops,
-        fetchPaginatedNeedleShops,
-        handleDelete,
-        selectedShop,
-        showDeleteModal,
-        isDeleteModalOpen,
-        onDeleteModalClose
+        shopsResponseData, isShopsPending, shopsAlertData, fetchPaginatedShops, fetchPaginatedNeedleShops,
+        selectedShop, showDeleteModal, isDeleteModalOpen, closeModal, setShopsQueryEnabled
     };
 };
 
-export default useShopsPageHook;
+export default useShopsHook;

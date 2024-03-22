@@ -1,4 +1,5 @@
 import {SimpleUserType} from "../users/usersPageData";
+import {ErrorAlertType} from "../../helpers/globalTypesHelper";
 
 export const defaultShopsResponseData: ShopsResponseDataType = {
     content: [],
@@ -44,4 +45,28 @@ export interface ShopType {
     createdAt: string;
     updatedAt: string;
     creator: SimpleUserType | null;
+}
+
+export interface ShopsHookType {
+    shopsResponseData: ShopsResponseDataType,
+    isShopsPending: boolean,
+    shopsAlertData: ErrorAlertType,
+    fetchPaginatedShops: (a: boolean) => void,
+    fetchPaginatedNeedleShops: (a: string) => void,
+    selectedShop: ShopType,
+    showDeleteModal: (a: ShopType) => void,
+    isDeleteModalOpen: boolean,
+    closeModal: (e?: boolean) => void,
+    setShopsQueryEnabled: any
+}
+
+export interface DeleteShopHookType {
+    isDeleteShopPending: boolean,
+    deleteShopAlertData: ErrorAlertType,
+    handleDeleteShop: () => void
+}
+
+export interface DeleteShopHookProps {
+    selectedShop: ShopType,
+    closeModal: (a?: boolean) => void,
 }

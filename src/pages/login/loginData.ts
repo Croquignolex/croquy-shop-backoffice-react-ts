@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 
 import { formValidationMessage } from "../../constants/generalConstants";
+import {ErrorAlertType} from "../../helpers/globalTypesHelper";
 
 export const initialValues: LoginFormType = { username: '', password: '' };
 
@@ -22,3 +23,8 @@ export interface LoginResponseDataType {
 
 export interface LoginFormType extends LoginRequestDataType {}
 
+export interface LoginHookType {
+    handleLogin: (a: LoginFormType) => void,
+    isPending: boolean,
+    alertData: ErrorAlertType
+}

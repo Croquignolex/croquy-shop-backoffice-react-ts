@@ -1,7 +1,7 @@
 import axios, { InternalAxiosRequestConfig, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 import {getLocaleStorageItem, setLocaleStorageItem, removeAllLocaleStorageItems} from "./localStorageHelpers";
-import {LoginResponseDataType} from "../pages/login/loginPageData";
+import {LoginResponseDataType} from "../pages/login/loginData";
 import {log} from "./generalHelpers";
 import {refreshTokenRequest} from "./apiRequestsHelpers";
 

@@ -1,17 +1,11 @@
 import React, { FC, ReactElement, useRef, MutableRefObject } from "react";
 import {
-    AlertDialog,
-    AlertDialogOverlay,
-    AlertDialogContent,
-    AlertDialogHeader,
-    AlertDialogFooter,
-    AlertDialogBody,
-    AlertDialogCloseButton,
-    Button,
-    ButtonGroup
+    AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader,
+    AlertDialogFooter, AlertDialogBody, AlertDialogCloseButton, Button, ButtonGroup
 } from "@chakra-ui/react";
+import Loader from "./Loader";
 
-const DeleteAlertDialog: FC<StatusBadgeProps> = ({ isOpen, onClose, handleDelete, children }): ReactElement => {
+const DeleteAlertDialog: FC<StatusBadgeProps> = ({ isOpen, isLoading, onClose, handleDelete, children }): ReactElement => {
     const cancelRef: MutableRefObject<any> = useRef<any>()
 
     return (
@@ -25,14 +19,16 @@ const DeleteAlertDialog: FC<StatusBadgeProps> = ({ isOpen, onClose, handleDelete
                     <AlertDialogBody>{children}</AlertDialogBody>
 
                     <AlertDialogFooter>
-                        <ButtonGroup>
-                            <Button ref={cancelRef} onClick={onClose} size={"sm"}>
-                                Non
-                            </Button>
-                            <Button colorScheme='red' onClick={handleDelete} size={"sm"}>
-                                Oui
-                            </Button>
-                        </ButtonGroup>
+                        {isLoading ? <Loader isLoading={isLoading} /> : (
+                            <ButtonGroup>
+                                <Button ref={cancelRef} onClick={onClose} size={"sm"}>
+                                    Non
+                                </Button>
+                                <Button colorScheme='red' onClick={handleDelete} size={"sm"}>
+                                    Oui
+                                </Button>
+                            </ButtonGroup>
+                        )}
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialogOverlay>
@@ -42,6 +38,7 @@ const DeleteAlertDialog: FC<StatusBadgeProps> = ({ isOpen, onClose, handleDelete
 
 interface StatusBadgeProps {
     isOpen: boolean;
+    isLoading: boolean;
     onClose: () => void;
     handleDelete: () => void,
     children: React.ReactNode,

@@ -61,13 +61,15 @@ export const toastAlert = (toast: CreateToastFnReturn, title: string, status: Al
 };
 
 // Error alert
-export const errorAlert = (error?: AxiosError, customMessage: string = ""): ErrorAlertType => {
+export const errorAlert = (error: AxiosError, customMessage: string = "Une erreur inatendu s'est produite. Merci de réessayer"): ErrorAlertType => {
     let message: string = customMessage;
 
-    if(error) {
-        if(error.code === "ERR_NETWORK") message = "Problème de connexion avec le système. Merci de contacter l'administrateur";
-        else if(error.code === "ERR_BAD_RESPONSE") message = "Problème interne du système. Merci de contacter l'administrateur";
-        else if(error.code === "ERR_BAD_REQUEST") message = "Problème de communication avec le système. Merci de contacter l'administrateur";
+    if(error.response?.status !== 400) {
+        if(error) {
+            if(error.code === "ERR_NETWORK") message = "Erreur réseau. Merci de contacter l'administrateur";
+            else if(error.code === "ERR_BAD_RESPONSE") message = "Mauvaise reponse. Merci de contacter l'administrateur";
+            else if(error.code === "ERR_BAD_REQUEST") message = "Mauvaise requête. Merci de contacter l'administrateur";
+        }
     }
 
     return { show: true, status: AlertStatusEnumType.error, message };

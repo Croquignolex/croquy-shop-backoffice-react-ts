@@ -4,13 +4,13 @@ import { Container, Flex, Heading, Stack, Card, CardBody } from "@chakra-ui/reac
 
 import TextField from "../../components/form/TextField";
 import PasswordField from "../../components/form/PasswordField";
-import { initialValues, LoginFormType, loginSchema } from "./loginPageData";
-import useLoginPageHook from "./useLoginPageHook";
+import {initialValues, LoginFormType, LoginHookType, loginSchema} from "./loginData";
+import useLoginHook from "./useLoginHook";
 import DisplayAlert from "../../components/DisplayAlert";
 import SubmitButton from "../../components/form/SumitButton";
 
 const LoginPage = (): ReactElement => {
-    const { handleLogin, isPending, alertData } = useLoginPageHook();
+    const { handleLogin, isPending, alertData }: LoginHookType = useLoginHook();
 
     return (
         <>

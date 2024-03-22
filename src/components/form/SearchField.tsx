@@ -1,12 +1,17 @@
-import React, {ReactElement, FC, useState, ChangeEvent} from "react";
-import { Input, InputGroup, InputLeftElement, IconButton } from "@chakra-ui/react";
-import { FiSearch } from "react-icons/fi";
+import React, {ReactElement, FC, useState, ChangeEvent, MouseEventHandler} from "react";
+import { Input, InputGroup, InputLeftElement, InputRightElement, IconButton } from "@chakra-ui/react";
+import { FiSearch, FiX } from "react-icons/fi";
 
 const SearchField: FC<SearchFieldProps> = ({ handleSearch = (): void => {} }): ReactElement => {
     const [needle, setNeedle] = useState<string>("");
 
     const handleNeedle = (e: ChangeEvent<HTMLInputElement>): void => {
         setNeedle(e.target.value);
+    }
+
+    const handleClearNeedle = (): void => {
+        setNeedle("");
+        handleSearch("")
     }
 
     return (
@@ -22,6 +27,18 @@ const SearchField: FC<SearchFieldProps> = ({ handleSearch = (): void => {} }): R
             </InputLeftElement>
 
             <Input type='text' size="md" placeholder="Rechercher..." value={needle} onChange={handleNeedle} />
+
+            {(needle !== "") && (
+                <InputRightElement>
+                    <IconButton
+                        h='1.75rem'
+                        variant="text"
+                        aria-label="search"
+                        icon={ <FiX /> }
+                        onClick={handleClearNeedle}
+                    />
+                </InputRightElement>
+            )}
 
         </InputGroup>
     );

@@ -9,7 +9,7 @@ export interface UsersNeedleResponseDataType {
     needle: string,
 }
 
-interface SimpleUserType {
+export interface SimpleUserType {
     lastName: string;
     emailAddress: string;
     phoneNumber: string;

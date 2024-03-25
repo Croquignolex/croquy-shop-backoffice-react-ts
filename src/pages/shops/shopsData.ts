@@ -56,17 +56,8 @@ export interface ShopsHookType {
     selectedShop: ShopType,
     showDeleteModal: (a: ShopType) => void,
     isDeleteModalOpen: boolean,
-    closeModal: (e?: boolean) => void,
-    setShopsQueryEnabled: any
-}
-
-export interface DeleteShopHookType {
-    isDeleteShopPending: boolean,
     deleteShopAlertData: ErrorAlertType,
-    handleDeleteShop: () => void
-}
-
-export interface DeleteShopHookProps {
-    selectedShop: ShopType,
-    closeModal: (a?: boolean) => void,
+    isDeleteShopPending: boolean,
+    handleDeleteShop: () => void,
+    onDeleteModalClose: () => void,
 }

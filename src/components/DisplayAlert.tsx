@@ -10,7 +10,7 @@ const DisplayAlert: FC<DisplayAlertProps> = ({ data }): ReactElement | null => {
 
     return (
         <Stack my={1}>
-            <Alert status={data?.status} rounded='md'>
+            <Alert status={data?.status} rounded="md">
                 <AlertIcon />
                 {data?.message}
             </Alert>

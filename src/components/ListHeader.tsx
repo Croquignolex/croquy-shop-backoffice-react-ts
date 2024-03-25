@@ -17,7 +17,9 @@ const ListHeader: FC<ListHeaderProps> = ({ handleAddItem, empty, handleSearch })
                 Ajouter
             </Button>
             <Spacer />
-            <Box w="sm"><SearchField handleSearch={handleSearch} /></Box>)
+            <Box w="sm">
+                <SearchField handleSearch={handleSearch} />
+            </Box>
         </HStack>
     )
 };

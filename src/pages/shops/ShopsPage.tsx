@@ -16,7 +16,7 @@ import DisplayAlert from "../../components/DisplayAlert";
 const ShopsPage = (): ReactElement => {
     const {
         shopsResponseData, isShopsPending, shopsAlertData, fetchPaginatedShops, fetchPaginatedNeedleShops, onDeleteModalClose,
-        selectedShop, showDeleteModal, isDeleteModalOpen, deleteShopAlertData, isDeleteShopPending,  handleDeleteShop,
+        selectedShop, showDeleteModal, isDeleteModalOpen, deleteShopAlertData, isDeleteShopPending,  handleDeleteShop, navigateToAddShop,
     }: ShopsHookType = useShopsHook();
 
     return (
@@ -25,7 +25,7 @@ const ShopsPage = (): ReactElement => {
             <DisplayAlert data={shopsAlertData} />
             <ListHeader
                 empty={shopsResponseData.empty}
-                handleAddItem={() => {}}
+                handleAddItem={() => navigateToAddShop()}
                 handleSearch={(needle: string) => fetchPaginatedNeedleShops(needle)}
             />
             <TableContainer boxShadow="md" borderRadius="md">

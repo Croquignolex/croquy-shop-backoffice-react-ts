@@ -55,8 +55,8 @@ const MainLayout: FC = (): ReactElement => {
             </Container>
             <Stack ml={{ base: 0, md: 60 }} pb={75}>
                 <Container maxW='7xl' mt={70}>
-                    <PageBreadcrumb pageTitle={currentRoute.pageTitle} items={currentRoute.breadcrumb} />
-                    <Heading as='h1' pt={2} pb={4} fontSize={"xl"}> {currentRoute.pageTitle}</Heading>
+                    <PageBreadcrumb pageTitle={currentRoute.title} items={currentRoute.breadcrumb} />
+                    <Heading as='h1' pt={2} pb={4} fontSize={"xl"}> {currentRoute.title}</Heading>
                     <Outlet />
                 </Container>
             </Stack>

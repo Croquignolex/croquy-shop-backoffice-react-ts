@@ -1,6 +1,28 @@
 import {SimpleUserType} from "../users/usersPageData";
 import {ErrorAlertType} from "../../helpers/globalTypesHelper";
 
+export const defaultSelectedShop: ShopType = {
+    id: "",
+    name: "",
+    slug: "",
+    enabled: false,
+    description: "",
+    createdAt: "",
+    updatedAt: "",
+    creator: null,
+}
+
+export interface ShopType {
+    id: string;
+    name: string;
+    slug: string;
+    enabled: boolean;
+    description: string;
+    createdAt: string;
+    updatedAt: string;
+    creator: SimpleUserType | null;
+}
+
 export const defaultShopsResponseData: ShopsResponseDataType = {
     content: [],
     totalPages: 0,
@@ -13,17 +35,6 @@ export const defaultShopsResponseData: ShopsResponseDataType = {
     empty: true
 }
 
-export const defaultSelectedShop: ShopType = {
-    id: "",
-    name: "",
-    slug: "",
-    enabled: false,
-    description: "",
-    createdAt: "",
-    updatedAt: "",
-    creator: null,
-}
-
 export interface ShopsResponseDataType {
     content: Array<ShopType>,
     totalPages: number,
@@ -34,17 +45,6 @@ export interface ShopsResponseDataType {
     first: boolean,
     last: boolean,
     empty: boolean,
-}
-
-export interface ShopType {
-    id: string;
-    name: string;
-    slug: string;
-    enabled: boolean;
-    description: string;
-    createdAt: string;
-    updatedAt: string;
-    creator: SimpleUserType | null;
 }
 
 export interface ShopsHookType {
@@ -60,4 +60,5 @@ export interface ShopsHookType {
     isDeleteShopPending: boolean,
     handleDeleteShop: () => void,
     onDeleteModalClose: () => void,
+    navigateToAddShop: () => void,
 }

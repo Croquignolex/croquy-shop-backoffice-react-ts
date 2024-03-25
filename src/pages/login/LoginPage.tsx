@@ -4,13 +4,13 @@ import { Container, Flex, Heading, Stack, Card, CardBody } from "@chakra-ui/reac
 
 import TextField from "../../components/form/TextField";
 import PasswordField from "../../components/form/PasswordField";
-import {initialValues, LoginFormType, LoginHookType, loginSchema} from "./loginData";
+import {loginInitialValues, LoginFormType, LoginHookType, loginSchema} from "./loginData";
 import useLoginHook from "./useLoginHook";
 import DisplayAlert from "../../components/DisplayAlert";
 import SubmitButton from "../../components/form/SumitButton";
 
 const LoginPage = (): ReactElement => {
-    const { handleLogin, isPending, alertData }: LoginHookType = useLoginHook();
+    const { handleLogin, isLoginPending, loginAlertData }: LoginHookType = useLoginHook();
 
     return (
         <>
@@ -20,9 +20,9 @@ const LoginPage = (): ReactElement => {
                         <Heading fontSize={'xl'} alignSelf='center' mb={3}>Bienvenue</Heading>
                         <Card>
                             <CardBody>
-                                <DisplayAlert data={alertData} />
+                                <DisplayAlert data={loginAlertData} />
                                 <Stack spacing={6}>
-                                    <Formik initialValues={initialValues} validationSchema={loginSchema} onSubmit={handleLogin}>
+                                    <Formik initialValues={loginInitialValues} validationSchema={loginSchema} onSubmit={handleLogin}>
                                         {(props: FormikProps<LoginFormType>) => (
                                             <Form>
                                                 <TextField
@@ -37,7 +37,7 @@ const LoginPage = (): ReactElement => {
                                                     isInvalid={!!props.errors.password && !!props.touched.password}
                                                     errorMessage={props.errors.password}
                                                 />
-                                                <SubmitButton isLoading={isPending} label="Connexion"></SubmitButton>
+                                                <SubmitButton isLoading={isLoginPending} label="Connexion"></SubmitButton>
                                             </Form>
                                         )}
                                     </Formik>

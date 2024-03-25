@@ -17,7 +17,7 @@ import {
 } from "../../contexts/UserContext";
 
 const useLoginPageHook = (): LoginHookType => {
-    const [alertData, setAlertData] = useState<ErrorAlertType>({show: false});
+    const [loginAlertData, setLoginAlertData] = useState<ErrorAlertType>({show: false});
 
     const toast: CreateToastFnReturn = useToast();
     const navigate: NavigateFunction = useNavigate();
@@ -26,12 +26,12 @@ const useLoginPageHook = (): LoginHookType => {
     const loginResponse: UseMutationResult<AxiosResponse, AxiosError, LoginFormType, any> = useMutation({
         mutationFn: loginRequest,
         onError: (error: AxiosError): void => {
-            setAlertData(errorAlert(error, "Combinaison login ou mot de passe incorrect"));
+            setLoginAlertData(errorAlert(error, "Combinaison login ou mot de passe incorrect"));
 
             log("Login failure", error);
         },
         onSuccess: (data: AxiosResponse): void => {
-            setAlertData({show: false});
+            setLoginAlertData({show: false});
 
             const {accessToken, refreshToken} = data.data;
             const responseData: LoginResponseDataType = data.data;
@@ -53,12 +53,14 @@ const useLoginPageHook = (): LoginHookType => {
     });
 
     const handleLogin = ({username, password}: LoginFormType): void => {
-        setAlertData({show: false});
+        setLoginAlertData({show: false});
 
         loginResponse.mutate({username, password});
     }
 
-    return { handleLogin, isPending: loginResponse.isPending, alertData };
+    const isLoginPending: boolean = loginResponse.isPending;
+
+    return { handleLogin, isLoginPending, loginAlertData };
 };
 
 export default useLoginPageHook;

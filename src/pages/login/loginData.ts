@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { formValidationMessage } from "../../constants/generalConstants";
 import {ErrorAlertType} from "../../helpers/globalTypesHelper";
 
-export const initialValues: LoginFormType = { username: '', password: '' };
+export const loginInitialValues: LoginFormType = { username: '', password: '' };
 
 export const loginSchema: Yup.ObjectSchema<LoginFormType> = Yup.object().shape({
     username: Yup.string().required(formValidationMessage.required),
@@ -25,6 +25,6 @@ export interface LoginFormType extends LoginRequestDataType {}
 
 export interface LoginHookType {
     handleLogin: (a: LoginFormType) => void,
-    isPending: boolean,
-    alertData: ErrorAlertType
+    isLoginPending: boolean,
+    loginAlertData: ErrorAlertType
 }

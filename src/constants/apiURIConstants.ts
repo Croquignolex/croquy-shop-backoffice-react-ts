@@ -9,5 +9,6 @@ export const usersApiURI = {
 
 export const shopsApiURI = {
     list: '/shops',
+    create: '/shops/create',
     delete: '/shops/{id}',
 };

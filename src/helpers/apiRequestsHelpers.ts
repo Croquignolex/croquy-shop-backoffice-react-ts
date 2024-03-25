@@ -2,6 +2,7 @@ import { apiBaseURL } from "../constants/envConstants";
 import { LoginRequestDataType } from "../pages/login/loginData";
 import { authApiURI, shopsApiURI, usersApiURI } from "../constants/apiURIConstants";
 import { postRequest, getRequest, deleteRequest } from "./axiosHelpers";
+import {AddShopRequestDataType} from "../pages/shops/addShopData";
 
 const API_V1_URL: string = `${apiBaseURL}/api/v1/backoffice`;
 const API_V2_URL: string = `${apiBaseURL}/api/v2/backoffice`;
@@ -30,6 +31,12 @@ export const deleteShop = (id: string): Promise<any> => {
     const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.delete, queries);
 
     return deleteRequest(url);
+};
+
+export const addShopRequest = ({name}: AddShopRequestDataType): Promise<any> => {
+    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.create);
+
+    return postRequest(url, { name });
 };
 
 export const usersRequest = (): Promise<any> => {

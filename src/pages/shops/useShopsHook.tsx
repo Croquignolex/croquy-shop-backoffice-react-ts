@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
+import {NavigateFunction, useNavigate} from "react-router-dom";
 import {useQuery, UseQueryResult} from "@tanstack/react-query";
 import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
@@ -11,12 +12,14 @@ import {
     defaultSelectedShop, defaultShopsResponseData,
     ShopsHookType, ShopsResponseDataType, ShopType
 } from "./shopsData";
+import {mainRoutes} from "../../routes/mainRoutes";
 
 const useShopsHook = (): ShopsHookType => {
     let shopsAlertData: ErrorAlertType = {show: false};
 
     const { onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose } = useDisclosure();
     const toast: CreateToastFnReturn = useToast();
+    const navigate: NavigateFunction = useNavigate();
 
     const [searchNeedle, setSearchNeedle] = useState<string>("");
     const [shopsQueryEnabled, setShopsQueryEnabled] = useState<boolean>(true);
@@ -95,9 +98,11 @@ const useShopsHook = (): ShopsHookType => {
         setShopsQueryEnabled(true);
     }
 
+    const navigateToAddShop = (): void => navigate(mainRoutes.addShop.path);
+
     return {
         shopsResponseData, isShopsPending, shopsAlertData, fetchPaginatedShops, fetchPaginatedNeedleShops, onDeleteModalClose,
-        selectedShop, showDeleteModal, isDeleteModalOpen, deleteShopAlertData, isDeleteShopPending,  handleDeleteShop,
+        selectedShop, showDeleteModal, isDeleteModalOpen, deleteShopAlertData, isDeleteShopPending,  handleDeleteShop, navigateToAddShop,
     };
 };
 

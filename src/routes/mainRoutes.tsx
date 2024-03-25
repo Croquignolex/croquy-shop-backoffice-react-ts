@@ -7,6 +7,7 @@ import { BreadcrumbItemsType } from "../components/menu/PageBreadcrumb";
 const LazyDashboardPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/dashboard/DashboardPage'));
 const LazyUsersPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/users/UsersPage'));
 const LazyShopsPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/shops/ShopsPage'));
+const LazyAddShopPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/shops/AddShopPage'));
 const LazyAddUserPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/users/UsersPage'));
 
 const dashboard: MainRouteType = {
@@ -34,7 +35,7 @@ const shops: MainRouteType = {
 const addShop: MainRouteType = {
     name: 'add-shop',
     title: 'Nouvelle boutique',
-    component: LazyShopsPage,
+    component: LazyAddShopPage,
     path: '/shops/create',
     icon: FiShoppingCart,
     onSidebar: false,

@@ -4,17 +4,17 @@ import { Box, HStack, Button, Spacer } from "@chakra-ui/react";
 
 import SearchField from "./form/SearchField";
 
-const ListHeader: FC<ListHeaderProps> = ({ handleAddItem, empty, handleSearch }): ReactElement => {
+const ListHeader: FC<ListHeaderProps> = ({ handleAddItem, label, handleSearch }): ReactElement => {
     return (
         <HStack>
             <Button
                 colorScheme='orange'
-                variant="outline"
                 fontWeight="none"
+                size={"md"}
                 leftIcon={<FiPlus />}
                 onClick={handleAddItem}
             >
-                Ajouter
+                {label}
             </Button>
             <Spacer />
             <Box w="sm">
@@ -26,7 +26,7 @@ const ListHeader: FC<ListHeaderProps> = ({ handleAddItem, empty, handleSearch })
 
 interface ListHeaderProps {
     handleAddItem?: MouseEventHandler,
-    empty: boolean,
+    label: string,
     handleSearch?: (a: string) => void,
 }
 

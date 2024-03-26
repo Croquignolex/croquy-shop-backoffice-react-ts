@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { formValidationMessage } from "../../constants/generalConstants";
 import {ErrorAlertType} from "../../helpers/globalTypesHelper";
 
-export const loginInitialValues: LoginFormType = { username: '', password: '' };
+export const loginInitialStaticValues: LoginFormType = { username: '', password: '' };
 
 export const loginSchema: Yup.ObjectSchema<LoginFormType> = Yup.object().shape({
     username: Yup.string().required(formValidationMessage.required),

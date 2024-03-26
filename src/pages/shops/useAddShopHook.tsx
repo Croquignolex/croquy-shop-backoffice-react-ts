@@ -8,9 +8,12 @@ import {addShopRequest} from "../../helpers/apiRequestsHelpers";
 import {AlertStatusEnumType, ErrorAlertType} from "../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../helpers/generalHelpers";
 import {AddShopFormType, AddShopHookType, AddShopRequestDataType} from "./addShopData";
+import {mainRoutes} from "../../routes/mainRoutes";
 
 const useAddShopHook = (): AddShopHookType => {
     const [addShopAlertData, setAddShopAlertData] = useState<ErrorAlertType>({show: false});
+    const [next, setNext] = useState<boolean>(false);
+    const [sequence, setSequence] = useState<number>(0);
 
     const toast: CreateToastFnReturn = useToast();
     const navigate: NavigateFunction = useNavigate();
@@ -28,21 +31,27 @@ const useAddShopHook = (): AddShopHookType => {
             const toastMessage: string = `Boutique ${variables.name} créer avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
-            // navigate(mainRoutes.dashboard.path);
+            // Reload component
+            if(next) setSequence(sequence + 1);
+            else navigate(mainRoutes.shops.path);
 
             log("Add shop successful", data);
         }
     });
 
-    const handleAddShop = ({name, slug, description}: AddShopFormType): void => {
+    const save = ({name, slug, description}: AddShopFormType, next: boolean = false): void => {
         setAddShopAlertData({show: false});
+        setNext(next);
 
         addShopResponse.mutate({name, slug, description});
     }
 
+    const handleAddShop = (values: AddShopFormType): void => save(values);
+    const handleAddShopAndContinue = (values: AddShopFormType): void => save(values, true);
+
     const isAddShopPending: boolean = addShopResponse.isPending;
 
-    return {addShopAlertData, handleAddShop, isAddShopPending};
+    return {addShopAlertData, handleAddShop, handleAddShopAndContinue, sequence, isAddShopPending};
 };
 
 export default useAddShopHook;

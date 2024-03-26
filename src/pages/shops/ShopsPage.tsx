@@ -24,7 +24,7 @@ const ShopsPage = (): ReactElement => {
             <Loader isLoading={isShopsPending} />
             <DisplayAlert data={shopsAlertData} />
             <ListHeader
-                empty={shopsResponseData.empty}
+                label={"Nouvelle boutique"}
                 handleAddItem={() => navigateToAddShop()}
                 handleSearch={(needle: string) => fetchPaginatedNeedleShops(needle)}
             />

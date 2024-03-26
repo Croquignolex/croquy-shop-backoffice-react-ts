@@ -22,5 +22,7 @@ export interface AddShopFormType extends AddShopRequestDataType {}
 export interface AddShopHookType {
     addShopAlertData: ErrorAlertType,
     isAddShopPending: boolean,
+    sequence: number,
     handleAddShop: (a: AddShopFormType) => void,
+    handleAddShopAndContinue: (a: AddShopFormType) => void,
 }

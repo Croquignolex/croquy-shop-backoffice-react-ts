@@ -10,13 +10,13 @@ const API_V2_URL: string = `${apiBaseURL}/api/v2/backoffice`;
 export const loginRequest = ({username, password}: LoginRequestDataType): Promise<any> => {
     const url: string = joinBaseUrlWithParams(API_V1_URL + authApiURI.login);
 
-    return postRequest(url, { username, password }, {headers: {public: true}});
+    return postRequest(url, {username, password}, {headers: {public: true}});
 };
 
 export const refreshTokenRequest = (token: string): Promise<any> => {
     const url: string = joinBaseUrlWithParams(API_V1_URL + authApiURI.refresh);
 
-    return postRequest(url, { token }, {headers: {public: true}});
+    return postRequest(url, {token}, {headers: {public: true}});
 };
 
 export const shopsRequest = (page: number, size: number, needle: string): Promise<any> => {
@@ -33,10 +33,10 @@ export const deleteShop = (id: string): Promise<any> => {
     return deleteRequest(url);
 };
 
-export const addShopRequest = ({name}: AddShopRequestDataType): Promise<any> => {
-    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.create);
+export const addShopRequest = ({name, slug, description}: AddShopRequestDataType): Promise<any> => {
+    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.list);
 
-    return postRequest(url, { name });
+    return postRequest(url, {name, slug, description});
 };
 
 export const usersRequest = (): Promise<any> => {

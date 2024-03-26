@@ -1,6 +1,6 @@
 import lodash from "lodash";
 import dayjs from "dayjs";
-import { AxiosError } from "axios";
+import { AxiosError, HttpStatusCode } from "axios";
 import { CreateToastFnReturn } from "@chakra-ui/react";
 
 import { AlertStatusEnumType, ErrorAlertType } from "./globalTypesHelper";
@@ -64,11 +64,20 @@ export const toastAlert = (toast: CreateToastFnReturn, title: string, status: Al
 export const errorAlert = (error: AxiosError, customMessage: string = "Une erreur inatendu s'est produite. Merci de réessayer"): ErrorAlertType => {
     let message: string = customMessage;
 
-    if(error.response?.status !== 400) {
-        if(error) {
-            if(error.code === "ERR_NETWORK") message = "Erreur réseau. Merci de contacter l'administrateur";
-            else if(error.code === "ERR_BAD_RESPONSE") message = "Mauvaise reponse. Merci de contacter l'administrateur";
-            else if(error.code === "ERR_BAD_REQUEST") message = "Mauvaise requête. Merci de contacter l'administrateur";
+    if(error.response?.status !== HttpStatusCode.BadRequest) {
+        switch (error.code) {
+            case AxiosError.ERR_FR_TOO_MANY_REDIRECTS: message = "Trop de redirections. Merci de contacter l'administrateur"; break;
+            case AxiosError.ERR_BAD_OPTION_VALUE: message = "Mauvaise valeur d'option. Merci de contacter l'administrateur"; break;
+            case AxiosError.ERR_DEPRECATED: message = "Erreur de dépréciation. Merci de contacter l'administrateur"; break;
+            case AxiosError.ECONNABORTED: message = "Connexion interrompu. Merci de contacter l'administrateur"; break;
+            case AxiosError.ERR_BAD_RESPONSE: message = "Mauvaise reponse. Merci de contacter l'administrateur"; break;
+            case AxiosError.ERR_BAD_REQUEST: message = "Mauvaise requête. Merci de contacter l'administrateur"; break;
+            case AxiosError.ERR_BAD_OPTION: message = "Mauvaise option. Merci de contacter l'administrateur"; break;
+            case AxiosError.ERR_NOT_SUPPORT: message = "Non supporté. Merci de contacter l'administrateur"; break;
+            case AxiosError.ERR_INVALID_URL: message = "URL invalide. Merci de contacter l'administrateur"; break;
+            case AxiosError.ERR_NETWORK: message = "Erreur réseau. Merci de contacter l'administrateur"; break;
+            case AxiosError.ETIMEDOUT: message = "Temps expiré. Merci de contacter l'administrateur"; break;
+            case AxiosError.ERR_CANCELED: message = "Annulé. Merci de contacter l'administrateur"; break;
         }
     }
 

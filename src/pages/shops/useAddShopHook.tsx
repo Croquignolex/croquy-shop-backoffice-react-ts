@@ -21,7 +21,7 @@ const useAddShopHook = (): AddShopHookType => {
     const addShopResponse: UseMutationResult<AxiosResponse, AxiosError, AddShopFormType, any> = useMutation({
         mutationFn: addShopRequest,
         onError: (error: AxiosError): void => {
-            setAddShopAlertData(errorAlert(error, "custom message"));
+            setAddShopAlertData(errorAlert(error));
 
             log("Add shop failure", error);
         },

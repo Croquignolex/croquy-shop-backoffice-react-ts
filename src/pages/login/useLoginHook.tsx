@@ -25,12 +25,12 @@ const useLoginPageHook = (): LoginHookType => {
 
     const loginResponse: UseMutationResult<AxiosResponse, AxiosError, LoginFormType, any> = useMutation({
         mutationFn: loginRequest,
-        onError: (error: AxiosError): void => {
-            setLoginAlertData(errorAlert(error, "Combinaison login ou mot de passe incorrect"));
+        onError: (error: AxiosError<any>): void => {
+            setLoginAlertData(errorAlert(error));
 
             log("Login failure", error);
         },
-        onSuccess: (data: AxiosResponse): void => {
+        onSuccess: (data: AxiosResponse<any>): void => {
             setLoginAlertData({show: false});
 
             const {accessToken, refreshToken} = data.data;

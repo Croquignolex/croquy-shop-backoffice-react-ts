@@ -61,10 +61,12 @@ export const toastAlert = (toast: CreateToastFnReturn, title: string, status: Al
 };
 
 // Error alert
-export const errorAlert = (error: AxiosError, customMessage: string = "Une erreur inatendu s'est produite. Merci de réessayer"): ErrorAlertType => {
-    let message: string = customMessage;
+export const errorAlert = (error: AxiosError<any>): ErrorAlertType => {
+    let message: string = "";
 
-    if(error.response?.status !== HttpStatusCode.BadRequest) {
+    if(error.response?.data?.message) {
+        message = error.response.data.message;
+    } else {
         switch (error.code) {
             case AxiosError.ERR_FR_TOO_MANY_REDIRECTS: message = "Trop de redirections. Merci de contacter l'administrateur"; break;
             case AxiosError.ERR_BAD_OPTION_VALUE: message = "Mauvaise valeur d'option. Merci de contacter l'administrateur"; break;

@@ -50,10 +50,10 @@ const renderRoutes = (allRoutes: Array<any>) => {
                 <Route key={index} element={<Layout />}>
                     <Route element={<ProtectedRoute isAuthorized={isAuthorized} isAuthPage={isAuthPage} isErrorPage={isErrorPage} />}>
                         {
-                            subRoutes.map(({ component: Component, path, name }) => {
+                            subRoutes.map(({ component: Component, path }, key: number) => {
                                 return (
                                     Component && path && (
-                                        <Route key={name} element={<Component />} path={path} />
+                                        <Route key={key} element={<Component />} path={path} />
                                     )
                                 )
                             })

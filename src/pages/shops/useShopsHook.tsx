@@ -1,25 +1,22 @@
 import { useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
-import {NavigateFunction, useNavigate} from "react-router-dom";
 import {useQuery, UseQueryResult} from "@tanstack/react-query";
 import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 
-import {deleteShop, shopsRequest} from "../../helpers/apiRequestsHelpers";
+import {destroyShop, shopsRequest} from "../../helpers/apiRequestsHelpers";
 import {AlertStatusEnumType, ErrorAlertType} from "../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../helpers/generalHelpers";
 import {
-    defaultSelectedShop, defaultShopsResponseData,
+    defaultSelectedShop, defaultShopsResponseData, DestroyShopRequestDataType,
     ShopsHookType, ShopsResponseDataType, ShopType
 } from "./shopsData";
-import {mainRoutes} from "../../routes/mainRoutes";
 
 const useShopsHook = (): ShopsHookType => {
     let shopsAlertData: ErrorAlertType = {show: false};
 
     const { onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose } = useDisclosure();
     const toast: CreateToastFnReturn = useToast();
-    const navigate: NavigateFunction = useNavigate();
 
     const [searchNeedle, setSearchNeedle] = useState<string>("");
     const [shopsQueryEnabled, setShopsQueryEnabled] = useState<boolean>(true);
@@ -33,13 +30,13 @@ const useShopsHook = (): ShopsHookType => {
         enabled: shopsQueryEnabled,
     });
 
-    const deleteShopResponse: UseMutationResult<AxiosResponse, AxiosError, any, any> = useMutation({
-        mutationFn: deleteShop,
+    const destroyShopShopResponse: UseMutationResult<AxiosResponse, AxiosError, DestroyShopRequestDataType, any> = useMutation({
+        mutationFn: destroyShop,
         onError: (error: AxiosError): void => {
             setDeleteShopAlertData(errorAlert(error));
             setShopsQueryEnabled(false);
 
-            log("Shop delete failure", deleteShopResponse);
+            log("Destroy shop failure", destroyShopShopResponse);
         },
         onSuccess: (): void => {
             setDeleteShopAlertData({show: false});
@@ -50,7 +47,7 @@ const useShopsHook = (): ShopsHookType => {
 
             onDeleteModalClose();
 
-            log("Shop delete successful", deleteShopResponse);
+            log("Destroy shop successful", destroyShopShopResponse);
         }
     });
 
@@ -68,12 +65,12 @@ const useShopsHook = (): ShopsHookType => {
     }
 
     const isShopsPending: boolean = shopsResponse.isFetching;
-    const isDeleteShopPending: boolean = deleteShopResponse.isPending;
+    const isDeleteShopPending: boolean = destroyShopShopResponse.isPending;
 
     const handleDeleteShop = (): void => {
         setDeleteShopAlertData({show: false});
 
-        deleteShopResponse.mutate(selectedShop.id);
+        destroyShopShopResponse.mutate({id: selectedShop.id});
     }
 
     const showDeleteModal = (shop: ShopType): void => {
@@ -98,11 +95,9 @@ const useShopsHook = (): ShopsHookType => {
         setShopsQueryEnabled(true);
     }
 
-    const navigateToAddShop = (): void => navigate(mainRoutes.addShop.path);
-
     return {
         shopsResponseData, isShopsPending, shopsAlertData, fetchPaginatedShops, fetchPaginatedNeedleShops, onDeleteModalClose,
-        selectedShop, showDeleteModal, isDeleteModalOpen, deleteShopAlertData, isDeleteShopPending,  handleDeleteShop, navigateToAddShop,
+        selectedShop, showDeleteModal, isDeleteModalOpen, deleteShopAlertData, isDeleteShopPending,  handleDeleteShop,
     };
 };
 

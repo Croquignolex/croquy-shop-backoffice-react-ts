@@ -14,8 +14,8 @@ const SidebarContent: FC<SidebarContentProps> = ({ onClose, menuItems, ...rest }
                 </Text>
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
-            {menuItems.map((route: MenuItemType): ReactElement => (
-                <NavItem key={route.name} path={route.path} icon={route.icon} isActive={route.isActive}>
+            {menuItems.map((route: MenuItemType, index: number): ReactElement => (
+                <NavItem key={index} path={route.path} icon={route.icon}>
                     {route.title}
                 </NavItem>
             ))}

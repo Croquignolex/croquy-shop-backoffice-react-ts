@@ -47,6 +47,10 @@ export interface ShopsResponseDataType {
     empty: boolean,
 }
 
+export interface DestroyShopRequestDataType {
+    id: string,
+}
+
 export interface ShopsHookType {
     shopsResponseData: ShopsResponseDataType,
     isShopsPending: boolean,
@@ -60,5 +64,4 @@ export interface ShopsHookType {
     isDeleteShopPending: boolean,
     handleDeleteShop: () => void,
     onDeleteModalClose: () => void,
-    navigateToAddShop: () => void,
 }

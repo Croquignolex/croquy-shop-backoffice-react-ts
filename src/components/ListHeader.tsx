@@ -1,10 +1,11 @@
-import React, {FC, MouseEventHandler, ReactElement} from "react";
+import React, {FC, ReactElement} from "react";
 import {FiPlus} from "react-icons/fi";
+import { Link } from "react-router-dom";
 import { Box, HStack, Button, Spacer } from "@chakra-ui/react";
 
 import SearchField from "./form/SearchField";
 
-const ListHeader: FC<ListHeaderProps> = ({ handleAddItem, label, handleSearch }): ReactElement => {
+const ListHeader: FC<ListHeaderProps> = ({ addItemPath, label, handleSearch }): ReactElement => {
     return (
         <HStack>
             <Button
@@ -12,7 +13,8 @@ const ListHeader: FC<ListHeaderProps> = ({ handleAddItem, label, handleSearch })
                 fontWeight="none"
                 size={"md"}
                 leftIcon={<FiPlus />}
-                onClick={handleAddItem}
+                as={Link}
+                to={addItemPath}
             >
                 {label}
             </Button>
@@ -25,9 +27,9 @@ const ListHeader: FC<ListHeaderProps> = ({ handleAddItem, label, handleSearch })
 };
 
 interface ListHeaderProps {
-    handleAddItem?: MouseEventHandler,
+    addItemPath: string,
     label: string,
-    handleSearch?: (a: string) => void,
+    handleSearch: (a: string) => void,
 }
 
 export default ListHeader;

@@ -4,7 +4,7 @@ import {NavigateFunction, useNavigate} from "react-router-dom";
 import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 
-import {addShopRequest} from "../../helpers/apiRequestsHelpers";
+import {storeShopRequest} from "../../helpers/apiRequestsHelpers";
 import {AlertStatusEnumType, ErrorAlertType} from "../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../helpers/generalHelpers";
 import {AddShopFormType, AddShopHookType, AddShopRequestDataType} from "./addShopData";
@@ -18,12 +18,12 @@ const useAddShopHook = (): AddShopHookType => {
     const toast: CreateToastFnReturn = useToast();
     const navigate: NavigateFunction = useNavigate();
 
-    const addShopResponse: UseMutationResult<AxiosResponse, AxiosError, AddShopFormType, any> = useMutation({
-        mutationFn: addShopRequest,
+    const storeShopResponse: UseMutationResult<AxiosResponse, AxiosError, AddShopRequestDataType, any> = useMutation({
+        mutationFn: storeShopRequest,
         onError: (error: AxiosError): void => {
             setAddShopAlertData(errorAlert(error));
 
-            log("Add shop failure", error);
+            log("Store shop failure", storeShopResponse);
         },
         onSuccess: (data: AxiosResponse, variables: AddShopRequestDataType): void => {
             setAddShopAlertData({show: false});
@@ -35,7 +35,7 @@ const useAddShopHook = (): AddShopHookType => {
             if(next) setSequence(sequence + 1);
             else navigate(mainRoutes.shops.path);
 
-            log("Add shop successful", data);
+            log("Store shop successful", storeShopResponse);
         }
     });
 
@@ -43,13 +43,13 @@ const useAddShopHook = (): AddShopHookType => {
         setAddShopAlertData({show: false});
         setNext(next);
 
-        addShopResponse.mutate({name, slug, description});
+        storeShopResponse.mutate({name, slug, description});
     }
 
     const handleAddShop = (values: AddShopFormType): void => save(values);
     const handleAddShopAndContinue = (values: AddShopFormType): void => save(values, true);
 
-    const isAddShopPending: boolean = addShopResponse.isPending;
+    const isAddShopPending: boolean = storeShopResponse.isPending;
 
     return {addShopAlertData, handleAddShop, handleAddShopAndContinue, sequence, isAddShopPending};
 };

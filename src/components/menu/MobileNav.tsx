@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, useContext } from "react";
-import { Link, NavigateFunction, useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate, NavLink } from "react-router-dom";
 import { FiLogOut, FiChevronDown, FiMenu, FiSettings, FiHelpCircle, FiUser } from "react-icons/fi";
 import {
     Box, Flex, FlexProps, IconButton, Text, HStack,
@@ -30,6 +30,8 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
         <Flex
             height="60px"
             alignItems="center"
+            bg={"white"}
+            borderBottomWidth={1}
             justifyContent={{ base: 'space-between', md: 'flex-end' }}
             {...rest}
         >
@@ -61,18 +63,20 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
                             </HStack>
                         </MenuButton>
                         <MenuList>
-                            {menuItems.map((route: MenuItemType): ReactElement => (
-                                <MenuItem
-                                    as={Link}
-                                    to={route.path}
-                                    key={route.name}
-                                    background={route.isActive ? 'orange.500' : ''}
-                                    _hover={{ fontWeight: route.isActive ? '' : 'bold' }}
-                                    color={route.isActive ? 'white' : ''}
-                                >
-                                    <Icon mr="2" as={route.icon} />
-                                    {route.title}
-                                </MenuItem>
+                            {menuItems.map((route: MenuItemType, index: number): ReactElement => (
+                                <Box as={NavLink} to={route.path} key={index}>
+                                    {(props: any) => (
+                                        <MenuItem
+                                            key={index}
+                                            background={props?.isActive ? 'orange.500' : ''}
+                                            _hover={{ fontWeight: props?.isActive ? '' : 'bold' }}
+                                            color={props?.isActive ? 'white' : ''}
+                                        >
+                                            <Icon mr="2" as={route.icon} />
+                                            {route.title}
+                                        </MenuItem>
+                                    )}
+                                </Box>
                             ))}
                             <MenuItem icon={<FiSettings />} _hover={{ fontWeight: 'bold' }}>
                                 Paramètres

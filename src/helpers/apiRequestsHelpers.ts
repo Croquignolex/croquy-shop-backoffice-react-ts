@@ -1,8 +1,10 @@
 import { apiBaseURL } from "../constants/envConstants";
 import { LoginRequestDataType } from "../pages/login/loginData";
 import { authApiURI, shopsApiURI, usersApiURI } from "../constants/apiURIConstants";
-import { postRequest, getRequest, deleteRequest } from "./axiosHelpers";
+import { postRequest, getRequest, deleteRequest, putRequest } from "./axiosHelpers";
 import {AddShopRequestDataType} from "../pages/shops/addShopData";
+import {EditShopRequestDataType} from "../pages/shops/editShopData";
+import {DestroyShopRequestDataType} from "../pages/shops/shopsData";
 
 const API_V1_URL: string = `${apiBaseURL}/api/v1/backoffice`;
 const API_V2_URL: string = `${apiBaseURL}/api/v2/backoffice`;
@@ -21,22 +23,29 @@ export const refreshTokenRequest = (token: string): Promise<any> => {
 
 export const shopsRequest = (page: number, size: number, needle: string): Promise<any> => {
     const queries: Array<URLParamType> = [{param: "page", value: page.toString()}, {param: "size", value: size.toString()}, {param: "needle", value: needle}];
-    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.list, [], queries);
+    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.index, [], queries);
 
     return getRequest(url);
 };
 
-export const deleteShop = (id: string): Promise<any> => {
+export const destroyShop = ({id}: DestroyShopRequestDataType): Promise<any> => {
     const queries: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.delete, queries);
+    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.destroy, queries);
 
     return deleteRequest(url);
 };
 
-export const addShopRequest = ({name, slug, description}: AddShopRequestDataType): Promise<any> => {
-    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.list);
+export const storeShopRequest = ({name, slug, description}: AddShopRequestDataType): Promise<any> => {
+    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.store);
 
     return postRequest(url, {name, slug, description});
+};
+
+export const updateShopRequest = ({name, slug, description, id}: EditShopRequestDataType): Promise<any> => {
+    const queries: Array<URLParamType> = [{param: "id", value: id || ""}];
+    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.update, queries);
+
+    return putRequest(url, {name, slug, description});
 };
 
 export const usersRequest = (): Promise<any> => {

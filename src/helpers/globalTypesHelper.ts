@@ -20,11 +20,8 @@ export interface ReducerActionType {
 
 export interface MenuItemType {
     path: string,
-    name: string,
-    key: string,
-    icon: IconType,
-    title: string,
-    isActive: boolean,
+    icon?: IconType,
+    title?: string,
 }
 
 

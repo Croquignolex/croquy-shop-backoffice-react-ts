@@ -1,27 +1,33 @@
 import React, {ReactElement} from "react";
 import {Form, Formik, FormikProps} from "formik";
-import {Box, Stack, Container, Flex} from "@chakra-ui/react";
+import {Box, Stack, Container, Flex, Button} from "@chakra-ui/react";
 
 import DisplayAlert from "../../components/DisplayAlert";
-import useAddShopHook from "./useAddShopHook";
+import useAddShopHook from "./useEditShopHook";
 import TextField from "../../components/form/TextField";
-import {AddShopFormType, AddShopHookType, addShopInitialStaticValues, addShopSchema} from "./addShopData";
 import TextareaField from "../../components/form/TextareaField";
-import DoubleSaveButton from "../../components/form/DoubleSaveButton";
 import PageHeader from "../../components/menu/PageHeader";
 import {mainRoutes} from "../../routes/mainRoutes";
+import {EditShopFormType, EditShopHookType, editShopSchema} from "./editShopData";
+import {FiCheck} from "react-icons/fi";
 
 const AddShopPage = (): ReactElement => {
-    const {addShopAlertData, handleAddShop, handleAddShopAndContinue, sequence, isAddShopPending}: AddShopHookType = useAddShopHook();
+    const {editShopAlertData, handleEditShop, shop, isEditShopPending}: EditShopHookType = useAddShopHook();
 
     return (
         <>
-            <PageHeader title={"Nouvelle boutique"} items={[{path: mainRoutes.shops.path, label: 'Boutiques'}]} />
+            <PageHeader
+                title={`Modifier boutique ${shop.name}`}
+                items={[
+                    {path: mainRoutes.shops.path, label: 'Boutiques'},
+                    {path: `${mainRoutes.shops.path}/${shop.id}`, label: `Detail boutique ${shop.name}`}
+                ]}
+            />
             <Container maxW={'3xl'}>
-                <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl' key={sequence}>
-                    <DisplayAlert data={addShopAlertData} />
-                    <Formik initialValues={addShopInitialStaticValues} validationSchema={addShopSchema} onSubmit={handleAddShop}>
-                        {(props: FormikProps<AddShopFormType>) => (
+                <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl'>
+                    <DisplayAlert data={editShopAlertData} />
+                    <Formik initialValues={shop} validationSchema={editShopSchema} onSubmit={handleEditShop} enableReinitialize>
+                        {(props: FormikProps<EditShopFormType>) => (
                             <Form>
                                 <Flex>
                                     <TextField
@@ -47,11 +53,17 @@ const AddShopPage = (): ReactElement => {
                                     />
                                 </Flex>
                                 <Flex>
-                                    <DoubleSaveButton
-                                        isLoading={isAddShopPending}
-                                        formikProps={props}
-                                        handleSaveAndContinue={() => handleAddShopAndContinue(props.values)}
-                                    />
+                                    <Button
+                                        colorScheme={"orange"}
+                                        variant={"solid"}
+                                        isLoading={isEditShopPending}
+                                        type='submit'
+                                        size='md'
+                                        fontWeight="none"
+                                        leftIcon={<FiCheck />}
+                                    >
+                                        Confirmer
+                                    </Button>
                                 </Flex>
                             </Form>
                         )}

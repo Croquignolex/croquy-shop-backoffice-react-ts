@@ -8,6 +8,8 @@ export const usersApiURI = {
 };
 
 export const shopsApiURI = {
-    list: '/shops',
-    delete: '/shops/{id}',
+    index: '/shops',
+    store: '/shops',
+    update: '/shops/{id}',
+    destroy: '/shops/{id}',
 };

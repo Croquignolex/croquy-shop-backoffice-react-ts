@@ -1,34 +1,35 @@
-import React, { FC, ReactElement } from "react";
+import React, {FC, ReactElement} from "react";
 import { Box, Flex, Icon, FlexProps } from "@chakra-ui/react";
 import { IconType } from "react-icons";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-const NavItem: FC<NavItemProps> = ({ icon, path, isActive, children, ...rest }): ReactElement => {
+const NavItem: FC<NavItemProps> = ({ icon, path, children, ...rest }): ReactElement => {
     return (
-        <Box as={Link} to={path} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
-            <Flex
-                align="center"
-                p="4"
-                mr="4"
-                role="group"
-                cursor="pointer"
-                borderRightRadius={"3xl"}
-                _hover={{ fontWeight: isActive ? '' : 'bold', background: isActive ? '' : 'gray.100' }}
-                background={isActive ? 'orange.500' : ''}
-                color={isActive ? 'white' : ''}
-                {...rest}
-            >
-                { icon && (<Icon mr="4" as={icon} fontSize='1.3rem' />) }
-                {children}
-            </Flex>
+        <Box as={NavLink} to={path} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+            {(props: any) => (
+                <Flex
+                    align="center"
+                    p="4"
+                    mr="4"
+                    role="group"
+                    cursor="pointer"
+                    borderRightRadius={"3xl"}
+                    _hover={{ fontWeight: props?.isActive ? '' : 'bold', background: props?.isActive ? '' : 'gray.100' }}
+                    background={props.isActive ? 'orange.500' : ''}
+                    color={props.isActive ? 'white' : ''}
+                    {...rest}
+                >
+                    { icon && (<Icon mr="4" as={icon} fontSize='1.3rem' />) }
+                    {children}
+                </Flex>
+            )}
         </Box>
     );
 };
 
 interface NavItemProps extends FlexProps {
-    icon: IconType,
+    icon?: IconType,
     path: string,
-    isActive: boolean,
     children: React.ReactNode,
 }
 

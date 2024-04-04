@@ -11,7 +11,7 @@ const ListHeader: FC<ListHeaderProps> = ({ addItemPath, label, handleSearch }): 
             <Button
                 colorScheme='orange'
                 fontWeight="none"
-                size={"md"}
+                size={"sm"}
                 leftIcon={<FiPlus />}
                 as={Link}
                 to={addItemPath}

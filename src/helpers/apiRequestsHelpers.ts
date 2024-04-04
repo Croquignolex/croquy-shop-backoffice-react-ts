@@ -1,10 +1,11 @@
 import { apiBaseURL } from "../constants/envConstants";
 import { LoginRequestDataType } from "../pages/login/loginData";
 import { authApiURI, shopsApiURI, usersApiURI } from "../constants/apiURIConstants";
-import { postRequest, getRequest, deleteRequest, putRequest } from "./axiosHelpers";
+import {postRequest, getRequest, deleteRequest, putRequest, patchRequest} from "./axiosHelpers";
 import {AddShopRequestDataType} from "../pages/shops/add/addShopData";
 import {EditShopRequestDataType} from "../pages/shops/edit/editShopData";
 import {DestroyShopRequestDataType} from "../pages/shops/shopsData";
+import {ToggleShopRequestDataType} from "../pages/shops/show/showShopData";
 
 const API_V1_URL: string = `${apiBaseURL}/api/v1/backoffice`;
 const API_V2_URL: string = `${apiBaseURL}/api/v2/backoffice`;
@@ -40,6 +41,13 @@ export const destroyShop = ({id}: DestroyShopRequestDataType): Promise<any> => {
     const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.destroy, params);
 
     return deleteRequest(url);
+};
+
+export const toggleShop = ({id}: ToggleShopRequestDataType): Promise<any> => {
+    const params: Array<URLParamType> = [{param: "id", value: id}];
+    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.toggle, params);
+
+    return patchRequest(url);
 };
 
 export const storeShopRequest = ({name, slug, description}: AddShopRequestDataType): Promise<any> => {

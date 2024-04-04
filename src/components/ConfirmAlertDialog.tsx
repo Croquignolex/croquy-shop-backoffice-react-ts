@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useRef, MutableRefObject } from "react";
+import React, { FC, ReactElement, useRef, MutableRefObject, ReactNode } from "react";
 import {FiThumbsUp, FiThumbsDown} from "react-icons/fi";
 import {
     AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, Stack,
@@ -9,18 +9,19 @@ import Loader from "./Loader";
 import DisplayAlert from "./DisplayAlert";
 import {ErrorAlertType} from "../helpers/globalTypesHelper";
 
-const DeleteAlertDialog: FC<StatusBadgeProps> = ({ isOpen, isLoading, onClose, handleDelete, deleteAlertData, children }): ReactElement => {
+const ConfirmAlertDialog: FC<ConfirmAlertDialogProps> = ({ isOpen, isLoading, onClose, colorScheme = "red", title = "Supression",
+                                                             handleConfirm, alertData, children }): ReactElement => {
     const cancelRef: MutableRefObject<any> = useRef<any>()
 
     return (
         <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose} isCentered>
             <AlertDialogOverlay>
                 <AlertDialogContent>
-                    <AlertDialogHeader>Suppression</AlertDialogHeader>
+                    <AlertDialogHeader>{title}</AlertDialogHeader>
 
                     <AlertDialogCloseButton />
 
-                    <Stack mx={2}><DisplayAlert data={deleteAlertData} /></Stack>
+                    <Stack mx={2}><DisplayAlert data={alertData} /></Stack>
 
                     <AlertDialogBody>{children}</AlertDialogBody>
 
@@ -30,7 +31,7 @@ const DeleteAlertDialog: FC<StatusBadgeProps> = ({ isOpen, isLoading, onClose, h
                                 <Button ref={cancelRef} onClick={onClose} size={"sm"} leftIcon={<FiThumbsDown />}>
                                     Non
                                 </Button>
-                                <Button colorScheme='red' onClick={handleDelete} size={"sm"} leftIcon={<FiThumbsUp />}>
+                                <Button colorScheme={colorScheme} onClick={handleConfirm} size={"sm"} leftIcon={<FiThumbsUp />}>
                                     Oui
                                 </Button>
                             </ButtonGroup>
@@ -42,13 +43,15 @@ const DeleteAlertDialog: FC<StatusBadgeProps> = ({ isOpen, isLoading, onClose, h
     )
 };
 
-interface StatusBadgeProps {
+interface ConfirmAlertDialogProps {
     isOpen: boolean;
+    colorScheme?: string;
     isLoading: boolean;
     onClose: () => void;
-    handleDelete: () => void,
-    children: React.ReactNode,
-    deleteAlertData: ErrorAlertType,
+    handleConfirm: () => void,
+    children: ReactNode,
+    alertData: ErrorAlertType,
+    title?: string,
 }
 
-export default DeleteAlertDialog;
+export default ConfirmAlertDialog;

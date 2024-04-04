@@ -3,7 +3,7 @@ import { Button, ButtonGroup } from "@chakra-ui/react";
 import {FiCheck} from "react-icons/fi";
 import {FormikProps} from "formik";
 
-const DoubleSaveButton: FC<FormSubmitButtonProps> = ({ isLoading = false, isDisabled = false,
+const DoubleSaveButton: FC<DoubleSaveButtonProps> = ({ isLoading = false, isDisabled = false,
                                                          formikProps, handleSaveAndContinue }): ReactElement => {
    let isValid: boolean = false;
 
@@ -42,7 +42,7 @@ const DoubleSaveButton: FC<FormSubmitButtonProps> = ({ isLoading = false, isDisa
     );
 };
 
-interface FormSubmitButtonProps {
+interface DoubleSaveButtonProps {
     isLoading?: boolean;
     isDisabled?: boolean;
     formikProps?: FormikProps<any>;

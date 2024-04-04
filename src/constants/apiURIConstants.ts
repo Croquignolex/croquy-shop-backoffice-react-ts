@@ -13,4 +13,5 @@ export const shopsApiURI = {
     show: '/shops/{id}',
     update: '/shops/{id}',
     destroy: '/shops/{id}',
+    toggle: '/shops/{id}/toggle',
 };

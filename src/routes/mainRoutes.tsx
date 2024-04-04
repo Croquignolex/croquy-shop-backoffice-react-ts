@@ -1,6 +1,5 @@
-import { FiHome, FiShoppingCart } from "react-icons/fi";
+import { FiHome, FiShoppingCart, FiUsers } from "react-icons/fi";
 import { lazy, LazyExoticComponent, ReactElement } from "react";
-
 import { IconType } from "react-icons";
 
 const LazyDashboardPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/dashboard/DashboardPage'));
@@ -27,16 +26,17 @@ const showShop: MainRouteType = {component: LazyShowShopPage, path: '/shops/:id'
 
 const editShop: MainRouteType = {component: LazyEditShopPage, path: '/shops/:id/edit', onSidebar: false, onHeader: false};
 
-/*const users: MainRouteType = {
-    name: 'users',
-    title: 'Utilisateurs',
-    component: LazyUsersPage,
-    path: '/users',
-    icon: FiUsers,
-    onSidebar: true,
-    onHeader: false,
-    breadcrumb: []
-};*/
+
+const users: MainRouteType = {
+    title: 'Utilisateurs', component: LazyUsersPage, path: '/users',
+    icon: FiUsers, onSidebar: true, onHeader: false,
+};
+
+const addUser: MainRouteType = {component: LazyAddShopPage, path: '/shops/create', onSidebar: false, onHeader: false};
+
+const showUser: MainRouteType = {component: LazyShowShopPage, path: '/shops/:id', onSidebar: false, onHeader: false};
+
+const editUser: MainRouteType = {component: LazyEditShopPage, path: '/shops/:id/edit', onSidebar: false, onHeader: false};
 
 /*const addUser: MainRouteType = {
     name: 'add-user',
@@ -59,5 +59,7 @@ export interface MainRouteType {
 }
 
 export const mainRoutes: any = {
-    dashboard, shops, addShop, showShop, editShop
+    dashboard,
+    shops, addShop, showShop, editShop,
+    users, addUser, showUser, editUser,
 };

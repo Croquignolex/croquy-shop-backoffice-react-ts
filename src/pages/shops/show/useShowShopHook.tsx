@@ -5,12 +5,12 @@ import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {Location, NavigateFunction, useLocation, useNavigate} from "react-router-dom";
 import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 
-import {destroyShop, shopRequest} from "../../../helpers/apiRequestsHelpers";
+import {destroyShop, shopRequest, toggleShop} from "../../../helpers/apiRequestsHelpers";
 import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
-import {defaultSelectedShop, DestroyShopRequestDataType, ShopType} from "../shopsData";
+import {DestroyShopRequestDataType, ShopType} from "../shopsData";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {ShowShopHookType} from "./showShopData";
+import {ShowShopHookType, ToggleShopRequestDataType} from "./showShopData";
 
 const useShowShopHook = (): ShowShopHookType => {
     let shopAlertData: ErrorAlertType = {show: false};
@@ -19,12 +19,14 @@ const useShowShopHook = (): ShowShopHookType => {
     const shop: ShopType = state;
 
     const { onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose } = useDisclosure();
+    const { onOpen: onToggleModalOpen, isOpen: isToggleModalOpen, onClose: onToggleModalClose } = useDisclosure();
     const toast: CreateToastFnReturn = useToast();
     const navigate: NavigateFunction = useNavigate();
 
     const [shopQueryEnabled, setShopQueryEnabled] = useState<boolean>(true);
     const [deleteShopAlertData, setDeleteShopAlertData] = useState<ErrorAlertType>({show: false});
-    const [shopResponseData, setShopResponseData] = useState<ShopType>(defaultSelectedShop);
+    const [toggleShopAlertData, setToggleShopAlertData] = useState<ErrorAlertType>({show: false});
+    const [shopResponseData, setShopResponseData] = useState<ShopType>(shop);
 
     const shopResponse: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
         queryKey: ["shops"],
@@ -36,7 +38,6 @@ const useShowShopHook = (): ShowShopHookType => {
         mutationFn: destroyShop,
         onError: (error: AxiosError): void => {
             setDeleteShopAlertData(errorAlert(error));
-            setShopQueryEnabled(false);
 
             log("Destroy shop failure", destroyShopShopResponse);
         },
@@ -53,6 +54,26 @@ const useShowShopHook = (): ShowShopHookType => {
         }
     });
 
+    const toggleShopShopResponse: UseMutationResult<AxiosResponse, AxiosError, ToggleShopRequestDataType, any> = useMutation({
+        mutationFn: toggleShop,
+        onError: (error: AxiosError): void => {
+            setToggleShopAlertData(errorAlert(error));
+
+            log("Toggle shop failure", toggleShopShopResponse);
+        },
+        onSuccess: (): void => {
+            setToggleShopAlertData({show: false});
+
+            const toastMessage: string = `Boutique ${shopResponseData.name} ${shopResponseData.enabled ? "Désactivée" : "Activée"} avec succès`;
+            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+
+            onToggleModalClose();
+            setShopResponseData({...shopResponseData, enabled: !shopResponseData.enabled})
+
+            log("Toggle shop successful", toggleShopShopResponse);
+        }
+    });
+
     if(shopResponse.isError) {
         shopAlertData = errorAlert(shopResponse.error);
 
@@ -66,8 +87,9 @@ const useShowShopHook = (): ShowShopHookType => {
         log("Shops list successful", shopResponse);
     }
 
-    const isShopsPending: boolean = shopResponse.isFetching;
+    const isShopPending: boolean = shopResponse.isFetching;
     const isDeleteShopPending: boolean = destroyShopShopResponse.isPending;
+    const isToggleShopPending: boolean = toggleShopShopResponse.isPending;
 
     const handleDeleteShop = (): void => {
         setDeleteShopAlertData({show: false});
@@ -80,9 +102,22 @@ const useShowShopHook = (): ShowShopHookType => {
         setDeleteShopAlertData({show: false});
     }
 
+    const handleToggleShop = (): void => {
+        setToggleShopAlertData({show: false});
+
+        toggleShopShopResponse.mutate({id: shop.id});
+    }
+
+    const showToggleModal = (): void => {
+        console.log('toogle')
+        onToggleModalOpen();
+        setToggleShopAlertData({show: false});
+    }
+
     return {
-        isShopsPending, onDeleteModalClose, showDeleteModal, isDeleteModalOpen, deleteShopAlertData, isDeleteShopPending,
-        handleDeleteShop, shopAlertData, shopResponseData
+        isShopPending, onDeleteModalClose, showDeleteModal, isDeleteModalOpen, deleteShopAlertData, isDeleteShopPending,
+        handleDeleteShop, shopAlertData, shopResponseData, handleToggleShop, isToggleShopPending, toggleShopAlertData,
+        isToggleModalOpen, onToggleModalClose, showToggleModal
     };
 };
 

@@ -1,7 +1,5 @@
 import React, {ReactElement} from "react";
-import {FiEdit, FiTrash} from "react-icons/fi";
-import {TableContainer, Table, Thead, Tr, Th, Tbody, Td, Stack, Button, ButtonGroup} from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import {TableContainer, Table, Thead, Tr, Th, Tbody, Td, Stack, Badge} from "@chakra-ui/react";
 
 import useShopsHook from "./useShopsHook";
 import {ShopsHookType, ShopType} from "./shopsData";
@@ -9,13 +7,14 @@ import ListHeader from "../../components/ListHeader";
 import EmptyTableAlert from "../../components/EmptyTableAlert";
 import StatusBadge from "../../components/StatusBadge";
 import Pagination from "../../components/Pagination";
-import DeleteAlertDialog from "../../components/DeleteAlertDialog";
+import ConfirmAlertDialog from "../../components/ConfirmAlertDialog";
 import {stringDateFormat} from "../../helpers/generalHelpers";
 import DisplayAlert from "../../components/DisplayAlert";
 import {mainRoutes} from "../../routes/mainRoutes";
 import PageHeader from "../../components/menu/PageHeader";
 import ExternalLink from "../../components/ExternalLink";
 import TableSkeletonLoader from "../../components/TableSkeletonLoader";
+import DoubleActionButton from "../../components/form/DoubleActionButton";
 
 const ShopsPage = (): ReactElement => {
     const {
@@ -57,31 +56,21 @@ const ShopsPage = (): ReactElement => {
                                                 />
                                             </Td>
                                             <Td><StatusBadge enabled={shop.enabled}/></Td>
-                                            <Td>{stringDateFormat(shop.createdAt)}</Td>
-                                            <Td>{shop.creator?.username}</Td>
+                                            <Td><Badge rounded="md">{stringDateFormat(shop.createdAt)}</Badge></Td>
+                                            <Td>
+                                                <ExternalLink
+                                                    state={shop.creator}
+                                                    label={shop.creator?.username}
+                                                    path={`${mainRoutes.users.path}/${shop.creator?.id}`}
+                                                />
+                                            </Td>
                                             <Td textAlign={'right'}>
-                                                <ButtonGroup>
-                                                    <Button
-                                                        fontWeight="none"
-                                                        colorScheme={"yellow"}
-                                                        leftIcon={<FiEdit />}
-                                                        size={"sm"}
-                                                        as={Link}
-                                                        to={`${mainRoutes.shops.path}/${shop.id}/edit`}
-                                                        state={shop}
-                                                    >
-                                                        Modifier
-                                                    </Button>
-                                                    <Button
-                                                        fontWeight="none"
-                                                        colorScheme={"red"}
-                                                        size={"sm"}
-                                                        leftIcon={<FiTrash />}
-                                                        onClick={(): void => showDeleteModal(shop)}
-                                                    >
-                                                        Supprimer
-                                                    </Button>
-                                                </ButtonGroup>
+                                                <DoubleActionButton
+                                                    isListView
+                                                    state={shop}
+                                                    showDeleteModal={showDeleteModal}
+                                                    edithPath={`${mainRoutes.shops.path}/${shop.id}/edit`}
+                                                />
                                             </Td>
                                         </Tr>
                                     ))
@@ -108,15 +97,15 @@ const ShopsPage = (): ReactElement => {
                     totalElements={shopsResponseData.totalElements}
                     currentPageElements={shopsResponseData.numberOfElements}
                 />
-                <DeleteAlertDialog
-                    handleDelete={handleDeleteShop}
+                <ConfirmAlertDialog
+                    handleConfirm={handleDeleteShop}
                     isOpen={isDeleteModalOpen}
                     onClose={onDeleteModalClose}
                     isLoading={isDeleteShopPending}
-                    deleteAlertData={deleteShopAlertData}
+                    alertData={deleteShopAlertData}
                 >
                     Supprimer la boutique <strong>{selectedShop.name}</strong>?
-                </DeleteAlertDialog>
+                </ConfirmAlertDialog>
             </Stack>
         </>
     );

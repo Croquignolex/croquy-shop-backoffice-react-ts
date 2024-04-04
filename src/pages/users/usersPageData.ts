@@ -10,6 +10,7 @@ export interface UsersNeedleResponseDataType {
 }
 
 export interface SimpleUserType {
+    id: string;
     lastName: string;
     emailAddress: string;
     phoneNumber: string;

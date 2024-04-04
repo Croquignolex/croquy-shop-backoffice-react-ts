@@ -1,9 +1,13 @@
 import {ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {ShopType} from "../shopsData";
 
+export interface ToggleShopRequestDataType {
+    id: string,
+}
+
 export interface ShowShopHookType {
     shopResponseData: ShopType,
-    isShopsPending: boolean,
+    isShopPending: boolean,
     shopAlertData: ErrorAlertType,
     showDeleteModal: () => void,
     isDeleteModalOpen: boolean,
@@ -11,4 +15,10 @@ export interface ShowShopHookType {
     isDeleteShopPending: boolean,
     handleDeleteShop: () => void,
     onDeleteModalClose: () => void,
+    showToggleModal: () => void,
+    isToggleModalOpen: boolean,
+    toggleShopAlertData: ErrorAlertType,
+    isToggleShopPending: boolean,
+    handleToggleShop: () => void,
+    onToggleModalClose: () => void,
 }

@@ -1,4 +1,4 @@
-import React, {FC, ReactElement} from "react";
+import React, {FC, ReactElement, ReactNode} from "react";
 import { Box, Flex, Icon, FlexProps } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 import { NavLink } from "react-router-dom";
@@ -30,7 +30,7 @@ const NavItem: FC<NavItemProps> = ({ icon, path, children, ...rest }): ReactElem
 interface NavItemProps extends FlexProps {
     icon?: IconType,
     path: string,
-    children: React.ReactNode,
+    children: ReactNode,
 }
 
 export default NavItem;

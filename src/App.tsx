@@ -18,7 +18,7 @@ const SuspenseLoader: FC = (): ReactElement => {
     return (
         <Box position='relative' h='100vh'>
             <AbsoluteCenter axis='both'>
-                <Spinner color='green.500' size='xl' />
+                <Spinner color='orange' size='xl' />
             </AbsoluteCenter>
         </Box>
     );

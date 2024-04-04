@@ -1,0 +1,4 @@
+.nobr { white-space: nowrap }
+
+.link { text-decoration: underline; }
+.link:hover { color: #dd6b20; }

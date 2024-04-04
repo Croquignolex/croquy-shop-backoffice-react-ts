@@ -4,6 +4,8 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { Dict } from "@chakra-ui/utils";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
+import "./assets/css/main.css";
+
 import App from "./App";
 
 const root: ReactDOM.Root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

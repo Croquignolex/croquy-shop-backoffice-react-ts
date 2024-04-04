@@ -4,11 +4,11 @@ import {NavigateFunction, useNavigate} from "react-router-dom";
 import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 
-import {storeShopRequest} from "../../helpers/apiRequestsHelpers";
-import {AlertStatusEnumType, ErrorAlertType} from "../../helpers/globalTypesHelper";
-import {errorAlert, log, toastAlert} from "../../helpers/generalHelpers";
+import {storeShopRequest} from "../../../helpers/apiRequestsHelpers";
+import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
+import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {AddShopFormType, AddShopHookType, AddShopRequestDataType} from "./addShopData";
-import {mainRoutes} from "../../routes/mainRoutes";
+import {mainRoutes} from "../../../routes/mainRoutes";
 
 const useAddShopHook = (): AddShopHookType => {
     const [addShopAlertData, setAddShopAlertData] = useState<ErrorAlertType>({show: false});

@@ -2,17 +2,17 @@ import React, {ReactElement} from "react";
 import {Form, Formik, FormikProps} from "formik";
 import {Box, Stack, Container, Flex, Button} from "@chakra-ui/react";
 
-import DisplayAlert from "../../components/DisplayAlert";
-import useAddShopHook from "./useEditShopHook";
-import TextField from "../../components/form/TextField";
-import TextareaField from "../../components/form/TextareaField";
-import PageHeader from "../../components/menu/PageHeader";
-import {mainRoutes} from "../../routes/mainRoutes";
+import DisplayAlert from "../../../components/DisplayAlert";
+import useEditShopHook from "./useEditShopHook";
+import TextField from "../../../components/form/TextField";
+import TextareaField from "../../../components/form/TextareaField";
+import PageHeader from "../../../components/menu/PageHeader";
+import {mainRoutes} from "../../../routes/mainRoutes";
 import {EditShopFormType, EditShopHookType, editShopSchema} from "./editShopData";
 import {FiCheck} from "react-icons/fi";
 
 const AddShopPage = (): ReactElement => {
-    const {editShopAlertData, handleEditShop, shop, isEditShopPending}: EditShopHookType = useAddShopHook();
+    const {editShopAlertData, handleEditShop, shop, isEditShopPending}: EditShopHookType = useEditShopHook();
 
     return (
         <>
@@ -20,7 +20,7 @@ const AddShopPage = (): ReactElement => {
                 title={`Modifier boutique ${shop.name}`}
                 items={[
                     {path: mainRoutes.shops.path, label: 'Boutiques'},
-                    {path: `${mainRoutes.shops.path}/${shop.id}`, label: `Detail boutique ${shop.name}`}
+                    {path: `${mainRoutes.shops.path}/${shop.id}`, label: `Detail boutique ${shop.name}`, state: shop}
                 ]}
             />
             <Container maxW={'3xl'}>

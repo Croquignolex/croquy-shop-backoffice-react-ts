@@ -2,14 +2,14 @@ import React, {ReactElement} from "react";
 import {Form, Formik, FormikProps} from "formik";
 import {Box, Stack, Container, Flex} from "@chakra-ui/react";
 
-import DisplayAlert from "../../components/DisplayAlert";
+import DisplayAlert from "../../../components/DisplayAlert";
 import useAddShopHook from "./useAddShopHook";
-import TextField from "../../components/form/TextField";
+import TextField from "../../../components/form/TextField";
 import {AddShopFormType, AddShopHookType, addShopInitialStaticValues, addShopSchema} from "./addShopData";
-import TextareaField from "../../components/form/TextareaField";
-import DoubleSaveButton from "../../components/form/DoubleSaveButton";
-import PageHeader from "../../components/menu/PageHeader";
-import {mainRoutes} from "../../routes/mainRoutes";
+import TextareaField from "../../../components/form/TextareaField";
+import DoubleSaveButton from "../../../components/form/DoubleSaveButton";
+import PageHeader from "../../../components/menu/PageHeader";
+import {mainRoutes} from "../../../routes/mainRoutes";
 
 const AddShopPage = (): ReactElement => {
     const {addShopAlertData, handleAddShop, handleAddShopAndContinue, sequence, isAddShopPending}: AddShopHookType = useAddShopHook();

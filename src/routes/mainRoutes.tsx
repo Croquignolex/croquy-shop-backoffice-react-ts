@@ -6,8 +6,9 @@ import { IconType } from "react-icons";
 const LazyDashboardPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/dashboard/DashboardPage'));
 const LazyUsersPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/users/UsersPage'));
 const LazyShopsPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/shops/ShopsPage'));
-const LazyAddShopPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/shops/AddShopPage'));
-const LazyEditShopPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/shops/EditShopPage'));
+const LazyAddShopPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/shops/add/AddShopPage'));
+const LazyEditShopPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/shops/edit/EditShopPage'));
+const LazyShowShopPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/shops/show/ShowShopPage'));
 const LazyAddUserPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/users/UsersPage'));
 
 const dashboard: MainRouteType = {
@@ -22,7 +23,7 @@ const shops: MainRouteType = {
 
 const addShop: MainRouteType = {component: LazyAddShopPage, path: '/shops/create', onSidebar: false, onHeader: false};
 
-const showShop: MainRouteType = {component: LazyDashboardPage, path: '/shops/:id', onSidebar: false, onHeader: false};
+const showShop: MainRouteType = {component: LazyShowShopPage, path: '/shops/:id', onSidebar: false, onHeader: false};
 
 const editShop: MainRouteType = {component: LazyEditShopPage, path: '/shops/:id/edit', onSidebar: false, onHeader: false};
 

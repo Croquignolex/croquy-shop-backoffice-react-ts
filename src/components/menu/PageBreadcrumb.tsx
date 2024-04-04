@@ -15,7 +15,7 @@ const PageBreadcrumb: FC<PageBreadcrumbProps> = ({ pageTitle, items }) => {
             </BreadcrumbItem>
             {items.map((item: BreadcrumbItemsType, index: number): ReactElement => (
                 <BreadcrumbItem key={index}>
-                    <BreadcrumbLink as={Link} to={item.path} color={"orange.500"}>
+                    <BreadcrumbLink as={Link} to={item.path} color={"orange.500"} state={item.state}>
                         {item.label}
                     </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -35,6 +35,7 @@ interface PageBreadcrumbProps {
 export interface BreadcrumbItemsType {
     path: string,
     label: string,
+    state?: any,
 }
 
 export default PageBreadcrumb;

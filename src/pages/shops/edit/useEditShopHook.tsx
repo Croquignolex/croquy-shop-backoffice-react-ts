@@ -4,14 +4,14 @@ import {Location, NavigateFunction, useLocation, useNavigate} from "react-router
 import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 
-import {updateShopRequest} from "../../helpers/apiRequestsHelpers";
-import {AlertStatusEnumType, ErrorAlertType} from "../../helpers/globalTypesHelper";
-import {errorAlert, log, toastAlert} from "../../helpers/generalHelpers";
-import {AddShopFormType, AddShopRequestDataType} from "./addShopData";
-import {mainRoutes} from "../../routes/mainRoutes";
+import {updateShopRequest} from "../../../helpers/apiRequestsHelpers";
+import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
+import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
+import {AddShopFormType, AddShopRequestDataType} from "../add/addShopData";
+import {mainRoutes} from "../../../routes/mainRoutes";
 import {EditShopFormType, EditShopHookType, EditShopRequestDataType} from "./editShopData";
 
-const useAddShopHook = (): EditShopHookType => {
+const useEditShopHook = (): EditShopHookType => {
     let { state }:Location  = useLocation();
 
     const shop: EditShopFormType = state;
@@ -46,4 +46,4 @@ const useAddShopHook = (): EditShopHookType => {
     return {editShopAlertData, handleEditShop, shop, isEditShopPending};
 };
 
-export default useAddShopHook;
+export default useEditShopHook;

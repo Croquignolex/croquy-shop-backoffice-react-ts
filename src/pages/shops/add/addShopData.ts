@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
-import {ErrorAlertType} from "../../helpers/globalTypesHelper";
-import {formValidationMessage} from "../../constants/generalConstants";
+import {ErrorAlertType} from "../../../helpers/globalTypesHelper";
+import {formValidationMessage} from "../../../constants/generalConstants";
 
 export const addShopInitialStaticValues: AddShopFormType = { name: '', slug: '', description: '' };
 

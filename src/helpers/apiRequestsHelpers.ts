@@ -2,8 +2,8 @@ import { apiBaseURL } from "../constants/envConstants";
 import { LoginRequestDataType } from "../pages/login/loginData";
 import { authApiURI, shopsApiURI, usersApiURI } from "../constants/apiURIConstants";
 import { postRequest, getRequest, deleteRequest, putRequest } from "./axiosHelpers";
-import {AddShopRequestDataType} from "../pages/shops/addShopData";
-import {EditShopRequestDataType} from "../pages/shops/editShopData";
+import {AddShopRequestDataType} from "../pages/shops/add/addShopData";
+import {EditShopRequestDataType} from "../pages/shops/edit/editShopData";
 import {DestroyShopRequestDataType} from "../pages/shops/shopsData";
 
 const API_V1_URL: string = `${apiBaseURL}/api/v1/backoffice`;
@@ -28,9 +28,16 @@ export const shopsRequest = (page: number, size: number, needle: string): Promis
     return getRequest(url);
 };
 
+export const shopRequest = (id: string): Promise<any> => {
+    const params: Array<URLParamType> = [{param: "id", value: id}];
+    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.show, params);
+
+    return getRequest(url);
+};
+
 export const destroyShop = ({id}: DestroyShopRequestDataType): Promise<any> => {
-    const queries: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.destroy, queries);
+    const params: Array<URLParamType> = [{param: "id", value: id}];
+    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.destroy, params);
 
     return deleteRequest(url);
 };

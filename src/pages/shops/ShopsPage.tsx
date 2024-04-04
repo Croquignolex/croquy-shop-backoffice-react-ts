@@ -11,10 +11,11 @@ import StatusBadge from "../../components/StatusBadge";
 import Pagination from "../../components/Pagination";
 import DeleteAlertDialog from "../../components/DeleteAlertDialog";
 import {stringDateFormat} from "../../helpers/generalHelpers";
-import Loader from "../../components/Loader";
 import DisplayAlert from "../../components/DisplayAlert";
 import {mainRoutes} from "../../routes/mainRoutes";
 import PageHeader from "../../components/menu/PageHeader";
+import ExternalLink from "../../components/ExternalLink";
+import TableSkeletonLoader from "../../components/TableSkeletonLoader";
 
 const ShopsPage = (): ReactElement => {
     const {
@@ -26,7 +27,6 @@ const ShopsPage = (): ReactElement => {
         <>
             <PageHeader title={"Boutiques"} />
             <Stack>
-                <Loader isLoading={isShopsPending} />
                 <DisplayAlert data={shopsAlertData} />
                 <ListHeader
                     label={"Nouvelle boutique"}
@@ -45,39 +45,47 @@ const ShopsPage = (): ReactElement => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {shopsResponseData.empty ? <EmptyTableAlert /> : (
-                                shopsResponseData.content.map((shop: ShopType, index: number) => (
-                                    <Tr key={index}>
-                                        <Td>{shop.name}</Td>
-                                        <Td><StatusBadge enabled={shop.enabled}/></Td>
-                                        <Td>{stringDateFormat(shop.createdAt)}</Td>
-                                        <Td>{shop.creator?.username}</Td>
-                                        <Td textAlign={'right'}>
-                                            <ButtonGroup>
-                                                <Button
-                                                    fontWeight="none"
-                                                    colorScheme={"yellow"}
-                                                    leftIcon={<FiEdit />}
-                                                    size={"sm"}
-                                                    as={Link}
-                                                    to={`${mainRoutes.shops.path}/${shop.id}/edit`}
+                            {isShopsPending ? <TableSkeletonLoader /> : (
+                                shopsResponseData.empty ? <EmptyTableAlert /> : (
+                                    shopsResponseData.content.map((shop: ShopType, index: number) => (
+                                        <Tr key={index}>
+                                            <Td>
+                                                <ExternalLink
                                                     state={shop}
-                                                >
-                                                    Modifier
-                                                </Button>
-                                                <Button
-                                                    fontWeight="none"
-                                                    colorScheme={"red"}
-                                                    size={"sm"}
-                                                    leftIcon={<FiTrash />}
-                                                    onClick={(): void => showDeleteModal(shop)}
-                                                >
-                                                    Supprimer
-                                                </Button>
-                                            </ButtonGroup>
-                                        </Td>
-                                    </Tr>
-                                ))
+                                                    label={shop.name}
+                                                    path={`${mainRoutes.shops.path}/${shop.id}`}
+                                                />
+                                            </Td>
+                                            <Td><StatusBadge enabled={shop.enabled}/></Td>
+                                            <Td>{stringDateFormat(shop.createdAt)}</Td>
+                                            <Td>{shop.creator?.username}</Td>
+                                            <Td textAlign={'right'}>
+                                                <ButtonGroup>
+                                                    <Button
+                                                        fontWeight="none"
+                                                        colorScheme={"yellow"}
+                                                        leftIcon={<FiEdit />}
+                                                        size={"sm"}
+                                                        as={Link}
+                                                        to={`${mainRoutes.shops.path}/${shop.id}/edit`}
+                                                        state={shop}
+                                                    >
+                                                        Modifier
+                                                    </Button>
+                                                    <Button
+                                                        fontWeight="none"
+                                                        colorScheme={"red"}
+                                                        size={"sm"}
+                                                        leftIcon={<FiTrash />}
+                                                        onClick={(): void => showDeleteModal(shop)}
+                                                    >
+                                                        Supprimer
+                                                    </Button>
+                                                </ButtonGroup>
+                                            </Td>
+                                        </Tr>
+                                    ))
+                                )
                             )}
                         </Tbody>
                         <Thead bg="gray.100">

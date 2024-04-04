@@ -10,6 +10,7 @@ export const usersApiURI = {
 export const shopsApiURI = {
     index: '/shops',
     store: '/shops',
+    show: '/shops/{id}',
     update: '/shops/{id}',
     destroy: '/shops/{id}',
 };

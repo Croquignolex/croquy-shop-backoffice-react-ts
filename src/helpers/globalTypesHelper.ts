@@ -24,5 +24,10 @@ export interface MenuItemType {
     title?: string,
 }
 
+export interface URLParamType {
+    param: string;
+    value: string;
+}
+
 
 

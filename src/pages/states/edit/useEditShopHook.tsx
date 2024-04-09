@@ -8,7 +8,8 @@ import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesH
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {AddShopFormType, AddShopRequestDataType} from "../add/addShopData";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {EditShopFormType, EditShopHookType, EditShopRequestDataType, updateShopRequest} from "./editShopData";
+import {EditShopFormType, EditShopHookType, EditShopRequestDataType} from "./editShopData";
+import {updateShopRequest} from "../../shops/edit/editShopData";
 
 const useEditShopHook = (): EditShopHookType => {
     let { state }:Location  = useLocation();

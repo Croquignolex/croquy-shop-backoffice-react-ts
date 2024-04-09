@@ -1,8 +1,8 @@
 import React, {ReactElement} from "react";
 import {TableContainer, Table, Thead, Tr, Th, Tbody, Td, Stack, Badge} from "@chakra-ui/react";
 
-import useShopsHook from "./useShopsHook";
-import {ShopsHookType} from "./shopsData";
+import useCountriesHook from "./useCountriesHook";
+import {CountriesHookType} from "./countriesData";
 import ListHeader from "../../components/ListHeader";
 import EmptyTableAlert from "../../components/EmptyTableAlert";
 import StatusBadge from "../../components/StatusBadge";
@@ -15,29 +15,30 @@ import PageHeader from "../../components/menu/PageHeader";
 import ExternalLink from "../../components/ExternalLink";
 import TableSkeletonLoader from "../../components/TableSkeletonLoader";
 import DoubleActionButton from "../../components/form/DoubleActionButton";
-import {ShopType} from "./show/showShopData";
+import {CountryType} from "./show/showCountryData";
 
-const ShopsPage = (): ReactElement => {
+const CountriesPage = (): ReactElement => {
     const {
-        shopsResponseData, isShopsPending, shopsAlertData, fetchPaginatedShops, fetchPaginatedNeedleShops, onDeleteModalClose,
-        selectedShop, showDeleteModal, isDeleteModalOpen, deleteShopAlertData, isDeleteShopPending,  handleDeleteShop,
-    }: ShopsHookType = useShopsHook();
+        countriesResponseData, isCountriesPending, countriesAlertData, fetchPaginatedCountries, fetchPaginatedNeedleCountries, onDeleteModalClose,
+        selectedCountry, showDeleteModal, isDeleteModalOpen, deleteCountryAlertData, isDeleteCountryPending,  handleDeleteCountry,
+    }: CountriesHookType = useCountriesHook();
 
     return (
         <>
-            <PageHeader title={"Boutiques"} />
+            <PageHeader title={"Pays"} />
             <Stack>
-                <DisplayAlert data={shopsAlertData} />
+                <DisplayAlert data={countriesAlertData} />
                 <ListHeader
-                    label={"Nouvelle boutique"}
-                    addItemPath={mainRoutes.addShop.path}
-                    handleSearch={(needle: string) => fetchPaginatedNeedleShops(needle)}
+                    label={"Nouveau pays"}
+                    addItemPath={mainRoutes.addCountry.path}
+                    handleSearch={(needle: string) => fetchPaginatedNeedleCountries(needle)}
                 />
                 <TableContainer boxShadow="md" borderRadius="md">
                     <Table size={"sm"}>
                         <Thead bg="gray.100">
                             <Tr>
                                 <Th>Nom</Th>
+                                <Th>Indice</Th>
                                 <Th>Statut</Th>
                                 <Th>Créer le</Th>
                                 <Th>Créer par</Th>
@@ -45,32 +46,33 @@ const ShopsPage = (): ReactElement => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {isShopsPending ? <TableSkeletonLoader /> : (
-                                shopsResponseData.empty ? <EmptyTableAlert /> : (
-                                    shopsResponseData.content.map((shop: ShopType, index: number) => (
+                            {isCountriesPending ? <TableSkeletonLoader /> : (
+                                countriesResponseData.empty ? <EmptyTableAlert /> : (
+                                    countriesResponseData.content.map((country: CountryType, index: number) => (
                                         <Tr key={index}>
                                             <Td>
                                                 <ExternalLink
-                                                    state={shop}
-                                                    label={shop.name}
-                                                    path={`${mainRoutes.shops.path}/${shop.id}`}
+                                                    state={country}
+                                                    label={country.name}
+                                                    path={`${mainRoutes.countries.path}/${country.id}`}
                                                 />
                                             </Td>
-                                            <Td><StatusBadge enabled={shop.enabled}/></Td>
-                                            <Td><Badge rounded="md">{stringDateFormat(shop.createdAt)}</Badge></Td>
+                                            <Td>{country.phoneCode}</Td>
+                                            <Td><StatusBadge enabled={country.enabled}/></Td>
+                                            <Td><Badge rounded="md">{stringDateFormat(country.createdAt)}</Badge></Td>
                                             <Td>
                                                 <ExternalLink
-                                                    state={shop.creator}
-                                                    label={shop.creator?.username}
-                                                    path={`${mainRoutes.users.path}/${shop.creator?.id}`}
+                                                    state={country.creator}
+                                                    label={country.creator?.username}
+                                                    path={`${mainRoutes.users.path}/${country.creator?.id}`}
                                                 />
                                             </Td>
                                             <Td textAlign={'right'}>
                                                 <DoubleActionButton
                                                     isListView
-                                                    state={shop}
+                                                    state={country}
                                                     showDeleteModal={showDeleteModal}
-                                                    edithPath={`${mainRoutes.shops.path}/${shop.id}/edit`}
+                                                    edithPath={`${mainRoutes.countries.path}/${country.id}/edit`}
                                                 />
                                             </Td>
                                         </Tr>
@@ -81,6 +83,7 @@ const ShopsPage = (): ReactElement => {
                         <Thead bg="gray.100">
                             <Tr>
                                 <Th>Nom</Th>
+                                <Th>Indice</Th>
                                 <Th>Statut</Th>
                                 <Th>Créer le</Th>
                                 <Th>Créer par</Th>
@@ -90,26 +93,26 @@ const ShopsPage = (): ReactElement => {
                     </Table>
                 </TableContainer>
                 <Pagination
-                    show={!shopsResponseData.empty}
-                    handleNextPage={() => fetchPaginatedShops(true)}
-                    handlePreviousPage={() => fetchPaginatedShops(false)}
-                    currentPage={shopsResponseData.number + 1}
-                    pages={shopsResponseData.totalPages}
-                    totalElements={shopsResponseData.totalElements}
-                    currentPageElements={shopsResponseData.numberOfElements}
+                    show={!countriesResponseData.empty}
+                    handleNextPage={() => fetchPaginatedCountries(true)}
+                    handlePreviousPage={() => fetchPaginatedCountries(false)}
+                    currentPage={countriesResponseData.number + 1}
+                    pages={countriesResponseData.totalPages}
+                    totalElements={countriesResponseData.totalElements}
+                    currentPageElements={countriesResponseData.numberOfElements}
                 />
                 <ConfirmAlertDialog
-                    handleConfirm={handleDeleteShop}
+                    handleConfirm={handleDeleteCountry}
                     isOpen={isDeleteModalOpen}
                     onClose={onDeleteModalClose}
-                    isLoading={isDeleteShopPending}
-                    alertData={deleteShopAlertData}
+                    isLoading={isDeleteCountryPending}
+                    alertData={deleteCountryAlertData}
                 >
-                    Supprimer la boutique <strong>{selectedShop.name}</strong>?
+                    Supprimer le pays <strong>{selectedCountry.name}</strong>?
                 </ConfirmAlertDialog>
             </Stack>
         </>
     );
 };
 
-export default ShopsPage;
+export default CountriesPage;

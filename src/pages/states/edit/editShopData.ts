@@ -1,10 +1,7 @@
 import * as Yup from "yup";
 
-import {ErrorAlertType, URLParamType} from "../../../helpers/globalTypesHelper";
+import {ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {formValidationMessage} from "../../../constants/generalConstants";
-import {shopsApiURI} from "../../../constants/apiURIConstants";
-import {putRequest} from "../../../helpers/axiosHelpers";
-import {v1URL} from "../../../helpers/apiRequestsHelpers";
 
 export const editShopSchema: Yup.ObjectSchema<EditShopFormType> = Yup.object().shape({
     name: Yup.string().required(formValidationMessage.required),
@@ -28,10 +25,3 @@ export interface EditShopHookType {
     shop: EditShopFormType,
     handleEditShop: (a: EditShopFormType) => void,
 }
-
-export const updateShopRequest = ({name, slug, description, id}: EditShopRequestDataType): Promise<any> => {
-    const queries: Array<URLParamType> = [{param: "id", value: id || ""}];
-    const url: string = v1URL(shopsApiURI.update, queries);
-
-    return putRequest(url, {name, slug, description});
-};

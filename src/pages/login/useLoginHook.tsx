@@ -5,12 +5,11 @@ import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
 import { mainRoutes } from "../../routes/mainRoutes";
-import { loginRequest } from "../../helpers/apiRequestsHelpers";
 import { setLocaleStorageItem } from "../../helpers/localStorageHelpers";
 import { ErrorAlertType } from "../../helpers/globalTypesHelper";
 import { AlertStatusEnumType } from "../../helpers/globalTypesHelper";
 import { errorAlert, log, toastAlert } from "../../helpers/generalHelpers";
-import {LoginFormType, LoginHookType, LoginResponseDataType} from "./loginData";
+import {LoginFormType, LoginHookType, loginRequest, LoginRequestDataType, LoginResponseDataType} from "./loginData";
 import {
     USER_GLOBAL_STATE_TRUST_AUTHORIZED,
     USER_GLOBAL_STATE_UPDATE_LOGIN_DATA, UserContext
@@ -23,7 +22,7 @@ const useLoginPageHook = (): LoginHookType => {
     const navigate: NavigateFunction = useNavigate();
     const { setGlobalUserState } = useContext(UserContext);
 
-    const loginResponse: UseMutationResult<AxiosResponse, AxiosError, LoginFormType, any> = useMutation({
+    const loginResponse: UseMutationResult<AxiosResponse, AxiosError, LoginRequestDataType, any> = useMutation({
         mutationFn: loginRequest,
         onError: (error: AxiosError<any>): void => {
             setLoginAlertData(errorAlert(error));

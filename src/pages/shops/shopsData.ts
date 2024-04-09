@@ -1,27 +1,8 @@
-import {SimpleUserType} from "../users/usersPageData";
-import {ErrorAlertType} from "../../helpers/globalTypesHelper";
-
-export const defaultSelectedShop: ShopType = {
-    id: "",
-    name: "",
-    slug: "",
-    enabled: false,
-    description: "",
-    createdAt: "",
-    updatedAt: "",
-    creator: null,
-}
-
-export interface ShopType {
-    id: string;
-    name: string;
-    slug: string;
-    enabled: boolean;
-    description: string;
-    createdAt: string;
-    updatedAt: string;
-    creator: SimpleUserType | null;
-}
+import {ErrorAlertType, URLParamType} from "../../helpers/globalTypesHelper";
+import {shopsApiURI} from "../../constants/apiURIConstants";
+import {getRequest} from "../../helpers/axiosHelpers";
+import {v1URL} from "../../helpers/apiRequestsHelpers";
+import {ShopType} from "./show/showShopData";
 
 export const defaultShopsResponseData: ShopsResponseDataType = {
     content: [],
@@ -47,10 +28,6 @@ export interface ShopsResponseDataType {
     empty: boolean,
 }
 
-export interface DestroyShopRequestDataType {
-    id: string,
-}
-
 export interface ShopsHookType {
     shopsResponseData: ShopsResponseDataType,
     isShopsPending: boolean,
@@ -65,3 +42,10 @@ export interface ShopsHookType {
     handleDeleteShop: () => void,
     onDeleteModalClose: () => void,
 }
+
+export const shopsRequest = (page: number, size: number, needle: string): Promise<any> => {
+    const queries: Array<URLParamType> = [{param: "page", value: page.toString()}, {param: "size", value: size.toString()}, {param: "needle", value: needle}];
+    const url: string = v1URL(shopsApiURI.index, [], queries);
+
+    return getRequest(url);
+};

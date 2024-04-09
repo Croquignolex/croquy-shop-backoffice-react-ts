@@ -6,8 +6,8 @@ import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 
 import {AlertStatusEnumType, ErrorAlertType} from "../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../helpers/generalHelpers";
-import {defaultShopsResponseData, ShopsHookType, shopsRequest, ShopsResponseDataType} from "./shopsData";
-import {defaultSelectedShop, destroyShop, DestroyShopRequestDataType, ShopType} from "./show/showShopData";
+import {defaultSelectedShop, destroyShop, DestroyShopRequestDataType, ShopType} from "../shops/show/showShopData";
+import {defaultShopsResponseData, ShopsHookType, shopsRequest, ShopsResponseDataType} from "../shops/shopsData";
 
 const useShopsHook = (): ShopsHookType => {
     let shopsAlertData: ErrorAlertType = {show: false};

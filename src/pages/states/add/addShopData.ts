@@ -2,9 +2,6 @@ import * as Yup from "yup";
 
 import {ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {formValidationMessage} from "../../../constants/generalConstants";
-import {shopsApiURI} from "../../../constants/apiURIConstants";
-import {postRequest} from "../../../helpers/axiosHelpers";
-import {v1URL} from "../../../helpers/apiRequestsHelpers";
 
 export const addShopInitialStaticValues: AddShopFormType = { name: '', slug: '', description: '' };
 
@@ -29,9 +26,3 @@ export interface AddShopHookType {
     handleAddShop: (a: AddShopFormType) => void,
     handleAddShopAndContinue: (a: AddShopFormType) => void,
 }
-
-export const storeShopRequest = ({name, slug, description}: AddShopRequestDataType): Promise<any> => {
-    const url: string = v1URL(shopsApiURI.store);
-
-    return postRequest(url, {name, slug, description});
-};

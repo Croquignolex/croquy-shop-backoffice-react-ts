@@ -3,7 +3,8 @@ import axios, { InternalAxiosRequestConfig, AxiosInstance, AxiosRequestConfig, A
 import {getLocaleStorageItem, setLocaleStorageItem, removeAllLocaleStorageItems} from "./localStorageHelpers";
 import {LoginResponseDataType} from "../pages/login/loginData";
 import {log} from "./generalHelpers";
-import {refreshTokenRequest} from "./apiRequestsHelpers";
+import {v1URL} from "./apiRequestsHelpers";
+import {authApiURI} from "../constants/apiURIConstants";
 
 const axiosApiInstance: AxiosInstance = axios.create({ timeout: 30000 });
 
@@ -34,7 +35,7 @@ axiosApiInstance.interceptors.response.use((response: AxiosResponse<any, any>) =
                 const refreshToken: string = getLocaleStorageItem("refresh-token");
 
                 if(refreshToken) {
-                    const response: AxiosResponse<any, any> = await refreshTokenRequest(refreshToken);
+                    const response: AxiosResponse<any, any> = await postRequest(v1URL(authApiURI.refresh), {token: refreshToken}, {headers: {public: true}});
 
                     if(response.data) {
                         const accessToken: string = response.data?.accessToken;

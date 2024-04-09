@@ -1,15 +1,15 @@
 export interface UsersResponseDataType {
-    list: Array<SimpleUserType>;
+    list: Array<UserType>;
     pages: number,
     currentPage: number,
 }
 
 export interface UsersNeedleResponseDataType {
-    list: Array<SimpleUserType>;
+    list: Array<UserType>;
     needle: string,
 }
 
-export interface SimpleUserType {
+export interface UserType {
     id: string;
     lastName: string;
     emailAddress: string;

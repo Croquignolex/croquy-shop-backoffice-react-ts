@@ -15,3 +15,12 @@ export const shopsApiURI = {
     destroy: '/shops/{id}',
     toggle: '/shops/{id}/toggle',
 };
+
+export const countriesApiURI = {
+    index: '/countries',
+    store: '/countries',
+    show: '/countries/{id}',
+    update: '/countries/{id}',
+    destroy: '/countries/{id}',
+    toggle: '/countries/{id}/toggle',
+};

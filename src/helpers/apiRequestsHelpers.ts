@@ -1,72 +1,25 @@
 import { apiBaseURL } from "../constants/envConstants";
-import { LoginRequestDataType } from "../pages/login/loginData";
-import { authApiURI, shopsApiURI, usersApiURI } from "../constants/apiURIConstants";
-import {postRequest, getRequest, deleteRequest, putRequest, patchRequest} from "./axiosHelpers";
-import {AddShopRequestDataType} from "../pages/shops/add/addShopData";
-import {EditShopRequestDataType} from "../pages/shops/edit/editShopData";
-import {DestroyShopRequestDataType} from "../pages/shops/shopsData";
-import {ToggleShopRequestDataType} from "../pages/shops/show/showShopData";
+import { usersApiURI } from "../constants/apiURIConstants";
+import {getRequest} from "./axiosHelpers";
+import {URLParamType} from "./globalTypesHelper";
 
 const API_V1_URL: string = `${apiBaseURL}/api/v1/backoffice`;
 const API_V2_URL: string = `${apiBaseURL}/api/v2/backoffice`;
-
-export const loginRequest = ({username, password}: LoginRequestDataType): Promise<any> => {
-    const url: string = joinBaseUrlWithParams(API_V1_URL + authApiURI.login);
-
-    return postRequest(url, {username, password}, {headers: {public: true}});
-};
-
-export const refreshTokenRequest = (token: string): Promise<any> => {
-    const url: string = joinBaseUrlWithParams(API_V1_URL + authApiURI.refresh);
-
-    return postRequest(url, {token}, {headers: {public: true}});
-};
-
-export const shopsRequest = (page: number, size: number, needle: string): Promise<any> => {
-    const queries: Array<URLParamType> = [{param: "page", value: page.toString()}, {param: "size", value: size.toString()}, {param: "needle", value: needle}];
-    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.index, [], queries);
-
-    return getRequest(url);
-};
-
-export const shopRequest = (id: string): Promise<any> => {
-    const params: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.show, params);
-
-    return getRequest(url);
-};
-
-export const destroyShop = ({id}: DestroyShopRequestDataType): Promise<any> => {
-    const params: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.destroy, params);
-
-    return deleteRequest(url);
-};
-
-export const toggleShop = ({id}: ToggleShopRequestDataType): Promise<any> => {
-    const params: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.toggle, params);
-
-    return patchRequest(url);
-};
-
-export const storeShopRequest = ({name, slug, description}: AddShopRequestDataType): Promise<any> => {
-    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.store);
-
-    return postRequest(url, {name, slug, description});
-};
-
-export const updateShopRequest = ({name, slug, description, id}: EditShopRequestDataType): Promise<any> => {
-    const queries: Array<URLParamType> = [{param: "id", value: id || ""}];
-    const url: string = joinBaseUrlWithParams(API_V1_URL + shopsApiURI.update, queries);
-
-    return putRequest(url, {name, slug, description});
-};
 
 export const usersRequest = (): Promise<any> => {
     const url: string = joinBaseUrlWithParams(API_V1_URL + usersApiURI.list);
 
     return getRequest(url);
+};
+
+// Build v1 url
+export const v1URL = (url: string, params?: Array<URLParamType>, queries?: Array<URLParamType>): string => {
+    return joinBaseUrlWithParams(API_V1_URL + url, params, queries);
+};
+
+// Build v2 url
+export const v2URL = (url: string, params?: Array<URLParamType>, queries?: Array<URLParamType>): string => {
+    return joinBaseUrlWithParams(API_V2_URL + url, params, queries);
 };
 
 // Build complete url
@@ -89,8 +42,3 @@ const joinBaseUrlWithParams = (url: string, params?: Array<URLParamType>, querie
 
     return url;
 };
-
-interface URLParamType {
-    param: string;
-    value: string;
-}

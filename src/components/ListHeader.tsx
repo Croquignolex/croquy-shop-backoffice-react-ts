@@ -1,5 +1,5 @@
 import React, {FC, ReactElement} from "react";
-import {FiPlus} from "react-icons/fi";
+import {FiPlusSquare} from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { Box, HStack, Button, Spacer } from "@chakra-ui/react";
 
@@ -12,7 +12,7 @@ const ListHeader: FC<ListHeaderProps> = ({ addItemPath, label, handleSearch }): 
                 colorScheme='orange'
                 fontWeight="none"
                 size={"sm"}
-                leftIcon={<FiPlus />}
+                leftIcon={<FiPlusSquare />}
                 as={Link}
                 to={addItemPath}
             >

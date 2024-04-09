@@ -2,7 +2,6 @@ import React, {ReactElement} from "react";
 import {TableContainer, Table, Thead, Tr, Th, Tbody, Td, Stack, Badge} from "@chakra-ui/react";
 
 import useShopsHook from "./useShopsHook";
-import {ShopsHookType} from "./shopsData";
 import ListHeader from "../../components/ListHeader";
 import EmptyTableAlert from "../../components/EmptyTableAlert";
 import StatusBadge from "../../components/StatusBadge";
@@ -15,7 +14,8 @@ import PageHeader from "../../components/menu/PageHeader";
 import ExternalLink from "../../components/ExternalLink";
 import TableSkeletonLoader from "../../components/TableSkeletonLoader";
 import DoubleActionButton from "../../components/form/DoubleActionButton";
-import {ShopType} from "./show/showShopData";
+import {ShopsHookType} from "../shops/shopsData";
+import {ShopType} from "../shops/show/showShopData";
 
 const ShopsPage = (): ReactElement => {
     const {

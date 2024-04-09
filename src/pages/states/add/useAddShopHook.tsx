@@ -6,8 +6,9 @@ import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 
 import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
-import {AddShopFormType, AddShopHookType, AddShopRequestDataType, storeShopRequest} from "./addShopData";
+import {AddShopFormType, AddShopHookType, AddShopRequestDataType} from "./addShopData";
 import {mainRoutes} from "../../../routes/mainRoutes";
+import {storeShopRequest} from "../../shops/add/addShopData";
 
 const useAddShopHook = (): AddShopHookType => {
     const [addShopAlertData, setAddShopAlertData] = useState<ErrorAlertType>({show: false});

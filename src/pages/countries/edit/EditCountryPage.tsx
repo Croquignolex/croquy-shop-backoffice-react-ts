@@ -17,10 +17,10 @@ const AddCountryPage = (): ReactElement => {
     return (
         <>
             <PageHeader
-                title={`Modifier boutique ${country.name}`}
+                title={`Modifier pays ${country.name}`}
                 items={[
-                    {path: mainRoutes.countries.path, label: 'Boutiques'},
-                    {path: `${mainRoutes.countries.path}/${country.id}`, label: `Detail boutique ${country.name}`, state: country}
+                    {path: mainRoutes.countries.path, label: 'Pays'},
+                    {path: `${mainRoutes.countries.path}/${country.id}`, label: `Detail pays ${country.name}`, state: country}
                 ]}
             />
             <Container maxW={'3xl'}>
@@ -38,7 +38,7 @@ const AddCountryPage = (): ReactElement => {
                                     />
                                     <Box mx={3} />
                                     <TextField
-                                        label="Slug"
+                                        label="Indice téléphonique"
                                         name="phoneCode"
                                         isInvalid={!!props.errors.phoneCode && !!props.touched.phoneCode}
                                         errorMessage={props.errors.phoneCode}

@@ -22,19 +22,19 @@ const useAddCountryHook = (): AddCountryHookType => {
         onError: (error: AxiosError): void => {
             setAddCountryAlertData(errorAlert(error));
 
-            log("Store shop failure", storeCountryResponse);
+            log("Store country failure", storeCountryResponse);
         },
         onSuccess: (data: AxiosResponse, variables: AddCountryRequestDataType): void => {
             setAddCountryAlertData({show: false});
 
-            const toastMessage: string = `Boutique ${variables.name} créer avec succès`;
+            const toastMessage: string = `Pays ${variables.name} créer avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             // Reload component
             if(next) setSequence(sequence + 1);
-            else navigate(mainRoutes.shops.path);
+            else navigate(mainRoutes.countries.path);
 
-            log("Store shop successful", storeCountryResponse);
+            log("Store country successful", storeCountryResponse);
         }
     });
 

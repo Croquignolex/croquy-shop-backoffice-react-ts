@@ -29,5 +29,9 @@ export interface URLParamType {
     value: string;
 }
 
-
+export interface MediaType {
+    name: string;
+    type: string;
+    path: string;
+}
 

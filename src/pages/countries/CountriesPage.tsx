@@ -16,6 +16,7 @@ import ExternalLink from "../../components/ExternalLink";
 import TableSkeletonLoader from "../../components/TableSkeletonLoader";
 import DoubleActionButton from "../../components/form/DoubleActionButton";
 import {CountryType} from "./show/showCountryData";
+import RowImage from "../../components/RowImage";
 
 const CountriesPage = (): ReactElement => {
     const {
@@ -37,6 +38,7 @@ const CountriesPage = (): ReactElement => {
                     <Table size={"sm"}>
                         <Thead bg="gray.100">
                             <Tr>
+                                <Th>Drapeau</Th>
                                 <Th>Nom</Th>
                                 <Th>Indice</Th>
                                 <Th>Statut</Th>
@@ -50,6 +52,7 @@ const CountriesPage = (): ReactElement => {
                                 countriesResponseData.empty ? <EmptyTableAlert /> : (
                                     countriesResponseData.content.map((country: CountryType, index: number) => (
                                         <Tr key={index}>
+                                            <Td><RowImage image={country.flag} /></Td>
                                             <Td>
                                                 <ExternalLink
                                                     state={country}
@@ -82,6 +85,7 @@ const CountriesPage = (): ReactElement => {
                         </Tbody>
                         <Thead bg="gray.100">
                             <Tr>
+                                <Th>Drapeau</Th>
                                 <Th>Nom</Th>
                                 <Th>Indice</Th>
                                 <Th>Statut</Th>

@@ -12,6 +12,7 @@ export const defaultSelectedCountry: CountryType = {
     description: "",
     createdAt: "",
     updatedAt: "",
+    flag: null,
     creator: null,
 }
 
@@ -23,6 +24,7 @@ export interface CountryType {
     description: string;
     createdAt: string;
     updatedAt: string;
+    flag: string | null;
     creator: UserType | null;
 }
 

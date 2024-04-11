@@ -1,5 +1,18 @@
 import React, {ReactElement} from "react";
-import {Box, Stack, Table, Tbody, ButtonGroup, SimpleGrid, Badge} from "@chakra-ui/react";
+import {
+    Box,
+    Stack,
+    Table,
+    Tbody,
+    ButtonGroup,
+    SimpleGrid,
+    Badge,
+    HStack,
+    Grid,
+    GridItem,
+    Tabs,
+    TabList, Tab, TabPanels, TabPanel
+} from "@chakra-ui/react";
 
 import useShowCountryHook from "./useShowCountryHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
@@ -13,6 +26,8 @@ import DoubleActionButton from "../../../components/form/DoubleActionButton";
 import ExternalLink from "../../../components/ExternalLink";
 import DefaultAddress from "../../../components/defaultAddress/DefaultAddress";
 import {ShowCountryHookType} from "./showCountryData";
+import RowImage from "../../../components/RowImage";
+import {FiEdit, FiTrash} from "react-icons/fi";
 
 const ShowCountryPage = (): ReactElement => {
     const {
@@ -24,49 +39,76 @@ const ShowCountryPage = (): ReactElement => {
     return (
         <>
             <PageHeader
-                title={`Détail boutique ${countryResponseData.name}`}
-                items={[{path: mainRoutes.countries.path, label: 'Boutiques'}]}
+                title={`Détail pays ${countryResponseData.name}`}
+                items={[{path: mainRoutes.countries.path, label: 'Pays'}]}
             />
             <Stack>
                 <DisplayAlert data={countryAlertData} />
 
-                <SimpleGrid columns={{lg: 2, sm: 1}} spacing={2}>
-                    <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl'>
-                        <ButtonGroup>
-                            <DoubleActionButton
-                                showStatus
-                                state={countryResponseData}
-                                showDeleteModal={showDeleteModal}
-                                showToggleModal={showToggleModal}
-                                edithPath={`${mainRoutes.countries.path}/${countryResponseData.id}/edit`}
-                            />
-                        </ButtonGroup>
-                        <Table size={"sm"}>
-                            <Tbody>
-                                <ListSkeletonLoader isLoading={isCountryPending} label={"Nom"}>{countryResponseData.name}</ListSkeletonLoader>
-                                <ListSkeletonLoader isLoading={isCountryPending} label={"Slug"}>{countryResponseData.phoneCode}</ListSkeletonLoader>
-                                <ListSkeletonLoader isLoading={isCountryPending} label={"Status"}><StatusBadge enabled={countryResponseData.enabled}/></ListSkeletonLoader>
-                                <ListSkeletonLoader isLoading={isCountryPending} label={"Créer par"}>
-                                    <ExternalLink
-                                        state={countryResponseData.creator}
-                                        label={countryResponseData.creator?.username}
-                                        path={`${mainRoutes.users.path}/${countryResponseData.creator?.id}`}
-                                    />
-                                </ListSkeletonLoader>
-                                <ListSkeletonLoader isLoading={isCountryPending} label={"Créer le"}>
-                                    <Badge rounded="md">{stringDateFormat(countryResponseData.createdAt, true)}</Badge>
-                                </ListSkeletonLoader>
-                                <ListSkeletonLoader isLoading={isCountryPending} label={"Modifié le"}>
-                                    <Badge rounded="md">{stringDateFormat(countryResponseData.updatedAt, true)}</Badge>
-                                </ListSkeletonLoader>
-                                <ListSkeletonLoader isLoading={isCountryPending} label={"Description"}>{countryResponseData.description}</ListSkeletonLoader>
-                            </Tbody>
-                        </Table>
-                    </Stack>
-                    <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl'>
-                        <DefaultAddress url={""} />
-                    </Stack>
-                </SimpleGrid>
+                <Grid templateColumns='repeat(3, 1fr)' templateRows='repeat(2, 1fr)' gap={2}>
+                    <GridItem>
+                        <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl'>
+
+                        </Stack>
+                    </GridItem>
+                    <GridItem colSpan={2}>
+                        <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl'>
+                            <ButtonGroup>
+                                <DoubleActionButton
+                                    showStatus
+                                    state={countryResponseData}
+                                    showDeleteModal={showDeleteModal}
+                                    showToggleModal={showToggleModal}
+                                    edithPath={`${mainRoutes.countries.path}/${countryResponseData.id}/edit`}
+                                />
+                            </ButtonGroup>
+                            <Table size={"sm"}>
+                                <Tbody>
+                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Nom"}>{countryResponseData.name}</ListSkeletonLoader>
+                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Indice"}>{countryResponseData.phoneCode}</ListSkeletonLoader>
+                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Status"}><StatusBadge enabled={countryResponseData.enabled}/></ListSkeletonLoader>
+                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Créer par"}>
+                                        <ExternalLink
+                                            state={countryResponseData.creator}
+                                            label={countryResponseData.creator?.username}
+                                            path={`${mainRoutes.users.path}/${countryResponseData.creator?.id}`}
+                                        />
+                                    </ListSkeletonLoader>
+                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Créer le"}>
+                                        <Badge rounded="md">{stringDateFormat(countryResponseData.createdAt, true)}</Badge>
+                                    </ListSkeletonLoader>
+                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Modifié le"}>
+                                        <Badge rounded="md">{stringDateFormat(countryResponseData.updatedAt, true)}</Badge>
+                                    </ListSkeletonLoader>
+                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Description"}>{countryResponseData.description}</ListSkeletonLoader>
+                                </Tbody>
+                            </Table>
+                        </Stack>
+                    </GridItem>
+                    <GridItem colSpan={3}>
+                        <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl'>
+                            <Tabs colorScheme='orange' isFitted >
+                                <TabList>
+                                    <Tab>One</Tab>
+                                    <Tab>Two</Tab>
+                                    <Tab>Three</Tab>
+                                </TabList>
+
+                                <TabPanels>
+                                    <TabPanel>
+                                        <p>one!</p>
+                                    </TabPanel>
+                                    <TabPanel>
+                                        <p>two!</p>
+                                    </TabPanel>
+                                    <TabPanel>
+                                        <p>three!</p>
+                                    </TabPanel>
+                                </TabPanels>
+                            </Tabs>
+                        </Stack>
+                    </GridItem>
+                </Grid>
                 <ConfirmAlertDialog
                     handleConfirm={handleDeleteCountry}
                     isOpen={isDeleteModalOpen}

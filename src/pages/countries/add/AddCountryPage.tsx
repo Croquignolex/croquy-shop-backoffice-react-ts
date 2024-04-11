@@ -16,7 +16,7 @@ const AddCountryPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader title={"Nouvelle boutique"} items={[{path: mainRoutes.shops.path, label: 'Boutiques'}]} />
+            <PageHeader title={"Nouveau pays"} items={[{path: mainRoutes.countries.path, label: 'Pays'}]} />
             <Container maxW={'3xl'}>
                 <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl' key={sequence}>
                     <DisplayAlert data={addCountryAlertData} />
@@ -32,7 +32,7 @@ const AddCountryPage = (): ReactElement => {
                                     />
                                     <Box mx={3} />
                                     <TextField
-                                        label="Slug"
+                                        label="Indice téléphonique"
                                         name="phoneCode"
                                         isInvalid={!!props.errors.phoneCode && !!props.touched.phoneCode}
                                         errorMessage={props.errors.phoneCode}

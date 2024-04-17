@@ -1,5 +1,6 @@
 import React, {ReactElement} from "react";
 import {Form, Formik, FormikProps} from "formik";
+import {FiCheck} from "react-icons/fi";
 import {Box, Stack, Container, Flex, Button} from "@chakra-ui/react";
 
 import DisplayAlert from "../../../components/DisplayAlert";
@@ -9,7 +10,6 @@ import TextareaField from "../../../components/form/TextareaField";
 import PageHeader from "../../../components/menu/PageHeader";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import {EditCountryFormType, EditCountryHookType, editCountrySchema} from "./editCountryData";
-import {FiCheck} from "react-icons/fi";
 
 const AddCountryPage = (): ReactElement => {
     const {editCountryAlertData, handleEditCountry, country, isEditCountryPending}: EditCountryHookType = useEditCountryHook();
@@ -24,7 +24,7 @@ const AddCountryPage = (): ReactElement => {
                 ]}
             />
             <Container maxW={'3xl'}>
-                <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl'>
+                <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                     <DisplayAlert data={editCountryAlertData} />
                     <Formik initialValues={country} validationSchema={editCountrySchema} onSubmit={handleEditCountry} enableReinitialize>
                         {(props: FormikProps<EditCountryFormType>) => (
@@ -54,11 +54,9 @@ const AddCountryPage = (): ReactElement => {
                                 </Flex>
                                 <Flex>
                                     <Button
-                                        colorScheme={"orange"}
-                                        variant={"solid"}
+                                        colorScheme={"green"}
                                         isLoading={isEditCountryPending}
                                         type='submit'
-                                        size='md'
                                         fontWeight="none"
                                         leftIcon={<FiCheck />}
                                     >

@@ -10,7 +10,7 @@ const TextField: FC<TextFieldProps> = ({ label = '', name, noLabel = false, isIn
         <FormControl isInvalid={isInvalid} mb={4}>
             {!noLabel && <FormLabel fontSize='sm' fontWeight='normal'>{label}</FormLabel>}
 
-            <Field as={Input} name={name} type="text" size='md' borderColor="gray.300" />
+            <Field as={Input} name={name} type="text" borderColor="gray.300" />
 
             <FormErrorMessage><Icon mr="2" as={FiAlertCircle} /> {errorMessage}</FormErrorMessage>
         </FormControl>

@@ -1,5 +1,5 @@
 import React, {ReactElement} from "react";
-import {TableContainer, Table, Thead, Tr, Th, Tbody, Td, Stack, Badge} from "@chakra-ui/react";
+import {Badge, Stack, Table, TableContainer, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
 
 import useCountriesHook from "./useCountriesHook";
 import {CountriesHookType} from "./countriesData";
@@ -16,7 +16,8 @@ import ExternalLink from "../../components/ExternalLink";
 import TableSkeletonLoader from "../../components/TableSkeletonLoader";
 import DoubleActionButton from "../../components/form/DoubleActionButton";
 import {CountryType} from "./show/showCountryData";
-import RowImage from "../../components/RowImage";
+import DisplayImage from "../../components/DisplayImage";
+import {ImageSizeEnumType} from "../../helpers/globalTypesHelper";
 
 const CountriesPage = (): ReactElement => {
     const {
@@ -26,7 +27,7 @@ const CountriesPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader title={"Pays"} />
+            <PageHeader title={mainRoutes.countries.title} icon={mainRoutes.countries.icon} />
             <Stack>
                 <DisplayAlert data={countriesAlertData} />
                 <ListHeader
@@ -34,7 +35,7 @@ const CountriesPage = (): ReactElement => {
                     addItemPath={mainRoutes.addCountry.path}
                     handleSearch={(needle: string) => fetchPaginatedNeedleCountries(needle)}
                 />
-                <TableContainer boxShadow="md" borderRadius="md">
+                <TableContainer boxShadow="xl" borderRadius="xl" borderWidth='1px' bg={"white"}>
                     <Table size={"sm"}>
                         <Thead bg="gray.100">
                             <Tr>
@@ -52,7 +53,7 @@ const CountriesPage = (): ReactElement => {
                                 countriesResponseData.empty ? <EmptyTableAlert /> : (
                                     countriesResponseData.content.map((country: CountryType, index: number) => (
                                         <Tr key={index}>
-                                            <Td><RowImage image={country.flag} /></Td>
+                                            <Td><DisplayImage image={country.flag} size={ImageSizeEnumType.row} /></Td>
                                             <Td>
                                                 <ExternalLink
                                                     state={country}

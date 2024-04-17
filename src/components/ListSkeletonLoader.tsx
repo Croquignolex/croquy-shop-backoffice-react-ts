@@ -5,7 +5,7 @@ const ListSkeletonLoader: FC<ListSkeletonLoaderProps> = ({label, children, isLoa
     return (
         <Tr>
             <Td fontWeight={"bold"} textAlign={"right"} w={"20%"}>{label}</Td>
-            <Td>{isLoading ? <SkeletonText noOfLines={1} w={"80%"}/> : children}</Td>
+            <Td>{isLoading ? <SkeletonText noOfLines={1} w={"80%"} /> : children}</Td>
         </Tr>
     )
 };

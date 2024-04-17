@@ -1,17 +1,8 @@
 import React, {ReactElement} from "react";
+import {FiCheck} from "react-icons/fi";
 import {
-    Box,
-    Stack,
-    Table,
-    Tbody,
-    ButtonGroup,
-    SimpleGrid,
-    Badge,
-    HStack,
-    Grid,
-    GridItem,
-    Tabs,
-    TabList, Tab, TabPanels, TabPanel
+    Box, Stack, Table, Tbody, ButtonGroup, Badge, Grid,
+    GridItem, Tabs, TabList, Tab, TabPanels, TabPanel, Icon
 } from "@chakra-ui/react";
 
 import useShowCountryHook from "./useShowCountryHook";
@@ -24,17 +15,21 @@ import {stringDateFormat} from "../../../helpers/generalHelpers";
 import ListSkeletonLoader from "../../../components/ListSkeletonLoader";
 import DoubleActionButton from "../../../components/form/DoubleActionButton";
 import ExternalLink from "../../../components/ExternalLink";
-import DefaultAddress from "../../../components/defaultAddress/DefaultAddress";
 import {ShowCountryHookType} from "./showCountryData";
-import RowImage from "../../../components/RowImage";
-import {FiEdit, FiTrash} from "react-icons/fi";
+import ShowImage from "../../../components/showImage/ShowImage";
+import StatesTableList from "../../../components/tableList/states/StatesTableList";
+import {countriesApiURI} from "../../../constants/apiURIConstants";
+import { joinBaseUrlWithParams } from "../../../helpers/apiRequestsHelpers";
 
 const ShowCountryPage = (): ReactElement => {
     const {
         isCountryPending, onDeleteModalClose, showDeleteModal, isDeleteModalOpen, deleteCountryAlertData, isDeleteCountryPending,
         handleDeleteCountry, countryAlertData, countryResponseData, handleToggleCountry, isToggleCountryPending, toggleCountryAlertData,
-        isToggleModalOpen, onToggleModalClose, showToggleModal
+        isToggleModalOpen, onToggleModalClose, showToggleModal, handleTabsChange
     }: ShowCountryHookType = useShowCountryHook();
+
+    const addStatePath: string = `${mainRoutes.countries.path}/${countryResponseData.id}/states/create`;
+    const statesBaseUrl: string = joinBaseUrlWithParams(countriesApiURI.addState, [{param: "id", value: countryResponseData.id}]);
 
     return (
         <>
@@ -45,17 +40,15 @@ const ShowCountryPage = (): ReactElement => {
             <Stack>
                 <DisplayAlert data={countryAlertData} />
 
-                <Grid templateColumns='repeat(3, 1fr)' templateRows='repeat(2, 1fr)' gap={2}>
+                <Grid templateColumns='repeat(3, 1fr)' templateRows='repeat(1, 1fr)' gap={2}>
                     <GridItem>
-                        <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl'>
-
-                        </Stack>
+                        <ShowImage isLoading={isCountryPending} image={countryResponseData.flag} />
                     </GridItem>
                     <GridItem colSpan={2}>
-                        <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl'>
+                        <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                             <ButtonGroup>
                                 <DoubleActionButton
-                                    showStatus
+                                    showStatus={!isCountryPending}
                                     state={countryResponseData}
                                     showDeleteModal={showDeleteModal}
                                     showToggleModal={showToggleModal}
@@ -86,24 +79,24 @@ const ShowCountryPage = (): ReactElement => {
                         </Stack>
                     </GridItem>
                     <GridItem colSpan={3}>
-                        <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl'>
-                            <Tabs colorScheme='orange' isFitted >
+                        <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
+                            <Tabs colorScheme='green' isFitted onChange={handleTabsChange}>
                                 <TabList>
-                                    <Tab>One</Tab>
-                                    <Tab>Two</Tab>
-                                    <Tab>Three</Tab>
+                                    <Tab><Icon mr="2" as={mainRoutes.states.icon} /> {mainRoutes.states.title}</Tab>
+                                    {/*<Tab><Icon mr="2" as={FiCheck} /> Inventaire</Tab>*/}
                                 </TabList>
-
                                 <TabPanels>
                                     <TabPanel>
-                                        <p>one!</p>
+                                        <StatesTableList
+                                            showCountry={false}
+                                            addStatePath={addStatePath}
+                                            fetchStates={true}
+                                            statesBaseUrl={statesBaseUrl}
+                                        />
                                     </TabPanel>
-                                    <TabPanel>
+                                    {/*<TabPanel>
                                         <p>two!</p>
-                                    </TabPanel>
-                                    <TabPanel>
-                                        <p>three!</p>
-                                    </TabPanel>
+                                    </TabPanel>*/}
                                 </TabPanels>
                             </Tabs>
                         </Stack>

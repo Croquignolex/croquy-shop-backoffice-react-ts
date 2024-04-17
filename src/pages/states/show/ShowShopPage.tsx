@@ -5,7 +5,7 @@ import useShowShopHook from "./useShowShopHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
 import DisplayAlert from "../../../components/DisplayAlert";
 import PageHeader from "../../../components/menu/PageHeader";
-import {ShowShopHookType} from "./showShopData";
+import {ShowShopHookType} from "./showStateData";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import StatusBadge from "../../../components/StatusBadge";
 import {stringDateFormat} from "../../../helpers/generalHelpers";

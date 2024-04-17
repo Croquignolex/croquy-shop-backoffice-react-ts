@@ -119,10 +119,14 @@ const useShowCountryHook = (): ShowCountryHookType => {
         setToggleCountryAlertData({show: false});
     }
 
+    const handleTabsChange = (index: number) => {
+        console.log({index})
+    }
+
     return {
         isCountryPending, onDeleteModalClose, showDeleteModal, isDeleteModalOpen, deleteCountryAlertData, isDeleteCountryPending,
         handleDeleteCountry, countryAlertData, countryResponseData, handleToggleCountry, isToggleCountryPending, toggleCountryAlertData,
-        isToggleModalOpen, onToggleModalClose, showToggleModal
+        isToggleModalOpen, onToggleModalClose, showToggleModal, handleTabsChange
     };
 };
 

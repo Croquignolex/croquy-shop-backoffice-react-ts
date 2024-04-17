@@ -14,7 +14,7 @@ const LoginPage = (): ReactElement => {
 
     return (
         <Container py={{ base: '6', md: '12' }} px={{ base: '0', sm: '8' }} maxW={'lg'}>
-            <Stack p={4} borderWidth='1px' borderRadius='3xl'>
+            <Stack p={4} borderWidth='1px' borderRadius='xl' boxShadow='2xl'>
                 <Flex align={'center'} justify={'center'}>
                     <Stack w={'full'}>
                         <Heading fontSize={'xl'} alignSelf='center' mb={3}>Bienvenue</Heading>
@@ -37,11 +37,9 @@ const LoginPage = (): ReactElement => {
                                         />
                                         <Stack>
                                             <Button
-                                                colorScheme={"orange"}
-                                                variant={"solid"}
+                                                colorScheme={"green"}
                                                 isLoading={isLoginPending}
                                                 type='submit'
-                                                size='md'
                                                 fontWeight="none"
                                                 leftIcon={<FiLogIn />}
                                             >

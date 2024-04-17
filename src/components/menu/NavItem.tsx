@@ -9,13 +9,13 @@ const NavItem: FC<NavItemProps> = ({ icon, path, children, ...rest }): ReactElem
             {(props: any) => (
                 <Flex
                     align="center"
-                    p="4"
+                    p="3"
                     mr="4"
                     role="group"
                     cursor="pointer"
-                    borderRightRadius={"3xl"}
-                    _hover={{ fontWeight: props?.isActive ? '' : 'bold', background: props?.isActive ? '' : 'gray.100' }}
-                    background={props.isActive ? 'orange.500' : ''}
+                    borderRightRadius={"md"}
+                    _hover={{ background: props?.isActive ? '' : 'gray.100' }}
+                    background={props.isActive ? 'green.500' : ''}
                     color={props.isActive ? 'white' : ''}
                     {...rest}
                 >

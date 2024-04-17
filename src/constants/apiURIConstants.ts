@@ -23,4 +23,14 @@ export const countriesApiURI = {
     update: '/countries/{id}',
     destroy: '/countries/{id}',
     toggle: '/countries/{id}/toggle',
+    addState: '/countries/{id}/states',
+};
+
+export const statesApiURI = {
+    index: '/states',
+    store: '/states',
+    show: '/states/{id}',
+    update: '/states/{id}',
+    destroy: '/states/{id}',
+    toggle: '/states/{id}/toggle',
 };

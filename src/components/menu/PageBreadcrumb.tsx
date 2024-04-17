@@ -9,13 +9,13 @@ const PageBreadcrumb: FC<PageBreadcrumbProps> = ({ pageTitle, items }) => {
     return (
         <Breadcrumb spacing='8px' separator={<FiChevronRight />} mb={4}>
             <BreadcrumbItem>
-                <BreadcrumbLink as={Link} to={mainRoutes.dashboard.path} color={"orange.500"}>
+                <BreadcrumbLink as={Link} to={mainRoutes.dashboard.path} color={"green.500"}>
                     <FiHome />
                 </BreadcrumbLink>
             </BreadcrumbItem>
             {items.map((item: BreadcrumbItemsType, index: number): ReactElement => (
                 <BreadcrumbItem key={index}>
-                    <BreadcrumbLink as={Link} to={item.path} color={"orange.500"} state={item.state}>
+                    <BreadcrumbLink as={Link} to={item.path} color={"green.500"} state={item.state}>
                         {item.label}
                     </BreadcrumbLink>
                 </BreadcrumbItem>

@@ -9,7 +9,7 @@ const ListHeader: FC<ListHeaderProps> = ({ addItemPath, label, handleSearch }): 
     return (
         <HStack>
             <Button
-                colorScheme='orange'
+                colorScheme='green'
                 fontWeight="none"
                 size={"sm"}
                 leftIcon={<FiPlusSquare />}
@@ -19,7 +19,7 @@ const ListHeader: FC<ListHeaderProps> = ({ addItemPath, label, handleSearch }): 
                 {label}
             </Button>
             <Spacer />
-            <Box w="sm">
+            <Box w={{sm: "sm"}}>
                 <SearchField handleSearch={handleSearch} />
             </Box>
         </HStack>

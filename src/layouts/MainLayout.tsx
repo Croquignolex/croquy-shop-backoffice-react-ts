@@ -29,16 +29,23 @@ const MainLayout: FC = (): ReactElement => {
     ), []);
 
     return (
-        <Box minH="100vh">
-            <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} menuItems={sidebarMenuItems} zIndex={3} />
+        <Box minH="100vh" bg={"gray.50"}>
+            <SidebarContent
+                onClose={() => onClose}
+                display={{ base: 'none', md: 'block' }}
+                menuItems={sidebarMenuItems}
+                zIndex={3}
+                bg={"white"}
+                borderRightWidth={1}
+            />
             <Drawer isOpen={isOpen} placement="left" onClose={onClose} returnFocusOnClose={false} onOverlayClick={onClose} size="full">
                 <DrawerContent>
                     <SidebarContent onClose={onClose} menuItems={sidebarMenuItems} />
                 </DrawerContent>
             </Drawer>
-            <Container maxW='9xl' pos="fixed" zIndex={2}>
+            <Box w='full' pos="fixed" zIndex={2}>
                 <MobileNav onOpen={onOpen} menuItems={headerMenuItems} />
-            </Container>
+            </Box>
             <Stack ml={{ base: 0, md: 60 }} pb={75} zIndex={1}>
                 <Container maxW='7xl' mt={70}>
                     <Outlet />

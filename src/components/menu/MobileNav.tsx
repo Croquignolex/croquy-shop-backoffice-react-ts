@@ -2,8 +2,8 @@ import React, { FC, ReactElement, useContext } from "react";
 import { NavigateFunction, useNavigate, NavLink } from "react-router-dom";
 import { FiLogOut, FiChevronDown, FiMenu, FiSettings, FiHelpCircle, FiUser } from "react-icons/fi";
 import {
-    Box, Flex, FlexProps, IconButton, Text, HStack,
-    Menu, MenuButton, Avatar, VStack, MenuList, MenuItem, Icon,
+    Box, Flex, FlexProps, IconButton, Text, HStack, MenuGroup,
+    Menu, MenuButton, Avatar, VStack, MenuList, MenuItem, Icon, MenuDivider,
 } from "@chakra-ui/react";
 
 import { USER_GLOBAL_STATE_CLEAR_DATA, UserContext } from "../../contexts/UserContext";
@@ -31,7 +31,10 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
             height="60px"
             alignItems="center"
             bg={"white"}
-            borderBottomWidth={1}
+            // borderBottomWidth={1}
+            // boxShadow={1}
+            boxShadow='md'
+            px={5}
             justifyContent={{ base: 'space-between', md: 'flex-end' }}
             {...rest}
         >
@@ -48,36 +51,31 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
                     <Menu>
                         <MenuButton
                             transition="all 0.3s"
-                            _focus={{ fontWeight: 'none' }}
-                            _hover={{ fontWeight: 'bold' }}
-                            _expanded={{ fontWeight: 'bold' }}
+                            // _focus={{ fontWeight: 'none' }}
+                            // _hover={{ fontWeight: 'bold' }}
+                            // _expanded={{ fontWeight: 'bold' }}
                         >
-                            <HStack>
-                                <Avatar bg='orange.500' icon={<FiUser fontSize='1.5rem' color='white' />} />
-                                <VStack display={{ base: 'none', md: 'flex' }} alignItems="flex-start">
-                                    <Text fontSize="sm">{globalUserState.firstName}</Text>
-                                </VStack>
-                                <Box display={{ base: 'none', md: 'flex' }}>
-                                    <FiChevronDown />
-                                </Box>
-                            </HStack>
+                            <Avatar bg='green.500' icon={<FiUser fontSize='1.5rem' color='white' />} />
                         </MenuButton>
                         <MenuList>
-                            {menuItems.map((route: MenuItemType, index: number): ReactElement => (
-                                <Box as={NavLink} to={route.path} key={index}>
-                                    {(props: any) => (
-                                        <MenuItem
-                                            key={index}
-                                            background={props?.isActive ? 'orange.500' : ''}
-                                            _hover={{ fontWeight: props?.isActive ? '' : 'bold' }}
-                                            color={props?.isActive ? 'white' : ''}
-                                        >
-                                            <Icon mr="2" as={route.icon} />
-                                            {route.title}
-                                        </MenuItem>
-                                    )}
-                                </Box>
-                            ))}
+                            <MenuGroup title={globalUserState.firstName}>
+                            <MenuDivider />
+                                {menuItems.map((route: MenuItemType, index: number): ReactElement => (
+                                    <Box as={NavLink} to={route.path} key={index}>
+                                        {(props: any) => (
+                                            <MenuItem
+                                                key={index}
+                                                background={props?.isActive ? 'orange.500' : ''}
+                                                _hover={{ fontWeight: props?.isActive ? '' : 'bold' }}
+                                                color={props?.isActive ? 'white' : ''}
+                                            >
+                                                <Icon mr="2" as={route.icon} />
+                                                {route.title}
+                                            </MenuItem>
+                                        )}
+                                    </Box>
+                                ))}
+                            </MenuGroup>
                             <MenuItem icon={<FiSettings />} _hover={{ fontWeight: 'bold' }}>
                                 Paramètres
                             </MenuItem>

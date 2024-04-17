@@ -23,7 +23,7 @@ export const v2URL = (url: string, params?: Array<URLParamType>, queries?: Array
 };
 
 // Build complete url
-const joinBaseUrlWithParams = (url: string, params?: Array<URLParamType>, queries?: Array<URLParamType>): string => {
+export const joinBaseUrlWithParams = (url: string, params?: Array<URLParamType>, queries?: Array<URLParamType>): string => {
     if(params) {
         params.forEach((param: URLParamType): void => {
             url = url.replace(`{${param.param}}`, `${encodeURIComponent(param.value)}`);

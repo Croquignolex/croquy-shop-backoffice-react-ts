@@ -7,15 +7,11 @@ const Loader: FC<LoaderProps> = ({ isLoading, center = true }): ReactElement | n
     }
 
     if(center) {
-        return (
-            <Center>
-                <Spinner color='orange' />
-            </Center>
-        )
+        return <Center><Spinner color='green' /></Center>
     }
 
     return (
-        <Spinner color='orange' />
+        <Spinner color='green' />
     );
 };
 

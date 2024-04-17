@@ -13,6 +13,12 @@ export enum AlertStatusEnumType {
     warning = 'warning',
 }
 
+export enum ImageSizeEnumType {
+    row = 'row',
+    small = 'small',
+    large = 'small',
+}
+
 export interface ReducerActionType {
     type: string;
     payload: any;
@@ -28,10 +34,3 @@ export interface URLParamType {
     param: string;
     value: string;
 }
-
-export interface MediaType {
-    name: string;
-    type: string;
-    path: string;
-}
-

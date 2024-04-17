@@ -23,7 +23,7 @@ const PasswordField: FC<TextFieldProps> = ({ label, name, noLabel = false, isInv
                     />
                 </InputRightElement>
 
-                <Field as={Input} name={name} type={ showPassword ? 'text' : 'password' } size="md" borderColor="gray.300" />
+                <Field as={Input} name={name} type={showPassword ? 'text' : 'password'}  borderColor="gray.300" />
             </InputGroup>
 
             <FormErrorMessage><Icon mr="2" as={FiAlertCircle} /> {errorMessage}</FormErrorMessage>

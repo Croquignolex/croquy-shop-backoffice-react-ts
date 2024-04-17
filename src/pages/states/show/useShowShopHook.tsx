@@ -8,7 +8,7 @@ import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {ShowShopHookType, ToggleShopRequestDataType} from "./showShopData";
+import {ShowShopHookType, ToggleShopRequestDataType} from "./showStateData";
 import {
     destroyShop,
     DestroyShopRequestDataType,

@@ -5,9 +5,9 @@ import { Field } from "formik";
 const TextDisabledField: FC<TextDisabledFieldProps> = ({ label, name, noLabel = false }): ReactElement => {
     return (
         <FormControl mb={4}>
-            {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}
+            {!noLabel && <FormLabel fontSize='sm' fontWeight='normal'>{label}</FormLabel>}
 
-            <Field as={Input} name={name} type="text" size='lg' rounded='lg' borderColor="black" disabled />
+            <Field as={Input} name={name} type="text" borderColor="gray.300" disabled />
         </FormControl>
     );
 };

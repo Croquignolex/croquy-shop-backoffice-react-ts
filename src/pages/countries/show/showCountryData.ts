@@ -52,6 +52,7 @@ export interface ShowCountryHookType {
     isToggleCountryPending: boolean,
     handleToggleCountry: () => void,
     onToggleModalClose: () => void,
+    handleTabsChange: (a: number) => void,
 }
 
 export const countryRequest = (id: string): Promise<any> => {

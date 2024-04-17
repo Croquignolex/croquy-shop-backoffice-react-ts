@@ -18,7 +18,7 @@ const AddCountryPage = (): ReactElement => {
         <>
             <PageHeader title={"Nouveau pays"} items={[{path: mainRoutes.countries.path, label: 'Pays'}]} />
             <Container maxW={'3xl'}>
-                <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl' key={sequence}>
+                <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"} key={sequence}>
                     <DisplayAlert data={addCountryAlertData} />
                     <Formik initialValues={addCountryInitialStaticValues} validationSchema={addCountrySchema} onSubmit={handleAddCountry}>
                         {(props: FormikProps<AddCountryFormType>) => (

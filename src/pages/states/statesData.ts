@@ -1,27 +1,8 @@
-import {UserType} from "../users/usersPageData";
-import {ErrorAlertType} from "../../helpers/globalTypesHelper";
-
-export const defaultSelectedState: StateType = {
-    id: "",
-    name: "",
-    slug: "",
-    enabled: false,
-    description: "",
-    createdAt: "",
-    updatedAt: "",
-    creator: null,
-}
-
-export interface StateType {
-    id: string;
-    name: string;
-    slug: string;
-    enabled: boolean;
-    description: string;
-    createdAt: string;
-    updatedAt: string;
-    creator: UserType | null;
-}
+import {ErrorAlertType, URLParamType} from "../../helpers/globalTypesHelper";
+import {StateType} from "./show/showStateData";
+import {v1URL} from "../../helpers/apiRequestsHelpers";
+import {statesApiURI} from "../../constants/apiURIConstants";
+import {getRequest} from "../../helpers/axiosHelpers";
 
 export const defaultStatesResponseData: StatesResponseDataType = {
     content: [],
@@ -52,9 +33,9 @@ export interface DestroyStateRequestDataType {
 }
 
 export interface StatesHookType {
-    StatesResponseData: StatesResponseDataType,
+    statesResponseData: StatesResponseDataType,
     isStatesPending: boolean,
-    StatesAlertData: ErrorAlertType,
+    statesAlertData: ErrorAlertType,
     fetchPaginatedStates: (a: boolean) => void,
     fetchPaginatedNeedleStates: (a: string) => void,
     selectedState: StateType,
@@ -65,3 +46,16 @@ export interface StatesHookType {
     handleDeleteState: () => void,
     onDeleteModalClose: () => void,
 }
+
+export interface StatesHookProps {
+    fetchStates: boolean,
+    statesBaseUrl: string,
+}
+
+export const statesRequest = (page: number, size: number, needle: string, baseUrl: string): Promise<any> => {
+    const queries: Array<URLParamType> = [{param: "page", value: page.toString()}, {param: "size", value: size.toString()}, {param: "needle", value: needle}];
+    // const url: string = v1URL(statesApiURI.index, [], queries);
+    const url: string = v1URL(baseUrl, [], queries);
+
+    return getRequest(url);
+};

@@ -5,6 +5,7 @@ import {URLParamType} from "./globalTypesHelper";
 
 const API_V1_URL: string = `${apiBaseURL}/api/v1/backoffice`;
 const API_V2_URL: string = `${apiBaseURL}/api/v2/backoffice`;
+export const API_MEDIA_V1_URL: string = `${apiBaseURL}/api/v1/media/`;
 
 export const usersRequest = (): Promise<any> => {
     const url: string = joinBaseUrlWithParams(API_V1_URL + usersApiURI.list);

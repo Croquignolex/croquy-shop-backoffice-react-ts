@@ -5,17 +5,14 @@ import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {Location, NavigateFunction, useLocation, useNavigate} from "react-router-dom";
 import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 
-import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
+import {AlertStatusEnumType, ErrorAlertType, MediaType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {
-    countryRequest,
-    CountryType,
-    destroyCountry,
-    ShowCountryHookType, toggleCountry,
-    ToggleCountryRequestDataType
-} from "./showCountryData";
 import {DestroyCountryRequestDataType} from "../countriesData";
+import {
+    countryRequest, CountryType, destroyCountry,
+    ShowCountryHookType, toggleCountry, ToggleCountryRequestDataType
+} from "./showCountryData";
 
 const useShowCountryHook = (): ShowCountryHookType => {
     let countryAlertData: ErrorAlertType = {show: false};
@@ -69,11 +66,11 @@ const useShowCountryHook = (): ShowCountryHookType => {
         onSuccess: (): void => {
             setToggleCountryAlertData({show: false});
 
-            const toastMessage: string = `Boutique ${countryResponseData.name} ${countryResponseData.enabled ? "Désactivée" : "Activée"} avec succès`;
+            const toastMessage: string = `Boutique ${countryResponseData.name} ${countryResponseData.enabled ? "désactivée" : "activée"} avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             onToggleModalClose();
-            setCountryResponseData({...countryResponseData, enabled: !countryResponseData.enabled})
+            setCountryResponseData({...countryResponseData, enabled: !countryResponseData.enabled});
 
             log("Toggle country successful", toggleCountryCountryResponse);
         }
@@ -114,9 +111,12 @@ const useShowCountryHook = (): ShowCountryHookType => {
     }
 
     const showToggleModal = (): void => {
-        console.log('toogle')
         onToggleModalOpen();
         setToggleCountryAlertData({show: false});
+    }
+
+    const handleFlagUpdate = (flag: MediaType | null): void => {
+        setCountryResponseData({...countryResponseData, flag});
     }
 
     const handleTabsChange = (index: number) => {
@@ -126,7 +126,7 @@ const useShowCountryHook = (): ShowCountryHookType => {
     return {
         isCountryPending, onDeleteModalClose, showDeleteModal, isDeleteModalOpen, deleteCountryAlertData, isDeleteCountryPending,
         handleDeleteCountry, countryAlertData, countryResponseData, handleToggleCountry, isToggleCountryPending, toggleCountryAlertData,
-        isToggleModalOpen, onToggleModalClose, showToggleModal, handleTabsChange
+        isToggleModalOpen, onToggleModalClose, showToggleModal, handleTabsChange, handleFlagUpdate
     };
 };
 

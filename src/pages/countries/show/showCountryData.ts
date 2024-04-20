@@ -1,4 +1,4 @@
-import {ErrorAlertType, URLParamType} from "../../../helpers/globalTypesHelper";
+import {ErrorAlertType, MediaType, URLParamType} from "../../../helpers/globalTypesHelper";
 import {UserType} from "../../users/usersPageData";
 import {countriesApiURI} from "../../../constants/apiURIConstants";
 import {deleteRequest, getRequest, patchRequest} from "../../../helpers/axiosHelpers";
@@ -24,7 +24,7 @@ export interface CountryType {
     description: string;
     createdAt: string;
     updatedAt: string;
-    flag: string | null;
+    flag: MediaType | null;
     creator: UserType | null;
 }
 
@@ -53,6 +53,7 @@ export interface ShowCountryHookType {
     handleToggleCountry: () => void,
     onToggleModalClose: () => void,
     handleTabsChange: (a: number) => void,
+    handleFlagUpdate: (a: MediaType | null) => void,
 }
 
 export const countryRequest = (id: string): Promise<any> => {

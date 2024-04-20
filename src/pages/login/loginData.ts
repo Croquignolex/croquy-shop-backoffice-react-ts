@@ -19,17 +19,17 @@ export interface LoginResponseDataType {
     role: string;
 }
 
-export interface LoginFormType extends LoginRequestDataType {}
+export interface LoginFormType {
+    username: string,
+    password: string
+}
+
+export interface LoginRequestDataType extends LoginFormType {}
 
 export interface LoginHookType {
     handleLogin: (a: LoginFormType) => void,
     isLoginPending: boolean,
     loginAlertData: ErrorAlertType
-}
-
-export interface LoginRequestDataType {
-    username: string,
-    password: string
 }
 
 export const loginRequest = ({username, password}: LoginRequestDataType): Promise<any> => {

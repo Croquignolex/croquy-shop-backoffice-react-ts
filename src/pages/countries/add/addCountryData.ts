@@ -14,13 +14,13 @@ export const addCountrySchema: Yup.ObjectSchema<AddCountryFormType> = Yup.object
     description: Yup.string().nullable(),
 });
 
-export interface AddCountryRequestDataType {
+export interface AddCountryFormType {
     name: string,
     phoneCode: string | null | undefined,
     description: string | null | undefined,
 }
 
-export interface AddCountryFormType extends AddCountryRequestDataType {}
+export interface AddCountryRequestDataType extends AddCountryFormType {}
 
 export interface AddCountryHookType {
     addCountryAlertData: ErrorAlertType,

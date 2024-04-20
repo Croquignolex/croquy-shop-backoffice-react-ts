@@ -24,6 +24,7 @@ export const countriesApiURI = {
     destroy: '/countries/{id}',
     toggle: '/countries/{id}/toggle',
     addState: '/countries/{id}/states',
+    flag: '/countries/{id}/flag',
 };
 
 export const statesApiURI = {

@@ -14,24 +14,20 @@ const DoubleSaveButton: FC<DoubleSaveButtonProps> = ({ isLoading = false, isDisa
    return (
         <ButtonGroup>
             <Button
-                colorScheme={"orange"}
-                variant={"solid"}
+                colorScheme={"green"}
                 isLoading={isLoading}
                 isDisabled={isDisabled}
                 type='submit'
-                size='md'
                 fontWeight="none"
                 leftIcon={<FiCheck />}
             >
                 Confirmer
             </Button>
             <Button
-                colorScheme={"blue"}
-                variant={"solid"}
+                colorScheme={"orange"}
                 isLoading={isLoading}
                 isDisabled={isDisabled || !isValid}
                 type='button'
-                size='md'
                 fontWeight="none"
                 leftIcon={<FiCheck />}
                 onClick={handleSaveAndContinue}

@@ -1,6 +1,6 @@
 import lodash from "lodash";
 import dayjs from "dayjs";
-import { AxiosError, HttpStatusCode } from "axios";
+import { AxiosError } from "axios";
 import { CreateToastFnReturn } from "@chakra-ui/react";
 
 import { AlertStatusEnumType, ErrorAlertType } from "./globalTypesHelper";
@@ -58,6 +58,16 @@ export const toastAlert = (toast: CreateToastFnReturn, title: string, status: Al
     toast.closeAll();
 
     toast({title, status});
+};
+
+// Read uploaded file
+export const readFile = (file: File): Promise<string | null> => {
+    return new Promise((resolve, reject): void => {
+        const reader: FileReader = new FileReader();
+        reader.addEventListener('load', () => resolve(reader.result?.toString() || null), false);
+        reader.addEventListener('error', (error: ProgressEvent<FileReader>) => reject(error));
+        reader.readAsDataURL(file);
+    });
 };
 
 // Error alert

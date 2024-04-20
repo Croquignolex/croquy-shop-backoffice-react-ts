@@ -19,6 +19,10 @@ axiosApiInstance.interceptors.request.use((config: InternalAxiosRequestConfig<an
         }
     }
 
+    if(config.headers["file"]) {
+        config.headers["content-type"] = 'multipart/-data';
+    }
+
     return config;
 }, error => Promise.reject(error));
 

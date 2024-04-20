@@ -69,7 +69,7 @@ const useShowShopHook = (): ShowShopHookType => {
         onSuccess: (): void => {
             setToggleShopAlertData({show: false});
 
-            const toastMessage: string = `Boutique ${shopResponseData.name} ${shopResponseData.enabled ? "Désactivée" : "Activée"} avec succès`;
+            const toastMessage: string = `Boutique ${shopResponseData.name} ${shopResponseData.enabled ? "désactivée" : "activée"} avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             onToggleModalClose();

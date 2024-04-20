@@ -1,4 +1,6 @@
 import {IconType} from "react-icons";
+import {UserType} from "../pages/users/usersPageData";
+import {CountryType} from "../pages/countries/show/showCountryData";
 
 export interface ErrorAlertType {
     show: boolean,
@@ -33,4 +35,22 @@ export interface MenuItemType {
 export interface URLParamType {
     param: string;
     value: string;
+}
+
+export const defaultMedia: MediaType = {
+    id: "",
+    originalName: "",
+    path: "",
+    updatedAt: "",
+}
+
+export interface MediaType {
+    id: string;
+    originalName?: string;
+    size?: number;
+    path: string;
+    country?: CountryType;
+    creator?: UserType;
+    updatedAt: string;
+    base64?: string | null;
 }

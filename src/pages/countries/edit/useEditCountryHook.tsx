@@ -14,11 +14,13 @@ import {
     EditCountryRequestDataType,
     updateCountryRequest
 } from "./editCountryData"
+import {CountryType} from "../show/showCountryData";
 
 const useEditCountryHook = (): EditCountryHookType => {
     let { state }:Location  = useLocation();
 
-    const country: EditCountryFormType = state;
+    const country: CountryType = state;
+    const formCountry: EditCountryFormType = state;
     const [editCountryAlertData, setEditCountryAlertData] = useState<ErrorAlertType>({show: false});
 
     const toast: CreateToastFnReturn = useToast();
@@ -47,7 +49,7 @@ const useEditCountryHook = (): EditCountryHookType => {
 
     const isEditCountryPending: boolean = updateCountryResponse.isPending;
 
-    return {editCountryAlertData, handleEditCountry, country, isEditCountryPending};
+    return {editCountryAlertData, handleEditCountry, country, formCountry, isEditCountryPending};
 };
 
 export default useEditCountryHook;

@@ -1,8 +1,7 @@
 import React, {ReactElement} from "react";
-import {FiCheck} from "react-icons/fi";
 import {
-    Box, Stack, Table, Tbody, ButtonGroup, Badge, Grid,
-    GridItem, Tabs, TabList, Tab, TabPanels, TabPanel, Icon
+    Box, Stack, Table, Tbody, ButtonGroup, Badge, SimpleGrid,
+    Tabs, TabList, Tab, TabPanels, TabPanel, Icon, Heading,
 } from "@chakra-ui/react";
 
 import useShowCountryHook from "./useShowCountryHook";
@@ -25,11 +24,12 @@ const ShowCountryPage = (): ReactElement => {
     const {
         isCountryPending, onDeleteModalClose, showDeleteModal, isDeleteModalOpen, deleteCountryAlertData, isDeleteCountryPending,
         handleDeleteCountry, countryAlertData, countryResponseData, handleToggleCountry, isToggleCountryPending, toggleCountryAlertData,
-        isToggleModalOpen, onToggleModalClose, showToggleModal, handleTabsChange
+        isToggleModalOpen, onToggleModalClose, showToggleModal, handleTabsChange, handleFlagUpdate
     }: ShowCountryHookType = useShowCountryHook();
 
     const addStatePath: string = `${mainRoutes.countries.path}/${countryResponseData.id}/states/create`;
     const statesBaseUrl: string = joinBaseUrlWithParams(countriesApiURI.addState, [{param: "id", value: countryResponseData.id}]);
+    const flagBaseUrl: string = joinBaseUrlWithParams(countriesApiURI.flag, [{param: "id", value: countryResponseData.id}]);
 
     return (
         <>
@@ -40,11 +40,19 @@ const ShowCountryPage = (): ReactElement => {
             <Stack>
                 <DisplayAlert data={countryAlertData} />
 
-                <Grid templateColumns='repeat(3, 1fr)' templateRows='repeat(1, 1fr)' gap={2}>
-                    <GridItem>
-                        <ShowImage isLoading={isCountryPending} image={countryResponseData.flag} />
-                    </GridItem>
-                    <GridItem colSpan={2}>
+                <SimpleGrid minChildWidth={"sm"} spacing={2}>
+                    <Box>
+                        <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
+                            <strong>Drapeau</strong>
+                            <ShowImage
+                                isLoading={isCountryPending}
+                                image={countryResponseData.flag}
+                                imageBaseUrl={flagBaseUrl}
+                                handleImageUpdate={handleFlagUpdate}
+                            />
+                        </Stack>
+                    </Box>
+                    <Box>
                         <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                             <ButtonGroup>
                                 <DoubleActionButton
@@ -77,31 +85,29 @@ const ShowCountryPage = (): ReactElement => {
                                 </Tbody>
                             </Table>
                         </Stack>
-                    </GridItem>
-                    <GridItem colSpan={3}>
-                        <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
-                            <Tabs colorScheme='green' isFitted onChange={handleTabsChange}>
-                                <TabList>
-                                    <Tab><Icon mr="2" as={mainRoutes.states.icon} /> {mainRoutes.states.title}</Tab>
-                                    {/*<Tab><Icon mr="2" as={FiCheck} /> Inventaire</Tab>*/}
-                                </TabList>
-                                <TabPanels>
-                                    <TabPanel>
-                                        <StatesTableList
-                                            showCountry={false}
-                                            addStatePath={addStatePath}
-                                            fetchStates={true}
-                                            statesBaseUrl={statesBaseUrl}
-                                        />
-                                    </TabPanel>
-                                    {/*<TabPanel>
+                    </Box>
+                </SimpleGrid>
+                <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
+                    <Tabs colorScheme='green' isFitted onChange={handleTabsChange}>
+                        <TabList>
+                            <Tab><Icon mr="2" as={mainRoutes.states.icon} /> {mainRoutes.states.title}</Tab>
+                            {/*<Tab><Icon mr="2" as={FiCheck} /> Inventaire</Tab>*/}
+                        </TabList>
+                        <TabPanels>
+                            <TabPanel>
+                                <StatesTableList
+                                    showCountry={false}
+                                    addStatePath={addStatePath}
+                                    fetchStates={true}
+                                    statesBaseUrl={statesBaseUrl}
+                                />
+                            </TabPanel>
+                            {/*<TabPanel>
                                         <p>two!</p>
                                     </TabPanel>*/}
-                                </TabPanels>
-                            </Tabs>
-                        </Stack>
-                    </GridItem>
-                </Grid>
+                        </TabPanels>
+                    </Tabs>
+                </Stack>
                 <ConfirmAlertDialog
                     handleConfirm={handleDeleteCountry}
                     isOpen={isDeleteModalOpen}

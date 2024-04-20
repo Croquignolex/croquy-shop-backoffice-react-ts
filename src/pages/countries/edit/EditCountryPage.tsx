@@ -12,7 +12,7 @@ import {mainRoutes} from "../../../routes/mainRoutes";
 import {EditCountryFormType, EditCountryHookType, editCountrySchema} from "./editCountryData";
 
 const AddCountryPage = (): ReactElement => {
-    const {editCountryAlertData, handleEditCountry, country, isEditCountryPending}: EditCountryHookType = useEditCountryHook();
+    const {editCountryAlertData, handleEditCountry, formCountry, country, isEditCountryPending}: EditCountryHookType = useEditCountryHook();
 
     return (
         <>
@@ -20,13 +20,13 @@ const AddCountryPage = (): ReactElement => {
                 title={`Modifier pays ${country.name}`}
                 items={[
                     {path: mainRoutes.countries.path, label: 'Pays'},
-                    {path: `${mainRoutes.countries.path}/${country.id}`, label: `Detail pays ${country.name}`, state: country}
+                    {path: `${mainRoutes.countries.path}/${country.id}`, label: country.name, state: country}
                 ]}
             />
             <Container maxW={'3xl'}>
                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                     <DisplayAlert data={editCountryAlertData} />
-                    <Formik initialValues={country} validationSchema={editCountrySchema} onSubmit={handleEditCountry} enableReinitialize>
+                    <Formik initialValues={formCountry} validationSchema={editCountrySchema} onSubmit={handleEditCountry} enableReinitialize>
                         {(props: FormikProps<EditCountryFormType>) => (
                             <Form>
                                 <Flex>

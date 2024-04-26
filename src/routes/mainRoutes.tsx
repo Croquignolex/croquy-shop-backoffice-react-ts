@@ -20,10 +20,10 @@ const showCountry: MainRouteType = {path: '/countries/:id', onSidebar: false, on
 const editCountry: MainRouteType = {path: '/countries/:id/edit', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/edit/EditCountryPage'))};
 const countryAddState: MainRouteType = {path: '/countries/:id/states/create', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/edit/EditCountryPage'))};
 
-const states: MainRouteType = {title: 'Villes', path: '/states', icon: FiMap, onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/CountriesPage'))};
-// const addState: MainRouteType = {path: '/states/create', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/add/AddCountryPage'))};
-// const showState: MainRouteType = {path: '/states/:id', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/show/ShowCountryPage'))};
-// const editState: MainRouteType = {path: '/states/:id/edit', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/edit/EditCountryPage'))};
+const states: MainRouteType = {title: 'Villes', path: '/states', icon: FiMap, onSidebar: true, onHeader: false, component: lazy(() => import('../pages/states/StatesPage'))};
+const addState: MainRouteType = {path: '/states/create', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/add/AddCountryPage'))};
+const showState: MainRouteType = {path: '/states/:id', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/show/ShowCountryPage'))};
+const editState: MainRouteType = {path: '/states/:id/edit', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/edit/EditCountryPage'))};
 
 export interface MainRouteType {
     icon?: IconType,
@@ -41,6 +41,5 @@ export const mainRoutes: any = {
     users,
     // users, addUser, showUser, editUser,
     countries, addCountry, showCountry, editCountry, countryAddState,
-    states,
-    // states, addState, showState, editState,
+    states, addState, showState, editState,
 };

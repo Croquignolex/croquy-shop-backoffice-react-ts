@@ -54,7 +54,6 @@ export interface StatesHookProps {
 
 export const statesRequest = (page: number, size: number, needle: string, baseUrl: string): Promise<any> => {
     const queries: Array<URLParamType> = [{param: "page", value: page.toString()}, {param: "size", value: size.toString()}, {param: "needle", value: needle}];
-    // const url: string = v1URL(statesApiURI.index, [], queries);
     const url: string = v1URL(baseUrl, [], queries);
 
     return getRequest(url);

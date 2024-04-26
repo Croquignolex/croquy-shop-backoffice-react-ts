@@ -20,7 +20,7 @@ const AddCountryPage = (): ReactElement => {
                 title={`Modifier pays ${country.name}`}
                 items={[
                     {path: mainRoutes.countries.path, label: 'Pays'},
-                    {path: `${mainRoutes.countries.path}/${country.id}`, label: country.name, state: country}
+                    {path: `${mainRoutes.countries.path}/${country.id}`, label: `Détail pays ${country.name}`, state: country}
                 ]}
             />
             <Container maxW={'3xl'}>

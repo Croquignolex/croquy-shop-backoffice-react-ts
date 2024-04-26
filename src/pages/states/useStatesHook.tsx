@@ -9,7 +9,7 @@ import {errorAlert, log, toastAlert} from "../../helpers/generalHelpers";
 import {defaultSelectedShop, destroyShop, DestroyShopRequestDataType, ShopType} from "../shops/show/showShopData";
 import {defaultShopsResponseData, ShopsHookType, shopsRequest, ShopsResponseDataType} from "../shops/shopsData";
 
-const useShopsHook = (): ShopsHookType => {
+const useStatesHook = (): ShopsHookType => {
     let shopsAlertData: ErrorAlertType = {show: false};
 
     const { onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose } = useDisclosure();
@@ -98,4 +98,4 @@ const useShopsHook = (): ShopsHookType => {
     };
 };
 
-export default useShopsHook;
+export default useStatesHook;

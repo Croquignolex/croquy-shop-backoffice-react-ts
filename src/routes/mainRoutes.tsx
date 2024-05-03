@@ -21,7 +21,7 @@ const editCountry: MainRouteType = {path: '/countries/:id/edit', onSidebar: fals
 const countryAddState: MainRouteType = {path: '/countries/:id/states/create', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/edit/EditCountryPage'))};
 
 const states: MainRouteType = {title: 'Villes', path: '/states', icon: FiMap, onSidebar: true, onHeader: false, component: lazy(() => import('../pages/states/StatesPage'))};
-const addState: MainRouteType = {path: '/states/create', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/add/AddCountryPage'))};
+const addState: MainRouteType = {path: '/states/create', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/states/add/AddStatePage'))};
 const showState: MainRouteType = {path: '/states/:id', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/show/ShowCountryPage'))};
 const editState: MainRouteType = {path: '/states/:id/edit', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/edit/EditCountryPage'))};
 

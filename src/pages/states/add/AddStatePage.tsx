@@ -3,25 +3,28 @@ import {Form, Formik, FormikProps} from "formik";
 import {Box, Stack, Container, Flex} from "@chakra-ui/react";
 
 import DisplayAlert from "../../../components/DisplayAlert";
-import useAddShopHook from "./useAddShopHook";
+import useAddStateHook from "./useAddStateHook";
 import TextField from "../../../components/form/TextField";
-import {AddShopFormType, AddShopHookType, addShopInitialStaticValues, addShopSchema} from "./addShopData";
 import TextareaField from "../../../components/form/TextareaField";
 import DoubleSaveButton from "../../../components/form/DoubleSaveButton";
 import PageHeader from "../../../components/menu/PageHeader";
 import {mainRoutes} from "../../../routes/mainRoutes";
+import SelectField from "../../../components/form/SelectField";
+import useCountriesSelectListHook, {CountriesSelectListHookType} from "../../../hooks/useCountriesSelectListHook";
+import {AddStateFormType, AddStateHookType, addStateInitialStaticValues, addStateSchema} from "./addStateData";
 
-const AddShopPage = (): ReactElement => {
-    const {addShopAlertData, handleAddShop, handleAddShopAndContinue, sequence, isAddShopPending}: AddShopHookType = useAddShopHook();
+const AddStatePage = (): ReactElement => {
+    const {isAddStatePending, handleAddState, handleAddStateAndContinue, sequence, addStateAlertData}: AddStateHookType = useAddStateHook();
+    const {selectListCountries, isSelectListCountriesPending}: CountriesSelectListHookType = useCountriesSelectListHook();
 
     return (
         <>
-            <PageHeader title={"Nouvelle boutique"} items={[{path: mainRoutes.shops.path, label: 'Boutiques'}]} />
+            <PageHeader title={"Nouvelle ville"} items={[{path: mainRoutes.states.path, label: 'Villes'}]} />
             <Container maxW={'3xl'}>
                 <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl' key={sequence}>
-                    <DisplayAlert data={addShopAlertData} />
-                    <Formik initialValues={addShopInitialStaticValues} validationSchema={addShopSchema} onSubmit={handleAddShop}>
-                        {(props: FormikProps<AddShopFormType>) => (
+                    <DisplayAlert data={addStateAlertData} />
+                    <Formik initialValues={addStateInitialStaticValues} validationSchema={addStateSchema} onSubmit={handleAddState}>
+                        {(props: FormikProps<AddStateFormType>) => (
                             <Form>
                                 <Flex>
                                     <TextField
@@ -31,11 +34,13 @@ const AddShopPage = (): ReactElement => {
                                         errorMessage={props.errors.name}
                                     />
                                     <Box mx={3} />
-                                    <TextField
-                                        label="Slug"
-                                        name="slug"
-                                        isInvalid={!!props.errors.slug && !!props.touched.slug}
-                                        errorMessage={props.errors.slug}
+                                    <SelectField
+                                        label="Pays"
+                                        name="countryId"
+                                        isInvalid={!!props.errors.countryId && !!props.touched.countryId}
+                                        errorMessage={props.errors.countryId}
+                                        values={selectListCountries}
+                                        isLoading={isSelectListCountriesPending}
                                     />
                                 </Flex>
                                 <Flex>
@@ -48,9 +53,9 @@ const AddShopPage = (): ReactElement => {
                                 </Flex>
                                 <Flex>
                                     <DoubleSaveButton
-                                        isLoading={isAddShopPending}
+                                        isLoading={isAddStatePending}
                                         formikProps={props}
-                                        handleSaveAndContinue={() => handleAddShopAndContinue(props.values)}
+                                        handleSaveAndContinue={() => handleAddStateAndContinue(props.values)}
                                     />
                                 </Flex>
                             </Form>
@@ -62,4 +67,4 @@ const AddShopPage = (): ReactElement => {
     );
 };
 
-export default AddShopPage;
+export default AddStatePage;

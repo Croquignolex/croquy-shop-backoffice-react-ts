@@ -3,7 +3,7 @@ import {Form, Formik, FormikProps} from "formik";
 import {FiCheck} from "react-icons/fi";
 import {Box, Stack, Container, Flex, Button} from "@chakra-ui/react";
 
-import DisplayAlert from "../../../components/DisplayAlert";
+import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditCountryHook from "./useEditCountryHook";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
@@ -25,7 +25,7 @@ const AddCountryPage = (): ReactElement => {
             />
             <Container maxW={'3xl'}>
                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
-                    <DisplayAlert data={editCountryAlertData} />
+                    <CustomAlert data={editCountryAlertData} />
                     <Formik initialValues={formCountry} validationSchema={editCountrySchema} onSubmit={handleEditCountry} enableReinitialize>
                         {(props: FormikProps<EditCountryFormType>) => (
                             <Form>

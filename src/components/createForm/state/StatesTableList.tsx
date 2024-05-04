@@ -1,5 +1,4 @@
 import React, {FC, ReactElement, ReactNode} from "react";
-import {Link} from "react-router-dom";
 import {Badge, Box, HStack, Spacer, Stack, Table, TableContainer, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
 
 import EmptyTableAlert from "../../alert/EmptyTableAlert";
@@ -8,12 +7,13 @@ import Pagination from "../../Pagination";
 import ConfirmAlertDialog from "../../ConfirmAlertDialog";
 import {stringDateFormat} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
+import ExternalLink from "../../ExternalLink";
 import TableSkeletonLoader from "../../skeletonLoader/TableSkeletonLoader";
 import DoubleActionButton from "../../form/DoubleActionButton";
 import {StateType} from "../../../pages/states/show/showStateData";
 import useStatesTableListHook from "./useStatesTableListHook";
 import CustomAlert from "../../alert/CustomAlert";
-import {StatesTableListHookType} from "./statesTableListData";
+import {StatesTableListHookType} from "../../tableList/states/statesTableListData";
 import SearchField from "../../form/SearchField";
 
 const StatesTableList: FC<StatesTableListProps> = ({showCountry = false, showCreator = false, fetchStates = false, statesBaseUrl, children}): ReactElement => {
@@ -50,36 +50,30 @@ const StatesTableList: FC<StatesTableListProps> = ({showCountry = false, showCre
                                 statesResponseData.content.map((state: StateType, index: number) => (
                                     <Tr key={index}>
                                         <Td>
-                                            <Link
-                                                to={`${mainRoutes.states.path}/${state.id}`}
-                                                className="link"
+                                            <ExternalLink
                                                 state={state}
-                                            >
-                                                {state.name}
-                                            </Link>
+                                                label={state.name}
+                                                path={`${mainRoutes.states.path}/${state.id}`}
+                                            />
                                         </Td>
                                         <Td><StatusBadge enabled={state.enabled}/></Td>
                                         {showCountry && (
                                             <Td>
-                                                <Link
-                                                    to={`${mainRoutes.countries.path}/${state.country?.id}`}
-                                                    className="link"
+                                                <ExternalLink
                                                     state={state.country}
-                                                >
-                                                    {state.country?.name}
-                                                </Link>
+                                                    label={state.country?.name}
+                                                    path={`${mainRoutes.countries.path}/${state.country?.id}`}
+                                                />
                                             </Td>
                                         )}
                                         <Td><Badge rounded="md">{stringDateFormat(state.createdAt)}</Badge></Td>
                                         {showCreator && (
                                             <Td>
-                                                <Link
-                                                    to={`${mainRoutes.users.path}/${state.creator?.id}`}
-                                                    className="link"
+                                                <ExternalLink
                                                     state={state.creator}
-                                                >
-                                                    {state.creator?.username}
-                                                </Link>
+                                                    label={state.creator?.username}
+                                                    path={`${mainRoutes.users.path}/${state.creator?.id}`}
+                                                />
                                             </Td>
                                         )}
                                         <Td textAlign={'right'}>

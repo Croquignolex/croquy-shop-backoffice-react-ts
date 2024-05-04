@@ -1,4 +1,7 @@
 import React, {ReactElement} from "react";
+import {FiPlusSquare} from "react-icons/fi";
+import {Link} from "react-router-dom";
+import {Button} from "@chakra-ui/react";
 
 import {mainRoutes} from "../../routes/mainRoutes";
 import PageHeader from "../../components/menu/PageHeader";
@@ -12,9 +15,20 @@ const StatesPage = (): ReactElement => {
             <StatesTableList
                 fetchStates
                 showCountry
-                addStatePath={mainRoutes.addState.path}
+                showCreator
                 statesBaseUrl={statesApiURI.index}
-            />
+            >
+                <Button
+                    colorScheme='green'
+                    fontWeight="none"
+                    size={"sm"}
+                    leftIcon={<FiPlusSquare />}
+                    as={Link}
+                    to={mainRoutes.addState.path}
+                >
+                    Nouvelle ville
+                </Button>
+            </StatesTableList>
         </>
     );
 };

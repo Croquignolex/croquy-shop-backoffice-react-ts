@@ -1,24 +1,26 @@
 import React, {ReactElement} from "react";
+import {FiPlusSquare} from "react-icons/fi";
+import {Link} from "react-router-dom";
 import {
     Box, Stack, Table, Tbody, ButtonGroup, Badge, SimpleGrid,
-    Tabs, TabList, Tab, TabPanels, TabPanel, Icon, Heading,
+    Tabs, TabList, Tab, TabPanels, TabPanel, Icon, Button,
 } from "@chakra-ui/react";
 
 import useShowCountryHook from "./useShowCountryHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
-import DisplayAlert from "../../../components/DisplayAlert";
+import CustomAlert from "../../../components/alert/CustomAlert";
 import PageHeader from "../../../components/menu/PageHeader";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import StatusBadge from "../../../components/StatusBadge";
 import {stringDateFormat} from "../../../helpers/generalHelpers";
-import ListSkeletonLoader from "../../../components/ListSkeletonLoader";
+import ListSkeletonLoader from "../../../components/skeletonLoader/ListSkeletonLoader";
 import DoubleActionButton from "../../../components/form/DoubleActionButton";
-import ExternalLink from "../../../components/ExternalLink";
 import {ShowCountryHookType} from "./showCountryData";
 import ShowImage from "../../../components/showImage/ShowImage";
 import StatesTableList from "../../../components/tableList/states/StatesTableList";
 import {countriesApiURI} from "../../../constants/apiURIConstants";
 import { joinBaseUrlWithParams } from "../../../helpers/apiRequestsHelpers";
+
 
 const ShowCountryPage = (): ReactElement => {
     const {
@@ -27,7 +29,6 @@ const ShowCountryPage = (): ReactElement => {
         isToggleModalOpen, onToggleModalClose, showToggleModal, handleTabsChange, handleFlagUpdate
     }: ShowCountryHookType = useShowCountryHook();
 
-    const addStatePath: string = `${mainRoutes.countries.path}/${countryResponseData.id}/states/create`;
     const statesBaseUrl: string = joinBaseUrlWithParams(countriesApiURI.addState, [{param: "id", value: countryResponseData.id}]);
     const flagBaseUrl: string = joinBaseUrlWithParams(countriesApiURI.flag, [{param: "id", value: countryResponseData.id}]);
 
@@ -38,7 +39,7 @@ const ShowCountryPage = (): ReactElement => {
                 items={[{path: mainRoutes.countries.path, label: 'Pays'}]}
             />
             <Stack>
-                <DisplayAlert data={countryAlertData} />
+                <CustomAlert data={countryAlertData} />
 
                 <SimpleGrid minChildWidth={"sm"} spacing={2}>
                     <Box>
@@ -69,11 +70,13 @@ const ShowCountryPage = (): ReactElement => {
                                     <ListSkeletonLoader isLoading={isCountryPending} label={"Indice"}>{countryResponseData.phoneCode}</ListSkeletonLoader>
                                     <ListSkeletonLoader isLoading={isCountryPending} label={"Status"}><StatusBadge enabled={countryResponseData.enabled}/></ListSkeletonLoader>
                                     <ListSkeletonLoader isLoading={isCountryPending} label={"Créer par"}>
-                                        <ExternalLink
+                                        <Link
+                                            to={`${mainRoutes.users.path}/${countryResponseData.creator?.id}`}
+                                            className="link"
                                             state={countryResponseData.creator}
-                                            label={countryResponseData.creator?.username}
-                                            path={`${mainRoutes.users.path}/${countryResponseData.creator?.id}`}
-                                        />
+                                        >
+                                            {countryResponseData.creator?.username}
+                                        </Link>
                                     </ListSkeletonLoader>
                                     <ListSkeletonLoader isLoading={isCountryPending} label={"Créer le"}>
                                         <Badge rounded="md">{stringDateFormat(countryResponseData.createdAt, true)}</Badge>
@@ -96,11 +99,21 @@ const ShowCountryPage = (): ReactElement => {
                         <TabPanels>
                             <TabPanel>
                                 <StatesTableList
-                                    showCountry={false}
-                                    addStatePath={addStatePath}
-                                    fetchStates={true}
+                                    fetchStates
+                                    showCreator
                                     statesBaseUrl={statesBaseUrl}
-                                />
+                                >
+                                    <Button
+                                        colorScheme='green'
+                                        fontWeight="none"
+                                        size={"sm"}
+                                        leftIcon={<FiPlusSquare />}
+                                        as={Link}
+                                        to={mainRoutes.addState.path}
+                                    >
+                                        Ajouter une ville
+                                    </Button>
+                                </StatesTableList>
                             </TabPanel>
                             {/*<TabPanel>
                                         <p>two!</p>

@@ -1,8 +1,9 @@
 import React, {ReactElement} from "react";
 import {Form, Formik, FormikProps} from "formik";
-import {Box, Stack, Container, Flex} from "@chakra-ui/react";
+import {Link} from "react-router-dom";
+import {Box, Stack, Container, Flex, Text} from "@chakra-ui/react";
 
-import DisplayAlert from "../../../components/DisplayAlert";
+import CustomAlert from "../../../components/alert/CustomAlert";
 import useAddStateHook from "./useAddStateHook";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
@@ -22,10 +23,15 @@ const AddStatePage = (): ReactElement => {
             <PageHeader title={"Nouvelle ville"} items={[{path: mainRoutes.states.path, label: 'Villes'}]} />
             <Container maxW={'3xl'}>
                 <Stack as={Box} p={4} borderWidth='1px' borderRadius='3xl' key={sequence}>
-                    <DisplayAlert data={addStateAlertData} />
+                    <CustomAlert data={addStateAlertData} />
                     <Formik initialValues={addStateInitialStaticValues} validationSchema={addStateSchema} onSubmit={handleAddState}>
                         {(props: FormikProps<AddStateFormType>) => (
                             <Form>
+                                <Box textAlign="right">
+                                    <Text fontSize="sm" color="green.500" _hover={{textDecoration: "underline"}}>
+                                        <Link to={mainRoutes.countries.path}>Ajouter un pays</Link>
+                                    </Text>
+                                </Box>
                                 <Flex>
                                     <TextField
                                         label="Nom"

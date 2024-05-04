@@ -4,29 +4,29 @@ import {useQuery, UseQueryResult} from "@tanstack/react-query";
 import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 
-import {AlertStatusEnumType, ErrorAlertType} from "../../helpers/globalTypesHelper";
-import {errorAlert, log, toastAlert} from "../../helpers/generalHelpers";
-import {CountryType, defaultSelectedCountry, destroyCountry} from "./show/showCountryData";
+import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
+import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
+import {CountryType, defaultSelectedCountry, destroyCountry} from "../../../pages/countries/show/showCountryData";
 import {
-    defaultCountriesResponseData, DestroyCountryRequestDataType,
-    CountriesHookType, CountriesResponseDataType, countriesRequest
-} from "./countriesData";
+    CountriesResponseDataType, CountriesTableListHookProps, CountriesTableListHookType,
+    defaultCountriesResponseData, DestroyCountryRequestDataType, countriesRequest,
+} from "./countriesTableListData";
 
-const useCountriesHook = (): CountriesHookType => {
+const useCountriesTableListHook = ({fetchCountries, countriesBaseUrl}: CountriesTableListHookProps): CountriesTableListHookType => {
     let countriesAlertData: ErrorAlertType = {show: false};
 
     const { onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose } = useDisclosure();
     const toast: CreateToastFnReturn = useToast();
 
     const [searchNeedle, setSearchNeedle] = useState<string>("");
-    const [countriesQueryEnabled, setCountriesQueryEnabled] = useState<boolean>(true);
+    const [countriesQueryEnabled, setCountriesQueryEnabled] = useState<boolean>(fetchCountries);
     const [deleteCountryAlertData, setDeleteCountryAlertData] = useState<ErrorAlertType>({show: false});
     const [selectedCountry, setSelectedCountry] = useState<CountryType>(defaultSelectedCountry);
     const [countriesResponseData, setCountriesResponseData] = useState<CountriesResponseDataType>(defaultCountriesResponseData);
 
     const countriesResponse: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
         queryKey: ["countries"],
-        queryFn: () => countriesRequest(countriesResponseData.number, countriesResponseData.size, searchNeedle),
+        queryFn: () => countriesRequest(countriesResponseData.number, countriesResponseData.size, searchNeedle, countriesBaseUrl),
         enabled: countriesQueryEnabled,
     });
 
@@ -101,4 +101,4 @@ const useCountriesHook = (): CountriesHookType => {
     };
 };
 
-export default useCountriesHook;
+export default useCountriesTableListHook;

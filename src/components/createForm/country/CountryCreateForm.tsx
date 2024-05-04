@@ -1,27 +1,32 @@
-import React, {ReactElement} from "react";
-import {Form, Formik, FormikProps} from "formik";
-import {Box, Stack, Container, Flex} from "@chakra-ui/react";
+import React, {FC, ReactElement} from "react";
+import {Box, Container, Flex, Stack} from "@chakra-ui/react";
 
-import DisplayAlert from "../../../components/DisplayAlert";
-import useAddCountryHook from "./useAddCountryHook";
-import TextField from "../../../components/form/TextField";
-import {AddCountryFormType, AddCountryHookType, addCountryInitialStaticValues, addCountrySchema} from "./addCountryData";
-import TextareaField from "../../../components/form/TextareaField";
-import DoubleSaveButton from "../../../components/form/DoubleSaveButton";
-import PageHeader from "../../../components/menu/PageHeader";
 import {mainRoutes} from "../../../routes/mainRoutes";
+import CustomAlert from "../../alert/CustomAlert";
+import PageHeader from "../../menu/PageHeader";
+import {Form, Formik, FormikProps} from "formik";
+import TextField from "../../form/TextField";
+import TextareaField from "../../form/TextareaField";
+import DoubleSaveButton from "../../form/DoubleSaveButton";
+import useCountryCreateFormHook from "./useCountryCreateFormHook";
+import {
+    CountryCreateFormHookType, CreateCountryFormType,
+    createCountryInitialStaticValues, createCountrySchema
+} from "./CountryCreateFormData";
 
-const AddCountryPage = (): ReactElement => {
-    const {addCountryAlertData, handleAddCountry, handleAddCountryAndContinue, sequence, isAddCountryPending}: AddCountryHookType = useAddCountryHook();
+const CountryCreateForm: FC<CountryCreateFormProps> = ({modal = false, handleFinish}): ReactElement => {
+    const {
+        createCountryAlertData, handleCreateCountry, handleCreateCountryAndContinue, sequence, isCreateCountryPending
+    }: CountryCreateFormHookType = useCountryCreateFormHook({modal, handleFinish});
 
     return (
         <>
             <PageHeader title={"Nouveau pays"} items={[{path: mainRoutes.countries.path, label: 'Pays'}]} />
             <Container maxW={'3xl'}>
                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"} key={sequence}>
-                    <DisplayAlert data={addCountryAlertData} />
-                    <Formik initialValues={addCountryInitialStaticValues} validationSchema={addCountrySchema} onSubmit={handleAddCountry}>
-                        {(props: FormikProps<AddCountryFormType>) => (
+                    <CustomAlert data={createCountryAlertData} />
+                    <Formik initialValues={createCountryInitialStaticValues} validationSchema={createCountrySchema} onSubmit={handleCreateCountry}>
+                        {(props: FormikProps<CreateCountryFormType>) => (
                             <Form>
                                 <Flex>
                                     <TextField
@@ -48,9 +53,9 @@ const AddCountryPage = (): ReactElement => {
                                 </Flex>
                                 <Flex>
                                     <DoubleSaveButton
-                                        isLoading={isAddCountryPending}
+                                        isLoading={isCreateCountryPending}
                                         formikProps={props}
-                                        handleSaveAndContinue={() => handleAddCountryAndContinue(props.values)}
+                                        handleSaveAndContinue={() => handleCreateCountryAndContinue(props.values)}
                                     />
                                 </Flex>
                             </Form>
@@ -62,4 +67,9 @@ const AddCountryPage = (): ReactElement => {
     );
 };
 
-export default AddCountryPage;
+interface CountryCreateFormProps {
+    modal?: boolean;
+    handleFinish?: () => void;
+}
+
+export default CountryCreateForm;

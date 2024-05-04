@@ -1,121 +1,33 @@
 import React, {ReactElement} from "react";
-import {Badge, Stack, Table, TableContainer, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
+import {Button} from "@chakra-ui/react";
+import {Link} from "react-router-dom";
+import {FiPlusSquare} from "react-icons/fi";
 
-import useCountriesHook from "./useCountriesHook";
-import {CountriesHookType} from "./countriesData";
-import ListHeader from "../../components/ListHeader";
-import EmptyTableAlert from "../../components/EmptyTableAlert";
-import StatusBadge from "../../components/StatusBadge";
-import Pagination from "../../components/Pagination";
-import ConfirmAlertDialog from "../../components/ConfirmAlertDialog";
-import {stringDateFormat} from "../../helpers/generalHelpers";
-import DisplayAlert from "../../components/DisplayAlert";
 import {mainRoutes} from "../../routes/mainRoutes";
 import PageHeader from "../../components/menu/PageHeader";
-import ExternalLink from "../../components/ExternalLink";
-import TableSkeletonLoader from "../../components/TableSkeletonLoader";
-import DoubleActionButton from "../../components/form/DoubleActionButton";
-import {CountryType} from "./show/showCountryData";
-import DisplayImage from "../../components/DisplayImage";
-import {ImageSizeEnumType} from "../../helpers/globalTypesHelper";
+import {countriesApiURI} from "../../constants/apiURIConstants";
+import CountriesTableList from "../../components/tableList/countries/CountriesTableList";
 
 const CountriesPage = (): ReactElement => {
-    const {
-        countriesResponseData, isCountriesPending, countriesAlertData, fetchPaginatedCountries, fetchPaginatedNeedleCountries, onDeleteModalClose,
-        selectedCountry, showDeleteModal, isDeleteModalOpen, deleteCountryAlertData, isDeleteCountryPending,  handleDeleteCountry,
-    }: CountriesHookType = useCountriesHook();
-
     return (
         <>
             <PageHeader title={mainRoutes.countries.title} icon={mainRoutes.countries.icon} />
-            <Stack>
-                <DisplayAlert data={countriesAlertData} />
-                <ListHeader
-                    label={"Nouveau pays"}
-                    addItemPath={mainRoutes.addCountry.path}
-                    handleSearch={(needle: string) => fetchPaginatedNeedleCountries(needle)}
-                />
-                <TableContainer boxShadow="xl" borderRadius="xl" borderWidth='1px' bg={"white"}>
-                    <Table size={"sm"}>
-                        <Thead bg="gray.100">
-                            <Tr>
-                                <Th>Drapeau</Th>
-                                <Th>Nom</Th>
-                                <Th>Indice</Th>
-                                <Th>Statut</Th>
-                                <Th>Créer le</Th>
-                                <Th>Créer par</Th>
-                                <Th textAlign={'right'}>Actions</Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            {isCountriesPending ? <TableSkeletonLoader /> : (
-                                countriesResponseData.empty ? <EmptyTableAlert /> : (
-                                    countriesResponseData.content.map((country: CountryType, index: number) => (
-                                        <Tr key={index}>
-                                            <Td><DisplayImage image={country.flag} size={ImageSizeEnumType.row} /></Td>
-                                            <Td>
-                                                <ExternalLink
-                                                    state={country}
-                                                    label={country.name}
-                                                    path={`${mainRoutes.countries.path}/${country.id}`}
-                                                />
-                                            </Td>
-                                            <Td>{country.phoneCode}</Td>
-                                            <Td><StatusBadge enabled={country.enabled}/></Td>
-                                            <Td><Badge rounded="md">{stringDateFormat(country.createdAt)}</Badge></Td>
-                                            <Td>
-                                                <ExternalLink
-                                                    state={country.creator}
-                                                    label={country.creator?.username}
-                                                    path={`${mainRoutes.users.path}/${country.creator?.id}`}
-                                                />
-                                            </Td>
-                                            <Td textAlign={'right'}>
-                                                <DoubleActionButton
-                                                    isListView
-                                                    state={country}
-                                                    showDeleteModal={showDeleteModal}
-                                                    edithPath={`${mainRoutes.countries.path}/${country.id}/edit`}
-                                                />
-                                            </Td>
-                                        </Tr>
-                                    ))
-                                )
-                            )}
-                        </Tbody>
-                        <Thead bg="gray.100">
-                            <Tr>
-                                <Th>Drapeau</Th>
-                                <Th>Nom</Th>
-                                <Th>Indice</Th>
-                                <Th>Statut</Th>
-                                <Th>Créer le</Th>
-                                <Th>Créer par</Th>
-                                <Th textAlign={'right'}>Actions</Th>
-                            </Tr>
-                        </Thead>
-                    </Table>
-                </TableContainer>
-                <Pagination
-                    show={!countriesResponseData.empty}
-                    handleNextPage={() => fetchPaginatedCountries(true)}
-                    handlePreviousPage={() => fetchPaginatedCountries(false)}
-                    currentPage={countriesResponseData.number + 1}
-                    pages={countriesResponseData.totalPages}
-                    totalElements={countriesResponseData.totalElements}
-                    currentPageElements={countriesResponseData.numberOfElements}
-                />
-                <ConfirmAlertDialog
-                    handleConfirm={handleDeleteCountry}
-                    isOpen={isDeleteModalOpen}
-                    onClose={onDeleteModalClose}
-                    isLoading={isDeleteCountryPending}
-                    alertData={deleteCountryAlertData}
+            <CountriesTableList
+                fetchCountries
+                showCreator
+                countriesBaseUrl={countriesApiURI.index}
+            >
+                <Button
+                    colorScheme='green'
+                    fontWeight="none"
+                    size={"sm"}
+                    leftIcon={<FiPlusSquare />}
+                    as={Link}
+                    to={mainRoutes.addCountry.path}
                 >
-                    Supprimer le pays <strong>{selectedCountry.name}</strong>?
-                </ConfirmAlertDialog>
-            </Stack>
+                    Nouveau pays
+                </Button>
+            </CountriesTableList>
         </>
     );
 };

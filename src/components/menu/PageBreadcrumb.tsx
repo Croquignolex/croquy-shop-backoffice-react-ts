@@ -1,9 +1,9 @@
-import React, { FC, ReactElement } from "react";
-import { FiChevronRight, FiHome } from "react-icons/fi";
-import { BreadcrumbItem, BreadcrumbLink, Breadcrumb } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import React, {FC, ReactElement} from "react";
+import {FiChevronRight, FiHome} from "react-icons/fi";
+import {BreadcrumbItem, BreadcrumbLink, Breadcrumb} from "@chakra-ui/react";
+import {Link} from "react-router-dom";
 
-import { mainRoutes } from "../../routes/mainRoutes";
+import {mainRoutes} from "../../routes/mainRoutes";
 
 const PageBreadcrumb: FC<PageBreadcrumbProps> = ({ pageTitle, items }) => {
     return (

@@ -1,15 +1,14 @@
 import React, { FC, ReactElement } from "react";
-import { Tr, Td, Alert } from "@chakra-ui/react";
+import { Tr, Td } from "@chakra-ui/react";
 
-import { AlertStatusEnumType } from "../helpers/globalTypesHelper";
+import { AlertStatusEnumType } from "../../helpers/globalTypesHelper";
+import CustomAlert from "./CustomAlert";
 
 const EmptyTableAlert: FC<EmptyTableAlertProps> = ({ status = AlertStatusEnumType.info }): ReactElement => {
     return (
         <Tr>
             <Td colSpan={10}>
-                <Alert status={status} rounded='md'>
-                    Pas de données
-                </Alert>
+                <CustomAlert data={{status, show: true, message: "Pas de données"}}/>
             </Td>
         </Tr>
     )

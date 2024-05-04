@@ -1,8 +1,7 @@
-import {ErrorAlertType, URLParamType} from "../../helpers/globalTypesHelper";
-import {CountryType} from "./show/showCountryData";
-import {v1URL} from "../../helpers/apiRequestsHelpers";
-import {countriesApiURI} from "../../constants/apiURIConstants";
-import {getRequest} from "../../helpers/axiosHelpers";
+import {ErrorAlertType, URLParamType} from "../../../helpers/globalTypesHelper";
+import {CountryType} from "../../../pages/countries/show/showCountryData";
+import {v1URL} from "../../../helpers/apiRequestsHelpers";
+import {getRequest} from "../../../helpers/axiosHelpers";
 
 export const defaultCountriesResponseData: CountriesResponseDataType = {
     content: [],
@@ -32,7 +31,7 @@ export interface DestroyCountryRequestDataType {
     id: string,
 }
 
-export interface CountriesHookType {
+export interface CountriesTableListHookType {
     countriesResponseData: CountriesResponseDataType,
     isCountriesPending: boolean,
     countriesAlertData: ErrorAlertType,
@@ -47,9 +46,14 @@ export interface CountriesHookType {
     onDeleteModalClose: () => void,
 }
 
-export const countriesRequest = (page: number, size: number, needle: string): Promise<any> => {
+export interface CountriesTableListHookProps {
+    fetchCountries: boolean,
+    countriesBaseUrl: string,
+}
+
+export const countriesRequest = (page: number, size: number, needle: string, baseUrl: string): Promise<any> => {
     const queries: Array<URLParamType> = [{param: "page", value: page.toString()}, {param: "size", value: size.toString()}, {param: "needle", value: needle}];
-    const url: string = v1URL(countriesApiURI.index, [], queries);
+    const url: string = v1URL(baseUrl, [], queries);
 
     return getRequest(url);
 };

@@ -6,7 +6,7 @@ import {ImageSizeEnumType, MediaType} from "../helpers/globalTypesHelper";
 import noImage from "../assets/img/no-image.jpg";
 import {API_MEDIA_V1_URL} from "../helpers/apiRequestsHelpers";
 
-const DisplayImage: FC<DisplayImageProps> = ({image, size, height = 0, width= 0}): ReactElement => {
+const ImageDisplay: FC<ImageDisplayProps> = ({image, size, height = 0, width= 0}): ReactElement => {
     let h: number = height;
     let w: number = width;
     let r: string = "md";
@@ -48,11 +48,11 @@ const DisplayImage: FC<DisplayImageProps> = ({image, size, height = 0, width= 0}
     );
 };
 
-interface DisplayImageProps {
+interface ImageDisplayProps {
     image: MediaType | null,
     size?: ImageSizeEnumType,
     width?: number,
     height?: number,
 }
 
-export default DisplayImage;
+export default ImageDisplay;

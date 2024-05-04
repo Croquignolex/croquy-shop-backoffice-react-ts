@@ -7,7 +7,7 @@ import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 import {AddressType, DefaultAddressHookProps, DefaultAddressHookType} from "./showDefaultAddressData";
 import {ErrorAlertType} from "../../helpers/globalTypesHelper";
 import {errorAlert, log} from "../../helpers/generalHelpers";
-import {shopRequest} from "../../pages/shops/show/showShopData";
+// import {shopRequest} from "../../pages/shops/show/showShopData";
 
 const useDefaultAddressHook = ({url}: DefaultAddressHookProps): DefaultAddressHookType => {
     let addressAlertData: ErrorAlertType = {show: false};
@@ -27,7 +27,10 @@ const useDefaultAddressHook = ({url}: DefaultAddressHookProps): DefaultAddressHo
 
     const addressResponse: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
         queryKey: ["shops"],
-        queryFn: () => shopRequest(address.id),
+        // queryFn: () => shopRequest(address.id),
+        queryFn: () => {
+
+        },
         enabled: shopQueryEnabled,
     });
 

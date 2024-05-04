@@ -7,7 +7,7 @@ import TextField from "../../components/form/TextField";
 import PasswordField from "../../components/form/PasswordField";
 import {LoginFormType, LoginHookType, loginSchema, loginInitialStaticValues} from "./loginData";
 import useLoginHook from "./useLoginHook";
-import DisplayAlert from "../../components/DisplayAlert";
+import CustomAlert from "../../components/alert/CustomAlert";
 
 const LoginPage = (): ReactElement => {
     const { handleLogin, isLoginPending, loginAlertData }: LoginHookType = useLoginHook();
@@ -18,7 +18,7 @@ const LoginPage = (): ReactElement => {
                 <Flex align={'center'} justify={'center'}>
                     <Stack w={'full'}>
                         <Heading fontSize={'xl'} alignSelf='center' mb={3}>Bienvenue</Heading>
-                        <DisplayAlert data={loginAlertData} />
+                        <CustomAlert data={loginAlertData} />
                         <Stack spacing={6}>
                             <Formik initialValues={loginInitialStaticValues} validationSchema={loginSchema} onSubmit={handleLogin}>
                                 {(props: FormikProps<LoginFormType>) => (

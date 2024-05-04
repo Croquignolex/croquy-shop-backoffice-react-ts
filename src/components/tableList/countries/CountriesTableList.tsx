@@ -10,84 +10,78 @@ import {stringDateFormat} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import TableSkeletonLoader from "../../skeletonLoader/TableSkeletonLoader";
 import DoubleActionButton from "../../form/DoubleActionButton";
-import {StateType} from "../../../pages/states/show/showStateData";
-import useStatesTableListHook from "./useStatesTableListHook";
+import useCountriesTableListHook from "./useCountriesTableListHook";
 import CustomAlert from "../../alert/CustomAlert";
-import {StatesTableListHookType} from "./statesTableListData";
 import SearchField from "../../form/SearchField";
+import {CountryType} from "../../../pages/countries/show/showCountryData";
+import ImageDisplay from "../../ImageDisplay";
+import {ImageSizeEnumType} from "../../../helpers/globalTypesHelper";
+import {CountriesTableListHookType} from "./countriesTableListData";
 
-const StatesTableList: FC<StatesTableListProps> = ({showCountry = false, showCreator = false, fetchStates = false, statesBaseUrl, children}): ReactElement => {
+const CountriesTableList: FC<CountriesTableListProps> = ({showCreator = false, fetchCountries = false, countriesBaseUrl, children}): ReactElement => {
     const {
-        statesResponseData, isStatesPending, statesAlertData, fetchPaginatedStates, fetchPaginatedNeedleStates, onDeleteModalClose,
-        selectedState, showDeleteModal, isDeleteModalOpen, deleteStateAlertData, isDeleteStatePending,  handleDeleteState,
-    }: StatesTableListHookType = useStatesTableListHook({fetchStates, statesBaseUrl});
+        countriesResponseData, isCountriesPending, countriesAlertData, fetchPaginatedCountries, fetchPaginatedNeedleCountries, onDeleteModalClose,
+        selectedCountry, showDeleteModal, isDeleteModalOpen, deleteCountryAlertData, isDeleteCountryPending,  handleDeleteCountry,
+    }: CountriesTableListHookType = useCountriesTableListHook({fetchCountries, countriesBaseUrl});
 
     return (
         <Stack>
-            <CustomAlert data={statesAlertData} />
+            <CustomAlert data={countriesAlertData} />
             <HStack>
                 {children}
                 <Spacer />
                 <Box w={{sm: "sm"}}>
-                    <SearchField handleSearch={(needle: string) => fetchPaginatedNeedleStates(needle)} />
+                    <SearchField handleSearch={(needle: string) => fetchPaginatedNeedleCountries(needle)} />
                 </Box>
             </HStack>
             <TableContainer boxShadow="xl" borderRadius="xl" borderWidth='1px' bg={"white"}>
                 <Table size={"sm"}>
                     <Thead bg="gray.100">
                         <Tr>
+                            <Th>Drapeau</Th>
                             <Th>Nom</Th>
+                            <Th>Indice</Th>
                             <Th>Statut</Th>
-                            {showCountry && <Th>Pays</Th>}
                             <Th>Créer le</Th>
                             {showCreator && <Th>Créer par</Th>}
                             <Th textAlign={'right'}>Actions</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {isStatesPending ? <TableSkeletonLoader /> : (
-                            statesResponseData.empty ? <EmptyTableAlert /> : (
-                                statesResponseData.content.map((state: StateType, index: number) => (
+                        {isCountriesPending ? <TableSkeletonLoader /> : (
+                            countriesResponseData.empty ? <EmptyTableAlert /> : (
+                                countriesResponseData.content.map((country: CountryType, index: number) => (
                                     <Tr key={index}>
+                                        <Td><ImageDisplay image={country.flag} size={ImageSizeEnumType.row} /></Td>
                                         <Td>
                                             <Link
-                                                to={`${mainRoutes.states.path}/${state.id}`}
+                                                to={`${mainRoutes.countries.path}/${country.id}`}
                                                 className="link"
-                                                state={state}
+                                                state={country}
                                             >
-                                                {state.name}
+                                                {country.name}
                                             </Link>
                                         </Td>
-                                        <Td><StatusBadge enabled={state.enabled}/></Td>
-                                        {showCountry && (
-                                            <Td>
-                                                <Link
-                                                    to={`${mainRoutes.countries.path}/${state.country?.id}`}
-                                                    className="link"
-                                                    state={state.country}
-                                                >
-                                                    {state.country?.name}
-                                                </Link>
-                                            </Td>
-                                        )}
-                                        <Td><Badge rounded="md">{stringDateFormat(state.createdAt)}</Badge></Td>
+                                        <Td>{country.phoneCode}</Td>
+                                        <Td><StatusBadge enabled={country.enabled}/></Td>
+                                        <Td><Badge rounded="md">{stringDateFormat(country.createdAt)}</Badge></Td>
                                         {showCreator && (
                                             <Td>
                                                 <Link
-                                                    to={`${mainRoutes.users.path}/${state.creator?.id}`}
+                                                    to={`${mainRoutes.users.path}/${country.creator?.id}`}
                                                     className="link"
-                                                    state={state.creator}
+                                                    state={country.creator}
                                                 >
-                                                    {state.creator?.username}
+                                                    {country.creator?.username}
                                                 </Link>
                                             </Td>
                                         )}
                                         <Td textAlign={'right'}>
                                             <DoubleActionButton
                                                 isListView
-                                                state={state}
+                                                state={country}
                                                 showDeleteModal={showDeleteModal}
-                                                edithPath={`${mainRoutes.states.path}/${state.id}/edit`}
+                                                edithPath={`${mainRoutes.countries.path}/${country.id}/edit`}
                                             />
                                         </Td>
                                     </Tr>
@@ -97,9 +91,10 @@ const StatesTableList: FC<StatesTableListProps> = ({showCountry = false, showCre
                     </Tbody>
                     <Thead bg="gray.100">
                         <Tr>
+                            <Th>Drapeau</Th>
                             <Th>Nom</Th>
+                            <Th>Indice</Th>
                             <Th>Statut</Th>
-                            {showCountry && <Th>Pays</Th>}
                             <Th>Créer le</Th>
                             {showCreator && <Th>Créer par</Th>}
                             <Th textAlign={'right'}>Actions</Th>
@@ -108,33 +103,32 @@ const StatesTableList: FC<StatesTableListProps> = ({showCountry = false, showCre
                 </Table>
             </TableContainer>
             <Pagination
-                show={!statesResponseData.empty}
-                handleNextPage={() => fetchPaginatedStates(true)}
-                handlePreviousPage={() => fetchPaginatedStates(false)}
-                currentPage={statesResponseData.number + 1}
-                pages={statesResponseData.totalPages}
-                totalElements={statesResponseData.totalElements}
-                currentPageElements={statesResponseData.numberOfElements}
+                show={!countriesResponseData.empty}
+                handleNextPage={() => fetchPaginatedCountries(true)}
+                handlePreviousPage={() => fetchPaginatedCountries(false)}
+                currentPage={countriesResponseData.number + 1}
+                pages={countriesResponseData.totalPages}
+                totalElements={countriesResponseData.totalElements}
+                currentPageElements={countriesResponseData.numberOfElements}
             />
             <ConfirmAlertDialog
-                handleConfirm={handleDeleteState}
+                handleConfirm={handleDeleteCountry}
                 isOpen={isDeleteModalOpen}
                 onClose={onDeleteModalClose}
-                isLoading={isDeleteStatePending}
-                alertData={deleteStateAlertData}
+                isLoading={isDeleteCountryPending}
+                alertData={deleteCountryAlertData}
             >
-                Supprimer la ville <strong>{selectedState.name}</strong>?
+                Supprimer le pays <strong>{selectedCountry.name}</strong>?
             </ConfirmAlertDialog>
         </Stack>
     );
 };
 
-interface StatesTableListProps {
-    showCountry?: boolean;
+interface CountriesTableListProps {
     showCreator?: boolean;
-    fetchStates?: boolean;
+    fetchCountries?: boolean;
     children: ReactNode;
-    statesBaseUrl: string;
+    countriesBaseUrl: string;
 }
 
-export default StatesTableList;
+export default CountriesTableList;

@@ -3,10 +3,10 @@ import {HStack, Button, Tbody, Badge, Table} from "@chakra-ui/react";
 import {FiEdit, FiPlusSquare} from "react-icons/fi";
 import {Link} from "react-router-dom";
 
-import DisplayAlert from "../DisplayAlert";
+import CustomAlert from "../alert/CustomAlert";
 import useDefaultAddressHook from "./useDefaultAddressHook";
 import {DefaultAddressHookType} from "./showDefaultAddressData";
-import ListSkeletonLoader from "../ListSkeletonLoader";
+import ListSkeletonLoader from "../skeletonLoader/ListSkeletonLoader";
 import ExternalLink from "../ExternalLink";
 import {mainRoutes} from "../../routes/mainRoutes";
 import {stringDateFormat} from "../../helpers/generalHelpers";
@@ -19,7 +19,7 @@ const DefaultAddressComponent: FC<DefaultAddressComponentProps> = ({url}): React
     return (
         <>
             <strong>Addresse par défaut</strong>
-            <DisplayAlert data={addressAlertData} />
+            <CustomAlert data={addressAlertData} />
             <HStack>
                 <Button
                     fontWeight="none"

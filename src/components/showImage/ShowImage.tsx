@@ -6,10 +6,10 @@ import {
     FormErrorMessage, Icon, Input, FormControl
 } from "@chakra-ui/react";
 
-import DisplayImage from "../DisplayImage";
+import ImageDisplay from "../ImageDisplay";
 import {ImageSizeEnumType, MediaType} from "../../helpers/globalTypesHelper";
 import useShowImageHook from "./useShowImageHook";
-import DisplayAlert from "../DisplayAlert";
+import CustomAlert from "../alert/CustomAlert";
 import {ChangeImageFormType, changeImageInitialStaticValues, changeImageSchema, ShowImageHookType} from "./showImageData";
 import ConfirmAlertDialog from "../ConfirmAlertDialog";
 
@@ -21,11 +21,11 @@ const ShowImage: FC<ShowImageProps> = ({image, handleImageUpdate, imageBaseUrl, 
 
     return (
         <>
-            <DisplayAlert data={changeImageAlertData} />
+            <CustomAlert data={changeImageAlertData} />
             <Center>
                 {isLoading ? <Skeleton height={200} width={200} rounded={"xl"} /> : (
                     <Stack>
-                        <DisplayImage image={image} size={ImageSizeEnumType.small} />
+                        <ImageDisplay image={image} size={ImageSizeEnumType.small} />
                         <Box>
                             <Formik initialValues={changeImageInitialStaticValues} validationSchema={changeImageSchema} onSubmit={handleChangeImage}>
                                 {(props: FormikProps<ChangeImageFormType>) => (

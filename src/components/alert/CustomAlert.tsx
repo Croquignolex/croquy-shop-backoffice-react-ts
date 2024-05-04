@@ -1,9 +1,9 @@
 import React, { FC, ReactElement } from "react";
 import {AlertIcon, Alert, Stack} from "@chakra-ui/react";
 
-import { ErrorAlertType } from "../helpers/globalTypesHelper";
+import { ErrorAlertType } from "../../helpers/globalTypesHelper";
 
-const DisplayAlert: FC<DisplayAlertProps> = ({ data }): ReactElement | null => {
+const CustomAlert: FC<CustomAlertProps> = ({ data }): ReactElement | null => {
     if(!data.show) {
         return null;
     }
@@ -18,8 +18,8 @@ const DisplayAlert: FC<DisplayAlertProps> = ({ data }): ReactElement | null => {
     );
 };
 
-interface DisplayAlertProps {
+interface CustomAlertProps {
     data: ErrorAlertType,
 }
 
-export default DisplayAlert;
+export default CustomAlert;

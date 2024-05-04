@@ -1,8 +1,7 @@
-import {ErrorAlertType, URLParamType} from "../../helpers/globalTypesHelper";
+import {ErrorAlertType, URLParamType} from "../../../helpers/globalTypesHelper";
 import {StateType} from "./show/showStateData";
-import {v1URL} from "../../helpers/apiRequestsHelpers";
-import {statesApiURI} from "../../constants/apiURIConstants";
-import {getRequest} from "../../helpers/axiosHelpers";
+import {v1URL} from "../../../helpers/apiRequestsHelpers";
+import {getRequest} from "../../../helpers/axiosHelpers";
 
 export const defaultStatesResponseData: StatesResponseDataType = {
     content: [],
@@ -32,7 +31,7 @@ export interface DestroyStateRequestDataType {
     id: string,
 }
 
-export interface StatesHookType {
+export interface StatesTableListHookType {
     statesResponseData: StatesResponseDataType,
     isStatesPending: boolean,
     statesAlertData: ErrorAlertType,
@@ -47,7 +46,7 @@ export interface StatesHookType {
     onDeleteModalClose: () => void,
 }
 
-export interface StatesHookProps {
+export interface StatesTableListHookProps {
     fetchStates: boolean,
     statesBaseUrl: string,
 }

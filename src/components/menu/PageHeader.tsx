@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import {Heading, Icon} from "@chakra-ui/react";
+import {IconType} from "react-icons";
 
 import PageBreadcrumb, {BreadcrumbItemsType} from "./PageBreadcrumb";
-import { IconType } from "react-icons";
 
 const PageHeader: FC<PageHeaderProps> = ({title= "", icon, items = []}) => {
     return (

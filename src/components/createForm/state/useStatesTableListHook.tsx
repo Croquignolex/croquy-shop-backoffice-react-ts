@@ -10,7 +10,7 @@ import {StateType, defaultSelectedState, destroyState} from "../../../pages/stat
 import {
     defaultStatesResponseData, DestroyStateRequestDataType, statesRequest,
     StatesTableListHookType, StatesResponseDataType, StatesTableListHookProps
-} from "./statesTableListData";
+} from "../../tableList/states/statesTableListData";
 
 const useStatesTableListHook = ({fetchStates, statesBaseUrl}: StatesTableListHookProps): StatesTableListHookType => {
     let statesAlertData: ErrorAlertType = {show: false};

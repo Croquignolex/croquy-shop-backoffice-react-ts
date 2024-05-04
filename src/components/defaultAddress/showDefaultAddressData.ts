@@ -1,6 +1,6 @@
 import {UserType} from "../../pages/users/usersPageData";
 import {ErrorAlertType} from "../../helpers/globalTypesHelper";
-import {StateType} from "../../pages/states/statesData";
+// import {StateType} from "../../pages/states/statesData";
 
 export interface DefaultAddressHookType {
     address: AddressType,
@@ -21,6 +21,6 @@ export interface AddressType {
     description: string;
     createdAt: string;
     updatedAt: string;
-    state: StateType | null;
+    state: string | null;
     creator: UserType | null;
 }

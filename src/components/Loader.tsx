@@ -1,11 +1,7 @@
 import React, { FC, ReactElement } from "react";
 import { Center, Spinner } from "@chakra-ui/react";
 
-const Loader: FC<LoaderProps> = ({ isLoading, center = true }): ReactElement | null => {
-    if(!isLoading) {
-        return null;
-    }
-
+const Loader: FC<LoaderProps> = ({center = true}): ReactElement => {
     if(center) {
         return <Center><Spinner color='green' /></Center>
     }
@@ -16,7 +12,6 @@ const Loader: FC<LoaderProps> = ({ isLoading, center = true }): ReactElement | n
 };
 
 interface LoaderProps {
-    isLoading: boolean
     center?: boolean,
 }
 

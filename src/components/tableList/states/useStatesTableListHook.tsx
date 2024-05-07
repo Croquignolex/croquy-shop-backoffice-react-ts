@@ -8,8 +8,12 @@ import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesH
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {StateType, defaultSelectedState, destroyState} from "../../../pages/states/show/showStateData";
 import {
-    defaultStatesResponseData, DestroyStateRequestDataType, statesRequest,
-    StatesTableListHookType, StatesResponseDataType, StatesTableListHookProps
+    defaultStatesResponseData,
+    DestroyStateRequestDataType,
+    statesRequest,
+    StatesTableListHookType,
+    StatesResponseDataType,
+    StatesTableListHookProps
 } from "./statesTableListData";
 
 const useStatesTableListHook = ({fetchStates, statesBaseUrl}: StatesTableListHookProps): StatesTableListHookType => {
@@ -96,8 +100,18 @@ const useStatesTableListHook = ({fetchStates, statesBaseUrl}: StatesTableListHoo
     }
 
     return {
-        statesResponseData, isStatesPending, statesAlertData, fetchPaginatedStates, fetchPaginatedNeedleStates, onDeleteModalClose,
-        selectedState, showDeleteModal, isDeleteModalOpen, deleteStateAlertData, isDeleteStatePending,  handleDeleteState,
+        statesResponseData,
+        isStatesPending,
+        statesAlertData,
+        fetchPaginatedStates,
+        fetchPaginatedNeedleStates,
+        onDeleteModalClose,
+        selectedState,
+        showDeleteModal,
+        isDeleteModalOpen,
+        deleteStateAlertData,
+        isDeleteStatePending,
+        handleDeleteState,
     };
 };
 

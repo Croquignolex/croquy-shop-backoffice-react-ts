@@ -1,57 +1,34 @@
-import React, { FC, ReactElement, useRef, MutableRefObject, ReactNode } from "react";
-import {FiThumbsUp, FiThumbsDown} from "react-icons/fi";
+import React, { FC, ReactElement, ReactNode } from "react";
 import {
-    AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, Stack,
-    AlertDialogFooter, AlertDialogBody, AlertDialogCloseButton, Button, ButtonGroup
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalCloseButton,
+    ModalHeader,
+    ModalBody,
 } from "@chakra-ui/react";
 
-import Loader from "./Loader";
-import CustomAlert from "./alert/CustomAlert";
-import {ErrorAlertType} from "../helpers/globalTypesHelper";
-
-const ConfirmAlertDialog: FC<ConfirmAlertDialogProps> = ({ isOpen, isLoading, onClose, colorScheme = "red", title = "Supression",
-                                                             handleConfirm, alertData, children }): ReactElement => {
-    const cancelRef: MutableRefObject<any> = useRef<any>()
-
+const FormModal: FC<FormModalProps> = ({ isOpen, onClose, title, children}): ReactElement => {
     return (
-        <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose} isCentered>
-            <AlertDialogOverlay>
-                <AlertDialogContent>
-                    <AlertDialogHeader>{title}</AlertDialogHeader>
+        <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} isCentered size={"2xl"}>
+            <ModalOverlay>
+                <ModalContent>
+                    <ModalHeader>{title}</ModalHeader>
 
-                    <AlertDialogCloseButton />
+                    <ModalCloseButton />
 
-                    <Stack mx={2}><CustomAlert data={alertData} /></Stack>
-
-                    <AlertDialogBody>{children}</AlertDialogBody>
-
-                    <AlertDialogFooter>
-                        {isLoading ? <Loader isLoading={isLoading} /> : (
-                            <ButtonGroup>
-                                <Button ref={cancelRef} onClick={onClose} size={"sm"} leftIcon={<FiThumbsDown />}>
-                                    Non
-                                </Button>
-                                <Button colorScheme={colorScheme} onClick={handleConfirm} size={"sm"} leftIcon={<FiThumbsUp />}>
-                                    Oui
-                                </Button>
-                            </ButtonGroup>
-                        )}
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialogOverlay>
-        </AlertDialog>
-    )
+                    <ModalBody>{children}</ModalBody>
+                </ModalContent>
+            </ModalOverlay>
+        </Modal>
+    );
 };
 
-interface ConfirmAlertDialogProps {
+interface FormModalProps {
     isOpen: boolean;
-    colorScheme?: string;
-    isLoading: boolean;
     onClose: () => void;
-    handleConfirm: () => void,
     children: ReactNode,
-    alertData: ErrorAlertType,
-    title?: string,
+    title: string,
 }
 
-export default ConfirmAlertDialog;
+export default FormModal;

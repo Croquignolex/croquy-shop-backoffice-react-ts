@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
 import {useQuery, UseQueryResult} from "@tanstack/react-query";
 import {useMutation, UseMutationResult} from "@tanstack/react-query";
-import {Location, NavigateFunction, useLocation, useNavigate} from "react-router-dom";
+import {NavigateFunction, Params, useNavigate, useParams} from "react-router-dom";
 import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 
 import {AlertStatusEnumType, ErrorAlertType, MediaType} from "../../../helpers/globalTypesHelper";
@@ -10,29 +10,34 @@ import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import {DestroyCountryRequestDataType} from "../../../components/tableList/countries/countriesTableListData";
 import {
-    countryRequest, CountryType, destroyCountry,
-    ShowCountryHookType, toggleCountry, ToggleCountryRequestDataType
+    countryRequest,
+    CountryType,
+    defaultSelectedCountry,
+    destroyCountry,
+    ShowCountryHookType,
+    toggleCountry,
+    ToggleCountryRequestDataType
 } from "./showCountryData";
 
 const useShowCountryHook = (): ShowCountryHookType => {
     let countryAlertData: ErrorAlertType = {show: false};
-    let { state }:Location  = useLocation();
 
-    const country: CountryType = state;
+    let { id }: Params = useParams();
+
+    const toast: CreateToastFnReturn = useToast();
+    const navigate: NavigateFunction = useNavigate();
 
     const { onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose } = useDisclosure();
     const { onOpen: onToggleModalOpen, isOpen: isToggleModalOpen, onClose: onToggleModalClose } = useDisclosure();
-    const toast: CreateToastFnReturn = useToast();
-    const navigate: NavigateFunction = useNavigate();
 
     const [countryQueryEnabled, setCountryQueryEnabled] = useState<boolean>(true);
     const [deleteCountryAlertData, setDeleteCountryAlertData] = useState<ErrorAlertType>({show: false});
     const [toggleCountryAlertData, setToggleCountryAlertData] = useState<ErrorAlertType>({show: false});
-    const [countryResponseData, setCountryResponseData] = useState<CountryType>(country);
+    const [countryResponseData, setCountryResponseData] = useState<CountryType>(defaultSelectedCountry);
 
     const countryResponse: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
-        queryKey: ["countries"],
-        queryFn: () => countryRequest(country.id),
+        queryKey: ["country"],
+        queryFn: () => countryRequest(id || ""),
         enabled: countryQueryEnabled,
     });
 
@@ -96,7 +101,7 @@ const useShowCountryHook = (): ShowCountryHookType => {
     const handleDeleteCountry = (): void => {
         setDeleteCountryAlertData({show: false});
 
-        destroyCountryCountryResponse.mutate({id: country.id});
+        destroyCountryCountryResponse.mutate({id: countryResponseData.id});
     }
 
     const showDeleteModal = (): void => {
@@ -107,7 +112,7 @@ const useShowCountryHook = (): ShowCountryHookType => {
     const handleToggleCountry = (): void => {
         setToggleCountryAlertData({show: false});
 
-        toggleCountryCountryResponse.mutate({id: country.id});
+        toggleCountryCountryResponse.mutate({id: countryResponseData.id});
     }
 
     const showToggleModal = (): void => {
@@ -124,9 +129,23 @@ const useShowCountryHook = (): ShowCountryHookType => {
     }
 
     return {
-        isCountryPending, onDeleteModalClose, showDeleteModal, isDeleteModalOpen, deleteCountryAlertData, isDeleteCountryPending,
-        handleDeleteCountry, countryAlertData, countryResponseData, handleToggleCountry, isToggleCountryPending, toggleCountryAlertData,
-        isToggleModalOpen, onToggleModalClose, showToggleModal, handleTabsChange, handleFlagUpdate
+        isCountryPending,
+        onDeleteModalClose,
+        showDeleteModal,
+        isDeleteModalOpen,
+        deleteCountryAlertData,
+        isDeleteCountryPending,
+        handleDeleteCountry,
+        countryAlertData,
+        countryResponseData,
+        handleToggleCountry,
+        isToggleCountryPending,
+        toggleCountryAlertData,
+        isToggleModalOpen,
+        onToggleModalClose,
+        showToggleModal,
+        handleTabsChange,
+        handleFlagUpdate
     };
 };
 

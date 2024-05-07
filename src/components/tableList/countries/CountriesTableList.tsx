@@ -20,8 +20,18 @@ import {CountriesTableListHookType} from "./countriesTableListData";
 
 const CountriesTableList: FC<CountriesTableListProps> = ({showCreator = false, fetchCountries = false, countriesBaseUrl, children}): ReactElement => {
     const {
-        countriesResponseData, isCountriesPending, countriesAlertData, fetchPaginatedCountries, fetchPaginatedNeedleCountries, onDeleteModalClose,
-        selectedCountry, showDeleteModal, isDeleteModalOpen, deleteCountryAlertData, isDeleteCountryPending,  handleDeleteCountry,
+        countriesResponseData,
+        isCountriesPending,
+        countriesAlertData,
+        fetchPaginatedCountries,
+        fetchPaginatedNeedleCountries,
+        onDeleteModalClose,
+        selectedCountry,
+        showDeleteModal,
+        isDeleteModalOpen,
+        deleteCountryAlertData,
+        isDeleteCountryPending,
+        handleDeleteCountry,
     }: CountriesTableListHookType = useCountriesTableListHook({fetchCountries, countriesBaseUrl});
 
     return (

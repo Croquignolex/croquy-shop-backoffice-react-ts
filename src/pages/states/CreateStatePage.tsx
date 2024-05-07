@@ -1,21 +1,21 @@
 import React, {ReactElement} from "react";
 import {Box, Container, Stack} from "@chakra-ui/react";
 
-import CountryCreateForm from "../../components/createForm/country/CountryCreateForm";
-import {mainRoutes} from "../../routes/mainRoutes";
+import StateCreateForm from "../../components/createForm/state/StateCreateForm";
 import PageHeader from "../../components/menu/PageHeader";
+import {mainRoutes} from "../../routes/mainRoutes";
 
-const CreateCountryPage = (): ReactElement => {
+const CreateStatePage = (): ReactElement => {
     return (
         <>
-            <PageHeader title={"Nouveau pays"} items={[{path: mainRoutes.countries.path, label: 'Pays'}]} />
+            <PageHeader title={"Nouvelle ville"} items={[{path: mainRoutes.states.path, label: 'Villes'}]} />
             <Container maxW={'3xl'}>
                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
-                    <CountryCreateForm />
+                    <StateCreateForm />
                 </Stack>
             </Container>
         </>
     );
 };
 
-export default CreateCountryPage;
+export default CreateStatePage;

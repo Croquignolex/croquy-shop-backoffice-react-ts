@@ -6,6 +6,7 @@ import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {countriesApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
 import {CountryType} from "../show/showCountryData";
+import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
 
 export const editCountrySchema: Yup.ObjectSchema<EditCountryFormType> = Yup.object().shape({
     name: Yup.string().required(formValidationMessage.required),
@@ -26,8 +27,11 @@ export interface EditCountryRequestDataType extends EditCountryFormType {
 export interface EditCountryHookType {
     editCountryAlertData: ErrorAlertType,
     isEditCountryPending: boolean,
+    isCountryPending: boolean,
+    countryAlertData: ErrorAlertType,
     formCountry: EditCountryFormType,
-    country: CountryType,
+    pageHeaderItems: Array<BreadcrumbItemsType>,
+    countryResponseData: CountryType,
     handleEditCountry: (a: EditCountryFormType) => void,
 }
 

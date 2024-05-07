@@ -6,10 +6,6 @@ import {Link} from "react-router-dom";
 import CustomAlert from "../alert/CustomAlert";
 import useDefaultAddressHook from "./useDefaultAddressHook";
 import {DefaultAddressHookType} from "./showDefaultAddressData";
-import ListSkeletonLoader from "../skeletonLoader/ListSkeletonLoader";
-import ExternalLink from "../ExternalLink";
-import {mainRoutes} from "../../routes/mainRoutes";
-import {stringDateFormat} from "../../helpers/generalHelpers";
 
 const DefaultAddressComponent: FC<DefaultAddressComponentProps> = ({url}): ReactElement => {
     const {

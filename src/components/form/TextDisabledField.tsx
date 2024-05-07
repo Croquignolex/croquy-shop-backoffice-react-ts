@@ -16,6 +16,7 @@ export interface TextDisabledFieldProps {
     label?: string;
     name: string;
     noLabel?: boolean;
+    isLoading?: boolean;
 }
 
 export default TextDisabledField;

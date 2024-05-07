@@ -3,7 +3,7 @@ import { Button, ButtonGroup } from "@chakra-ui/react";
 import {FiEdit, FiTrash, FiUnlock, FiLock} from "react-icons/fi";
 import {Link} from "react-router-dom";
 
-const TripleActionButton: FC<TripleActionButtonProps> = ({edithPath, isListView = false, showStatus = false,
+const TripleActionButton: FC<TripleActionButtonProps> = ({edithPath, isListView = false, isDisabled = false, showStatus = false,
                                                              showToggleModal, state, showDeleteModal}): ReactElement => {
    const handleDelete = (): void => {
        if(isListView) showDeleteModal(state);
@@ -18,8 +18,8 @@ const TripleActionButton: FC<TripleActionButtonProps> = ({edithPath, isListView 
                 leftIcon={<FiEdit />}
                 size={"sm"}
                 as={Link}
+                isDisabled={isDisabled}
                 to={edithPath}
-                state={state}
             >
                 Modifier
             </Button>
@@ -27,6 +27,7 @@ const TripleActionButton: FC<TripleActionButtonProps> = ({edithPath, isListView 
                 fontWeight="none"
                 colorScheme={"red"}
                 size={"sm"}
+                isDisabled={isDisabled}
                 leftIcon={<FiTrash />}
                 onClick={handleDelete}
             >
@@ -37,6 +38,7 @@ const TripleActionButton: FC<TripleActionButtonProps> = ({edithPath, isListView 
                     fontWeight="none"
                     colorScheme={state.enabled ? "orange" : "green"}
                     size={"sm"}
+                    isDisabled={isDisabled}
                     leftIcon={state.enabled ? <FiLock /> : <FiUnlock />}
                     onClick={showToggleModal}
                 >
@@ -54,6 +56,7 @@ interface TripleActionButtonProps {
     showToggleModal?: () => void;
     isListView?: boolean;
     showStatus?: boolean;
+    isDisabled?: boolean;
 }
 
 export default TripleActionButton;

@@ -18,8 +18,18 @@ import SearchField from "../../form/SearchField";
 
 const StatesTableList: FC<StatesTableListProps> = ({showCountry = false, showCreator = false, fetchStates = false, statesBaseUrl, children}): ReactElement => {
     const {
-        statesResponseData, isStatesPending, statesAlertData, fetchPaginatedStates, fetchPaginatedNeedleStates, onDeleteModalClose,
-        selectedState, showDeleteModal, isDeleteModalOpen, deleteStateAlertData, isDeleteStatePending,  handleDeleteState,
+        statesResponseData,
+        isStatesPending,
+        statesAlertData,
+        fetchPaginatedStates,
+        fetchPaginatedNeedleStates,
+        onDeleteModalClose,
+        selectedState,
+        showDeleteModal,
+        isDeleteModalOpen,
+        deleteStateAlertData,
+        isDeleteStatePending,
+        handleDeleteState,
     }: StatesTableListHookType = useStatesTableListHook({fetchStates, statesBaseUrl});
 
     return (

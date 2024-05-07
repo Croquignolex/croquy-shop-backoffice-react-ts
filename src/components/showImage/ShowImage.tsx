@@ -23,7 +23,7 @@ const ShowImage: FC<ShowImageProps> = ({image, handleImageUpdate, imageBaseUrl, 
         <>
             <CustomAlert data={changeImageAlertData} />
             <Center>
-                {isLoading ? <Skeleton height={200} width={200} rounded={"xl"} /> : (
+                {isLoading ? <Skeleton height={"200px"} width={"200px"} rounded={"md"} /> : (
                     <Stack>
                         <ImageDisplay image={image} size={ImageSizeEnumType.small} />
                         <Box>

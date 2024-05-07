@@ -8,8 +8,12 @@ import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesH
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {CountryType, defaultSelectedCountry, destroyCountry} from "../../../pages/countries/show/showCountryData";
 import {
-    CountriesResponseDataType, CountriesTableListHookProps, CountriesTableListHookType,
-    defaultCountriesResponseData, DestroyCountryRequestDataType, countriesRequest,
+    CountriesResponseDataType,
+    CountriesTableListHookProps,
+    CountriesTableListHookType,
+    defaultCountriesResponseData,
+    DestroyCountryRequestDataType,
+    countriesRequest,
 } from "./countriesTableListData";
 
 const useCountriesTableListHook = ({fetchCountries, countriesBaseUrl}: CountriesTableListHookProps): CountriesTableListHookType => {
@@ -96,8 +100,18 @@ const useCountriesTableListHook = ({fetchCountries, countriesBaseUrl}: Countries
     }
 
     return {
-        countriesResponseData, isCountriesPending, countriesAlertData, fetchPaginatedCountries, fetchPaginatedNeedleCountries, onDeleteModalClose,
-        selectedCountry, showDeleteModal, isDeleteModalOpen, deleteCountryAlertData, isDeleteCountryPending,  handleDeleteCountry,
+        countriesResponseData,
+        isCountriesPending,
+        countriesAlertData,
+        fetchPaginatedCountries,
+        fetchPaginatedNeedleCountries,
+        onDeleteModalClose,
+        selectedCountry,
+        showDeleteModal,
+        isDeleteModalOpen,
+        deleteCountryAlertData,
+        isDeleteCountryPending,
+        handleDeleteCountry,
     };
 };
 

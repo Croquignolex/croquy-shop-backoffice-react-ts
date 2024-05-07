@@ -1,7 +1,7 @@
 import {ErrorAlertType, URLParamType} from "../../../helpers/globalTypesHelper";
-import {StateType} from "./show/showStateData";
 import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {getRequest} from "../../../helpers/axiosHelpers";
+import {StateType} from "../../../pages/states/show/showStateData";
 
 export const defaultStatesResponseData: StatesResponseDataType = {
     content: [],

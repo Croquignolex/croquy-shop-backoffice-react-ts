@@ -6,6 +6,7 @@ import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 
 import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
+import {mainRoutes} from "../../../routes/mainRoutes";
 import {
     CreateCountryFormType,
     CreateCountryRequestDataType,
@@ -13,7 +14,6 @@ import {
     CountryCreateFormHookType,
     CountryCreateFormHookeProps
 } from "./CountryCreateFormData";
-import {mainRoutes} from "../../../routes/mainRoutes";
 
 const useCountryCreateFormHook = ({modal, handleFinish}: CountryCreateFormHookeProps): CountryCreateFormHookType => {
     const [createCountryAlertData, setCreateCountryAlertData] = useState<ErrorAlertType>({show: false});

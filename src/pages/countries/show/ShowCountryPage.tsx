@@ -1,9 +1,22 @@
-import React, {ReactElement} from "react";
+import React, {ReactElement, useState} from "react";
 import {FiPlusSquare} from "react-icons/fi";
 import {Link} from "react-router-dom";
 import {
-    Box, Stack, Table, Tbody, ButtonGroup, Badge, SimpleGrid,
-    Tabs, TabList, Tab, TabPanels, TabPanel, Icon, Button,
+    Box,
+    Stack,
+    Table,
+    Tbody,
+    ButtonGroup,
+    Badge,
+    SimpleGrid,
+    Tabs,
+    TabList,
+    Tab,
+    TabPanels,
+    TabPanel,
+    Icon,
+    Button,
+    useDisclosure,
 } from "@chakra-ui/react";
 
 import useShowCountryHook from "./useShowCountryHook";
@@ -20,13 +33,31 @@ import ShowImage from "../../../components/showImage/ShowImage";
 import StatesTableList from "../../../components/tableList/states/StatesTableList";
 import {countriesApiURI} from "../../../constants/apiURIConstants";
 import { joinBaseUrlWithParams } from "../../../helpers/apiRequestsHelpers";
-
+import NotFoundPage from "../../NotFoundPage";
+import FormModal from "../../../components/FormModal";
+import CountryStateCreateForm from "../../../components/createForm/state/country/CountryStateCreateForm";
 
 const ShowCountryPage = (): ReactElement => {
+    const [statesSequence, setStatesSequence] = useState<number>(0);
+    const { onOpen: onAddStateModalOpen, isOpen: isAddStateModalOpen, onClose: onAddStateModalClose } = useDisclosure();
     const {
-        isCountryPending, onDeleteModalClose, showDeleteModal, isDeleteModalOpen, deleteCountryAlertData, isDeleteCountryPending,
-        handleDeleteCountry, countryAlertData, countryResponseData, handleToggleCountry, isToggleCountryPending, toggleCountryAlertData,
-        isToggleModalOpen, onToggleModalClose, showToggleModal, handleTabsChange, handleFlagUpdate
+        isCountryPending,
+        onDeleteModalClose,
+        showDeleteModal,
+        isDeleteModalOpen,
+        deleteCountryAlertData,
+        isDeleteCountryPending,
+        handleDeleteCountry,
+        countryAlertData,
+        countryResponseData,
+        handleToggleCountry,
+        isToggleCountryPending,
+        toggleCountryAlertData,
+        isToggleModalOpen,
+        onToggleModalClose,
+        showToggleModal,
+        handleTabsChange,
+        handleFlagUpdate
     }: ShowCountryHookType = useShowCountryHook();
 
     const statesBaseUrl: string = joinBaseUrlWithParams(countriesApiURI.addState, [{param: "id", value: countryResponseData.id}]);
@@ -40,107 +71,134 @@ const ShowCountryPage = (): ReactElement => {
             />
             <Stack>
                 <CustomAlert data={countryAlertData} />
-
-                <SimpleGrid minChildWidth={"sm"} spacing={2}>
-                    <Box>
+                {countryAlertData.show ? <NotFoundPage /> : (
+                    <>
+                        <SimpleGrid minChildWidth={"sm"} spacing={2}>
+                            <Box>
+                                <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
+                                    <>
+                                        <strong>Drapeau</strong>
+                                        <ShowImage
+                                            isLoading={isCountryPending}
+                                            image={countryResponseData.flag}
+                                            imageBaseUrl={flagBaseUrl}
+                                            handleImageUpdate={handleFlagUpdate}
+                                        />
+                                    </>
+                                </Stack>
+                            </Box>
+                            <Box>
+                                <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
+                                    {!countryAlertData.show && (
+                                        <>
+                                            <ButtonGroup>
+                                                <DoubleActionButton
+                                                    isDisabled={isCountryPending}
+                                                    showStatus={!isCountryPending}
+                                                    state={countryResponseData}
+                                                    showDeleteModal={showDeleteModal}
+                                                    showToggleModal={showToggleModal}
+                                                    edithPath={`${mainRoutes.countries.path}/${countryResponseData.id}/edit`}
+                                                />
+                                            </ButtonGroup>
+                                            <Table size={"sm"}>
+                                                <Tbody>
+                                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Nom"}>{countryResponseData.name}</ListSkeletonLoader>
+                                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Indice"}>{countryResponseData.phoneCode}</ListSkeletonLoader>
+                                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Status"}><StatusBadge enabled={countryResponseData.enabled}/></ListSkeletonLoader>
+                                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Créer par"}>
+                                                        <Link
+                                                            to={`${mainRoutes.users.path}/${countryResponseData.creator?.id}`}
+                                                            className="link"
+                                                            state={countryResponseData.creator}
+                                                        >
+                                                            {countryResponseData.creator?.username}
+                                                        </Link>
+                                                    </ListSkeletonLoader>
+                                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Créer le"}>
+                                                        <Badge rounded="md">{stringDateFormat(countryResponseData.createdAt, true)}</Badge>
+                                                    </ListSkeletonLoader>
+                                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Modifié le"}>
+                                                        <Badge rounded="md">{stringDateFormat(countryResponseData.updatedAt, true)}</Badge>
+                                                    </ListSkeletonLoader>
+                                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Description"}>{countryResponseData.description}</ListSkeletonLoader>
+                                                </Tbody>
+                                            </Table>
+                                        </>
+                                    )}
+                                </Stack>
+                            </Box>
+                        </SimpleGrid>
                         <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
-                            <strong>Drapeau</strong>
-                            <ShowImage
-                                isLoading={isCountryPending}
-                                image={countryResponseData.flag}
-                                imageBaseUrl={flagBaseUrl}
-                                handleImageUpdate={handleFlagUpdate}
-                            />
-                        </Stack>
-                    </Box>
-                    <Box>
-                        <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
-                            <ButtonGroup>
-                                <DoubleActionButton
-                                    showStatus={!isCountryPending}
-                                    state={countryResponseData}
-                                    showDeleteModal={showDeleteModal}
-                                    showToggleModal={showToggleModal}
-                                    edithPath={`${mainRoutes.countries.path}/${countryResponseData.id}/edit`}
-                                />
-                            </ButtonGroup>
-                            <Table size={"sm"}>
-                                <Tbody>
-                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Nom"}>{countryResponseData.name}</ListSkeletonLoader>
-                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Indice"}>{countryResponseData.phoneCode}</ListSkeletonLoader>
-                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Status"}><StatusBadge enabled={countryResponseData.enabled}/></ListSkeletonLoader>
-                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Créer par"}>
-                                        <Link
-                                            to={`${mainRoutes.users.path}/${countryResponseData.creator?.id}`}
-                                            className="link"
-                                            state={countryResponseData.creator}
-                                        >
-                                            {countryResponseData.creator?.username}
-                                        </Link>
-                                    </ListSkeletonLoader>
-                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Créer le"}>
-                                        <Badge rounded="md">{stringDateFormat(countryResponseData.createdAt, true)}</Badge>
-                                    </ListSkeletonLoader>
-                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Modifié le"}>
-                                        <Badge rounded="md">{stringDateFormat(countryResponseData.updatedAt, true)}</Badge>
-                                    </ListSkeletonLoader>
-                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Description"}>{countryResponseData.description}</ListSkeletonLoader>
-                                </Tbody>
-                            </Table>
-                        </Stack>
-                    </Box>
-                </SimpleGrid>
-                <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
-                    <Tabs colorScheme='green' isFitted onChange={handleTabsChange}>
-                        <TabList>
-                            <Tab><Icon mr="2" as={mainRoutes.states.icon} /> {mainRoutes.states.title}</Tab>
-                            {/*<Tab><Icon mr="2" as={FiCheck} /> Inventaire</Tab>*/}
-                        </TabList>
-                        <TabPanels>
-                            <TabPanel>
-                                <StatesTableList
-                                    fetchStates
-                                    showCreator
-                                    statesBaseUrl={statesBaseUrl}
-                                >
-                                    <Button
-                                        colorScheme='green'
-                                        fontWeight="none"
-                                        size={"sm"}
-                                        leftIcon={<FiPlusSquare />}
-                                        as={Link}
-                                        to={mainRoutes.addState.path}
-                                    >
-                                        Ajouter une ville
-                                    </Button>
-                                </StatesTableList>
-                            </TabPanel>
-                            {/*<TabPanel>
+                            {!countryAlertData.show && (
+                                <Tabs colorScheme='green' isFitted onChange={handleTabsChange}>
+                                    <TabList>
+                                        <Tab><Icon mr="2" as={mainRoutes.states.icon} /> {mainRoutes.states.title}</Tab>
+                                        {/*<Tab><Icon mr="2" as={FiCheck} /> Inventaire</Tab>*/}
+                                    </TabList>
+                                    <TabPanels>
+                                        <TabPanel key={statesSequence}>
+                                            {countryResponseData.id && (
+                                                <StatesTableList
+                                                    fetchStates
+                                                    showCreator
+                                                    statesBaseUrl={statesBaseUrl}
+                                                >
+                                                    <Button
+                                                        colorScheme='green'
+                                                        fontWeight="none"
+                                                        size={"sm"}
+                                                        leftIcon={<FiPlusSquare />}
+                                                        onClick={onAddStateModalOpen}
+                                                    >
+                                                        Ajouter une ville
+                                                    </Button>
+                                                </StatesTableList>
+                                            )}
+                                        </TabPanel>
+                                        {/*<TabPanel>
                                         <p>two!</p>
                                     </TabPanel>*/}
-                        </TabPanels>
-                    </Tabs>
-                </Stack>
-                <ConfirmAlertDialog
-                    handleConfirm={handleDeleteCountry}
-                    isOpen={isDeleteModalOpen}
-                    onClose={onDeleteModalClose}
-                    isLoading={isDeleteCountryPending}
-                    alertData={deleteCountryAlertData}
-                >
-                    Supprimer la boutique <strong>{countryResponseData.name}</strong>?
-                </ConfirmAlertDialog>
-                <ConfirmAlertDialog
-                    colorScheme={countryResponseData.enabled ? "orange" : "green"}
-                    handleConfirm={handleToggleCountry}
-                    isOpen={isToggleModalOpen}
-                    onClose={onToggleModalClose}
-                    isLoading={isToggleCountryPending}
-                    alertData={toggleCountryAlertData}
-                    title={countryResponseData.enabled ? "Désactivation" : "Activation"}
-                >
-                    {countryResponseData.enabled ? "Désactiver" : "Activer"} la boutique <strong>{countryResponseData.name}</strong>?
-                </ConfirmAlertDialog>
+                                    </TabPanels>
+                                </Tabs>
+                            )}
+                        </Stack>
+                        <FormModal
+                            title={`Ajouter une ville au pays ${countryResponseData.name}`}
+                            isOpen={isAddStateModalOpen}
+                            onClose={onAddStateModalClose}
+                        >
+                            <CountryStateCreateForm
+                                countryId={countryResponseData.id}
+                                handleAdd={() => setStatesSequence(statesSequence + 1)}
+                                handleFinish={(): void => {
+                                    onAddStateModalClose();
+                                    setStatesSequence(statesSequence + 1);
+                                }}
+                            />
+                        </FormModal>
+                        <ConfirmAlertDialog
+                            handleConfirm={handleDeleteCountry}
+                            isOpen={isDeleteModalOpen}
+                            onClose={onDeleteModalClose}
+                            isLoading={isDeleteCountryPending}
+                            alertData={deleteCountryAlertData}
+                        >
+                            Supprimer la boutique <strong>{countryResponseData.name}</strong>?
+                        </ConfirmAlertDialog>
+                        <ConfirmAlertDialog
+                            colorScheme={countryResponseData.enabled ? "orange" : "green"}
+                            handleConfirm={handleToggleCountry}
+                            isOpen={isToggleModalOpen}
+                            onClose={onToggleModalClose}
+                            isLoading={isToggleCountryPending}
+                            alertData={toggleCountryAlertData}
+                            title={countryResponseData.enabled ? "Désactivation" : "Activation"}
+                        >
+                            {countryResponseData.enabled ? "Désactiver" : "Activer"} la boutique <strong>{countryResponseData.name}</strong>?
+                        </ConfirmAlertDialog>
+                    </>
+                )}
             </Stack>
         </>
     );

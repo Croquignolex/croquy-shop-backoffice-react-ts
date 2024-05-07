@@ -1,11 +1,18 @@
 import React, { FC, ReactElement, useRef, MutableRefObject, ReactNode } from "react";
 import {FiThumbsUp, FiThumbsDown} from "react-icons/fi";
 import {
-    AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, Stack,
-    AlertDialogFooter, AlertDialogBody, AlertDialogCloseButton, Button, ButtonGroup
+    AlertDialog,
+    AlertDialogOverlay,
+    AlertDialogContent,
+    AlertDialogHeader,
+    Stack,
+    AlertDialogFooter,
+    AlertDialogBody,
+    AlertDialogCloseButton,
+    Button,
+    ButtonGroup
 } from "@chakra-ui/react";
 
-import Loader from "./Loader";
 import CustomAlert from "./alert/CustomAlert";
 import {ErrorAlertType} from "../helpers/globalTypesHelper";
 
@@ -14,7 +21,7 @@ const ConfirmAlertDialog: FC<ConfirmAlertDialogProps> = ({ isOpen, isLoading, on
     const cancelRef: MutableRefObject<any> = useRef<any>()
 
     return (
-        <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose} isCentered>
+        <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose} isCentered closeOnOverlayClick={false}>
             <AlertDialogOverlay>
                 <AlertDialogContent>
                     <AlertDialogHeader>{title}</AlertDialogHeader>
@@ -26,21 +33,31 @@ const ConfirmAlertDialog: FC<ConfirmAlertDialogProps> = ({ isOpen, isLoading, on
                     <AlertDialogBody>{children}</AlertDialogBody>
 
                     <AlertDialogFooter>
-                        {isLoading ? <Loader isLoading={isLoading} /> : (
-                            <ButtonGroup>
-                                <Button ref={cancelRef} onClick={onClose} size={"sm"} leftIcon={<FiThumbsDown />}>
-                                    Non
-                                </Button>
-                                <Button colorScheme={colorScheme} onClick={handleConfirm} size={"sm"} leftIcon={<FiThumbsUp />}>
-                                    Oui
-                                </Button>
-                            </ButtonGroup>
-                        )}
+                        <ButtonGroup>
+                            <Button
+                                ref={cancelRef}
+                                onClick={onClose}
+                                size={"sm"}
+                                leftIcon={<FiThumbsDown />}
+                                isDisabled={isLoading}
+                            >
+                                Non
+                            </Button>
+                            <Button
+                                colorScheme={colorScheme}
+                                onClick={handleConfirm}
+                                size={"sm"}
+                                leftIcon={<FiThumbsUp />}
+                                isLoading={isLoading}
+                            >
+                                Oui
+                            </Button>
+                        </ButtonGroup>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialogOverlay>
         </AlertDialog>
-    )
+    );
 };
 
 interface ConfirmAlertDialogProps {

@@ -1,9 +1,7 @@
 import React, {FC, ReactElement} from "react";
-import {Link} from "react-router-dom";
-import {Box, Flex, Stack, Text} from "@chakra-ui/react";
+import {Box, Flex, Stack, Text, useDisclosure} from "@chakra-ui/react";
 import {Form, Formik, FormikProps} from "formik";
 
-import {mainRoutes} from "../../../routes/mainRoutes";
 import CustomAlert from "../../alert/CustomAlert";
 import TextField from "../../form/TextField";
 import TextareaField from "../../form/TextareaField";
@@ -11,6 +9,8 @@ import DoubleSaveButton from "../../form/DoubleSaveButton";
 import useStateCreateFormHook from "./useStateCreateFormHook";
 import SelectField from "../../form/SelectField";
 import useCountriesSelectListHook, {CountriesSelectListHookType} from "../../../hooks/useCountriesSelectListHook";
+import FormModal from "../../FormModal";
+import CountryCreateForm from "../country/CountryCreateForm";
 import {
     StateCreateFormHookType,
     CreateStateFormType,
@@ -19,7 +19,12 @@ import {
 } from "./StateCreateFormData";
 
 const StateCreateForm: FC<StateCreateFormProps> = ({modal = false, handleFinish}): ReactElement => {
-    const {selectListCountries, isSelectListCountriesPending}: CountriesSelectListHookType = useCountriesSelectListHook();
+    const { onOpen: onAddCountryModalOpen, isOpen: isAddCountryModalOpen, onClose: onAddCountryModalClose } = useDisclosure();
+    const {
+        selectListCountries,
+        setCountriesQueryEnabled,
+        isSelectListCountriesPending
+    }: CountriesSelectListHookType = useCountriesSelectListHook();
     const {
         createStateAlertData,
         handleCreateState,
@@ -35,8 +40,13 @@ const StateCreateForm: FC<StateCreateFormProps> = ({modal = false, handleFinish}
                 {(props: FormikProps<CreateStateFormType>) => (
                     <Form>
                         <Box textAlign="right">
-                            <Text fontSize="sm" color="green.500" _hover={{textDecoration: "underline"}}>
-                                <Link to={mainRoutes.countries.path}>Ajouter un pays</Link>
+                            <Text
+                                as={"span"}
+                                fontSize="sm"
+                                className="link"
+                                onClick={onAddCountryModalOpen}
+                            >
+                                Ajouter un pays
                             </Text>
                         </Box>
                         <Flex>
@@ -74,6 +84,20 @@ const StateCreateForm: FC<StateCreateFormProps> = ({modal = false, handleFinish}
                     </Form>
                 )}
             </Formik>
+            <FormModal
+                title="Ajouter un pays"
+                isOpen={isAddCountryModalOpen}
+                onClose={onAddCountryModalClose}
+            >
+                <CountryCreateForm
+                    modal
+                    handleAdd={(): void => setCountriesQueryEnabled(true)}
+                    handleFinish={(): void => {
+                        onAddCountryModalClose();
+                        setCountriesQueryEnabled(true);
+                    }}
+                />
+            </FormModal>
         </Stack>
     );
 };

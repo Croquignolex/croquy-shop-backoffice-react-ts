@@ -25,6 +25,7 @@ export interface CreateCountryRequestDataType extends CreateCountryFormType {}
 export interface CountryCreateFormHookeProps {
     modal?: boolean;
     handleFinish?: () => void;
+    handleAdd?: () => void;
 }
 
 export interface CountryCreateFormHookType {

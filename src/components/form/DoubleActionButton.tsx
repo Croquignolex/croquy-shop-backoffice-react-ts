@@ -18,6 +18,7 @@ const TripleActionButton: FC<TripleActionButtonProps> = ({edithPath, isListView 
                 leftIcon={<FiEdit />}
                 size={"sm"}
                 as={Link}
+                state={state}
                 isDisabled={isDisabled}
                 to={edithPath}
             >

@@ -15,7 +15,7 @@ import {
     CountryCreateFormHookeProps
 } from "./CountryCreateFormData";
 
-const useCountryCreateFormHook = ({modal, handleFinish}: CountryCreateFormHookeProps): CountryCreateFormHookType => {
+const useCountryCreateFormHook = ({modal, handleFinish, handleAdd}: CountryCreateFormHookeProps): CountryCreateFormHookType => {
     const [createCountryAlertData, setCreateCountryAlertData] = useState<ErrorAlertType>({show: false});
     const [next, setNext] = useState<boolean>(false);
     const [sequence, setSequence] = useState<number>(0);
@@ -37,7 +37,10 @@ const useCountryCreateFormHook = ({modal, handleFinish}: CountryCreateFormHookeP
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             // Reload component
-            if(next) setSequence(sequence + 1);
+            if(next) {
+                if(modal && handleAdd) handleAdd();
+                setSequence(sequence + 1);
+            }
             else {
                 if(modal && handleFinish) handleFinish();
                 else navigate(mainRoutes.countries.path);

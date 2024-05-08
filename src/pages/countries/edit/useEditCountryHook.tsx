@@ -53,7 +53,7 @@ const useEditCountryHook = (): EditCountryHookType => {
         onSuccess: (data: AxiosResponse, variables: EditCountryRequestDataType): void => {
             setEditCountryAlertData({show: false});
 
-            const toastMessage: string = `Pays ${variables.name} mise à jour avec succès`;
+            const toastMessage: string = `Pays ${variables.name} mis à jour avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             navigate(`${mainRoutes.countries.path}/${countryResponseData.id}`);

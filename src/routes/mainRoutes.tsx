@@ -19,10 +19,10 @@ const addCountry: MainRouteType = {path: '/countries/create', onSidebar: false, 
 const showCountry: MainRouteType = {path: '/countries/:id', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/show/ShowCountryPage'))};
 const editCountry: MainRouteType = {path: '/countries/:id/edit', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/edit/EditCountryPage'))};
 
-const states: MainRouteType = {title: 'Villes', path: '/states', icon: FiMap, onSidebar: false, onHeader: false, component: lazy(() => import('../pages/states/StatesPage'))};
+const states: MainRouteType = {title: 'Villes', path: '/states', icon: FiMap, onSidebar: true, onHeader: false, component: lazy(() => import('../pages/states/StatesPage'))};
 const addState: MainRouteType = {path: '/states/create', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/states/CreateStatePage'))};
-const showState: MainRouteType = {path: '/states/:id', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/show/ShowCountryPage'))};
-const editState: MainRouteType = {path: '/states/:id/edit', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/countries/edit/EditCountryPage'))};
+const showState: MainRouteType = {path: '/states/:id', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/states/show/ShowStatePage'))};
+const editState: MainRouteType = {path: '/states/:id/edit', onSidebar: false, onHeader: false, component: lazy(() => import('../pages/states/edit/EditStatePage'))};
 
 export interface MainRouteType {
     icon?: IconType,

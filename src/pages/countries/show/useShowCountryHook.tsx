@@ -51,7 +51,7 @@ const useShowCountryHook = (): ShowCountryHookType => {
         onSuccess: (): void => {
             setDeleteCountryAlertData({show: false});
 
-            const toastMessage: string = `Boutique ${countryResponseData.name} supprimée avec succès`;
+            const toastMessage: string = `Pays ${countryResponseData.name} supprimé avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             onDeleteModalClose();
@@ -71,7 +71,7 @@ const useShowCountryHook = (): ShowCountryHookType => {
         onSuccess: (): void => {
             setToggleCountryAlertData({show: false});
 
-            const toastMessage: string = `Boutique ${countryResponseData.name} ${countryResponseData.enabled ? "désactivée" : "activée"} avec succès`;
+            const toastMessage: string = `Pays ${countryResponseData.name} ${countryResponseData.enabled ? "désactivé" : "activé"} avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             onToggleModalClose();

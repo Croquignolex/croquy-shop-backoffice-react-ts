@@ -14,14 +14,14 @@ import {
     createCountrySchema
 } from "./CountryCreateFormData";
 
-const CountryCreateForm: FC<CountryCreateFormProps> = ({modal = false, handleFinish}): ReactElement => {
+const CountryCreateForm: FC<CountryCreateFormProps> = ({modal = false, handleFinish, handleAdd}): ReactElement => {
     const {
         createCountryAlertData,
         handleCreateCountry,
         handleCreateCountryAndContinue,
         sequence,
         isCreateCountryPending
-    }: CountryCreateFormHookType = useCountryCreateFormHook({modal, handleFinish});
+    }: CountryCreateFormHookType = useCountryCreateFormHook({modal, handleFinish, handleAdd});
 
     return (
         <Stack key={sequence}>
@@ -69,6 +69,7 @@ const CountryCreateForm: FC<CountryCreateFormProps> = ({modal = false, handleFin
 interface CountryCreateFormProps {
     modal?: boolean;
     handleFinish?: () => void;
+    handleAdd?: () => void;
 }
 
 export default CountryCreateForm;

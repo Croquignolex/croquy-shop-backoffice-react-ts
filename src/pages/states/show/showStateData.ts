@@ -51,7 +51,6 @@ export interface ShowStateHookType {
     isToggleStatePending: boolean,
     handleToggleState: () => void,
     onToggleModalClose: () => void,
-    handleTabsChange: (a: number) => void,
 }
 
 export const stateRequest = (id: string): Promise<any> => {

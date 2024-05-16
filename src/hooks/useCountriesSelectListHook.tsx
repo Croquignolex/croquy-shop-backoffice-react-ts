@@ -19,7 +19,7 @@ const useCountriesSelectListHook = (): CountriesSelectListHookType => {
         enabled: countriesQueryEnabled,
     });
 
-    if(countriesResponse.isError) {
+    if(countriesQueryEnabled && countriesResponse.isError) {
         setCountriesQueryEnabled(false);
         setSelectListCountries([]);
 

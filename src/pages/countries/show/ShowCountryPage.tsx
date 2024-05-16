@@ -164,7 +164,7 @@ const ShowCountryPage = (): ReactElement => {
                             )}
                         </Stack>
                         <FormModal
-                            title={`Ajouter une ville au pays ${countryResponseData.name}`}
+                            title={"Ajouter une ville"}
                             isOpen={isAddStateModalOpen}
                             onClose={onAddStateModalClose}
                         >

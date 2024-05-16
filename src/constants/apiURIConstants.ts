@@ -5,6 +5,7 @@ export const authApiURI = {
 
 export const selectListApiURI = { 
     countries: "/select/countries",
+    states: "/select/states",
 };
 
 export const usersApiURI = {

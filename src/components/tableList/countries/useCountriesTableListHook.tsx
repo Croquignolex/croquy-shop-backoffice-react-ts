@@ -22,6 +22,7 @@ const useCountriesTableListHook = ({fetchCountries, countriesBaseUrl}: Countries
     const { onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose } = useDisclosure();
     const toast: CreateToastFnReturn = useToast();
 
+    // const [countriesAlertData, setCountriesAlertData] = useState<ErrorAlertType>({show: false});
     const [searchNeedle, setSearchNeedle] = useState<string>("");
     const [countriesQueryEnabled, setCountriesQueryEnabled] = useState<boolean>(fetchCountries);
     const [deleteCountryAlertData, setDeleteCountryAlertData] = useState<ErrorAlertType>({show: false});
@@ -55,8 +56,9 @@ const useCountriesTableListHook = ({fetchCountries, countriesBaseUrl}: Countries
         }
     });
 
-    if(countriesResponse.isError) {
-        countriesAlertData = errorAlert(countriesResponse.error);
+    if(countriesQueryEnabled && countriesResponse.isError) {
+        setCountriesQueryEnabled(false);
+        // countriesAlertData = errorAlert(countriesResponse.error);
 
         log("Countries list failure", countriesResponse);
     }

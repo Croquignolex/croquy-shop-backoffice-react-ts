@@ -7,9 +7,15 @@ import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {EditCountryFormType, EditCountryHookType, EditCountryRequestDataType, updateCountryRequest} from "./editCountryData"
 import {countryRequest, CountryType, defaultSelectedCountry} from "../show/showCountryData";
 import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+import {
+    EditCountryFormType,
+    EditCountryHookType,
+    editCountryInitialStaticValues,
+    EditCountryRequestDataType,
+    updateCountryRequest
+} from "./editCountryData"
 
 const useEditCountryHook = (): EditCountryHookType => {
     let countryAlertData: ErrorAlertType = {show: false};
@@ -25,7 +31,7 @@ const useEditCountryHook = (): EditCountryHookType => {
     const [editCountryAlertData, setEditCountryAlertData] = useState<ErrorAlertType>({show: false});
     const [countryQueryEnabled, setCountryQueryEnabled] = useState<boolean>(false);
     const [countryResponseData, setCountryResponseData] = useState<CountryType>(defaultSelectedCountry);
-    const [formCountry, setFormCountry] = useState<EditCountryFormType>(defaultSelectedCountry);
+    const [formCountry, setFormCountry] = useState<EditCountryFormType>(editCountryInitialStaticValues);
 
     useEffect((): void => {
         if(country) {
@@ -58,7 +64,7 @@ const useEditCountryHook = (): EditCountryHookType => {
 
             navigate(`${mainRoutes.countries.path}/${countryResponseData.id}`);
 
-            log("Update pays successful", updateCountryResponse);
+            log("Update country successful", updateCountryResponse);
         }
     });
 

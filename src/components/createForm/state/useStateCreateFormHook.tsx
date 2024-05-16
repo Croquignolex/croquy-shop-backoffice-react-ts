@@ -13,7 +13,7 @@ import {
     storeStateRequest,
     StateCreateFormHookType,
     StateCreateFormHookeProps
-} from "./StateCreateFormData";
+} from "./stateCreateFormData";
 
 const useStateCreateFormHook = ({modal, handleFinish}: StateCreateFormHookeProps): StateCreateFormHookType => {
     const [createStateAlertData, setCreateStateAlertData] = useState<ErrorAlertType>({show: false});

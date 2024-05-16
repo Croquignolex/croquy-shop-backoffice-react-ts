@@ -18,6 +18,7 @@ export const shopsApiURI = {
     update: "/shops/{id}",
     destroy: "/shops/{id}",
     toggle: "/shops/{id}/toggle",
+    address: "/shops/{id}/address",
 };
 
 export const countriesApiURI = {

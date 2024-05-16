@@ -76,19 +76,6 @@ const ShowCountryPage = (): ReactElement => {
                         <SimpleGrid minChildWidth={"sm"} spacing={2}>
                             <Box>
                                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
-                                    <>
-                                        <strong>Drapeau</strong>
-                                        <ShowImage
-                                            isLoading={isCountryPending}
-                                            image={countryResponseData.flag}
-                                            imageBaseUrl={flagBaseUrl}
-                                            handleImageUpdate={handleFlagUpdate}
-                                        />
-                                    </>
-                                </Stack>
-                            </Box>
-                            <Box>
-                                <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                                     {!countryAlertData.show && (
                                         <>
                                             <ButtonGroup>
@@ -126,6 +113,19 @@ const ShowCountryPage = (): ReactElement => {
                                             </Table>
                                         </>
                                     )}
+                                </Stack>
+                            </Box>
+                            <Box>
+                                <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
+                                    <>
+                                        <strong>Drapeau</strong>
+                                        <ShowImage
+                                            isLoading={isCountryPending}
+                                            image={countryResponseData.flag}
+                                            imageBaseUrl={flagBaseUrl}
+                                            handleImageUpdate={handleFlagUpdate}
+                                        />
+                                    </>
                                 </Stack>
                             </Box>
                         </SimpleGrid>

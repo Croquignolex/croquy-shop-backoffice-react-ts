@@ -2,9 +2,9 @@ import * as Yup from "yup";
 import {ChangeEvent} from "react";
 import {FormikProps} from "formik";
 
-import {ErrorAlertType, MediaType, URLParamType} from "../../helpers/globalTypesHelper";
+import {ErrorAlertType, MediaType} from "../../helpers/globalTypesHelper";
 import {formValidationMessage} from "../../constants/generalConstants";
-import {deleteRequest, getRequest, patchRequest} from "../../helpers/axiosHelpers";
+import {deleteRequest, patchRequest} from "../../helpers/axiosHelpers";
 import {v1URL} from "../../helpers/apiRequestsHelpers";
 
 export const changeImageInitialStaticValues: ChangeImageFormType = { image: ''};

@@ -16,7 +16,7 @@ import {
     CreateStateFormType,
     createStateInitialStaticValues,
     createStateSchema
-} from "./StateCreateFormData";
+} from "./stateCreateFormData";
 
 const StateCreateForm: FC<StateCreateFormProps> = ({modal = false, handleFinish}): ReactElement => {
     const { onOpen: onAddCountryModalOpen, isOpen: isAddCountryModalOpen, onClose: onAddCountryModalClose } = useDisclosure();

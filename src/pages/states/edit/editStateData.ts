@@ -8,6 +8,8 @@ import {putRequest} from "../../../helpers/axiosHelpers";
 import {StateType} from "../show/showStateData";
 import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
 
+export const editStateInitialStaticValues: EditStateFormType = { name: "", countryId: "", description: "" };
+
 export const editStateSchema: Yup.ObjectSchema<EditStateFormType> = Yup.object().shape({
     name: Yup.string().required(formValidationMessage.required),
     countryId: Yup.string().required(formValidationMessage.required),

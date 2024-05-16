@@ -7,9 +7,15 @@ import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {EditStateFormType, EditStateHookType, EditStateRequestDataType, updateStateRequest} from "./editStateData"
 import {stateRequest, StateType, defaultSelectedState} from "../show/showStateData";
 import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+import {
+    EditStateFormType,
+    EditStateHookType,
+    editStateInitialStaticValues,
+    EditStateRequestDataType,
+    updateStateRequest
+} from "./editStateData"
 
 const useEditStateHook = (): EditStateHookType => {
     let stateAlertData: ErrorAlertType = {show: false};
@@ -21,11 +27,11 @@ const useEditStateHook = (): EditStateHookType => {
     const navigate: NavigateFunction = useNavigate();
 
     const state: StateType = _state;
-    console.log({_state})
+
     const [editStateAlertData, setEditStateAlertData] = useState<ErrorAlertType>({show: false});
     const [stateQueryEnabled, setStateQueryEnabled] = useState<boolean>(false);
     const [stateResponseData, setStateResponseData] = useState<StateType>(defaultSelectedState);
-    const [formState, setFormState] = useState<EditStateFormType>({...defaultSelectedState, countryId: ""});
+    const [formState, setFormState] = useState<EditStateFormType>(editStateInitialStaticValues);
 
     useEffect((): void => {
         if(state) {

@@ -15,8 +15,16 @@ import ConfirmAlertDialog from "../ConfirmAlertDialog";
 
 const ShowImage: FC<ShowImageProps> = ({image, handleImageUpdate, imageBaseUrl, isLoading}): ReactElement => {
     const {
-        changeImageAlertData, handleChangeImage, handleFileUpload, deleteImageAlertData, handleDeleteImage,
-        isChangeImagePending, showDeleteModal, isDeleteModalOpen, isDeleteImagePending, onDeleteModalClose
+        changeImageAlertData,
+        handleChangeImage,
+        handleFileUpload,
+        deleteImageAlertData,
+        handleDeleteImage,
+        isChangeImagePending,
+        showDeleteModal,
+        isDeleteModalOpen,
+        isDeleteImagePending,
+        onDeleteModalClose
     }: ShowImageHookType = useShowImageHook({imageBaseUrl, image, handleImageUpdate});
 
     return (

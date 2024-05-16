@@ -1,5 +1,6 @@
 export const formValidationMessage = {
     required: "Merci de remplir ce champ",
+    match: "Le format de ce champ n'ai pas correct",
     number: "Merci de ne rentrer que des chiffres",
     email: "Addresse email invalide",
     minMax: "Nombre de caratères incorrect",

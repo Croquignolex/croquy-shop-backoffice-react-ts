@@ -13,7 +13,7 @@ import {
     storeCountryRequest,
     CountryCreateFormHookType,
     CountryCreateFormHookeProps
-} from "./CountryCreateFormData";
+} from "./countryCreateFormData";
 
 const useCountryCreateFormHook = ({modal, handleFinish, handleAdd}: CountryCreateFormHookeProps): CountryCreateFormHookType => {
     const [createCountryAlertData, setCreateCountryAlertData] = useState<ErrorAlertType>({show: false});

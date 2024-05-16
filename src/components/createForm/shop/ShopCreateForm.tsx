@@ -6,28 +6,28 @@ import CustomAlert from "../../alert/CustomAlert";
 import TextField from "../../form/TextField";
 import TextareaField from "../../form/TextareaField";
 import DoubleSaveButton from "../../form/DoubleSaveButton";
-import useCountryCreateFormHook from "./useCountryCreateFormHook";
+import useShopCreateFormHook from "./useShopCreateFormHook";
 import {
-    CountryCreateFormHookType,
-    CreateCountryFormType,
-    createCountryInitialStaticValues,
-    createCountrySchema
-} from "./countryCreateFormData";
+    ShopCreateFormHookType,
+    CreateShopFormType,
+    createShopInitialStaticValues,
+    createShopSchema
+} from "./shopCreateFormData";
 
-const CountryCreateForm: FC<CountryCreateFormProps> = ({modal = false, handleFinish, handleAdd}): ReactElement => {
+const ShopCreateForm: FC<ShopCreateFormProps> = ({modal = false, handleFinish, handleAdd}): ReactElement => {
     const {
-        createCountryAlertData,
-        handleCreateCountry,
-        handleCreateCountryAndContinue,
+        createShopAlertData,
+        handleCreateShop,
+        handleCreateShopAndContinue,
         sequence,
-        isCreateCountryPending
-    }: CountryCreateFormHookType = useCountryCreateFormHook({modal, handleFinish, handleAdd});
+        isCreateShopPending
+    }: ShopCreateFormHookType = useShopCreateFormHook({modal, handleFinish, handleAdd});
 
     return (
         <Stack key={sequence}>
-            <CustomAlert data={createCountryAlertData} />
-            <Formik initialValues={createCountryInitialStaticValues} validationSchema={createCountrySchema} onSubmit={handleCreateCountry}>
-                {(props: FormikProps<CreateCountryFormType>) => (
+            <CustomAlert data={createShopAlertData} />
+            <Formik initialValues={createShopInitialStaticValues} validationSchema={createShopSchema} onSubmit={handleCreateShop}>
+                {(props: FormikProps<CreateShopFormType>) => (
                     <Form>
                         <Flex>
                             <TextField
@@ -38,10 +38,10 @@ const CountryCreateForm: FC<CountryCreateFormProps> = ({modal = false, handleFin
                             />
                             <Box mx={3} />
                             <TextField
-                                label="Indice téléphonique"
-                                name="phoneCode"
-                                isInvalid={!!props.errors.phoneCode && !!props.touched.phoneCode}
-                                errorMessage={props.errors.phoneCode}
+                                label="Slug"
+                                name="slug"
+                                isInvalid={!!props.errors.slug && !!props.touched.slug}
+                                errorMessage={props.errors.slug}
                             />
                         </Flex>
                         <Flex>
@@ -54,9 +54,9 @@ const CountryCreateForm: FC<CountryCreateFormProps> = ({modal = false, handleFin
                         </Flex>
                         <Flex>
                             <DoubleSaveButton
-                                isLoading={isCreateCountryPending}
+                                isLoading={isCreateShopPending}
                                 formikProps={props}
-                                handleSaveAndContinue={() => handleCreateCountryAndContinue(props.values)}
+                                handleSaveAndContinue={() => handleCreateShopAndContinue(props.values)}
                             />
                         </Flex>
                     </Form>
@@ -66,10 +66,10 @@ const CountryCreateForm: FC<CountryCreateFormProps> = ({modal = false, handleFin
     );
 };
 
-interface CountryCreateFormProps {
+interface ShopCreateFormProps {
     modal?: boolean;
     handleFinish?: () => void;
     handleAdd?: () => void;
 }
 
-export default CountryCreateForm;
+export default ShopCreateForm;

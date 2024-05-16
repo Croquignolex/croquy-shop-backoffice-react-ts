@@ -24,11 +24,15 @@ export const needleSearch = (set: any, needle: string): boolean => {
 };
 
 // Format date
-export const stringDateFormat = (stringDate: string, withHour = false): string => {
+export const stringDateFormat = (stringDate: string = "", withHour = false): string => {
     try {
-        return (withHour)
+        let temp: string = (withHour)
             ? dayjs(stringDate).format("DD/MM/YYYY HH:mm")
             : dayjs(stringDate).format("DD/MM/YYYY");
+
+        if(temp === "Invalid Date") throw new Error("Invalid Date");
+
+        return temp;
     } catch (e) {
         log("String date format Exception", {e});
     }

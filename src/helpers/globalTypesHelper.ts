@@ -1,6 +1,8 @@
 import {IconType} from "react-icons";
 import {UserType} from "../pages/users/usersPageData";
 import {CountryType} from "../pages/countries/show/showCountryData";
+import {StateType} from "../pages/states/show/showStateData";
+import {ShopType} from "../pages/shops/show/showShopData";
 
 export interface ErrorAlertType {
     show: boolean,
@@ -41,7 +43,7 @@ export const defaultMedia: MediaType = {
     id: "",
     originalName: "",
     path: "",
-    updatedAt: "",
+    createdAt: "",
 }
 
 export interface MediaType {
@@ -51,6 +53,27 @@ export interface MediaType {
     path: string;
     country?: CountryType;
     creator?: UserType;
-    updatedAt: string;
+    createdAt: string;
     base64?: string | null;
+}
+
+export const defaultAddress: AddressType = {
+    id: "",
+    type: "",
+    streetAddress: "",
+    createdAt: "",
+}
+
+export interface AddressType {
+    id: string;
+    type: string;
+    streetAddress: string;
+    zipcode?: string;
+    phoneNumberOne?: string;
+    phoneNumberTwo?: string;
+    description?: string;
+    shop?: ShopType;
+    creator?: UserType;
+    state?: StateType;
+    createdAt: string;
 }

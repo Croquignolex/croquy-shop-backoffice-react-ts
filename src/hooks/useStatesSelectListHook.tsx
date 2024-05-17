@@ -19,9 +19,8 @@ const useStatesSelectListHook = (): StatesSelectListHookType => {
         enabled: statesQueryEnabled,
     });
 
-    if(statesResponse.isError) {
-        // setStatesQueryEnabled(false);
-        // setSelectListStates([]);
+    if(statesQueryEnabled && statesResponse.isError) {
+        setStatesQueryEnabled(false);
 
         log("States list failure", statesResponse);
     }

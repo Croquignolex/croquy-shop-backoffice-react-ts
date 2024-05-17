@@ -17,13 +17,12 @@ import {
 } from "./shopsTableListData";
 
 const useShopsTableListHook = ({fetchShops, shopsBaseUrl}: ShopsTableListHookProps): ShopsTableListHookType => {
-    let shopsAlertData: ErrorAlertType = {show: false};
-
     const { onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose } = useDisclosure();
     const toast: CreateToastFnReturn = useToast();
 
     const [searchNeedle, setSearchNeedle] = useState<string>("");
     const [shopsQueryEnabled, setShopsQueryEnabled] = useState<boolean>(fetchShops);
+    const [shopsAlertData, setShopsAlertData] = useState<ErrorAlertType>({show: false});
     const [deleteShopAlertData, setDeleteShopAlertData] = useState<ErrorAlertType>({show: false});
     const [selectedShop, setSelectedShop] = useState<ShopType>(defaultSelectedShop);
     const [shopsResponseData, setShopsResponseData] = useState<ShopsResponseDataType>(defaultShopsResponseData);
@@ -46,7 +45,7 @@ const useShopsTableListHook = ({fetchShops, shopsBaseUrl}: ShopsTableListHookPro
             setDeleteShopAlertData({show: false});
             setShopsQueryEnabled(true);
 
-            const toastMessage: string = `Pays ${selectedShop.name} supprimé avec succès`;
+            const toastMessage: string = `Boutique ${selectedShop.name} supprimée avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             onDeleteModalClose();
@@ -55,14 +54,17 @@ const useShopsTableListHook = ({fetchShops, shopsBaseUrl}: ShopsTableListHookPro
         }
     });
 
-    if(shopsResponse.isError) {
-        shopsAlertData = errorAlert(shopsResponse.error);
+    if(shopsQueryEnabled && shopsResponse.isError) {
+        setShopsQueryEnabled(false);
+        setShopsAlertData(errorAlert(shopsResponse.error));
 
         log("Shops list failure", shopsResponse);
     }
 
     if(shopsQueryEnabled && shopsResponse.isSuccess && !shopsResponse.isFetching) {
         setShopsQueryEnabled(false);
+        setShopsAlertData({show: false});
+
         setShopsResponseData(shopsResponse.data.data);
 
         log("Shops list successful", shopsResponse);

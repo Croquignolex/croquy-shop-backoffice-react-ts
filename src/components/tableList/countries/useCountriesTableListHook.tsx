@@ -17,14 +17,12 @@ import {
 } from "./countriesTableListData";
 
 const useCountriesTableListHook = ({fetchCountries, countriesBaseUrl}: CountriesTableListHookProps): CountriesTableListHookType => {
-    let countriesAlertData: ErrorAlertType = {show: false};
-
     const { onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose } = useDisclosure();
     const toast: CreateToastFnReturn = useToast();
 
-    // const [countriesAlertData, setCountriesAlertData] = useState<ErrorAlertType>({show: false});
     const [searchNeedle, setSearchNeedle] = useState<string>("");
     const [countriesQueryEnabled, setCountriesQueryEnabled] = useState<boolean>(fetchCountries);
+    const [countriesAlertData, setCountriesAlertData] = useState<ErrorAlertType>({show: false});
     const [deleteCountryAlertData, setDeleteCountryAlertData] = useState<ErrorAlertType>({show: false});
     const [selectedCountry, setSelectedCountry] = useState<CountryType>(defaultSelectedCountry);
     const [countriesResponseData, setCountriesResponseData] = useState<CountriesResponseDataType>(defaultCountriesResponseData);
@@ -58,13 +56,15 @@ const useCountriesTableListHook = ({fetchCountries, countriesBaseUrl}: Countries
 
     if(countriesQueryEnabled && countriesResponse.isError) {
         setCountriesQueryEnabled(false);
-        // countriesAlertData = errorAlert(countriesResponse.error);
+        setCountriesAlertData(errorAlert(countriesResponse.error));
 
         log("Countries list failure", countriesResponse);
     }
 
     if(countriesQueryEnabled && countriesResponse.isSuccess && !countriesResponse.isFetching) {
         setCountriesQueryEnabled(false);
+        setCountriesAlertData({show: false});
+
         setCountriesResponseData(countriesResponse.data.data);
 
         log("Countries list successful", countriesResponse);

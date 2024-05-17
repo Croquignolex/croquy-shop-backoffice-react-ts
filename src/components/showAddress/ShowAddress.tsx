@@ -8,10 +8,9 @@ import ListSkeletonLoader from "../skeletonLoader/ListSkeletonLoader";
 import {mainRoutes} from "../../routes/mainRoutes";
 import {stringDateFormat} from "../../helpers/generalHelpers";
 import FormModal from "../FormModal";
-import AddressAddForm from "./add/AddressAddForm";
+import UpdateAddressForm from "./add/UpdateAddressForm";
 
 const ShowAddress: FC<DefaultAddressComponentProps> = ({address, isLoading, addressBaseUrl, handleAddressUpdate}): ReactElement => {
-    const { onOpen: onAddAddressModalOpen, isOpen: isAddAddressModalOpen, onClose: onAddAddressModalClose } = useDisclosure();
     const { onOpen: onUpdateAddressModalOpen, isOpen: isUpdateAddressModalOpen, onClose: onUpdateAddressModalClose } = useDisclosure();
 
     return (
@@ -23,7 +22,7 @@ const ShowAddress: FC<DefaultAddressComponentProps> = ({address, isLoading, addr
                     variant={"outline"}
                     leftIcon={address ? <FiEdit /> : <FiPlusSquare />}
                     size={"sm"}
-                    onClick={(): void => address ? onUpdateAddressModalOpen() : onAddAddressModalOpen()}
+                    onClick={onUpdateAddressModalOpen}
                 >
                     {address ? "Modifier" : "Ajouter"}
                 </Button>
@@ -59,18 +58,18 @@ const ShowAddress: FC<DefaultAddressComponentProps> = ({address, isLoading, addr
                 </Tbody>
             </Table>
             <FormModal
-                title={"Ajouter une address"}
-                isOpen={isAddAddressModalOpen}
-                onClose={onAddAddressModalClose}
-            >
-                <AddressAddForm baseUrl={addressBaseUrl} handleFinish={() => {}}></AddressAddForm>
-            </FormModal>
-            <FormModal
-                title={"Modifer l'address"}
+                title={`${address ? "Modifier addresse" : "Ajouter une addresse"}`}
                 isOpen={isUpdateAddressModalOpen}
                 onClose={onUpdateAddressModalClose}
             >
-
+                <UpdateAddressForm
+                    baseUrl={addressBaseUrl}
+                    address={address}
+                    handleAddressUpdate={(a: AddressType | null) => {
+                        onUpdateAddressModalClose();
+                        handleAddressUpdate(a);
+                    }}
+                ></UpdateAddressForm>
             </FormModal>
         </Stack>
     )

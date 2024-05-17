@@ -1,35 +1,61 @@
 import React, {FC, ReactElement} from "react";
-import {Box, Button, Flex, Stack} from "@chakra-ui/react";
+import {Box, Button, Flex, Stack, Text, useDisclosure} from "@chakra-ui/react";
 import {Form, Formik, FormikProps} from "formik";
 import {FiCheck} from "react-icons/fi";
 
 import CustomAlert from "../../alert/CustomAlert";
 import TextField from "../../form/TextField";
 import TextareaField from "../../form/TextareaField";
-import useAddressAddFormHook from "./useAddressAddFormHook";
+import useUpdateAddressFormHook from "./useUpdateAddressFormHook";
 import useStatesSelectListHook, {StatesSelectListHookType} from "../../../hooks/useStatesSelectListHook";
 import SelectField from "../../form/SelectField";
+import StateCreateForm from "../../createForm/state/StateCreateForm";
+import FormModal from "../../FormModal";
+import {AddressType} from "../../../helpers/globalTypesHelper";
 import {
-    AddAddressFormType,
-    addAddressInitialStaticValues,
     addAddressSchema,
-    AddressAddFormHookType,
-} from "./addressAddFormData";
+    UpdateAddressFormHookType,
+    UpdateAddressFormType,
+    updateAddressInitialStaticValues,
+} from "./updateaAdressFormData";
 
-const AddressAddForm: FC<CountryCreateFormProps> = ({baseUrl, handleFinish}): ReactElement => {
-    const {selectListStates, isSelectListStatesPending}: StatesSelectListHookType = useStatesSelectListHook();
+const UpdateAddressForm: FC<UpdateAddressFormProps> = ({baseUrl, address, handleAddressUpdate}): ReactElement => {
+    const { onOpen: onAddStateModalOpen, isOpen: isAddStateModalOpen, onClose: onAddStateModalClose } = useDisclosure();
+    const {selectListStates, isSelectListStatesPending, setStatesQueryEnabled}: StatesSelectListHookType = useStatesSelectListHook();
     const {
         addAddressAlertData,
         isAddAddressPending,
         handleAddAddress,
-    }: AddressAddFormHookType = useAddressAddFormHook({baseUrl, handleFinish});
+    }: UpdateAddressFormHookType = useUpdateAddressFormHook({baseUrl, address, handleAddressUpdate});
+
+    let addressInitialValues: UpdateAddressFormType = {...updateAddressInitialStaticValues};
+    if(address) {
+        addressInitialValues.streetAddress = address.streetAddress;
+        addressInitialValues.stateId = address.state?.id;
+        addressInitialValues.zipcode = address.zipcode;
+        addressInitialValues.description = address.description;
+        addressInitialValues.phoneNumberTwo = address.phoneNumberTwo;
+        addressInitialValues.phoneNumberOne = address.phoneNumberOne;
+    }
+
+    console.log({address, addressInitialValues, updateAddressInitialStaticValues})
 
     return (
         <Stack>
             <CustomAlert data={addAddressAlertData} />
-            <Formik initialValues={addAddressInitialStaticValues} validationSchema={addAddressSchema} onSubmit={handleAddAddress}>
-                {(props: FormikProps<AddAddressFormType>) => (
+            <Formik initialValues={addressInitialValues} validationSchema={addAddressSchema} onSubmit={handleAddAddress}>
+                {(props: FormikProps<UpdateAddressFormType>) => (
                     <Form>
+                        <Box textAlign="right">
+                            <Text
+                                as={"span"}
+                                fontSize="sm"
+                                className="link"
+                                onClick={onAddStateModalOpen}
+                            >
+                                Ajouter une ville
+                            </Text>
+                        </Box>
                         <Flex>
                             <SelectField
                                 label="Ville"
@@ -86,19 +112,34 @@ const AddressAddForm: FC<CountryCreateFormProps> = ({baseUrl, handleFinish}): Re
                                 fontWeight="none"
                                 leftIcon={<FiCheck />}
                             >
-                                Ajouter
+                                {`${address ? "Modifier" : "Ajouter"}`}
                             </Button>
                         </Flex>
                     </Form>
                 )}
             </Formik>
+            <FormModal
+                title="Ajouter une ville"
+                isOpen={isAddStateModalOpen}
+                onClose={onAddStateModalClose}
+            >
+                <StateCreateForm
+                    modal
+                    handleAdd={(): void => setStatesQueryEnabled(true)}
+                    handleFinish={(): void => {
+                        onAddStateModalClose();
+                        setStatesQueryEnabled(true);
+                    }}
+                />
+            </FormModal>
         </Stack>
     );
 };
 
-interface CountryCreateFormProps {
+interface UpdateAddressFormProps {
     baseUrl: string;
-    handleFinish: () => void;
+    address: AddressType | null,
+    handleAddressUpdate: (a: AddressType | null) => void,
 }
 
-export default AddressAddForm;
+export default UpdateAddressForm;

@@ -18,7 +18,7 @@ import {
     createStateSchema
 } from "./stateCreateFormData";
 
-const StateCreateForm: FC<StateCreateFormProps> = ({modal = false, handleFinish}): ReactElement => {
+const StateCreateForm: FC<StateCreateFormProps> = ({modal = false, handleFinish, handleAdd}): ReactElement => {
     const { onOpen: onAddCountryModalOpen, isOpen: isAddCountryModalOpen, onClose: onAddCountryModalClose } = useDisclosure();
     const {
         selectListCountries,
@@ -31,7 +31,7 @@ const StateCreateForm: FC<StateCreateFormProps> = ({modal = false, handleFinish}
         handleCreateStateAndContinue,
         sequence,
         isCreateStatePending
-    }: StateCreateFormHookType = useStateCreateFormHook({modal, handleFinish});
+    }: StateCreateFormHookType = useStateCreateFormHook({modal, handleFinish, handleAdd});
 
     return (
         <Stack key={sequence}>
@@ -105,6 +105,7 @@ const StateCreateForm: FC<StateCreateFormProps> = ({modal = false, handleFinish}
 interface StateCreateFormProps {
     modal?: boolean;
     handleFinish?: () => void;
+    handleAdd?: () => void;
 }
 
 export default StateCreateForm;

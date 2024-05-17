@@ -12,8 +12,8 @@ const SelectField: FC<SelectFormFieldProps> = ({ label = '', name, isLoading = f
 
             <Field as={Select} name={name} borderColor="gray.300">
                 <option value="">{isLoading ? "Chargement..." : "Choisir"}</option>
-                {values.map((item: FormSelectOptionType) => (
-                    <option value={item.key}>{item.label}</option>
+                {values.map((item: FormSelectOptionType, key: number) => (
+                    <option value={item.key} key={key}>{item.label}</option>
                 ))}
             </Field>
 

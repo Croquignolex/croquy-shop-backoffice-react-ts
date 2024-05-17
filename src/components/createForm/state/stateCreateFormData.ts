@@ -25,6 +25,7 @@ export interface CreateStateRequestDataType extends CreateStateFormType {}
 export interface StateCreateFormHookeProps {
     modal?: boolean;
     handleFinish?: () => void;
+    handleAdd?: () => void;
 }
 
 export interface StateCreateFormHookType {

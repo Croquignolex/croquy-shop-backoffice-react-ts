@@ -15,7 +15,7 @@ import {
     StateCreateFormHookeProps
 } from "./stateCreateFormData";
 
-const useStateCreateFormHook = ({modal, handleFinish}: StateCreateFormHookeProps): StateCreateFormHookType => {
+const useStateCreateFormHook = ({modal, handleFinish, handleAdd}: StateCreateFormHookeProps): StateCreateFormHookType => {
     const [createStateAlertData, setCreateStateAlertData] = useState<ErrorAlertType>({show: false});
     const [next, setNext] = useState<boolean>(false);
     const [sequence, setSequence] = useState<number>(0);
@@ -37,7 +37,10 @@ const useStateCreateFormHook = ({modal, handleFinish}: StateCreateFormHookeProps
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             // Reload component
-            if(next) setSequence(sequence + 1);
+            if(next) {
+                if(modal && handleAdd) handleAdd();
+                setSequence(sequence + 1);
+            }
             else {
                 if(modal && handleFinish) handleFinish();
                 else navigate(mainRoutes.states.path);

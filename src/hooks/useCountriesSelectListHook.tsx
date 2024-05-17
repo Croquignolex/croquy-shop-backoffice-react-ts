@@ -21,7 +21,6 @@ const useCountriesSelectListHook = (): CountriesSelectListHookType => {
 
     if(countriesQueryEnabled && countriesResponse.isError) {
         setCountriesQueryEnabled(false);
-        setSelectListCountries([]);
 
         log("Countries list failure", countriesResponse);
     }

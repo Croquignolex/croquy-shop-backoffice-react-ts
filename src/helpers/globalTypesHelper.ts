@@ -57,19 +57,12 @@ export interface MediaType {
     base64?: string | null;
 }
 
-export const defaultAddress: AddressType = {
-    id: "",
-    type: "",
-    streetAddress: "",
-    createdAt: "",
-}
-
 export interface AddressType {
     id: string;
     type: string;
     streetAddress: string;
     zipcode?: string;
-    phoneNumberOne?: string;
+    phoneNumberOne: string;
     phoneNumberTwo?: string;
     description?: string;
     shop?: ShopType;

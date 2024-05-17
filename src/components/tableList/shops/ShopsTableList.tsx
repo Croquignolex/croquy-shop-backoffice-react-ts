@@ -123,7 +123,7 @@ const ShopsTableList: FC<ShopsTableListProps> = ({showCreator = false, fetchShop
                 isLoading={isDeleteShopPending}
                 alertData={deleteShopAlertData}
             >
-                Supprimer le pays <strong>{selectedShop.name}</strong>?
+                Supprimer la boutique <strong>{selectedShop.name}</strong>?
             </ConfirmAlertDialog>
         </Stack>
     );

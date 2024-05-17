@@ -51,7 +51,7 @@ const useShowShopHook = (): ShowShopHookType => {
         onSuccess: (): void => {
             setDeleteShopAlertData({show: false});
 
-            const toastMessage: string = `Pays ${shopResponseData.name} supprimé avec succès`;
+            const toastMessage: string = `Boutique ${shopResponseData.name} supprimée avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             onDeleteModalClose();
@@ -71,7 +71,7 @@ const useShowShopHook = (): ShowShopHookType => {
         onSuccess: (): void => {
             setToggleShopAlertData({show: false});
 
-            const toastMessage: string = `Pays ${shopResponseData.name} ${shopResponseData.enabled ? "désactivé" : "activé"} avec succès`;
+            const toastMessage: string = `Boutique ${shopResponseData.name} ${shopResponseData.enabled ? "désactivée" : "activée"} avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             onToggleModalClose();

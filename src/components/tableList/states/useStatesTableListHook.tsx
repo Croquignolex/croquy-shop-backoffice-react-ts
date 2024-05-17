@@ -17,13 +17,12 @@ import {
 } from "./statesTableListData";
 
 const useStatesTableListHook = ({fetchStates, statesBaseUrl}: StatesTableListHookProps): StatesTableListHookType => {
-    let statesAlertData: ErrorAlertType = {show: false};
-
     const { onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose } = useDisclosure();
     const toast: CreateToastFnReturn = useToast();
 
     const [searchNeedle, setSearchNeedle] = useState<string>("");
     const [statesQueryEnabled, setStatesQueryEnabled] = useState<boolean>(fetchStates);
+    const [statesAlertData, setStatesAlertData] = useState<ErrorAlertType>({show: false});
     const [deleteStateAlertData, setDeleteStateAlertData] = useState<ErrorAlertType>({show: false});
     const [selectedState, setSelectedState] = useState<StateType>(defaultSelectedState);
     const [statesResponseData, setStatesResponseData] = useState<StatesResponseDataType>(defaultStatesResponseData);
@@ -55,14 +54,17 @@ const useStatesTableListHook = ({fetchStates, statesBaseUrl}: StatesTableListHoo
         }
     });
 
-    if(statesResponse.isError) {
-        statesAlertData = errorAlert(statesResponse.error);
+    if(statesQueryEnabled && statesResponse.isError) {
+        setStatesQueryEnabled(false);
+        setStatesAlertData(errorAlert(statesResponse.error));
 
         log("States list failure", statesResponse);
     }
 
     if(statesQueryEnabled && statesResponse.isSuccess && !statesResponse.isFetching) {
         setStatesQueryEnabled(false);
+        setStatesAlertData({show: false});
+
         setStatesResponseData(statesResponse.data.data);
 
         log("States list successful", statesResponse);

@@ -38,8 +38,6 @@ const UpdateAddressForm: FC<UpdateAddressFormProps> = ({baseUrl, address, handle
         addressInitialValues.phoneNumberOne = address.phoneNumberOne;
     }
 
-    console.log({address, addressInitialValues, updateAddressInitialStaticValues})
-
     return (
         <Stack>
             <CustomAlert data={addAddressAlertData} />

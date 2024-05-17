@@ -1,6 +1,6 @@
-import React, { FC, ReactElement } from "react";
-import {Button, Table, Tbody, Badge, Stack, Flex, useDisclosure} from "@chakra-ui/react";
-import {FiEdit, FiPlusSquare} from "react-icons/fi";
+import React, {FC, ReactElement} from "react";
+import {Button, Table, Tbody, Badge, Stack, Flex, useDisclosure, ButtonGroup} from "@chakra-ui/react";
+import {FiEdit, FiPlusSquare, FiTrash} from "react-icons/fi";
 import {Link} from "react-router-dom";
 
 import {AddressType} from "../../helpers/globalTypesHelper";
@@ -9,23 +9,48 @@ import {mainRoutes} from "../../routes/mainRoutes";
 import {stringDateFormat} from "../../helpers/generalHelpers";
 import FormModal from "../FormModal";
 import UpdateAddressForm from "./add/UpdateAddressForm";
+import ConfirmAlertDialog from "../ConfirmAlertDialog";
+import useShowAddressHook from "./useShowAddressHook";
+import {ShowAddressHookType} from "./showAddressData";
 
 const ShowAddress: FC<DefaultAddressComponentProps> = ({address, isLoading, addressBaseUrl, handleAddressUpdate}): ReactElement => {
     const { onOpen: onUpdateAddressModalOpen, isOpen: isUpdateAddressModalOpen, onClose: onUpdateAddressModalClose } = useDisclosure();
 
+    const {
+        handleDeleteAddress,
+        deleteAddressAlertData,
+        onDeleteModalClose,
+        showDeleteModal,
+        isDeleteModalOpen,
+        isDeleteAddressPending,
+    }: ShowAddressHookType = useShowAddressHook({addressBaseUrl, handleAddressUpdate});
+
     return (
         <Stack>
             <Flex justifyContent="flex-end">
-                <Button
-                    fontWeight="none"
-                    colorScheme={"green"}
-                    variant={"outline"}
-                    leftIcon={address ? <FiEdit /> : <FiPlusSquare />}
-                    size={"sm"}
-                    onClick={onUpdateAddressModalOpen}
-                >
-                    {address ? "Modifier" : "Ajouter"}
-                </Button>
+                <ButtonGroup>
+                    <Button
+                        fontWeight="none"
+                        colorScheme={"green"}
+                        variant={"outline"}
+                        leftIcon={address ? <FiEdit /> : <FiPlusSquare />}
+                        size={"sm"}
+                        onClick={onUpdateAddressModalOpen}
+                    >
+                        {address ? "Modifier" : "Ajouter"}
+                    </Button>
+                    {address && (
+                        <Button
+                            fontWeight="none"
+                            colorScheme={"red"}
+                            size={"sm"}
+                            leftIcon={<FiTrash />}
+                            onClick={showDeleteModal}
+                        >
+                            Supprimer
+                        </Button>
+                    )}
+                </ButtonGroup>
             </Flex>
             <Table size={"sm"}>
                 <Tbody>
@@ -71,6 +96,15 @@ const ShowAddress: FC<DefaultAddressComponentProps> = ({address, isLoading, addr
                     }}
                 ></UpdateAddressForm>
             </FormModal>
+            <ConfirmAlertDialog
+                handleConfirm={handleDeleteAddress}
+                isOpen={isDeleteModalOpen}
+                onClose={onDeleteModalClose}
+                isLoading={isDeleteAddressPending}
+                alertData={deleteAddressAlertData}
+            >
+                Supprimer l'addresse?
+            </ConfirmAlertDialog>
         </Stack>
     )
 };

@@ -7,8 +7,13 @@ import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {errorAlert, log, readFile, toastAlert} from "../../helpers/generalHelpers";
 import {AlertStatusEnumType, defaultMedia, ErrorAlertType, MediaType} from "../../helpers/globalTypesHelper";
 import {
-    ChangeImageFormType, changeImageRequest, ChangeImageRequestDataType, destroyImageRequest,
-    DestroyImageRequestDataType, ShowImageHookProps, ShowImageHookType
+    ChangeImageFormType,
+    changeImageRequest,
+    ChangeImageRequestDataType,
+    destroyImageRequest,
+    DestroyImageRequestDataType,
+    ShowImageHookProps,
+    ShowImageHookType
 } from "./showImageData";
 
 const useShowImageHook = ({imageBaseUrl, image, handleImageUpdate}: ShowImageHookProps): ShowImageHookType => {
@@ -95,8 +100,16 @@ const useShowImageHook = ({imageBaseUrl, image, handleImageUpdate}: ShowImageHoo
     };
 
     return {
-        changeImageAlertData, handleChangeImage, handleFileUpload, deleteImageAlertData, handleDeleteImage,
-        isChangeImagePending, showDeleteModal, isDeleteModalOpen, isDeleteImagePending, onDeleteModalClose
+        changeImageAlertData,
+        handleChangeImage,
+        handleFileUpload,
+        deleteImageAlertData,
+        handleDeleteImage,
+        isChangeImagePending,
+        showDeleteModal,
+        isDeleteModalOpen,
+        isDeleteImagePending,
+        onDeleteModalClose
     };
 };
 

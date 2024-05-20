@@ -6,7 +6,7 @@ const SearchField: FC<SearchFieldProps> = ({ handleSearch = (): void => {} }): R
     const [needle, setNeedle] = useState<string>("");
 
     const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>): void => {
-        if (e.key === 'Enter') {
+        if (e.key === "Enter") {
             handleSearch(needle);
         }
     }
@@ -24,7 +24,7 @@ const SearchField: FC<SearchFieldProps> = ({ handleSearch = (): void => {} }): R
         <InputGroup>
             <InputLeftElement>
                 <IconButton
-                    h='1.75rem'
+                    h="1.75rem"
                     variant="text"
                     aria-label="search"
                     icon={ <FiSearch /> }
@@ -33,7 +33,7 @@ const SearchField: FC<SearchFieldProps> = ({ handleSearch = (): void => {} }): R
             </InputLeftElement>
 
             <Input
-                type='text'
+                type="text"
                 size="md"
                 placeholder="Rechercher..."
                 value={needle}
@@ -44,7 +44,7 @@ const SearchField: FC<SearchFieldProps> = ({ handleSearch = (): void => {} }): R
             {(needle !== "") && (
                 <InputRightElement>
                     <IconButton
-                        h='1.75rem'
+                        h="1.75rem"
                         variant="text"
                         aria-label="search"
                         icon={ <FiX /> }

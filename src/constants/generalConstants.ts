@@ -1,7 +1,10 @@
 export const formValidationMessage = {
     required: "Merci de remplir ce champ",
     match: "Le format de ce champ n'ai pas correct",
-    number: "Merci de ne rentrer que des chiffres",
+    minNumber: "Merci de rentrer une value supérieure",
+    minDate: "Merci de choisir une date futur",
+    dateAfter: "Merci de choisir une date ultérieure à la date de départ",
+    maxNumber: "Merci de rentrer une value inférieure",
     email: "Addresse email invalide",
     minMax: "Nombre de caratères incorrect",
     confirm: "Les mots de passe ne sont pas indetiques",

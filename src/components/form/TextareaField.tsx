@@ -3,26 +3,33 @@ import {Textarea, FormLabel, FormErrorMessage, FormControl, Icon, Skeleton} from
 import { Field } from "formik";
 import { FiAlertCircle } from "react-icons/fi";
 
-import { TextDisabledFieldProps } from "./TextDisabledField";
+import {DefaultFieldProps} from "../../helpers/globalTypesHelper";
 
-const TextareaField: FC<TextFieldProps> = ({ isLoading = false, label = '', name, noLabel = false, isInvalid, errorMessage }): ReactElement => {
+const TextareaField: FC<DefaultFieldProps> = (
+    {
+        name,
+        label,
+        isLoading = false,
+        formikProps,
+    }): ReactElement => {
+
+    const isInvalid: boolean = !!formikProps.errors[name] && !!formikProps.touched[name];
+
     return (
-        <FormControl isInvalid={isInvalid} mb={4}>
-            {!noLabel && <FormLabel fontSize='sm' fontWeight='normal'>{label}</FormLabel>}
+        <FormControl isInvalid={isInvalid} mb={4} px={1}>
+            <FormLabel fontSize="sm" fontWeight="normal">{label}</FormLabel>
 
             {isLoading
-                ? <Skeleton height={"90px"} width={"100%"} rounded={"md"} mb={4} />
-                : <Field as={Textarea} name={name} type="text" borderColor="gray.300" />
+                ? <Skeleton height={"40px"} width={"100%"} rounded={"md"} mb={4} />
+                : <Field as={Textarea} name={name} borderColor="gray.300" />
             }
 
-            <FormErrorMessage><Icon mr="2" as={FiAlertCircle} /> {errorMessage}</FormErrorMessage>
+            <FormErrorMessage>
+                <Icon mr="2" as={FiAlertCircle} />
+                {formikProps.errors[name]?.toString()}
+            </FormErrorMessage>
         </FormControl>
     );
 };
-
-export interface TextFieldProps extends TextDisabledFieldProps {
-    isInvalid: boolean;
-    errorMessage?: string;
-}
 
 export default TextareaField;

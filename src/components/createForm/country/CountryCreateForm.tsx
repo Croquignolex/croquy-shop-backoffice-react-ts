@@ -1,5 +1,5 @@
 import React, {FC, ReactElement} from "react";
-import {Box, Flex, Stack} from "@chakra-ui/react";
+import {Flex, Stack} from "@chakra-ui/react";
 import {Form, Formik, FormikProps} from "formik";
 
 import CustomAlert from "../../alert/CustomAlert";
@@ -30,35 +30,17 @@ const CountryCreateForm: FC<CountryCreateFormProps> = ({modal = false, handleFin
                 {(props: FormikProps<CreateCountryFormType>) => (
                     <Form>
                         <Flex>
-                            <TextField
-                                label="Nom"
-                                name="name"
-                                isInvalid={!!props.errors.name && !!props.touched.name}
-                                errorMessage={props.errors.name}
-                            />
-                            <Box mx={3} />
-                            <TextField
-                                label="Indice téléphonique"
-                                name="phoneCode"
-                                isInvalid={!!props.errors.phoneCode && !!props.touched.phoneCode}
-                                errorMessage={props.errors.phoneCode}
-                            />
+                            <TextField label="Nom" name="name" formikProps={props} />
+                            <TextField label="Indice téléphonique" name="phoneCode" formikProps={props} />
                         </Flex>
-                        <Flex>
-                            <TextareaField
-                                label="Description"
-                                name="description"
-                                isInvalid={!!props.errors.description && !!props.touched.description}
-                                errorMessage={props.errors.description}
-                            />
-                        </Flex>
-                        <Flex>
+                        <TextareaField label="Description" name="description" formikProps={props} />
+                        <Stack>
                             <DoubleSaveButton
                                 isLoading={isCreateCountryPending}
                                 formikProps={props}
                                 handleSaveAndContinue={() => handleCreateCountryAndContinue(props.values)}
                             />
-                        </Flex>
+                        </Stack>
                     </Form>
                 )}
             </Formik>

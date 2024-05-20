@@ -24,7 +24,7 @@ export const needleSearch = (set: any, needle: string): boolean => {
 };
 
 // Format date
-export const stringDateFormat = (stringDate: string = "", withHour = false): string => {
+export const stringDateFormat = (stringDate: string = "", withHour: boolean = false): string => {
     try {
         let temp: string = (withHour)
             ? dayjs(stringDate).format("DD/MM/YYYY HH:mm")

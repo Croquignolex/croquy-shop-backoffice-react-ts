@@ -12,6 +12,7 @@ import SelectField from "../../form/SelectField";
 import StateCreateForm from "../../createForm/state/StateCreateForm";
 import FormModal from "../../FormModal";
 import {AddressType} from "../../../helpers/globalTypesHelper";
+import SelectLink from "../../form/SelectLink";
 import {
     addAddressSchema,
     UpdateAddressFormHookType,
@@ -44,65 +45,24 @@ const UpdateAddressForm: FC<UpdateAddressFormProps> = ({baseUrl, address, handle
             <Formik initialValues={addressInitialValues} validationSchema={addAddressSchema} onSubmit={handleAddAddress}>
                 {(props: FormikProps<UpdateAddressFormType>) => (
                     <Form>
-                        <Box textAlign="right">
-                            <Text
-                                as={"span"}
-                                fontSize="sm"
-                                className="link"
-                                onClick={onAddStateModalOpen}
-                            >
-                                Ajouter une ville
-                            </Text>
-                        </Box>
+                        <SelectLink onModalOpen={onAddStateModalOpen} label={"Ajouter une ville"} />
+                        <SelectField
+                            label="Ville"
+                            name="stateId"
+                            formikProps={props}
+                            values={selectListStates}
+                            isLoading={isSelectListStatesPending}
+                        />
                         <Flex>
-                            <SelectField
-                                label="Ville"
-                                name="stateId"
-                                isInvalid={!!props.errors.stateId && !!props.touched.stateId}
-                                errorMessage={props.errors.stateId}
-                                values={selectListStates}
-                                isLoading={isSelectListStatesPending}
-                            />
+                            <TextField label="Address" name="streetAddress" formikProps={props} />
+                            <TextField label="Boite postale" name="zipcode" formikProps={props} />
                         </Flex>
                         <Flex>
-                            <TextField
-                                label="Address"
-                                name="streetAddress"
-                                isInvalid={!!props.errors.streetAddress && !!props.touched.streetAddress}
-                                errorMessage={props.errors.streetAddress}
-                            />
-                            <Box mx={3} />
-                            <TextField
-                                label="Boite postale"
-                                name="zipcode"
-                                isInvalid={!!props.errors.zipcode && !!props.touched.zipcode}
-                                errorMessage={props.errors.zipcode}
-                            />
+                            <TextField label="Téléphone 1" name="phoneNumberOne" formikProps={props} />
+                            <TextField label="Téléphone 2" name="phoneNumberTwo" formikProps={props} />
                         </Flex>
-                        <Flex>
-                            <TextField
-                                label="Téléphone 1"
-                                name="phoneNumberOne"
-                                isInvalid={!!props.errors.phoneNumberOne && !!props.touched.phoneNumberOne}
-                                errorMessage={props.errors.phoneNumberOne}
-                            />
-                            <Box mx={3} />
-                            <TextField
-                                label="Téléphone 2"
-                                name="phoneNumberTwo"
-                                isInvalid={!!props.errors.phoneNumberTwo && !!props.touched.phoneNumberTwo}
-                                errorMessage={props.errors.phoneNumberTwo}
-                            />
-                        </Flex>
-                        <Flex>
-                            <TextareaField
-                                label="Description"
-                                name="description"
-                                isInvalid={!!props.errors.description && !!props.touched.description}
-                                errorMessage={props.errors.description}
-                            />
-                        </Flex>
-                        <Flex>
+                        <TextareaField label="Description" name="description" formikProps={props} />
+                        <Stack>
                             <Button
                                 colorScheme={"green"}
                                 isLoading={isAddAddressPending}
@@ -112,7 +72,7 @@ const UpdateAddressForm: FC<UpdateAddressFormProps> = ({baseUrl, address, handle
                             >
                                 {`${address ? "Modifier" : "Ajouter"}`}
                             </Button>
-                        </Flex>
+                        </Stack>
                     </Form>
                 )}
             </Formik>

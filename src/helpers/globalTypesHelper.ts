@@ -1,4 +1,6 @@
+import {FormikProps} from "formik";
 import {IconType} from "react-icons";
+
 import {UserType} from "../pages/users/usersPageData";
 import {CountryType} from "../pages/countries/show/showCountryData";
 import {StateType} from "../pages/states/show/showStateData";
@@ -37,6 +39,13 @@ export interface MenuItemType {
 export interface URLParamType {
     param: string;
     value: string;
+}
+
+export interface DefaultFieldProps {
+    label: string;
+    name: string;
+    isLoading?: boolean;
+    formikProps: FormikProps<any>;
 }
 
 export const defaultMedia: MediaType = {

@@ -12,7 +12,7 @@ import {
 
 import {DefaultFieldProps} from "../../helpers/globalTypesHelper";
 
-const TextField: FC<DefaultFieldProps> = (
+const DateField: FC<DefaultFieldProps> = (
     {
         name,
         label,
@@ -28,7 +28,7 @@ const TextField: FC<DefaultFieldProps> = (
 
             {isLoading
                 ? <Skeleton height={"40px"} width={"100%"} rounded={"md"} mb={4} />
-                : <Field as={Input} name={name} type="text" borderColor="gray.300" />
+                : <Field as={Input} name={name} type="date" borderColor="gray.300" />
             }
 
             <FormErrorMessage>
@@ -39,4 +39,4 @@ const TextField: FC<DefaultFieldProps> = (
     );
 };
 
-export default TextField;
+export default DateField;

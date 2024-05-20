@@ -3,8 +3,16 @@ import { Button, ButtonGroup } from "@chakra-ui/react";
 import {FiEdit, FiTrash, FiUnlock, FiLock} from "react-icons/fi";
 import {Link} from "react-router-dom";
 
-const TripleActionButton: FC<TripleActionButtonProps> = ({edithPath, isListView = false, isDisabled = false, showStatus = false,
-                                                             showToggleModal, state, showDeleteModal}): ReactElement => {
+const TripleActionButton: FC<TripleActionButtonProps> = (
+    {
+        state,
+        showDeleteModal,
+        edithPath,
+        showToggleModal,
+        isListView = false,
+        isDisabled = false,
+        showStatus = false
+    }): ReactElement => {
    const handleDelete = (): void => {
        if(isListView) showDeleteModal(state);
        else showDeleteModal();

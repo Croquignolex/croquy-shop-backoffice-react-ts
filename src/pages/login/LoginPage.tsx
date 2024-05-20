@@ -23,18 +23,8 @@ const LoginPage = (): ReactElement => {
                             <Formik initialValues={loginInitialStaticValues} validationSchema={loginSchema} onSubmit={handleLogin}>
                                 {(props: FormikProps<LoginFormType>) => (
                                     <Form>
-                                        <TextField
-                                            label="Votre identifiant"
-                                            name="username"
-                                            isInvalid={!!props.errors.username && !!props.touched.username}
-                                            errorMessage={props.errors.username}
-                                        />
-                                        <PasswordField
-                                            label="Votre mot de passe"
-                                            name="password"
-                                            isInvalid={!!props.errors.password && !!props.touched.password}
-                                            errorMessage={props.errors.password}
-                                        />
+                                        <TextField label="Votre identifiant" name="username" formikProps={props} />
+                                        <PasswordField label="Votre mot de passe" name="password" formikProps={props} />
                                         <Stack>
                                             <Button
                                                 colorScheme={"green"}

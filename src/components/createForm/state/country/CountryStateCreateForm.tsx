@@ -1,5 +1,5 @@
 import React, {FC, ReactElement} from "react";
-import {Flex, Stack} from "@chakra-ui/react";
+import {Stack} from "@chakra-ui/react";
 import {Form, Formik, FormikProps} from "formik";
 
 import CustomAlert from "../../../alert/CustomAlert";
@@ -29,29 +29,15 @@ const CountryStateCreateForm: FC<CountryStateCreateFormProps> = ({countryId, han
             <Formik initialValues={createCountryStateInitialStaticValues} validationSchema={createCountryStateSchema} onSubmit={handleCreateCountryState}>
                 {(props: FormikProps<CreateCountryStateFormType>) => (
                     <Form>
-                        <Flex>
-                            <TextField
-                                label="Nom"
-                                name="name"
-                                isInvalid={!!props.errors.name && !!props.touched.name}
-                                errorMessage={props.errors.name}
-                            />
-                        </Flex>
-                        <Flex>
-                            <TextareaField
-                                label="Description"
-                                name="description"
-                                isInvalid={!!props.errors.description && !!props.touched.description}
-                                errorMessage={props.errors.description}
-                            />
-                        </Flex>
-                        <Flex>
+                        <TextField label="Nom" name="name" formikProps={props} />
+                        <TextareaField label="Description" name="description" formikProps={props} />
+                        <Stack>
                             <DoubleSaveButton
                                 isLoading={isCreateCountryStatePending}
                                 formikProps={props}
                                 handleSaveAndContinue={() => handleCreateCountryStateAndContinue(props.values)}
                             />
-                        </Flex>
+                        </Stack>
                     </Form>
                 )}
             </Formik>

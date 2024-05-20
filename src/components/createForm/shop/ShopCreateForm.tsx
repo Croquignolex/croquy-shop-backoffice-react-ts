@@ -1,5 +1,5 @@
 import React, {FC, ReactElement} from "react";
-import {Box, Flex, Stack} from "@chakra-ui/react";
+import {Flex, Stack} from "@chakra-ui/react";
 import {Form, Formik, FormikProps} from "formik";
 
 import CustomAlert from "../../alert/CustomAlert";
@@ -30,35 +30,17 @@ const ShopCreateForm: FC<ShopCreateFormProps> = ({modal = false, handleFinish, h
                 {(props: FormikProps<CreateShopFormType>) => (
                     <Form>
                         <Flex>
-                            <TextField
-                                label="Nom"
-                                name="name"
-                                isInvalid={!!props.errors.name && !!props.touched.name}
-                                errorMessage={props.errors.name}
-                            />
-                            <Box mx={3} />
-                            <TextField
-                                label="Slug"
-                                name="slug"
-                                isInvalid={!!props.errors.slug && !!props.touched.slug}
-                                errorMessage={props.errors.slug}
-                            />
+                            <TextField label="Nom" name="name" formikProps={props} />
+                            <TextField label="Slug" name="slug" formikProps={props} />
                         </Flex>
-                        <Flex>
-                            <TextareaField
-                                label="Description"
-                                name="description"
-                                isInvalid={!!props.errors.description && !!props.touched.description}
-                                errorMessage={props.errors.description}
-                            />
-                        </Flex>
-                        <Flex>
+                        <TextareaField label="Description" name="description" formikProps={props} />
+                        <Stack>
                             <DoubleSaveButton
                                 isLoading={isCreateShopPending}
                                 formikProps={props}
                                 handleSaveAndContinue={() => handleCreateShopAndContinue(props.values)}
                             />
-                        </Flex>
+                        </Stack>
                     </Form>
                 )}
             </Formik>

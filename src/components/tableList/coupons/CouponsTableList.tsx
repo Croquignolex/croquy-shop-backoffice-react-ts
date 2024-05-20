@@ -70,11 +70,9 @@ const CouponsTableList: FC<CouponsTableListProps> = ({showCreator = false, fetch
                                                 {coupon.code}
                                             </Link>
                                         </Td>
-                                        <Td>{coupon.discount}</Td>
+                                        <Td>{coupon.discount}%</Td>
                                         <Td>{coupon.totalUse}</Td>
                                         <Td>{coupon.totalUsage}</Td>
-                                        <Td><Badge rounded="md">{stringDateFormat(coupon.promotionStartedAt)}</Badge></Td>
-                                        <Td><Badge rounded="md">{stringDateFormat(coupon.promotionEndedAt)}</Badge></Td>
                                         <Td><StatusBadge enabled={coupon.enabled}/></Td>
                                         <Td><Badge rounded="md">{stringDateFormat(coupon.createdAt)}</Badge></Td>
                                         {showCreator && (

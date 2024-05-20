@@ -1,5 +1,5 @@
 import React, {FC, ReactElement} from "react";
-import {Box, Flex, Stack, Text, useDisclosure} from "@chakra-ui/react";
+import {Flex, Stack, useDisclosure} from "@chakra-ui/react";
 import {Form, Formik, FormikProps} from "formik";
 
 import CustomAlert from "../../alert/CustomAlert";
@@ -11,6 +11,7 @@ import SelectField from "../../form/SelectField";
 import useCountriesSelectListHook, {CountriesSelectListHookType} from "../../../hooks/useCountriesSelectListHook";
 import FormModal from "../../FormModal";
 import CountryCreateForm from "../country/CountryCreateForm";
+import SelectLink from "../../form/SelectLink";
 import {
     StateCreateFormHookType,
     CreateStateFormType,
@@ -39,48 +40,25 @@ const StateCreateForm: FC<StateCreateFormProps> = ({modal = false, handleFinish,
             <Formik initialValues={createStateInitialStaticValues} validationSchema={createStateSchema} onSubmit={handleCreateState}>
                 {(props: FormikProps<CreateStateFormType>) => (
                     <Form>
-                        <Box textAlign="right">
-                            <Text
-                                as={"span"}
-                                fontSize="sm"
-                                className="link"
-                                onClick={onAddCountryModalOpen}
-                            >
-                                Ajouter un pays
-                            </Text>
-                        </Box>
+                        <SelectLink onModalOpen={onAddCountryModalOpen} label={"Ajouter un pays"} />
                         <Flex>
-                            <TextField
-                                label="Nom"
-                                name="name"
-                                isInvalid={!!props.errors.name && !!props.touched.name}
-                                errorMessage={props.errors.name}
-                            />
-                            <Box mx={3} />
+                            <TextField label="Nom" name="name" formikProps={props} />
                             <SelectField
                                 label="Pays"
                                 name="countryId"
-                                isInvalid={!!props.errors.countryId && !!props.touched.countryId}
-                                errorMessage={props.errors.countryId}
+                                formikProps={props}
                                 values={selectListCountries}
                                 isLoading={isSelectListCountriesPending}
                             />
                         </Flex>
-                        <Flex>
-                            <TextareaField
-                                label="Description"
-                                name="description"
-                                isInvalid={!!props.errors.description && !!props.touched.description}
-                                errorMessage={props.errors.description}
-                            />
-                        </Flex>
-                        <Flex>
+                        <TextareaField label="Description" name="description" formikProps={props} />
+                        <Stack>
                             <DoubleSaveButton
                                 isLoading={isCreateStatePending}
                                 formikProps={props}
                                 handleSaveAndContinue={() => handleCreateStateAndContinue(props.values)}
                             />
-                        </Flex>
+                        </Stack>
                     </Form>
                 )}
             </Formik>

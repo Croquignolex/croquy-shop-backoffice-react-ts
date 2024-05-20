@@ -1,7 +1,7 @@
 import React, {ReactElement} from "react";
 import {Form, Formik, FormikProps} from "formik";
 import {FiCheck} from "react-icons/fi";
-import {Box, Stack, Container, Flex, Button, Text, useDisclosure} from "@chakra-ui/react";
+import {Box, Stack, Container, Flex, Button, useDisclosure} from "@chakra-ui/react";
 
 import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditStateHook from "./useEditStateHook";
@@ -14,6 +14,7 @@ import SelectField from "../../../components/form/SelectField";
 import useCountriesSelectListHook, {CountriesSelectListHookType} from "../../../hooks/useCountriesSelectListHook";
 import CountryCreateForm from "../../../components/createForm/country/CountryCreateForm";
 import FormModal from "../../../components/FormModal";
+import SelectLink from "../../../components/form/SelectLink";
 
 const EditStatePage = (): ReactElement => {
     const { onOpen: onAddCountryModalOpen, isOpen: isAddCountryModalOpen, onClose: onAddCountryModalClose } = useDisclosure();
@@ -47,44 +48,19 @@ const EditStatePage = (): ReactElement => {
                         <Formik initialValues={formState} validationSchema={editStateSchema} onSubmit={handleEditState} enableReinitialize>
                             {(props: FormikProps<EditStateFormType>) => (
                                 <Form>
-                                    <Box textAlign="right">
-                                        <Text
-                                            as={"span"}
-                                            fontSize="sm"
-                                            className="link"
-                                            onClick={onAddCountryModalOpen}
-                                        >
-                                            Ajouter un pays
-                                        </Text>
-                                    </Box>
+                                    <SelectLink onModalOpen={onAddCountryModalOpen} label={"Ajouter un pays"} />
                                     <Flex>
-                                        <TextField
-                                            label="Nom"
-                                            name="name"
-                                            isLoading={isStatePending}
-                                            isInvalid={!!props.errors.name && !!props.touched.name}
-                                            errorMessage={props.errors.name}
-                                        />
-                                        <Box mx={3} />
+                                        <TextField label="Nom" name="name" isLoading={isStatePending} formikProps={props} />
                                         <SelectField
                                             label="Pays"
                                             name="countryId"
-                                            isInvalid={!!props.errors.countryId && !!props.touched.countryId}
-                                            errorMessage={props.errors.countryId}
+                                            formikProps={props}
                                             values={selectListCountries}
                                             isLoading={isSelectListCountriesPending}
                                         />
                                     </Flex>
-                                    <Flex>
-                                        <TextareaField
-                                            label="Description"
-                                            name="description"
-                                            isLoading={isStatePending}
-                                            isInvalid={!!props.errors.description && !!props.touched.description}
-                                            errorMessage={props.errors.description}
-                                        />
-                                    </Flex>
-                                    <Flex>
+                                    <TextareaField label="Description" name="description" isLoading={isStatePending} formikProps={props} />
+                                    <Stack>
                                         <Button
                                             colorScheme={"green"}
                                             isLoading={isEditStatePending}
@@ -95,7 +71,7 @@ const EditStatePage = (): ReactElement => {
                                         >
                                             Confirmer
                                         </Button>
-                                    </Flex>
+                                    </Stack>
                                 </Form>
                             )}
                         </Formik>

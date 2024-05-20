@@ -11,7 +11,7 @@ export const changeImageInitialStaticValues: ChangeImageFormType = { image: ''};
 
 export const changeImageSchema: Yup.ObjectSchema<ChangeImageFormType> = Yup.object().shape({
     image: Yup.mixed().required(formValidationMessage.required)
-        .test('FILE_SIZE', formValidationMessage.imageAllowedFormat, (value: any): boolean => {
+        .test('FILE_TYPE', formValidationMessage.imageAllowedFormat, (value: any): boolean => {
             if (value) {
                 const supportedFormats: string[] = ['png', 'jpg', 'PNG', 'JPG'];
                 return supportedFormats.includes(value?.name.split('.').pop());

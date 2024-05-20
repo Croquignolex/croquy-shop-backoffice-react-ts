@@ -5,7 +5,7 @@ import { FiAlertCircle } from "react-icons/fi";
 
 const CustomDateField: FC<CustomDateFieldProps> = ({ label = '', day, month, year, noLabel = false, isInvalid, errorMessage }): ReactElement => {
     return (
-        <FormControl isInvalid={isInvalid} mb={4}>
+        <FormControl isInvalid={isInvalid} mb={4} px={1}>
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}
 
             <HStack spacing={2}>

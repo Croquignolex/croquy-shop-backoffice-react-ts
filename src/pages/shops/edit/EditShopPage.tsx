@@ -38,32 +38,11 @@ const EditShopPage = (): ReactElement => {
                             {(props: FormikProps<EditShopFormType>) => (
                                 <Form>
                                     <Flex>
-                                        <TextField
-                                            label="Nom"
-                                            name="name"
-                                            isLoading={isShopPending}
-                                            isInvalid={!!props.errors.name && !!props.touched.name}
-                                            errorMessage={props.errors.name}
-                                        />
-                                        <Box mx={3} />
-                                        <TextField
-                                            label="Slug"
-                                            name="slug"
-                                            isLoading={isShopPending}
-                                            isInvalid={!!props.errors.slug && !!props.touched.slug}
-                                            errorMessage={props.errors.slug}
-                                        />
+                                        <TextField label="Nom" name="name" isLoading={isShopPending} formikProps={props} />
+                                        <TextField label="Slug" name="slug" isLoading={isShopPending} formikProps={props} />
                                     </Flex>
-                                    <Flex>
-                                        <TextareaField
-                                            label="Description"
-                                            name="description"
-                                            isLoading={isShopPending}
-                                            isInvalid={!!props.errors.description && !!props.touched.description}
-                                            errorMessage={props.errors.description}
-                                        />
-                                    </Flex>
-                                    <Flex>
+                                    <TextareaField label="Description" name="description" isLoading={isShopPending} formikProps={props} />
+                                    <Stack>
                                         <Button
                                             colorScheme={"green"}
                                             isLoading={isEditShopPending}
@@ -74,7 +53,7 @@ const EditShopPage = (): ReactElement => {
                                         >
                                             Confirmer
                                         </Button>
-                                    </Flex>
+                                    </Stack>
                                 </Form>
                             )}
                         </Formik>

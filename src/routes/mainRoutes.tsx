@@ -1,4 +1,4 @@
-import { FiPieChart, FiShoppingCart, FiUsers, FiFlag, FiMap } from "react-icons/fi";
+import { FiPieChart, FiShoppingCart, FiUsers, FiFlag, FiMap, FiPercent } from "react-icons/fi";
 import { lazy, LazyExoticComponent, ReactElement } from "react";
 import { IconType } from "react-icons";
 
@@ -24,6 +24,11 @@ const addState: MainRouteType = {path: "/states/create", onSidebar: false, onHea
 const showState: MainRouteType = {path: "/states/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/states/show/ShowStatePage"))};
 const editState: MainRouteType = {path: "/states/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/states/edit/EditStatePage"))};
 
+const coupons: MainRouteType = {title: "Coupons", path: "/coupons", icon: FiPercent, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/coupons/CouponsPage"))};
+const addCoupon: MainRouteType = {path: "/coupons/create", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/coupons/CreateCouponPage"))};
+const showCoupon: MainRouteType = {path: "/coupons/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/coupons/show/ShowCouponPage"))};
+const editCoupon: MainRouteType = {path: "/coupons/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/coupons/edit/EditCouponPage"))};
+
 export interface MainRouteType {
     icon?: IconType,
     onSidebar: boolean,
@@ -38,5 +43,6 @@ export const mainRoutes: any = {
     shops, addShop, showShop, editShop,
     countries, addCountry, showCountry, editCountry,
     states, addState, showState, editState,
+    coupons, addCoupon, showCoupon, editCoupon,
     users,
 };

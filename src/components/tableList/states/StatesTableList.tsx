@@ -43,7 +43,7 @@ const StatesTableList: FC<StatesTableListProps> = ({showCountry = false, showCre
                 </Box>
             </HStack>
             <TableContainer boxShadow="xl" borderRadius="xl" borderWidth='1px' bg={"white"}>
-                <Table size={"sm"}>
+                <Table size={"sm"} variant={""}>
                     <Thead bg="gray.100">
                         <Tr>
                             <Th>Nom</Th>

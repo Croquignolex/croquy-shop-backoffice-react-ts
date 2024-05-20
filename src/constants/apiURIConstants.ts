@@ -33,6 +33,15 @@ export const countriesApiURI = {
     flag: "/countries/{id}/flag", 
 };
 
+export const couponsApiURI = {
+    index: "/coupons",
+    store: "/coupons",
+    show: "/coupons/{id}",
+    update: "/coupons/{id}",
+    destroy: "/coupons/{id}",
+    toggle: "/coupons/{id}/toggle",
+};
+
 export const statesApiURI = {
     index: "/states",
     store: "/states",

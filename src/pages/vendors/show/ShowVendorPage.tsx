@@ -144,7 +144,7 @@ const ShowVendorPage = (): ReactElement => {
                             alertData={toggleVendorAlertData}
                             title={vendorResponseData.enabled ? "Désactivation" : "Activation"}
                         >
-                            {vendorResponseData.enabled ? "Désactiver" : "Activer"} la boutique <strong>{vendorResponseData.name}</strong>?
+                            {vendorResponseData.enabled ? "Désactiver" : "Activer"} le fournisseur <strong>{vendorResponseData.name}</strong>?
                         </ConfirmAlertDialog>
                     </>
                 )}

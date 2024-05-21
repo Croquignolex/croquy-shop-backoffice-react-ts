@@ -1,4 +1,4 @@
-import { FiPieChart, FiShoppingCart, FiUsers, FiFlag, FiMap, FiPercent, FiTruck } from "react-icons/fi";
+import { FiPieChart, FiShoppingCart, FiUsers, FiFlag, FiMap, FiPercent, FiTruck, FiAward } from "react-icons/fi";
 import { lazy, LazyExoticComponent, ReactElement } from "react";
 import { IconType } from "react-icons";
 
@@ -31,8 +31,13 @@ const editCoupon: MainRouteType = {path: "/coupons/:id/edit", onSidebar: false, 
 
 const vendors: MainRouteType = {title: "Fourniseurs", path: "/vendors", icon: FiTruck, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/vendors/VendorsPage"))};
 const addVendor: MainRouteType = {path: "/vendors/create", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/vendors/CreateVendorPage"))};
-const showCVendor: MainRouteType = {path: "/vendors/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/vendors/show/ShowVendorPage"))};
+const showVendor: MainRouteType = {path: "/vendors/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/vendors/show/ShowVendorPage"))};
 const editVendor: MainRouteType = {path: "/vendors/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/vendors/edit/EditVendorPage"))};
+
+const brands: MainRouteType = {title: "Marques", path: "/brands", icon: FiAward, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/brands/BrandsPage"))};
+const addBrand: MainRouteType = {path: "/brands/create", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/brands/CreateBrandPage"))};
+const showBrand: MainRouteType = {path: "/brands/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/brands/show/ShowBrandPage"))};
+const editBrand: MainRouteType = {path: "/brands/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/brands/edit/EditBrandPage"))};
 
 export interface MainRouteType {
     icon?: IconType,
@@ -46,7 +51,8 @@ export interface MainRouteType {
 export const mainRoutes: any = {
     dashboard,
     shops, addShop, showShop, editShop,
-    vendors, addVendor, showCVendor, editVendor,
+    brands, addBrand, showBrand, editBrand,
+    vendors, addVendor, showVendor, editVendor,
     coupons, addCoupon, showCoupon, editCoupon,
     countries, addCountry, showCountry, editCountry,
     states, addState, showState, editState,

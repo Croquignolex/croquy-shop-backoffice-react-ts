@@ -51,7 +51,7 @@ const useShowVendorHook = (): ShowVendorHookType => {
         onSuccess: (): void => {
             setDeleteVendorAlertData({show: false});
 
-            const toastMessage: string = `Boutique ${vendorResponseData.name} supprimé avec succès`;
+            const toastMessage: string = `Fournisseur ${vendorResponseData.name} supprimé avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             onDeleteModalClose();
@@ -71,7 +71,7 @@ const useShowVendorHook = (): ShowVendorHookType => {
         onSuccess: (): void => {
             setToggleVendorAlertData({show: false});
 
-            const toastMessage: string = `Boutique ${vendorResponseData.name} ${vendorResponseData.enabled ? "désactivée" : "activée"} avec succès`;
+            const toastMessage: string = `Fournisseur ${vendorResponseData.name} ${vendorResponseData.enabled ? "désactivée" : "activée"} avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             onToggleModalClose();

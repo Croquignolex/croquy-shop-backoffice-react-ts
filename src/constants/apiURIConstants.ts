@@ -61,3 +61,13 @@ export const vendorsApiURI = {
     address: "/vendors/{id}/address",
     logo: "/vendors/{id}/logo",
 };
+
+export const brandsApiURI = {
+    index: "/brands",
+    store: "/brands",
+    show: "/brands/{id}",
+    update: "/brands/{id}",
+    destroy: "/brands/{id}",
+    toggle: "/brands/{id}/toggle",
+    logo: "/brands/{id}/logo",
+};

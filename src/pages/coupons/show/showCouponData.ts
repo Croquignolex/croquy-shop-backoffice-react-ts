@@ -9,7 +9,6 @@ export const defaultSelectedCoupon: CouponType = {
     code: "",
     discount: 0,
     totalUse: 0,
-    totalUsage: 0,
     promotionStartedAt: "",
     promotionEndedAt: "",
     enabled: false,
@@ -24,7 +23,6 @@ export interface CouponType {
     code: string;
     discount: number;
     totalUse: number;
-    totalUsage: number;
     promotionStartedAt: string;
     promotionEndedAt: string;
     enabled: boolean;
@@ -58,8 +56,6 @@ export interface ShowCouponHookType {
     isToggleCouponPending: boolean,
     handleToggleCoupon: () => void,
     onToggleModalClose: () => void,
-    handleTabsChange: (a: number) => void,
-    handleFlagUpdate: (a: MediaType | null) => void,
 }
 
 export const couponRequest = (id: string): Promise<any> => {

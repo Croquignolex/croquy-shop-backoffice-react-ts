@@ -184,7 +184,7 @@ const ShowCountryPage = (): ReactElement => {
                             isLoading={isDeleteCountryPending}
                             alertData={deleteCountryAlertData}
                         >
-                            Supprimer la boutique <strong>{countryResponseData.name}</strong>?
+                            Supprimer le pays <strong>{countryResponseData.name}</strong>?
                         </ConfirmAlertDialog>
                         <ConfirmAlertDialog
                             colorScheme={countryResponseData.enabled ? "orange" : "green"}
@@ -195,7 +195,7 @@ const ShowCountryPage = (): ReactElement => {
                             alertData={toggleCountryAlertData}
                             title={countryResponseData.enabled ? "Désactivation" : "Activation"}
                         >
-                            {countryResponseData.enabled ? "Désactiver" : "Activer"} la boutique <strong>{countryResponseData.name}</strong>?
+                            {countryResponseData.enabled ? "Désactiver" : "Activer"} le pays <strong>{countryResponseData.name}</strong>?
                         </ConfirmAlertDialog>
                     </>
                 )}

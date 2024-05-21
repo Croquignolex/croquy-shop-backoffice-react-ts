@@ -5,22 +5,22 @@ import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {NavigateFunction, Params, useNavigate, useParams} from "react-router-dom";
 import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 
-import {AlertStatusEnumType, ErrorAlertType, MediaType} from "../../../helpers/globalTypesHelper";
+import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {DestroyCountryRequestDataType} from "../../../components/tableList/countries/countriesTableListData";
+import {DestroyCouponRequestDataType} from "../../../components/tableList/coupons/couponsTableListData";
 import {
-    countryRequest,
-    CountryType,
-    defaultSelectedCountry,
-    destroyCountry,
-    ShowCountryHookType,
-    toggleCountry,
-    ToggleCountryRequestDataType
+    couponRequest,
+    CouponType,
+    defaultSelectedCoupon,
+    destroyCoupon,
+    ShowCouponHookType,
+    toggleCoupon,
+    ToggleCouponRequestDataType
 } from "./showCouponData";
 
-const useShowCouponHook = (): ShowCountryHookType => {
-    let countryAlertData: ErrorAlertType = {show: false};
+const useShowCouponHook = (): ShowCouponHookType => {
+    let couponAlertData: ErrorAlertType = {show: false};
 
     let { id }: Params = useParams();
 
@@ -30,122 +30,112 @@ const useShowCouponHook = (): ShowCountryHookType => {
     const { onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose } = useDisclosure();
     const { onOpen: onToggleModalOpen, isOpen: isToggleModalOpen, onClose: onToggleModalClose } = useDisclosure();
 
-    const [countryQueryEnabled, setCountryQueryEnabled] = useState<boolean>(true);
-    const [deleteCountryAlertData, setDeleteCountryAlertData] = useState<ErrorAlertType>({show: false});
-    const [toggleCountryAlertData, setToggleCountryAlertData] = useState<ErrorAlertType>({show: false});
-    const [countryResponseData, setCountryResponseData] = useState<CountryType>(defaultSelectedCountry);
+    const [couponQueryEnabled, setCouponQueryEnabled] = useState<boolean>(true);
+    const [deleteCouponAlertData, setDeleteCouponAlertData] = useState<ErrorAlertType>({show: false});
+    const [toggleCouponAlertData, setToggleCouponAlertData] = useState<ErrorAlertType>({show: false});
+    const [couponResponseData, setCouponResponseData] = useState<CouponType>(defaultSelectedCoupon);
 
-    const countryResponse: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
-        queryKey: ["country"],
-        queryFn: () => countryRequest(id || ""),
-        enabled: countryQueryEnabled,
+    const couponResponse: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
+        queryKey: ["coupon"],
+        queryFn: () => couponRequest(id || ""),
+        enabled: couponQueryEnabled,
     });
 
-    const destroyCountryCountryResponse: UseMutationResult<AxiosResponse, AxiosError, DestroyCountryRequestDataType, any> = useMutation({
-        mutationFn: destroyCountry,
+    const destroyCouponCouponResponse: UseMutationResult<AxiosResponse, AxiosError, DestroyCouponRequestDataType, any> = useMutation({
+        mutationFn: destroyCoupon,
         onError: (error: AxiosError): void => {
-            setDeleteCountryAlertData(errorAlert(error));
+            setDeleteCouponAlertData(errorAlert(error));
 
-            log("Destroy country failure", destroyCountryCountryResponse);
+            log("Destroy coupon failure", destroyCouponCouponResponse);
         },
         onSuccess: (): void => {
-            setDeleteCountryAlertData({show: false});
+            setDeleteCouponAlertData({show: false});
 
-            const toastMessage: string = `Pays ${countryResponseData.name} supprimé avec succès`;
+            const toastMessage: string = `Coupon ${couponResponseData.code} supprimé avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             onDeleteModalClose();
-            navigate(`${mainRoutes.countries.path}`);
+            navigate(`${mainRoutes.coupons.path}`);
 
-            log("Destroy country successful", destroyCountryCountryResponse);
+            log("Destroy coupon successful", destroyCouponCouponResponse);
         }
     });
 
-    const toggleCountryCountryResponse: UseMutationResult<AxiosResponse, AxiosError, ToggleCountryRequestDataType, any> = useMutation({
-        mutationFn: toggleCountry,
+    const toggleCouponCouponResponse: UseMutationResult<AxiosResponse, AxiosError, ToggleCouponRequestDataType, any> = useMutation({
+        mutationFn: toggleCoupon,
         onError: (error: AxiosError): void => {
-            setToggleCountryAlertData(errorAlert(error));
+            setToggleCouponAlertData(errorAlert(error));
 
-            log("Toggle country failure", toggleCountryCountryResponse);
+            log("Toggle coupon failure", toggleCouponCouponResponse);
         },
         onSuccess: (): void => {
-            setToggleCountryAlertData({show: false});
+            setToggleCouponAlertData({show: false});
 
-            const toastMessage: string = `Pays ${countryResponseData.name} ${countryResponseData.enabled ? "désactivé" : "activé"} avec succès`;
+            const toastMessage: string = `Coupon ${couponResponseData.code} ${couponResponseData.enabled ? "désactivé" : "activé"} avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             onToggleModalClose();
-            setCountryResponseData({...countryResponseData, enabled: !countryResponseData.enabled});
+            setCouponResponseData({...couponResponseData, enabled: !couponResponseData.enabled});
 
-            log("Toggle country successful", toggleCountryCountryResponse);
+            log("Toggle coupon successful", toggleCouponCouponResponse);
         }
     });
 
-    if(countryResponse.isError) {
-        countryAlertData = errorAlert(countryResponse.error);
+    if(couponResponse.isError) {
+        couponAlertData = errorAlert(couponResponse.error);
 
-        log("Country show failure", countryResponse);
+        log("Coupon show failure", couponResponse);
     }
 
-    if(countryQueryEnabled && countryResponse.isSuccess && !countryResponse.isFetching) {
-        setCountryQueryEnabled(false);
-        setCountryResponseData(countryResponse.data.data);
+    if(couponQueryEnabled && couponResponse.isSuccess && !couponResponse.isFetching) {
+        setCouponQueryEnabled(false);
+        setCouponResponseData(couponResponse.data.data);
 
-        log("Countries list successful", countryResponse);
+        log("Coupons list successful", couponResponse);
     }
 
-    const isCountryPending: boolean = countryResponse.isFetching;
-    const isDeleteCountryPending: boolean = destroyCountryCountryResponse.isPending;
-    const isToggleCountryPending: boolean = toggleCountryCountryResponse.isPending;
+    const isCouponPending: boolean = couponResponse.isFetching;
+    const isDeleteCouponPending: boolean = destroyCouponCouponResponse.isPending;
+    const isToggleCouponPending: boolean = toggleCouponCouponResponse.isPending;
 
-    const handleDeleteCountry = (): void => {
-        setDeleteCountryAlertData({show: false});
+    const handleDeleteCoupon = (): void => {
+        setDeleteCouponAlertData({show: false});
 
-        destroyCountryCountryResponse.mutate({id: countryResponseData.id});
+        destroyCouponCouponResponse.mutate({id: couponResponseData.id});
     }
 
     const showDeleteModal = (): void => {
         onDeleteModalOpen();
-        setDeleteCountryAlertData({show: false});
+        setDeleteCouponAlertData({show: false});
     }
 
-    const handleToggleCountry = (): void => {
-        setToggleCountryAlertData({show: false});
+    const handleToggleCoupon = (): void => {
+        setToggleCouponAlertData({show: false});
 
-        toggleCountryCountryResponse.mutate({id: countryResponseData.id});
+        toggleCouponCouponResponse.mutate({id: couponResponseData.id});
     }
 
     const showToggleModal = (): void => {
         onToggleModalOpen();
-        setToggleCountryAlertData({show: false});
-    }
-
-    const handleFlagUpdate = (flag: MediaType | null): void => {
-        setCountryResponseData({...countryResponseData, flag});
-    }
-
-    const handleTabsChange = (index: number) => {
-        console.log({index})
+        setToggleCouponAlertData({show: false});
     }
 
     return {
-        isCountryPending,
+        isCouponPending,
         onDeleteModalClose,
         showDeleteModal,
         isDeleteModalOpen,
-        deleteCountryAlertData,
-        isDeleteCountryPending,
-        handleDeleteCountry,
-        countryAlertData,
-        countryResponseData,
-        handleToggleCountry,
-        isToggleCountryPending,
-        toggleCountryAlertData,
+        deleteCouponAlertData,
+        isDeleteCouponPending,
+        handleDeleteCoupon,
+        couponAlertData,
+        couponResponseData,
+        handleToggleCoupon,
+        isToggleCouponPending,
+        toggleCouponAlertData,
         isToggleModalOpen,
         onToggleModalClose,
         showToggleModal,
-        handleTabsChange,
-        handleFlagUpdate
     };
 };
 

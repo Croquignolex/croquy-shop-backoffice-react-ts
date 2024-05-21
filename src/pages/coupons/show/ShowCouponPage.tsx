@@ -1,23 +1,6 @@
-import React, {ReactElement, useState} from "react";
-import {FiPlusSquare} from "react-icons/fi";
+import React, {ReactElement} from "react";
 import {Link} from "react-router-dom";
-import {
-    Box,
-    Stack,
-    Table,
-    Tbody,
-    ButtonGroup,
-    Badge,
-    SimpleGrid,
-    Tabs,
-    TabList,
-    Tab,
-    TabPanels,
-    TabPanel,
-    Icon,
-    Button,
-    useDisclosure,
-} from "@chakra-ui/react";
+import {Box, Stack, Table, Tbody, ButtonGroup, Badge, SimpleGrid} from "@chakra-ui/react";
 
 import useShowCouponHook from "./useShowCouponHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
@@ -28,174 +11,103 @@ import StatusBadge from "../../../components/StatusBadge";
 import {stringDateFormat} from "../../../helpers/generalHelpers";
 import ListSkeletonLoader from "../../../components/skeletonLoader/ListSkeletonLoader";
 import DoubleActionButton from "../../../components/form/DoubleActionButton";
-import {ShowCountryHookType} from "./showCouponData";
-import ShowImage from "../../../components/showImage/ShowImage";
-import StatesTableList from "../../../components/tableList/states/StatesTableList";
-import {countriesApiURI} from "../../../constants/apiURIConstants";
-import { joinBaseUrlWithParams } from "../../../helpers/apiRequestsHelpers";
+import {ShowCouponHookType} from "./showCouponData";
 import NotFoundPage from "../../NotFoundPage";
-import FormModal from "../../../components/FormModal";
-import CountryStateCreateForm from "../../../components/createForm/state/country/CountryStateCreateForm";
 
 const ShowCouponPage = (): ReactElement => {
-    const [statesSequence, setStatesSequence] = useState<number>(0);
-    const { onOpen: onAddStateModalOpen, isOpen: isAddStateModalOpen, onClose: onAddStateModalClose } = useDisclosure();
     const {
-        isCountryPending,
+        isCouponPending,
         onDeleteModalClose,
         showDeleteModal,
         isDeleteModalOpen,
-        deleteCountryAlertData,
-        isDeleteCountryPending,
-        handleDeleteCountry,
-        countryAlertData,
-        countryResponseData,
-        handleToggleCountry,
-        isToggleCountryPending,
-        toggleCountryAlertData,
+        deleteCouponAlertData,
+        isDeleteCouponPending,
+        handleDeleteCoupon,
+        couponAlertData,
+        couponResponseData,
+        handleToggleCoupon,
+        isToggleCouponPending,
+        toggleCouponAlertData,
         isToggleModalOpen,
         onToggleModalClose,
         showToggleModal,
-        handleTabsChange,
-        handleFlagUpdate
-    }: ShowCountryHookType = useShowCouponHook();
-
-    const statesBaseUrl: string = joinBaseUrlWithParams(countriesApiURI.addState, [{param: "id", value: countryResponseData.id}]);
-    const flagBaseUrl: string = joinBaseUrlWithParams(countriesApiURI.flag, [{param: "id", value: countryResponseData.id}]);
+    }: ShowCouponHookType = useShowCouponHook();
 
     return (
         <>
             <PageHeader
-                title={`Détail pays ${countryResponseData.name}`}
-                items={[{path: mainRoutes.countries.path, label: 'Pays'}]}
+                title={`Détail coupon ${couponResponseData.code}`}
+                items={[{path: mainRoutes.coupons.path, label: 'Coupons'}]}
             />
             <Stack>
-                <CustomAlert data={countryAlertData} />
-                {countryAlertData.show ? <NotFoundPage /> : (
+                <CustomAlert data={couponAlertData} />
+                {couponAlertData.show ? <NotFoundPage /> : (
                     <>
                         <SimpleGrid minChildWidth={"sm"} spacing={2}>
                             <Box>
                                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
-                                    {!countryAlertData.show && (
+                                    {!couponAlertData.show && (
                                         <>
                                             <ButtonGroup>
                                                 <DoubleActionButton
-                                                    isDisabled={isCountryPending}
-                                                    showStatus={!isCountryPending}
-                                                    state={countryResponseData}
+                                                    isDisabled={isCouponPending}
+                                                    showStatus={!isCouponPending}
+                                                    state={couponResponseData}
                                                     showDeleteModal={showDeleteModal}
                                                     showToggleModal={showToggleModal}
-                                                    edithPath={`${mainRoutes.countries.path}/${countryResponseData.id}/edit`}
+                                                    edithPath={`${mainRoutes.coupons.path}/${couponResponseData.id}/edit`}
                                                 />
                                             </ButtonGroup>
                                             <Table size={"sm"}>
                                                 <Tbody>
-                                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Nom"}>{countryResponseData.name}</ListSkeletonLoader>
-                                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Indice"}>{countryResponseData.phoneCode}</ListSkeletonLoader>
-                                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Status"}><StatusBadge enabled={countryResponseData.enabled}/></ListSkeletonLoader>
-                                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Créer par"}>
+                                                    <ListSkeletonLoader isLoading={isCouponPending} label={"code"}>{couponResponseData.code}</ListSkeletonLoader>
+                                                    <ListSkeletonLoader isLoading={isCouponPending} label={"Reduction"}>{couponResponseData.discount}</ListSkeletonLoader>
+                                                    <ListSkeletonLoader isLoading={isCouponPending} label={"Utilisation max"}>{couponResponseData.totalUse}</ListSkeletonLoader>
+                                                    <ListSkeletonLoader isLoading={isCouponPending} label={"Utilisation restante"}>XXXXX</ListSkeletonLoader>
+                                                    <ListSkeletonLoader isLoading={isCouponPending} label={"Status"}><StatusBadge enabled={couponResponseData.enabled}/></ListSkeletonLoader>
+                                                    <ListSkeletonLoader isLoading={isCouponPending} label={"Créer par"}>
                                                         <Link
-                                                            to={`${mainRoutes.users.path}/${countryResponseData.creator?.id}`}
+                                                            to={`${mainRoutes.users.path}/${couponResponseData.creator?.id}`}
                                                             className="link"
-                                                            state={countryResponseData.creator}
+                                                            state={couponResponseData.creator}
                                                         >
-                                                            {countryResponseData.creator?.username}
+                                                            {couponResponseData.creator?.username}
                                                         </Link>
                                                     </ListSkeletonLoader>
-                                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Créer le"}>
-                                                        <Badge rounded="md">{stringDateFormat(countryResponseData.createdAt, true)}</Badge>
+                                                    <ListSkeletonLoader isLoading={isCouponPending} label={"Créer le"}>
+                                                        <Badge rounded="md">{stringDateFormat(couponResponseData.createdAt, true)}</Badge>
                                                     </ListSkeletonLoader>
-                                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Modifié le"}>
-                                                        <Badge rounded="md">{stringDateFormat(countryResponseData.updatedAt, true)}</Badge>
+                                                    <ListSkeletonLoader isLoading={isCouponPending} label={"Modifié le"}>
+                                                        <Badge rounded="md">{stringDateFormat(couponResponseData.updatedAt, true)}</Badge>
                                                     </ListSkeletonLoader>
-                                                    <ListSkeletonLoader isLoading={isCountryPending} label={"Description"}>{countryResponseData.description}</ListSkeletonLoader>
+                                                    <ListSkeletonLoader isLoading={isCouponPending} label={"Description"}>{couponResponseData.description}</ListSkeletonLoader>
                                                 </Tbody>
                                             </Table>
                                         </>
                                     )}
                                 </Stack>
                             </Box>
-                            <Box>
-                                <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
-                                    <>
-                                        <strong>Drapeau</strong>
-                                        <ShowImage
-                                            isLoading={isCountryPending}
-                                            image={countryResponseData.flag}
-                                            imageBaseUrl={flagBaseUrl}
-                                            handleImageUpdate={handleFlagUpdate}
-                                        />
-                                    </>
-                                </Stack>
-                            </Box>
+                            <Box />
                         </SimpleGrid>
-                        <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
-                            {!countryAlertData.show && (
-                                <Tabs colorScheme='green' isFitted onChange={handleTabsChange}>
-                                    <TabList>
-                                        <Tab><Icon mr="2" as={mainRoutes.states.icon} /> {mainRoutes.states.title}</Tab>
-                                        {/*<Tab><Icon mr="2" as={FiCheck} /> Inventaire</Tab>*/}
-                                    </TabList>
-                                    <TabPanels>
-                                        <TabPanel key={statesSequence}>
-                                            {countryResponseData.id && (
-                                                <StatesTableList
-                                                    fetchStates
-                                                    showCreator
-                                                    statesBaseUrl={statesBaseUrl}
-                                                >
-                                                    <Button
-                                                        colorScheme='green'
-                                                        fontWeight="none"
-                                                        size={"sm"}
-                                                        leftIcon={<FiPlusSquare />}
-                                                        onClick={onAddStateModalOpen}
-                                                    >
-                                                        Ajouter une ville
-                                                    </Button>
-                                                </StatesTableList>
-                                            )}
-                                        </TabPanel>
-                                        {/*<TabPanel>
-                                        <p>two!</p>
-                                    </TabPanel>*/}
-                                    </TabPanels>
-                                </Tabs>
-                            )}
-                        </Stack>
-                        <FormModal
-                            title={"Ajouter une ville"}
-                            isOpen={isAddStateModalOpen}
-                            onClose={onAddStateModalClose}
-                        >
-                            <CountryStateCreateForm
-                                countryId={countryResponseData.id}
-                                handleAdd={() => setStatesSequence(statesSequence + 1)}
-                                handleFinish={(): void => {
-                                    onAddStateModalClose();
-                                    setStatesSequence(statesSequence + 1);
-                                }}
-                            />
-                        </FormModal>
                         <ConfirmAlertDialog
-                            handleConfirm={handleDeleteCountry}
+                            handleConfirm={handleDeleteCoupon}
                             isOpen={isDeleteModalOpen}
                             onClose={onDeleteModalClose}
-                            isLoading={isDeleteCountryPending}
-                            alertData={deleteCountryAlertData}
+                            isLoading={isDeleteCouponPending}
+                            alertData={deleteCouponAlertData}
                         >
-                            Supprimer la boutique <strong>{countryResponseData.name}</strong>?
+                            Supprimer le coupon <strong>{couponResponseData.code}</strong>?
                         </ConfirmAlertDialog>
                         <ConfirmAlertDialog
-                            colorScheme={countryResponseData.enabled ? "orange" : "green"}
-                            handleConfirm={handleToggleCountry}
+                            colorScheme={couponResponseData.enabled ? "orange" : "green"}
+                            handleConfirm={handleToggleCoupon}
                             isOpen={isToggleModalOpen}
                             onClose={onToggleModalClose}
-                            isLoading={isToggleCountryPending}
-                            alertData={toggleCountryAlertData}
-                            title={countryResponseData.enabled ? "Désactivation" : "Activation"}
+                            isLoading={isToggleCouponPending}
+                            alertData={toggleCouponAlertData}
+                            title={couponResponseData.enabled ? "Désactivation" : "Activation"}
                         >
-                            {countryResponseData.enabled ? "Désactiver" : "Activer"} la boutique <strong>{countryResponseData.name}</strong>?
+                            {couponResponseData.enabled ? "Désactiver" : "Activer"} le coupon <strong>{couponResponseData.code}</strong>?
                         </ConfirmAlertDialog>
                     </>
                 )}

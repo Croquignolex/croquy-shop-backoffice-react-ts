@@ -1,5 +1,4 @@
-import React, {ReactElement, useState} from "react";
-import {FiPlusSquare} from "react-icons/fi";
+import React, {ReactElement} from "react";
 import {Link} from "react-router-dom";
 import {
     Box,
@@ -9,14 +8,6 @@ import {
     ButtonGroup,
     Badge,
     SimpleGrid,
-    Tabs,
-    TabList,
-    Tab,
-    TabPanels,
-    TabPanel,
-    Icon,
-    Button,
-    useDisclosure,
 } from "@chakra-ui/react";
 
 import useShowStateHook from "./useShowStateHook";
@@ -29,16 +20,9 @@ import {stringDateFormat} from "../../../helpers/generalHelpers";
 import ListSkeletonLoader from "../../../components/skeletonLoader/ListSkeletonLoader";
 import DoubleActionButton from "../../../components/form/DoubleActionButton";
 import {ShowStateHookType} from "./showStateData";
-import ShowImage from "../../../components/showImage/ShowImage";
-import StatesTableList from "../../../components/tableList/states/StatesTableList";
-import {statesApiURI} from "../../../constants/apiURIConstants";
-import { joinBaseUrlWithParams } from "../../../helpers/apiRequestsHelpers";
 import NotFoundPage from "../../NotFoundPage";
-import FormModal from "../../../components/FormModal";
 
 const ShowStatePage = (): ReactElement => {
-    const [statesSequence, setStatesSequence] = useState<number>(0);
-    const { onOpen: onAddStateModalOpen, isOpen: isAddStateModalOpen, onClose: onAddStateModalClose } = useDisclosure();
     const {
         isStatePending,
         onDeleteModalClose,
@@ -126,7 +110,7 @@ const ShowStatePage = (): ReactElement => {
                             isLoading={isDeleteStatePending}
                             alertData={deleteStateAlertData}
                         >
-                            Supprimer la boutique <strong>{stateResponseData.name}</strong>?
+                            Supprimer la ville <strong>{stateResponseData.name}</strong>?
                         </ConfirmAlertDialog>
                         <ConfirmAlertDialog
                             colorScheme={stateResponseData.enabled ? "orange" : "green"}
@@ -137,7 +121,7 @@ const ShowStatePage = (): ReactElement => {
                             alertData={toggleStateAlertData}
                             title={stateResponseData.enabled ? "Désactivation" : "Activation"}
                         >
-                            {stateResponseData.enabled ? "Désactiver" : "Activer"} la boutique <strong>{stateResponseData.name}</strong>?
+                            {stateResponseData.enabled ? "Désactiver" : "Activer"} la ville <strong>{stateResponseData.name}</strong>?
                         </ConfirmAlertDialog>
                     </>
                 )}

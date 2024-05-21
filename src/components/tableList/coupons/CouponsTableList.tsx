@@ -48,7 +48,6 @@ const CouponsTableList: FC<CouponsTableListProps> = ({showCreator = false, fetch
                         <Tr>
                             <Th>Code</Th>
                             <Th>Reduction</Th>
-                            <Th>Util max</Th>
                             <Th>Utilisation</Th>
                             <Th>Statut</Th>
                             <Th>Créer le</Th>
@@ -72,7 +71,6 @@ const CouponsTableList: FC<CouponsTableListProps> = ({showCreator = false, fetch
                                         </Td>
                                         <Td>{coupon.discount}%</Td>
                                         <Td>{coupon.totalUse}</Td>
-                                        <Td>{coupon.totalUsage}</Td>
                                         <Td><StatusBadge enabled={coupon.enabled}/></Td>
                                         <Td><Badge rounded="md">{stringDateFormat(coupon.createdAt)}</Badge></Td>
                                         {showCreator && (
@@ -103,7 +101,6 @@ const CouponsTableList: FC<CouponsTableListProps> = ({showCreator = false, fetch
                         <Tr>
                             <Th>Code</Th>
                             <Th>Reduction</Th>
-                            <Th>Util max</Th>
                             <Th>Utilisation</Th>
                             <Th>Statut</Th>
                             <Th>Créer le</Th>

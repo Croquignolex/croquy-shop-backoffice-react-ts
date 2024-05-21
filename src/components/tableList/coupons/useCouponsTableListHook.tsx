@@ -45,7 +45,7 @@ const useCouponsTableListHook = ({fetchCoupons, couponsBaseUrl}: CouponsTableLis
             setDeleteCouponAlertData({show: false});
             setCouponsQueryEnabled(true);
 
-            const toastMessage: string = `Coupon ${selectedCoupon.name} supprimé avec succès`;
+            const toastMessage: string = `Coupon ${selectedCoupon.code} supprimé avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
             onDeleteModalClose();

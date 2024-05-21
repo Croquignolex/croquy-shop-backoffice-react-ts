@@ -1,18 +1,18 @@
 import * as Yup from "yup";
+import dayjs from "dayjs";
 
 import {ErrorAlertType} from "../../../helpers/globalTypesHelper";
-import {formValidationMessage} from "../../../constants/generalConstants";
+import {format, formValidationMessage} from "../../../constants/generalConstants";
 import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {couponsApiURI} from "../../../constants/apiURIConstants";
 import {postRequest} from "../../../helpers/axiosHelpers";
-import dayjs from "dayjs";
 
 export const createCouponInitialStaticValues: CreateCouponFormType = {
     code: "",
     discount: 0,
     totalUse: 0,
-    promotionStartedAt: "",
-    promotionEndedAt: "",
+    promotionStartedAt: dayjs().add(1,"days").format(format.datePicker),
+    promotionEndedAt: dayjs().add(2,"days").format(format.datePicker),
     description: "",
 };
 

@@ -4,6 +4,7 @@ import { AxiosError } from "axios";
 import { CreateToastFnReturn } from "@chakra-ui/react";
 
 import { AlertStatusEnumType, ErrorAlertType } from "./globalTypesHelper";
+import {format} from "../constants/generalConstants";
 
 // Custom log
 export const log = (message: string, data?: any): void => {
@@ -27,8 +28,8 @@ export const needleSearch = (set: any, needle: string): boolean => {
 export const stringDateFormat = (stringDate: string = "", withHour: boolean = false): string => {
     try {
         let temp: string = (withHour)
-            ? dayjs(stringDate).format("DD/MM/YYYY HH:mm")
-            : dayjs(stringDate).format("DD/MM/YYYY");
+            ? dayjs(stringDate).format(format.dateDisplay)
+            : dayjs(stringDate).format(format.dateTimeDisplay);
 
         if(temp === "Invalid Date") throw new Error("Invalid Date");
 

@@ -1,7 +1,7 @@
 import React, {ReactElement} from "react";
 import {Form, Formik, FormikProps} from "formik";
 import {FiCheck} from "react-icons/fi";
-import {Box, Stack, Container, Flex, Button, useDisclosure} from "@chakra-ui/react";
+import {Box, Stack, Container, Flex, Button, useDisclosure, ButtonGroup} from "@chakra-ui/react";
 
 import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditStateHook from "./useEditStateHook";
@@ -60,7 +60,7 @@ const EditStatePage = (): ReactElement => {
                                         />
                                     </Flex>
                                     <TextareaField label="Description" name="description" isLoading={isStatePending} formikProps={props} />
-                                    <Stack>
+                                    <ButtonGroup>
                                         <Button
                                             colorScheme={"green"}
                                             isLoading={isEditStatePending}
@@ -71,7 +71,7 @@ const EditStatePage = (): ReactElement => {
                                         >
                                             Confirmer
                                         </Button>
-                                    </Stack>
+                                    </ButtonGroup>
                                 </Form>
                             )}
                         </Formik>

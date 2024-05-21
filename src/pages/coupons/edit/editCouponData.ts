@@ -3,43 +3,80 @@ import * as Yup from "yup";
 import {ErrorAlertType, URLParamType} from "../../../helpers/globalTypesHelper";
 import {formValidationMessage} from "../../../constants/generalConstants";
 import {v1URL} from "../../../helpers/apiRequestsHelpers";
-import {countriesApiURI} from "../../../constants/apiURIConstants";
+import {couponsApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
-import {CountryType} from "../show/showCouponData";
+import {CouponType} from "../show/showCouponData";
 import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+import dayjs from "dayjs";
 
-export const editCountryInitialStaticValues: EditCountryFormType = { name: '', phoneCode: '', description: '' };
+export const editCouponInitialStaticValues: EditCouponFormType = {
+    code: "",
+    discount: 0,
+    totalUse: 0,
+    promotionStartedAt: "",
+    promotionEndedAt: "",
+    description: "",
+};
 
-export const editCountrySchema: Yup.ObjectSchema<EditCountryFormType> = Yup.object().shape({
-    name: Yup.string().required(formValidationMessage.required),
-    phoneCode: Yup.string().nullable(),
+export const editCouponSchema: Yup.ObjectSchema<EditCouponFormType> = Yup.object().shape({
+    code: Yup.string(),
+    discount: Yup.number()
+        .min(0, formValidationMessage.minNumber)
+        .max(100, formValidationMessage.maxNumber)
+        .required(formValidationMessage.required),
+    totalUse: Yup.number().required(formValidationMessage.required),
+    promotionStartedAt: Yup.string()
+        .required(formValidationMessage.required)
+        .test("FORMAT", formValidationMessage.minDate, (value: string | undefined): boolean => {
+            return (dayjs(value).isValid() && dayjs(value).isAfter(dayjs()));
+        }),
+    promotionEndedAt: Yup.string()
+        .required(formValidationMessage.required)
+        .when('promotionStartedAt',
+            (fields: Array<any>, schema) => {
+                if (fields.length > 0) {
+                    return schema.test("FORMAT", formValidationMessage.dateAfter, (value: string | undefined): boolean => {
+                        return (dayjs(fields[0]).isValid() && dayjs(value).isValid() && dayjs(value).isAfter(dayjs(fields[0])));
+                    });
+                }
+                return schema;
+            }),
     description: Yup.string().nullable(),
 });
 
-export interface EditCountryFormType {
-    name: string,
-    phoneCode: string | null | undefined,
+export interface EditCouponFormType {
+    code: string | null | undefined;
+    totalUse: number,
+    discount: number;
+    promotionStartedAt: string;
+    promotionEndedAt: string;
     description: string | null | undefined,
 }
 
-export interface EditCountryRequestDataType extends EditCountryFormType {
+export interface EditCouponRequestDataType {
     id: string,
+    totalUse: number,
+    discount: number;
+    promotionStartedAt: string;
+    promotionEndedAt: string;
+    description: string | null | undefined,
 }
 
-export interface EditCountryHookType {
-    editCountryAlertData: ErrorAlertType,
-    isEditCountryPending: boolean,
-    isCountryPending: boolean,
-    countryAlertData: ErrorAlertType,
-    formCountry: EditCountryFormType,
+export interface EditCouponHookType {
+    editCouponAlertData: ErrorAlertType,
+    isEditCouponPending: boolean,
+    isCouponPending: boolean,
+    couponAlertData: ErrorAlertType,
+    formCoupon: EditCouponFormType,
     pageHeaderItems: Array<BreadcrumbItemsType>,
-    countryResponseData: CountryType,
-    handleEditCountry: (a: EditCountryFormType) => void,
+    couponResponseData: CouponType,
+    handleEditCoupon: (a: EditCouponFormType) => void,
 }
 
-export const updateCountryRequest = ({name, phoneCode, description, id}: EditCountryRequestDataType): Promise<any> => {
+export const updateCouponRequest = (values: EditCouponRequestDataType): Promise<any> => {
+    const {discount, totalUse, promotionStartedAt, promotionEndedAt, description, id}: EditCouponRequestDataType = values;
     const params: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = v1URL(countriesApiURI.update, params);
+    const url: string = v1URL(couponsApiURI.update, params);
 
-    return putRequest(url, {name, phoneCode, description});
+    return putRequest(url, {discount, totalUse, promotionStartedAt, promotionEndedAt, description});
 };

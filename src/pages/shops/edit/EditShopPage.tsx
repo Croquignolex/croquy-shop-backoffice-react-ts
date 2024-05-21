@@ -1,7 +1,7 @@
 import React, {ReactElement} from "react";
 import {Form, Formik, FormikProps} from "formik";
 import {FiCheck} from "react-icons/fi";
-import {Box, Stack, Container, Flex, Button} from "@chakra-ui/react";
+import {Box, Stack, Container, Flex, Button, ButtonGroup} from "@chakra-ui/react";
 
 import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditShopHook from "./useEditShopHook";
@@ -42,7 +42,7 @@ const EditShopPage = (): ReactElement => {
                                         <TextField label="Slug" name="slug" isLoading={isShopPending} formikProps={props} />
                                     </Flex>
                                     <TextareaField label="Description" name="description" isLoading={isShopPending} formikProps={props} />
-                                    <Stack>
+                                    <ButtonGroup>
                                         <Button
                                             colorScheme={"green"}
                                             isLoading={isEditShopPending}
@@ -53,7 +53,7 @@ const EditShopPage = (): ReactElement => {
                                         >
                                             Confirmer
                                         </Button>
-                                    </Stack>
+                                    </ButtonGroup>
                                 </Form>
                             )}
                         </Formik>

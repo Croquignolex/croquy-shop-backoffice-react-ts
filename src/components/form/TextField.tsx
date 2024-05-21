@@ -1,5 +1,5 @@
 import React, { ReactElement, FC } from "react";
-import { Field } from "formik";
+import {Field, FormikProps} from "formik";
 import { FiAlertCircle } from "react-icons/fi";
 import {
     Input,
@@ -12,11 +12,12 @@ import {
 
 import {DefaultFieldProps} from "../../helpers/globalTypesHelper";
 
-const TextField: FC<DefaultFieldProps> = (
+const TextField: FC<TextFieldProps> = (
     {
         name,
         label,
         isLoading = false,
+        disabled = false,
         formikProps,
     }): ReactElement => {
 
@@ -28,7 +29,7 @@ const TextField: FC<DefaultFieldProps> = (
 
             {isLoading
                 ? <Skeleton height={"40px"} width={"100%"} rounded={"md"} mb={4} />
-                : <Field as={Input} name={name} type="text" borderColor="gray.300" />
+                : <Field as={Input} name={name} type="text" borderColor="gray.300" isDisabled={disabled} />
             }
 
             <FormErrorMessage>
@@ -38,5 +39,9 @@ const TextField: FC<DefaultFieldProps> = (
         </FormControl>
     );
 };
+
+export interface TextFieldProps extends DefaultFieldProps {
+    disabled?: boolean;
+}
 
 export default TextField;

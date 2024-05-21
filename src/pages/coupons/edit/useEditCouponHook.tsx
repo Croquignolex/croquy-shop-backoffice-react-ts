@@ -7,18 +7,20 @@ import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {countryRequest, CountryType, defaultSelectedCountry} from "../show/showCouponData";
+import {couponRequest, CouponType, defaultSelectedCoupon} from "../show/showCouponData";
 import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
 import {
-    EditCountryFormType,
-    EditCountryHookType,
-    editCountryInitialStaticValues,
-    EditCountryRequestDataType,
-    updateCountryRequest
+    EditCouponFormType,
+    EditCouponHookType,
+    editCouponInitialStaticValues,
+    EditCouponRequestDataType,
+    updateCouponRequest
 } from "./editCouponData"
+import dayjs from "dayjs";
+import {format} from "../../../constants/generalConstants";
 
-const useEditCouponHook = (): EditCountryHookType => {
-    let countryAlertData: ErrorAlertType = {show: false};
+const useEditCouponHook = (): EditCouponHookType => {
+    let couponAlertData: ErrorAlertType = {show: false};
 
     let { state }:Location  = useLocation();
     let { id }: Params = useParams();
@@ -26,86 +28,94 @@ const useEditCouponHook = (): EditCountryHookType => {
     const toast: CreateToastFnReturn = useToast();
     const navigate: NavigateFunction = useNavigate();
 
-    const country: CountryType = state;
+    const coupon: CouponType = state;
 
-    const [editCountryAlertData, setEditCountryAlertData] = useState<ErrorAlertType>({show: false});
-    const [countryQueryEnabled, setCountryQueryEnabled] = useState<boolean>(false);
-    const [countryResponseData, setCountryResponseData] = useState<CountryType>(defaultSelectedCountry);
-    const [formCountry, setFormCountry] = useState<EditCountryFormType>(editCountryInitialStaticValues);
+    const [editCouponAlertData, setEditCouponAlertData] = useState<ErrorAlertType>({show: false});
+    const [couponQueryEnabled, setCouponQueryEnabled] = useState<boolean>(false);
+    const [couponResponseData, setCouponResponseData] = useState<CouponType>(defaultSelectedCoupon);
+    const [formCoupon, setFormCoupon] = useState<EditCouponFormType>(editCouponInitialStaticValues);
 
     useEffect((): void => {
-        if(country) {
-            setCountryResponseData(country);
-            setFormCountry(country);
+        if(coupon) {
+            const start: string = dayjs(coupon.promotionStartedAt).format(format.datePicker);
+            const end: string = dayjs(coupon.promotionEndedAt).format(format.datePicker);
+            setCouponResponseData(coupon);
+            setFormCoupon({...coupon, promotionStartedAt: start, promotionEndedAt: end});
         } else {
-            setCountryQueryEnabled(true);
+            setCouponQueryEnabled(true);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const countryResponse: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
-        queryKey: ["country"],
-        queryFn: () => countryRequest(id || ""),
-        enabled: countryQueryEnabled,
+    const couponResponse: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
+        queryKey: ["coupon"],
+        queryFn: () => couponRequest(id || ""),
+        enabled: couponQueryEnabled,
     });
 
-    const updateCountryResponse: UseMutationResult<AxiosResponse, AxiosError, EditCountryRequestDataType, any> = useMutation({
-        mutationFn: updateCountryRequest,
+    const updateCouponResponse: UseMutationResult<AxiosResponse, AxiosError, EditCouponRequestDataType, any> = useMutation({
+        mutationFn: updateCouponRequest,
         onError: (error: AxiosError): void => {
-            setEditCountryAlertData(errorAlert(error));
+            setEditCouponAlertData(errorAlert(error));
 
-            log("Update country failure", updateCountryResponse);
+            log("Update coupon failure", updateCouponResponse);
         },
-        onSuccess: (data: AxiosResponse, variables: EditCountryRequestDataType): void => {
-            setEditCountryAlertData({show: false});
+        onSuccess: (data: AxiosResponse, variables: EditCouponRequestDataType): void => {
+            setEditCouponAlertData({show: false});
 
-            const toastMessage: string = `Pays ${variables.name} mis à jour avec succès`;
+            const toastMessage: string = `Coupon ${couponResponseData.code} mis à jour avec succès`;
             toastAlert(toast, toastMessage, AlertStatusEnumType.success);
 
-            navigate(`${mainRoutes.countries.path}/${countryResponseData.id}`);
+            navigate(`${mainRoutes.coupons.path}/${couponResponseData.id}`);
 
-            log("Update country successful", updateCountryResponse);
+            log("Update coupon successful", updateCouponResponse);
         }
     });
 
-    if(countryResponse.isError) {
-        countryAlertData = errorAlert(countryResponse.error);
+    if(couponResponse.isError) {
+        couponAlertData = errorAlert(couponResponse.error);
 
-        log("Country show failure", countryResponse);
+        log("Coupon show failure", couponResponse);
     }
 
-    if(countryQueryEnabled && countryResponse.isSuccess && !countryResponse.isFetching) {
-        setCountryResponseData(countryResponse.data.data);
-        setFormCountry(countryResponse.data.data);
-        setCountryQueryEnabled(false);
+    if(couponQueryEnabled && couponResponse.isSuccess && !couponResponse.isFetching) {
+        const coupon: CouponType = couponResponse.data.data;
+        const start: string = dayjs(coupon.promotionStartedAt).format(format.datePicker);
+        const end: string = dayjs(coupon.promotionEndedAt).format(format.datePicker);
 
-        log("Countries list successful", countryResponse);
+        setCouponResponseData(coupon);
+        setCouponQueryEnabled(false);
+        setFormCoupon({...coupon, promotionStartedAt: start, promotionEndedAt: end});
+
+        log("Coupons list successful", couponResponse);
     }
 
-    const handleEditCountry = ({name, phoneCode, description}: EditCountryFormType): void =>
-        updateCountryResponse.mutate({name, phoneCode, description, id: countryResponseData.id});
+    const handleEditCoupon = (values: EditCouponFormType): void => {
+        const {discount, totalUse, promotionStartedAt, promotionEndedAt, description}: EditCouponFormType = values;
+        updateCouponResponse.mutate({discount, totalUse, promotionStartedAt, promotionEndedAt, description, id: couponResponseData.id});
+    }
 
-    const isEditCountryPending: boolean = updateCountryResponse.isPending;
-    const isCountryPending: boolean = countryResponse.isFetching;
+    const isEditCouponPending: boolean = updateCouponResponse.isPending;
+    const isCouponPending: boolean = couponResponse.isFetching;
 
-    const pageHeaderItems: Array<BreadcrumbItemsType> = [{path: mainRoutes.countries.path, label: 'Pays'}];
-    if(countryResponseData.id) {
+    const pageHeaderItems: Array<BreadcrumbItemsType> = [{path: mainRoutes.coupons.path, label: 'Coupons'}];
+    if(couponResponseData.id) {
         pageHeaderItems.push({
-            path: `${mainRoutes.countries.path}/${countryResponseData.id}`,
-            label: `Détail pays ${countryResponseData.name}`,
-            state: countryResponseData
+            path: `${mainRoutes.coupons.path}/${couponResponseData.id}`,
+            label: `Détail coupon ${couponResponseData.code}`,
+            state: couponResponseData
         })
     }
 
     return {
-        editCountryAlertData,
-        handleEditCountry,
-        countryResponseData,
-        isCountryPending,
-        countryAlertData,
-        formCountry,
+        editCouponAlertData,
+        handleEditCoupon,
+        couponResponseData,
+        isCouponPending,
+        couponAlertData,
+        formCoupon,
         pageHeaderItems,
-        isEditCountryPending
+        isEditCouponPending
     };
 };
 

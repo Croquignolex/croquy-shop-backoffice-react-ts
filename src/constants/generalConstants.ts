@@ -12,3 +12,9 @@ export const formValidationMessage = {
     imageAllowedFormat: "Format autorisés: PNG, JPG",
     imageAllowedSize: "La taille du fichier doit être moins de 2MB",
 };
+
+export const format = {
+    datePicker: "YYYY-MM-DD",
+    dateDisplay: "DD/MM/YYYY HH:mm",
+    dateTimeDisplay: "DD/MM/YYYY",
+}

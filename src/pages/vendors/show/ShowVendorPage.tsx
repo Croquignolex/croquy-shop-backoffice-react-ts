@@ -23,7 +23,8 @@ import {ShowVendorHookType} from "./showVendorData";
 import NotFoundPage from "../../NotFoundPage";
 import ShowAddress from "../../../components/showAddress/ShowAddress";
 import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
-import {vendorsApiURI} from "../../../constants/apiURIConstants";
+import {countriesApiURI, vendorsApiURI} from "../../../constants/apiURIConstants";
+import ShowImage from "../../../components/showImage/ShowImage";
 
 const ShowVendorPage = (): ReactElement => {
     const {
@@ -42,10 +43,12 @@ const ShowVendorPage = (): ReactElement => {
         isToggleModalOpen,
         onToggleModalClose,
         showToggleModal,
-        handleDefaultAddressUpdate
+        handleAddressUpdate,
+        handleLogoUpdate
     }: ShowVendorHookType = useShowVendorHook();
 
     const addressBaseUrl: string = joinBaseUrlWithParams(vendorsApiURI.address, [{param: "id", value: vendorResponseData.id}]);
+    const logoBaseUrl: string = joinBaseUrlWithParams(vendorsApiURI.logo, [{param: "id", value: vendorResponseData.id}]);
 
     return (
         <>
@@ -57,7 +60,7 @@ const ShowVendorPage = (): ReactElement => {
                 <CustomAlert data={vendorAlertData} />
                 {vendorAlertData.show ? <NotFoundPage /> : (
                     <>
-                        <SimpleGrid minChildWidth={"sm"} spacing={2}>
+                        <SimpleGrid minChildWidth={"md"} spacing={2}>
                             <Box>
                                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                                     {!vendorAlertData.show && (
@@ -100,12 +103,25 @@ const ShowVendorPage = (): ReactElement => {
                             </Box>
                             <Box>
                                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
+                                    <>
+                                        <strong>Logo</strong>
+                                        <ShowImage
+                                            isLoading={isVendorPending}
+                                            image={vendorResponseData.logo}
+                                            imageBaseUrl={logoBaseUrl}
+                                            handleImageUpdate={handleLogoUpdate}
+                                        />
+                                    </>
+                                </Stack>
+                            </Box>
+                            <Box>
+                                <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                                     <strong>Addresse</strong>
                                     <ShowAddress
                                         isLoading={isVendorPending}
                                         address={vendorResponseData.address}
                                         addressBaseUrl={addressBaseUrl}
-                                        handleAddressUpdate={handleDefaultAddressUpdate}
+                                        handleAddressUpdate={handleAddressUpdate}
                                     />
                                 </Stack>
                             </Box>

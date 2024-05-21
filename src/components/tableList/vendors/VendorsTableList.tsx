@@ -15,6 +15,8 @@ import CustomAlert from "../../alert/CustomAlert";
 import SearchField from "../../form/SearchField";
 import {VendorType} from "../../../pages/vendors/show/showVendorData";
 import {VendorsTableListHookType} from "./vendorsTableListData";
+import ImageDisplay from "../../ImageDisplay";
+import {ImageSizeEnumType} from "../../../helpers/globalTypesHelper";
 
 const VendorsTableList: FC<VendorsTableListProps> = ({showCreator = false, fetchVendors = false, vendorsBaseUrl, children}): ReactElement => {
     const {
@@ -46,6 +48,7 @@ const VendorsTableList: FC<VendorsTableListProps> = ({showCreator = false, fetch
                 <Table size={"sm"}>
                     <Thead bg="gray.100">
                         <Tr>
+                            <Th>Logo</Th>
                             <Th>Nom</Th>
                             <Th>Statut</Th>
                             <Th>Créer le</Th>
@@ -58,6 +61,7 @@ const VendorsTableList: FC<VendorsTableListProps> = ({showCreator = false, fetch
                             vendorsResponseData.empty ? <EmptyTableAlert /> : (
                                 vendorsResponseData.content.map((vendor: VendorType, index: number) => (
                                     <Tr key={index}>
+                                        <Td><ImageDisplay image={vendor.logo} size={ImageSizeEnumType.row} /></Td>
                                         <Td>
                                             <Link
                                                 to={`${mainRoutes.vendors.path}/${vendor.id}`}
@@ -95,6 +99,7 @@ const VendorsTableList: FC<VendorsTableListProps> = ({showCreator = false, fetch
                     </Tbody>
                     <Thead bg="gray.100">
                         <Tr>
+                            <Th>Logo</Th>
                             <Th>Nom</Th>
                             <Th>Statut</Th>
                             <Th>Créer le</Th>

@@ -120,7 +120,7 @@ const useShowShopHook = (): ShowShopHookType => {
         setToggleShopAlertData({show: false});
     }
 
-    const handleDefaultAddressUpdate = (address: AddressType | null): void => {
+    const handleAddressUpdate = (address: AddressType | null): void => {
         setShopResponseData({...shopResponseData, address});
     }
 
@@ -140,7 +140,7 @@ const useShowShopHook = (): ShowShopHookType => {
         isToggleModalOpen,
         onToggleModalClose,
         showToggleModal,
-        handleDefaultAddressUpdate,
+        handleAddressUpdate,
     };
 };
 

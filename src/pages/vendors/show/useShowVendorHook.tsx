@@ -5,7 +5,7 @@ import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {NavigateFunction, Params, useNavigate, useParams} from "react-router-dom";
 import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 
-import {AddressType, AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
+import {AddressType, AlertStatusEnumType, ErrorAlertType, MediaType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import {DestroyVendorRequestDataType} from "../../../components/tableList/vendors/vendorsTableListData";
@@ -120,8 +120,12 @@ const useShowVendorHook = (): ShowVendorHookType => {
         setToggleVendorAlertData({show: false});
     }
 
-    const handleDefaultAddressUpdate = (address: AddressType | null): void => {
+    const handleAddressUpdate = (address: AddressType | null): void => {
         setVendorResponseData({...vendorResponseData, address});
+    }
+
+    const handleLogoUpdate = (logo: MediaType | null): void => {
+        setVendorResponseData({...vendorResponseData, logo});
     }
 
     return {
@@ -140,7 +144,8 @@ const useShowVendorHook = (): ShowVendorHookType => {
         isToggleModalOpen,
         onToggleModalClose,
         showToggleModal,
-        handleDefaultAddressUpdate,
+        handleAddressUpdate,
+        handleLogoUpdate
     };
 };
 

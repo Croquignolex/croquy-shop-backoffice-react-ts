@@ -52,7 +52,7 @@ export interface ShowShopHookType {
     isToggleShopPending: boolean,
     handleToggleShop: () => void,
     onToggleModalClose: () => void,
-    handleDefaultAddressUpdate: (a: AddressType | null) => void,
+    handleAddressUpdate: (a: AddressType | null) => void,
 }
 
 export const shopRequest = (id: string): Promise<any> => {

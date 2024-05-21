@@ -42,7 +42,7 @@ const ShowShopPage = (): ReactElement => {
         isToggleModalOpen,
         onToggleModalClose,
         showToggleModal,
-        handleDefaultAddressUpdate
+        handleAddressUpdate
     }: ShowShopHookType = useShowShopHook();
 
     const addressBaseUrl: string = joinBaseUrlWithParams(shopsApiURI.address, [{param: "id", value: shopResponseData.id}]);
@@ -57,7 +57,7 @@ const ShowShopPage = (): ReactElement => {
                 <CustomAlert data={shopAlertData} />
                 {shopAlertData.show ? <NotFoundPage /> : (
                     <>
-                        <SimpleGrid minChildWidth={"sm"} spacing={2}>
+                        <SimpleGrid minChildWidth={"md"} spacing={2}>
                             <Box>
                                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                                     {!shopAlertData.show && (
@@ -106,7 +106,7 @@ const ShowShopPage = (): ReactElement => {
                                         isLoading={isShopPending}
                                         address={shopResponseData.address}
                                         addressBaseUrl={addressBaseUrl}
-                                        handleAddressUpdate={handleDefaultAddressUpdate}
+                                        handleAddressUpdate={handleAddressUpdate}
                                     />
                                 </Stack>
                             </Box>

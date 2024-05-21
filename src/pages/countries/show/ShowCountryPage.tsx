@@ -73,7 +73,7 @@ const ShowCountryPage = (): ReactElement => {
                 <CustomAlert data={countryAlertData} />
                 {countryAlertData.show ? <NotFoundPage /> : (
                     <>
-                        <SimpleGrid minChildWidth={"sm"} spacing={2}>
+                        <SimpleGrid minChildWidth={"md"} spacing={2}>
                             <Box>
                                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                                     {!countryAlertData.show && (

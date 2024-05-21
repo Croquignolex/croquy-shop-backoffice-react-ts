@@ -1,5 +1,5 @@
 import React, {FC, ReactElement} from "react";
-import {Box, Button, Flex, Stack, Text, useDisclosure} from "@chakra-ui/react";
+import {Button, ButtonGroup, Flex, Stack, useDisclosure} from "@chakra-ui/react";
 import {Form, Formik, FormikProps} from "formik";
 import {FiCheck} from "react-icons/fi";
 
@@ -62,7 +62,7 @@ const UpdateAddressForm: FC<UpdateAddressFormProps> = ({baseUrl, address, handle
                             <TextField label="Téléphone 2" name="phoneNumberTwo" formikProps={props} />
                         </Flex>
                         <TextareaField label="Description" name="description" formikProps={props} />
-                        <Stack>
+                        <ButtonGroup>
                             <Button
                                 colorScheme={"green"}
                                 isLoading={isAddAddressPending}
@@ -72,7 +72,7 @@ const UpdateAddressForm: FC<UpdateAddressFormProps> = ({baseUrl, address, handle
                             >
                                 {`${address ? "Modifier" : "Ajouter"}`}
                             </Button>
-                        </Stack>
+                        </ButtonGroup>
                     </Form>
                 )}
             </Formik>

@@ -50,3 +50,14 @@ export const statesApiURI = {
     destroy: "/states/{id}",
     toggle: "/states/{id}/toggle",
 };
+
+export const vendorsApiURI = {
+    index: "/vendors",
+    store: "/vendors",
+    show: "/vendors/{id}",
+    update: "/vendors/{id}",
+    destroy: "/vendors/{id}",
+    toggle: "/vendors/{id}/toggle",
+    address: "/vendors/{id}/address",
+    logo: "/vendors/{id}/logo",
+};

@@ -1,6 +1,4 @@
 import * as Yup from "yup";
-import {ChangeEvent} from "react";
-import {FormikProps} from "formik";
 
 import {ErrorAlertType, MediaType} from "../../helpers/globalTypesHelper";
 import {formValidationMessage} from "../../constants/generalConstants";
@@ -49,7 +47,6 @@ export interface ShowImageHookType {
     showDeleteModal: () => void,
     handleDeleteImage: () => void,
     onDeleteModalClose: () => void,
-    handleFileUpload: (a: ChangeEvent<HTMLInputElement>, b: FormikProps<ChangeImageFormType>) => void,
 }
 
 export interface ShowImageHookProps {

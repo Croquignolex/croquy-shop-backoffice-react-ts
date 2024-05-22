@@ -29,7 +29,7 @@ export const countriesApiURI = {
     update: "/countries/{id}",
     destroy: "/countries/{id}",
     toggle: "/countries/{id}/toggle",
-    addState: "/countries/{id}/states",
+    states: "/countries/{id}/states",
     flag: "/countries/{id}/flag", 
 };
 
@@ -70,4 +70,15 @@ export const brandsApiURI = {
     destroy: "/brands/{id}",
     toggle: "/brands/{id}/toggle",
     logo: "/brands/{id}/logo",
+};
+
+export const groupsApiURI = {
+    index: "/groups",
+    store: "/groups",
+    show: "/groups/{id}",
+    update: "/groups/{id}",
+    destroy: "/groups/{id}",
+    toggle: "/groups/{id}/toggle",
+    logo: "/groups/{id}/logo",
+    banner: "/groups/{id}/banner",
 };

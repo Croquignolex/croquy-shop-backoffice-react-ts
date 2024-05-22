@@ -60,7 +60,7 @@ const ShowCountryPage = (): ReactElement => {
         handleFlagUpdate
     }: ShowCountryHookType = useShowCountryHook();
 
-    const statesBaseUrl: string = joinBaseUrlWithParams(countriesApiURI.addState, [{param: "id", value: countryResponseData.id}]);
+    const statesBaseUrl: string = joinBaseUrlWithParams(countriesApiURI.states, [{param: "id", value: countryResponseData.id}]);
     const flagBaseUrl: string = joinBaseUrlWithParams(countriesApiURI.flag, [{param: "id", value: countryResponseData.id}]);
 
     return (
@@ -120,6 +120,7 @@ const ShowCountryPage = (): ReactElement => {
                                     <>
                                         <strong>Drapeau</strong>
                                         <ShowImage
+                                            id={"upload-flag"}
                                             isLoading={isCountryPending}
                                             image={countryResponseData.flag}
                                             imageBaseUrl={flagBaseUrl}

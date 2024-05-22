@@ -37,7 +37,7 @@ export interface CountryStateCreateFormHookType {
 }
 
 export const storeStateRequest = ({name, countryId, description}: CreateCountryStateRequestDataType): Promise<any> => {
-    const url: string = v1URL(joinBaseUrlWithParams(countriesApiURI.addState, [{param: "id", value: countryId}]));
+    const url: string = v1URL(joinBaseUrlWithParams(countriesApiURI.states, [{param: "id", value: countryId}]));
 
     return postRequest(url, {name, description});
 };

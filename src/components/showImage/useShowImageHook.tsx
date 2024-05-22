@@ -1,10 +1,9 @@
+import {useState} from "react";
 import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
-import {FormikProps} from "formik";
 import {AxiosError, AxiosResponse} from "axios";
-import {ChangeEvent, useState} from "react";
 import {useMutation, UseMutationResult} from "@tanstack/react-query";
 
-import {errorAlert, log, readFile, toastAlert} from "../../helpers/generalHelpers";
+import {errorAlert, log, toastAlert} from "../../helpers/generalHelpers";
 import {AlertStatusEnumType, defaultMedia, ErrorAlertType, MediaType} from "../../helpers/globalTypesHelper";
 import {
     ChangeImageFormType,
@@ -63,20 +62,6 @@ const useShowImageHook = ({imageBaseUrl, image, handleImageUpdate}: ShowImageHoo
         }
     });
 
-    const handleFileUpload = (e: ChangeEvent<HTMLInputElement>, props: FormikProps<ChangeImageFormType>): void => {
-        if (e.target.files && e.target.files.length > 0) {
-            const file: File = e.target.files[0];
-            readFile(file)
-                .then((imageDataUrl: string | null): void => {
-                    if(image === null) handleImageUpdate({...defaultMedia, base64: imageDataUrl});
-                    else handleImageUpdate({...image, base64: imageDataUrl});
-
-                    props.setFieldValue("image", file).then();
-                })
-                .catch(() => setChangeImageAlertData({show: true, status: AlertStatusEnumType.error, message: "Erreur lors de la lecture de l'image"}));
-        }
-    };
-
     const isChangeImagePending: boolean = changeImageResponse.isPending;
     const isDeleteImagePending: boolean = destroyImageResponse.isPending;
 
@@ -102,7 +87,6 @@ const useShowImageHook = ({imageBaseUrl, image, handleImageUpdate}: ShowImageHoo
     return {
         changeImageAlertData,
         handleChangeImage,
-        handleFileUpload,
         deleteImageAlertData,
         handleDeleteImage,
         isChangeImagePending,

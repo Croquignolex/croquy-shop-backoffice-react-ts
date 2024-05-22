@@ -1,9 +1,16 @@
-import React, {ChangeEvent, FC, ReactElement} from "react";
+import React, {FC, ReactElement} from "react";
 import {FiEdit, FiPlus, FiCheck, FiAlertCircle, FiTrash} from "react-icons/fi";
-import {Field, Form, Formik, FormikProps} from "formik";
+import {Form, Formik, FormikProps} from "formik";
 import {
-    Skeleton, Box, Center, Stack, Button, ButtonGroup,
-    FormErrorMessage, Icon, Input, FormControl
+    Skeleton,
+    Box,
+    Center,
+    Stack,
+    Button,
+    ButtonGroup,
+    FormErrorMessage,
+    Icon,
+    FormControl
 } from "@chakra-ui/react";
 
 import ImageDisplay from "../ImageDisplay";
@@ -12,12 +19,12 @@ import useShowImageHook from "./useShowImageHook";
 import CustomAlert from "../alert/CustomAlert";
 import {ChangeImageFormType, changeImageInitialStaticValues, changeImageSchema, ShowImageHookType} from "./showImageData";
 import ConfirmAlertDialog from "../ConfirmAlertDialog";
+import HiddenFileField from "../form/HiddenFileField";
 
-const ShowImage: FC<ShowImageProps> = ({image, handleImageUpdate, imageBaseUrl, isLoading}): ReactElement => {
+const ShowImage: FC<ShowImageProps> = ({id, image, handleImageUpdate, imageBaseUrl, isLoading}): ReactElement => {
     const {
         changeImageAlertData,
         handleChangeImage,
-        handleFileUpload,
         deleteImageAlertData,
         handleDeleteImage,
         isChangeImagePending,
@@ -45,7 +52,7 @@ const ShowImage: FC<ShowImageProps> = ({image, handleImageUpdate, imageBaseUrl, 
                                                 variant={"outline"}
                                                 leftIcon={image?.path ? <FiEdit /> : <FiPlus />}
                                                 size={"sm"}
-                                                onClick={() => document.getElementById('upload')?.click()}
+                                                onClick={() => document.getElementById(id)?.click()}
                                             >
                                                 {image?.path ? "Changer" : "Ajouter" }
                                             </Button>
@@ -72,14 +79,11 @@ const ShowImage: FC<ShowImageProps> = ({image, handleImageUpdate, imageBaseUrl, 
                                                 </Button>
                                             )}
                                         </ButtonGroup>
-                                        <Field
-                                            as={Input}
-                                            name="fake"
-                                            type="file"
-                                            accept="image/*"
-                                            id={"upload"}
-                                            hidden
-                                            onChange={(e: ChangeEvent<HTMLInputElement>) => handleFileUpload(e, props)}
+                                        <HiddenFileField
+                                            id={id}
+                                            image={image}
+                                            handleImageUpdate={handleImageUpdate}
+                                            formikProps={props}
                                         />
                                         <FormControl isInvalid={!!props.errors.image && !!props.touched.image}>
                                             <FormErrorMessage>
@@ -107,6 +111,7 @@ const ShowImage: FC<ShowImageProps> = ({image, handleImageUpdate, imageBaseUrl, 
 };
 
 interface ShowImageProps {
+    id: string,
     image: MediaType | null,
     isLoading: boolean,
     imageBaseUrl: string,

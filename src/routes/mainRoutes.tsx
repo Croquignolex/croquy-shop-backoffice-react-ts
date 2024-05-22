@@ -1,4 +1,4 @@
-import { FiPieChart, FiShoppingCart, FiUsers, FiFlag, FiMap, FiPercent, FiTruck, FiAward } from "react-icons/fi";
+import { FiPieChart, FiShoppingCart, FiUsers, FiFlag, FiMap, FiPercent, FiTruck, FiAward, FiGrid } from "react-icons/fi";
 import { lazy, LazyExoticComponent, ReactElement } from "react";
 import { IconType } from "react-icons";
 
@@ -39,6 +39,11 @@ const addBrand: MainRouteType = {path: "/brands/create", onSidebar: false, onHea
 const showBrand: MainRouteType = {path: "/brands/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/brands/show/ShowBrandPage"))};
 const editBrand: MainRouteType = {path: "/brands/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/brands/edit/EditBrandPage"))};
 
+const groups: MainRouteType = {title: "Groupes", path: "/groups", icon: FiGrid, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/groups/GroupsPage"))};
+const addGroup: MainRouteType = {path: "/groups/create", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/groups/CreateGroupPage"))};
+const showGroup: MainRouteType = {path: "/groups/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/groups/show/ShowGroupPage"))};
+const editGroup: MainRouteType = {path: "/groups/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/groups/edit/EditGroupPage"))};
+
 export interface MainRouteType {
     icon?: IconType,
     onSidebar: boolean,
@@ -52,6 +57,7 @@ export const mainRoutes: any = {
     dashboard,
     shops, addShop, showShop, editShop,
     brands, addBrand, showBrand, editBrand,
+    groups, addGroup, showGroup, editGroup,
     vendors, addVendor, showVendor, editVendor,
     coupons, addCoupon, showCoupon, editCoupon,
     countries, addCountry, showCountry, editCountry,

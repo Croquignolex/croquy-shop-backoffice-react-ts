@@ -128,6 +128,10 @@ const useShowGroupHook = (): ShowGroupHookType => {
         setGroupResponseData({...groupResponseData, banner});
     }
 
+    const handleTabsChange = (index: number) => {
+        console.log({index})
+    }
+
     return {
         isGroupPending,
         onDeleteModalClose,
@@ -145,6 +149,7 @@ const useShowGroupHook = (): ShowGroupHookType => {
         onToggleModalClose,
         showToggleModal,
         handleLogoUpdate,
+        handleTabsChange,
         handleBannerUpdate
     };
 };

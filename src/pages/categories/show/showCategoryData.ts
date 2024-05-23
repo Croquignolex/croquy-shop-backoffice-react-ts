@@ -1,10 +1,11 @@
 import {ErrorAlertType, MediaType, URLParamType} from "../../../helpers/globalTypesHelper";
 import {UserType} from "../../users/usersPageData";
-import {groupsApiURI} from "../../../constants/apiURIConstants";
+import {categoriesApiURI} from "../../../constants/apiURIConstants";
 import {deleteRequest, getRequest, patchRequest} from "../../../helpers/axiosHelpers";
 import {v1URL} from "../../../helpers/apiRequestsHelpers";
+import {GroupType} from "../../groups/show/showGroupData";
 
-export const defaultSelectedGroup: GroupType = {
+export const defaultSelectedCategory: CategoryType = {
     id: "",
     name: "",
     slug: "",
@@ -16,10 +17,11 @@ export const defaultSelectedGroup: GroupType = {
     updatedAt: "",
     logo: null,
     banner: null,
+    group: null,
     creator: null,
 }
 
-export interface GroupType {
+export interface CategoryType {
     id: string;
     name: string;
     slug: string;
@@ -31,55 +33,55 @@ export interface GroupType {
     updatedAt: string;
     logo: MediaType | null;
     banner: MediaType | null;
+    group: GroupType | null;
     creator: UserType | null;
 }
 
-export interface DestroyGroupRequestDataType {
+export interface DestroyCategoryRequestDataType {
     id: string,
 }
 
-export interface ToggleGroupRequestDataType {
+export interface ToggleCategoryRequestDataType {
     id: string,
 }
 
-export interface ShowGroupHookType {
-    groupResponseData: GroupType,
-    isGroupPending: boolean,
-    groupAlertData: ErrorAlertType,
+export interface ShowCategoryHookType {
+    categoryResponseData: CategoryType,
+    isCategoryPending: boolean,
+    categoryAlertData: ErrorAlertType,
     showDeleteModal: () => void,
     isDeleteModalOpen: boolean,
-    deleteGroupAlertData: ErrorAlertType,
-    isDeleteGroupPending: boolean,
-    handleDeleteGroup: () => void,
+    deleteCategoryAlertData: ErrorAlertType,
+    isDeleteCategoryPending: boolean,
+    handleDeleteCategory: () => void,
     onDeleteModalClose: () => void,
     showToggleModal: () => void,
     isToggleModalOpen: boolean,
-    toggleGroupAlertData: ErrorAlertType,
-    isToggleGroupPending: boolean,
-    handleToggleGroup: () => void,
+    toggleCategoryAlertData: ErrorAlertType,
+    isToggleCategoryPending: boolean,
+    handleToggleCategory: () => void,
     onToggleModalClose: () => void,
-    handleTabsChange: (a: number) => void,
     handleLogoUpdate: (a: MediaType | null) => void,
     handleBannerUpdate: (a: MediaType | null) => void,
 }
 
-export const groupRequest = (id: string): Promise<any> => {
+export const categoryRequest = (id: string): Promise<any> => {
     const params: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = v1URL(groupsApiURI.show, params);
+    const url: string = v1URL(categoriesApiURI.show, params);
     
     return getRequest(url);
 };
 
-export const destroyGroup = ({id}: DestroyGroupRequestDataType): Promise<any> => {
+export const destroyCategory = ({id}: DestroyCategoryRequestDataType): Promise<any> => {
     const params: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = v1URL(groupsApiURI.destroy, params);
+    const url: string = v1URL(categoriesApiURI.destroy, params);
     
     return deleteRequest(url);
 };
 
-export const toggleGroup = ({id}: ToggleGroupRequestDataType): Promise<any> => {
+export const toggleCategory = ({id}: ToggleCategoryRequestDataType): Promise<any> => {
     const params: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = v1URL(groupsApiURI.toggle, params);
+    const url: string = v1URL(categoriesApiURI.toggle, params);
     
     return patchRequest(url);
 };

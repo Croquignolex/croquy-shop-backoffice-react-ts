@@ -36,6 +36,7 @@ import { joinBaseUrlWithParams } from "../../../helpers/apiRequestsHelpers";
 import NotFoundPage from "../../NotFoundPage";
 import FormModal from "../../../components/FormModal";
 import CountryStateCreateForm from "../../../components/createForm/state/country/CountryStateCreateForm";
+import {ImageSizeEnumType} from "../../../helpers/globalTypesHelper";
 
 const ShowCountryPage = (): ReactElement => {
     const [statesSequence, setStatesSequence] = useState<number>(0);
@@ -73,7 +74,7 @@ const ShowCountryPage = (): ReactElement => {
                 <CustomAlert data={countryAlertData} />
                 {countryAlertData.show ? <NotFoundPage /> : (
                     <>
-                        <SimpleGrid minChildWidth={"md"} spacing={2}>
+                        <SimpleGrid minChildWidth={"md"}>
                             <Box>
                                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                                     {!countryAlertData.show && (
@@ -121,6 +122,7 @@ const ShowCountryPage = (): ReactElement => {
                                         <strong>Drapeau</strong>
                                         <ShowImage
                                             id={"upload-flag"}
+                                            imageSize={ImageSizeEnumType.small}
                                             isLoading={isCountryPending}
                                             image={countryResponseData.flag}
                                             imageBaseUrl={flagBaseUrl}

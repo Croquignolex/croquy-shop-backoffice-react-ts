@@ -43,7 +43,7 @@ const ShowCouponPage = (): ReactElement => {
                 <CustomAlert data={couponAlertData} />
                 {couponAlertData.show ? <NotFoundPage /> : (
                     <>
-                        <SimpleGrid minChildWidth={"md"} spacing={2}>
+                        <SimpleGrid minChildWidth={"md"}>
                             <Box>
                                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                                     {!couponAlertData.show && (

@@ -1,14 +1,6 @@
 import React, {ReactElement} from "react";
 import {Link} from "react-router-dom";
-import {
-    Box,
-    Stack,
-    Table,
-    Tbody,
-    ButtonGroup,
-    Badge,
-    SimpleGrid,
-} from "@chakra-ui/react";
+import {Badge, Box, ButtonGroup, SimpleGrid, Stack, Table, Tbody,} from "@chakra-ui/react";
 
 import useShowBrandHook from "./useShowBrandHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
@@ -24,6 +16,8 @@ import NotFoundPage from "../../NotFoundPage";
 import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
 import {brandsApiURI} from "../../../constants/apiURIConstants";
 import ShowImage from "../../../components/showImage/ShowImage";
+import {ImageSizeEnumType} from "../../../helpers/globalTypesHelper";
+import SeoTable from "../../../components/SeoTable";
 
 const ShowBrandPage = (): ReactElement => {
     const {
@@ -57,7 +51,7 @@ const ShowBrandPage = (): ReactElement => {
                 <CustomAlert data={brandAlertData} />
                 {brandAlertData.show ? <NotFoundPage /> : (
                     <>
-                        <SimpleGrid minChildWidth={"md"} spacing={2}>
+                        <SimpleGrid minChildWidth={"md"}>
                             <Box>
                                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                                     {!brandAlertData.show && (
@@ -77,8 +71,6 @@ const ShowBrandPage = (): ReactElement => {
                                                     <ListSkeletonLoader isLoading={isBrandPending} label={"Nom"}>{brandResponseData.name}</ListSkeletonLoader>
                                                     <ListSkeletonLoader isLoading={isBrandPending} label={"Slug"}>{brandResponseData.slug}</ListSkeletonLoader>
                                                     <ListSkeletonLoader isLoading={isBrandPending} label={"Site web"}>{brandResponseData.website}</ListSkeletonLoader>
-                                                    <ListSkeletonLoader isLoading={isBrandPending} label={"Titre SEO"}>{brandResponseData.seoTitle}</ListSkeletonLoader>
-                                                    <ListSkeletonLoader isLoading={isBrandPending} label={"Description SEO"}>{brandResponseData.seoDescription}</ListSkeletonLoader>
                                                     <ListSkeletonLoader isLoading={isBrandPending} label={"Status"}><StatusBadge enabled={brandResponseData.enabled}/></ListSkeletonLoader>
                                                     <ListSkeletonLoader isLoading={isBrandPending} label={"Créer par"}>
                                                         <Link
@@ -105,8 +97,15 @@ const ShowBrandPage = (): ReactElement => {
                             <Box>
                                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                                     <>
+                                        <strong>SEO</strong>
+                                        <SeoTable isLoading={isBrandPending} data={brandResponseData} />
+                                    </>
+                                </Stack>
+                                <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
+                                    <>
                                         <strong>Logo</strong>
                                         <ShowImage
+                                            imageSize={ImageSizeEnumType.small}
                                             id={"upload-logo"}
                                             isLoading={isBrandPending}
                                             image={brandResponseData.logo}

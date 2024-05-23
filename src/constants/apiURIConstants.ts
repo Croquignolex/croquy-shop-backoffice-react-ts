@@ -6,6 +6,7 @@ export const authApiURI = {
 export const selectListApiURI = { 
     countries: "/select/countries",
     states: "/select/states",
+    groups: "/select/groups",
 };
 
 export const usersApiURI = {
@@ -31,6 +32,17 @@ export const countriesApiURI = {
     toggle: "/countries/{id}/toggle",
     states: "/countries/{id}/states",
     flag: "/countries/{id}/flag", 
+};
+
+export const categoriesApiURI = {
+    index: "/categories",
+    store: "/categories",
+    show: "/categories/{id}",
+    update: "/categories/{id}",
+    destroy: "/categories/{id}",
+    toggle: "/categories/{id}/toggle",
+    logo: "/categories/{id}/logo",
+    banner: "/categories/{id}/banner",
 };
 
 export const couponsApiURI = {
@@ -81,4 +93,5 @@ export const groupsApiURI = {
     toggle: "/groups/{id}/toggle",
     logo: "/groups/{id}/logo",
     banner: "/groups/{id}/banner",
+    categories: "/groups/{id}/categories",
 };

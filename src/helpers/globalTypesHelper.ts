@@ -22,7 +22,7 @@ export enum AlertStatusEnumType {
 export enum ImageSizeEnumType {
     row = 'row',
     small = 'small',
-    large = 'small',
+    large = 'large',
 }
 
 export interface ReducerActionType {

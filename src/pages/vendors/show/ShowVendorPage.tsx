@@ -7,7 +7,7 @@ import {
     Tbody,
     ButtonGroup,
     Badge,
-    SimpleGrid,
+    SimpleGrid, Spacer, GridItem,
 } from "@chakra-ui/react";
 
 import useShowVendorHook from "./useShowVendorHook";
@@ -25,6 +25,7 @@ import ShowAddress from "../../../components/showAddress/ShowAddress";
 import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
 import {countriesApiURI, vendorsApiURI} from "../../../constants/apiURIConstants";
 import ShowImage from "../../../components/showImage/ShowImage";
+import {ImageSizeEnumType} from "../../../helpers/globalTypesHelper";
 
 const ShowVendorPage = (): ReactElement => {
     const {
@@ -60,7 +61,7 @@ const ShowVendorPage = (): ReactElement => {
                 <CustomAlert data={vendorAlertData} />
                 {vendorAlertData.show ? <NotFoundPage /> : (
                     <>
-                        <SimpleGrid minChildWidth={"md"} spacing={2}>
+                        <SimpleGrid minChildWidth={"md"}>
                             <Box>
                                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                                     {!vendorAlertData.show && (
@@ -100,13 +101,12 @@ const ShowVendorPage = (): ReactElement => {
                                         </>
                                     )}
                                 </Stack>
-                            </Box>
-                            <Box>
                                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                                     <>
                                         <strong>Logo</strong>
                                         <ShowImage
                                             id={"upload-logo"}
+                                            imageSize={ImageSizeEnumType.small}
                                             isLoading={isVendorPending}
                                             image={vendorResponseData.logo}
                                             imageBaseUrl={logoBaseUrl}

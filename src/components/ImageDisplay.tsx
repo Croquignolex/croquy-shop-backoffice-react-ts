@@ -17,13 +17,13 @@ const ImageDisplay: FC<ImageDisplayProps> = ({image, size, height = 0, width= 0}
             w = 35;
         break;
         case ImageSizeEnumType.small:
-            h = 200;
-            w = 200;
+            h = 120;
+            w = 120;
             r = "xl";
         break;
         case ImageSizeEnumType.large:
-            h = 300;
-            w = 300;
+            h = 200;
+            w = 500;
             r = "xl";
         break;
     }
@@ -35,8 +35,8 @@ const ImageDisplay: FC<ImageDisplayProps> = ({image, size, height = 0, width= 0}
             <Image
                 maxW={w}
                 maxH={h}
-                width={width ? width : undefined}
-                height={height ? height : undefined}
+                // width={width ? width : undefined}
+                // height={height ? height : undefined}
                 rounded={r}
                 objectFit='cover'
                 src={src}

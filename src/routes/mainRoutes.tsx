@@ -1,4 +1,15 @@
-import { FiPieChart, FiShoppingCart, FiUsers, FiFlag, FiMap, FiPercent, FiTruck, FiAward, FiGrid } from "react-icons/fi";
+import {
+    FiPieChart,
+    FiShoppingCart,
+    FiUsers,
+    FiFlag,
+    FiMap,
+    FiPercent,
+    FiTruck,
+    FiAward,
+    FiColumns,
+    FiGrid
+} from "react-icons/fi";
 import { lazy, LazyExoticComponent, ReactElement } from "react";
 import { IconType } from "react-icons";
 
@@ -44,6 +55,11 @@ const addGroup: MainRouteType = {path: "/groups/create", onSidebar: false, onHea
 const showGroup: MainRouteType = {path: "/groups/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/groups/show/ShowGroupPage"))};
 const editGroup: MainRouteType = {path: "/groups/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/groups/edit/EditGroupPage"))};
 
+const categories: MainRouteType = {title: "Categories", path: "/categories", icon: FiColumns, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/categories/CategoriesPage"))};
+const addCategory: MainRouteType = {path: "/categories/create", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/CreateCategoryPage"))};
+const showCategory: MainRouteType = {path: "/categories/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/show/ShowCategoryPage"))};
+const editCategory: MainRouteType = {path: "/categories/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/edit/EditCategoryPage"))};
+
 export interface MainRouteType {
     icon?: IconType,
     onSidebar: boolean,
@@ -58,6 +74,7 @@ export const mainRoutes: any = {
     shops, addShop, showShop, editShop,
     brands, addBrand, showBrand, editBrand,
     groups, addGroup, showGroup, editGroup,
+    categories, addCategory, showCategory, editCategory,
     vendors, addVendor, showVendor, editVendor,
     coupons, addCoupon, showCoupon, editCoupon,
     countries, addCountry, showCountry, editCountry,

@@ -21,7 +21,7 @@ import {ChangeImageFormType, changeImageInitialStaticValues, changeImageSchema, 
 import ConfirmAlertDialog from "../ConfirmAlertDialog";
 import HiddenFileField from "../form/HiddenFileField";
 
-const ShowImage: FC<ShowImageProps> = ({id, image, handleImageUpdate, imageBaseUrl, isLoading}): ReactElement => {
+const ShowImage: FC<ShowImageProps> = ({id, image, imageSize, handleImageUpdate, imageBaseUrl, isLoading}): ReactElement => {
     const {
         changeImageAlertData,
         handleChangeImage,
@@ -37,11 +37,11 @@ const ShowImage: FC<ShowImageProps> = ({id, image, handleImageUpdate, imageBaseU
     return (
         <>
             <CustomAlert data={changeImageAlertData} />
-            <Center>
+            <Stack>
                 {isLoading ? <Skeleton height={"200px"} width={"200px"} rounded={"md"} /> : (
                     <Stack>
-                        <ImageDisplay image={image} size={ImageSizeEnumType.small} />
-                        <Box>
+                        <ImageDisplay image={image} size={imageSize} />
+                        <Center>
                             <Formik initialValues={changeImageInitialStaticValues} validationSchema={changeImageSchema} onSubmit={handleChangeImage}>
                                 {(props: FormikProps<ChangeImageFormType>) => (
                                     <Form>
@@ -85,18 +85,13 @@ const ShowImage: FC<ShowImageProps> = ({id, image, handleImageUpdate, imageBaseU
                                             handleImageUpdate={handleImageUpdate}
                                             formikProps={props}
                                         />
-                                        <FormControl isInvalid={!!props.errors.image && !!props.touched.image}>
-                                            <FormErrorMessage>
-                                                <Icon mr="2" as={FiAlertCircle} /> {props.errors.image}
-                                            </FormErrorMessage>
-                                        </FormControl>
                                     </Form>
                                 )}
                             </Formik>
-                        </Box>
+                        </Center>
                     </Stack>
                 )}
-            </Center>
+            </Stack>
             <ConfirmAlertDialog
                 handleConfirm={handleDeleteImage}
                 isOpen={isDeleteModalOpen}
@@ -112,6 +107,7 @@ const ShowImage: FC<ShowImageProps> = ({id, image, handleImageUpdate, imageBaseU
 
 interface ShowImageProps {
     id: string,
+    imageSize: ImageSizeEnumType,
     image: MediaType | null,
     isLoading: boolean,
     imageBaseUrl: string,

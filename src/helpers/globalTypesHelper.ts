@@ -19,6 +19,12 @@ export enum AlertStatusEnumType {
     warning = 'warning',
 }
 
+export enum AttributeTypeEnumType {
+    text = 'TEXT',
+    select = 'SELECT',
+    color = 'COLOR',
+}
+
 export enum ImageSizeEnumType {
     row = 'row',
     small = 'small',

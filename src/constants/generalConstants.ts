@@ -1,3 +1,6 @@
+import {AttributeTypeEnumType} from "../helpers/globalTypesHelper";
+import {FormSelectOptionType} from "../components/form/SelectField";
+
 export const formValidationMessage = {
     required: "Merci de remplir ce champ",
     match: "Le format de ce champ n'ai pas correct",
@@ -17,4 +20,10 @@ export const format = {
     datePicker: "YYYY-MM-DD",
     dateDisplay: "DD/MM/YYYY HH:mm",
     dateTimeDisplay: "DD/MM/YYYY",
-}
+};
+
+export const staticSelectListAttributeTypes: Array<FormSelectOptionType> = [
+    {label: "Texte", key: AttributeTypeEnumType.text},
+    {label: "Couleur", key: AttributeTypeEnumType.color},
+    {label: "Selection", key: AttributeTypeEnumType.select}
+];

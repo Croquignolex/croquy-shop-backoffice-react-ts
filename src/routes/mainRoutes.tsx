@@ -8,6 +8,8 @@ import {
     FiTruck,
     FiAward,
     FiColumns,
+    FiTag,
+    FiTarget,
     FiGrid
 } from "react-icons/fi";
 import { lazy, LazyExoticComponent, ReactElement } from "react";
@@ -60,6 +62,16 @@ const addCategory: MainRouteType = {path: "/categories/create", onSidebar: false
 const showCategory: MainRouteType = {path: "/categories/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/show/ShowCategoryPage"))};
 const editCategory: MainRouteType = {path: "/categories/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/edit/EditCategoryPage"))};
 
+const attributes: MainRouteType = {title: "Attributs", path: "/attributes", icon: FiTag, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/attributes/AttributesPage"))};
+const addAttribute: MainRouteType = {path: "/attributes/create", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/attributes/CreateAttributePage"))};
+const showAttribute: MainRouteType = {path: "/attributes/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/attributes/show/ShowAttributePage"))};
+const editAttribute: MainRouteType = {path: "/attributes/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/attributes/edit/EditAttributePage"))};
+
+const attributeValue: MainRouteType = {title: "Valeurs d'Attribut", path: "/attribute-values", icon: FiTarget, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/categories/CategoriesPage"))};
+const addAttributeValue: MainRouteType = {path: "/attribute-values/create", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/CreateCategoryPage"))};
+const showAttributeValue: MainRouteType = {path: "/attribute-values/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/show/ShowCategoryPage"))};
+const editAttributeValue: MainRouteType = {path: "/attribute-values/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/edit/EditCategoryPage"))};
+
 export interface MainRouteType {
     icon?: IconType,
     onSidebar: boolean,
@@ -75,6 +87,8 @@ export const mainRoutes: any = {
     brands, addBrand, showBrand, editBrand,
     groups, addGroup, showGroup, editGroup,
     categories, addCategory, showCategory, editCategory,
+    attributes, addAttribute, showAttribute, editAttribute,
+    attributeValue, addAttributeValue, showAttributeValue, editAttributeValue,
     vendors, addVendor, showVendor, editVendor,
     coupons, addCoupon, showCoupon, editCoupon,
     countries, addCountry, showCountry, editCountry,

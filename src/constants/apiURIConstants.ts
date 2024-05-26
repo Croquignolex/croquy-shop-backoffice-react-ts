@@ -84,6 +84,24 @@ export const brandsApiURI = {
     logo: "/brands/{id}/logo",
 };
 
+export const attributesApiURI = {
+    index: "/attributes",
+    store: "/attributes",
+    show: "/attributes/{id}",
+    update: "/attributes/{id}",
+    destroy: "/attributes/{id}",
+    toggle: "/attributes/{id}/toggle",
+};
+
+export const attributeValuesApiURI = {
+    index: "/attribute-values",
+    store: "/attribute-values",
+    show: "/attribute-values/{id}",
+    update: "/attribute-values/{id}",
+    destroy: "/attribute-values/{id}",
+    toggle: "/attribute-values/{id}/toggle",
+};
+
 export const groupsApiURI = {
     index: "/groups",
     store: "/groups",

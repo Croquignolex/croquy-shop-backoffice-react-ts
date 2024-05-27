@@ -8,15 +8,17 @@ import {putRequest} from "../../../helpers/axiosHelpers";
 import {AttributeType} from "../show/showAttributeData";
 import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
 
-export const editAttributeInitialStaticValues: EditAttributeFormType = {name: '', description: ''};
+export const editAttributeInitialStaticValues: EditAttributeFormType = {name: '', type: '', description: ''};
 
 export const editAttributeSchema: Yup.ObjectSchema<EditAttributeFormType> = Yup.object().shape({
     name: Yup.string().required(formValidationMessage.required),
+    type: Yup.string().required(formValidationMessage.required),
     description: Yup.string().nullable(),
 });
 
 export interface EditAttributeFormType {
     name: string,
+    type: string,
     description: string | null | undefined,
 }
 
@@ -36,9 +38,9 @@ export interface EditAttributeHookType {
 }
 
 export const updateAttributeRequest = (values: EditAttributeRequestDataType): Promise<any> => {
-    const {name, description, id}: EditAttributeRequestDataType = values;
+    const {name, type, description, id}: EditAttributeRequestDataType = values;
     const params: Array<URLParamType> = [{param: "id", value: id}];
     const url: string = v1URL(attributesApiURI.update, params);
 
-    return putRequest(url, {name, description});
+    return putRequest(url, {name, type, description});
 };

@@ -36,8 +36,8 @@ const ShowAttributePage = (): ReactElement => {
     return (
         <>
             <PageHeader
-                title={`Détail marque ${attributeResponseData.name}`}
-                items={[{path: mainRoutes.attributes.path, label: 'Marques'}]}
+                title={`Détail attribut ${attributeResponseData.name}`}
+                items={[{path: mainRoutes.attributes.path, label: 'Attributs'}]}
             />
             <Stack>
                 <CustomAlert data={attributeAlertData} />
@@ -61,6 +61,7 @@ const ShowAttributePage = (): ReactElement => {
                                             <Table size={"sm"}>
                                                 <Tbody>
                                                     <ListSkeletonLoader isLoading={isAttributePending} label={"Nom"}>{attributeResponseData.name}</ListSkeletonLoader>
+                                                    <ListSkeletonLoader isLoading={isAttributePending} label={"Type"}>{attributeResponseData.type}</ListSkeletonLoader>
                                                     <ListSkeletonLoader isLoading={isAttributePending} label={"Status"}><StatusBadge enabled={attributeResponseData.enabled}/></ListSkeletonLoader>
                                                     <ListSkeletonLoader isLoading={isAttributePending} label={"Créer par"}>
                                                         <Link

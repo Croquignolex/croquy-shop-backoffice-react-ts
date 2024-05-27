@@ -83,8 +83,8 @@ const useEditAttributeHook = (): EditAttributeHookType => {
     }
 
     const handleEditAttribute = (values: EditAttributeFormType): void => {
-        const {name, description}: EditAttributeFormType = values;
-        updateAttributeResponse.mutate({name, description, id: attributeResponseData.id});
+        const {name, type, description}: EditAttributeFormType = values;
+        updateAttributeResponse.mutate({name, type, description, id: attributeResponseData.id});
     }
 
     const isEditAttributePending: boolean = updateAttributeResponse.isPending;

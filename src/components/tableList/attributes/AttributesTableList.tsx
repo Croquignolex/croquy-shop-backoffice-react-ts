@@ -47,6 +47,7 @@ const AttributesTableList: FC<AttributesTableListProps> = ({showCreator = false,
                     <Thead bg="gray.100">
                         <Tr>
                             <Th>Nom</Th>
+                            <Th>Type</Th>
                             <Th>Statut</Th>
                             <Th>Créer le</Th>
                             {showCreator && <Th>Créer par</Th>}
@@ -67,6 +68,7 @@ const AttributesTableList: FC<AttributesTableListProps> = ({showCreator = false,
                                                 {attribute.name}
                                             </Link>
                                         </Td>
+                                        <Td>{attribute.type}</Td>
                                         <Td><StatusBadge enabled={attribute.enabled}/></Td>
                                         <Td><Badge rounded="md">{stringDateFormat(attribute.createdAt)}</Badge></Td>
                                         {showCreator && (
@@ -96,6 +98,7 @@ const AttributesTableList: FC<AttributesTableListProps> = ({showCreator = false,
                     <Thead bg="gray.100">
                         <Tr>
                             <Th>Nom</Th>
+                            <Th>Type</Th>
                             <Th>Statut</Th>
                             <Th>Créer le</Th>
                             {showCreator && <Th>Créer par</Th>}

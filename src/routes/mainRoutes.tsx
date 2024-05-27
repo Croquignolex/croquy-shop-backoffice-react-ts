@@ -10,6 +10,7 @@ import {
     FiColumns,
     FiTag,
     FiTarget,
+    FiSliders,
     FiGrid
 } from "react-icons/fi";
 import { lazy, LazyExoticComponent, ReactElement } from "react";
@@ -52,12 +53,12 @@ const addBrand: MainRouteType = {path: "/brands/create", onSidebar: false, onHea
 const showBrand: MainRouteType = {path: "/brands/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/brands/show/ShowBrandPage"))};
 const editBrand: MainRouteType = {path: "/brands/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/brands/edit/EditBrandPage"))};
 
-const groups: MainRouteType = {title: "Groupes", path: "/groups", icon: FiGrid, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/groups/GroupsPage"))};
+const groups: MainRouteType = {title: "Groupes", path: "/groups", icon: FiColumns, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/groups/GroupsPage"))};
 const addGroup: MainRouteType = {path: "/groups/create", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/groups/CreateGroupPage"))};
 const showGroup: MainRouteType = {path: "/groups/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/groups/show/ShowGroupPage"))};
 const editGroup: MainRouteType = {path: "/groups/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/groups/edit/EditGroupPage"))};
 
-const categories: MainRouteType = {title: "Categories", path: "/categories", icon: FiColumns, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/categories/CategoriesPage"))};
+const categories: MainRouteType = {title: "Categories", path: "/categories", icon: FiGrid, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/categories/CategoriesPage"))};
 const addCategory: MainRouteType = {path: "/categories/create", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/CreateCategoryPage"))};
 const showCategory: MainRouteType = {path: "/categories/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/show/ShowCategoryPage"))};
 const editCategory: MainRouteType = {path: "/categories/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/edit/EditCategoryPage"))};
@@ -67,7 +68,7 @@ const addAttribute: MainRouteType = {path: "/attributes/create", onSidebar: fals
 const showAttribute: MainRouteType = {path: "/attributes/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/attributes/show/ShowAttributePage"))};
 const editAttribute: MainRouteType = {path: "/attributes/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/attributes/edit/EditAttributePage"))};
 
-const attributeValue: MainRouteType = {title: "Valeurs d'Attribut", path: "/attribute-values", icon: FiTarget, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/categories/CategoriesPage"))};
+const attributeValue: MainRouteType = {title: "Valeurs d'Attribut", path: "/attribute-values", icon: FiSliders, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/categories/CategoriesPage"))};
 const addAttributeValue: MainRouteType = {path: "/attribute-values/create", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/CreateCategoryPage"))};
 const showAttributeValue: MainRouteType = {path: "/attribute-values/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/show/ShowCategoryPage"))};
 const editAttributeValue: MainRouteType = {path: "/attribute-values/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/edit/EditCategoryPage"))};

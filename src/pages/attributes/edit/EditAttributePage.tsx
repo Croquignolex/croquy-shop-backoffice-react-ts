@@ -1,7 +1,7 @@
 import React, {ReactElement} from "react";
 import {Form, Formik, FormikProps} from "formik";
 import {FiCheck} from "react-icons/fi";
-import {Box, Stack, Container, Button, ButtonGroup} from "@chakra-ui/react";
+import {Box, Stack, Container, Button, ButtonGroup, Flex} from "@chakra-ui/react";
 
 import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditAttributeHook from "./useEditAttributeHook";
@@ -10,6 +10,8 @@ import TextareaField from "../../../components/form/TextareaField";
 import PageHeader from "../../../components/menu/PageHeader";
 import {EditAttributeFormType, EditAttributeHookType, editAttributeSchema} from "./editAttributeData";
 import NotFoundPage from "../../NotFoundPage";
+import {staticSelectListAttributeTypes} from "../../../constants/generalConstants";
+import SelectField from "../../../components/form/SelectField";
 
 const EditAttributePage = (): ReactElement => {
     const {
@@ -26,7 +28,7 @@ const EditAttributePage = (): ReactElement => {
     return (
         <>
             <PageHeader
-                title={`Modifier marque ${attributeResponseData.name}`}
+                title={`Modifier attribut ${attributeResponseData.name}`}
                 items={pageHeaderItems}
             />
             <Container maxW={'3xl'}>
@@ -37,7 +39,16 @@ const EditAttributePage = (): ReactElement => {
                         <Formik initialValues={formAttribute} validationSchema={editAttributeSchema} onSubmit={handleEditAttribute} enableReinitialize>
                             {(props: FormikProps<EditAttributeFormType>) => (
                                 <Form>
-                                    <TextField label="Nom" name="name" isLoading={isAttributePending} formikProps={props} />
+                                    <Flex>
+                                        <TextField label="Nom" name="name" isLoading={isAttributePending} formikProps={props} />
+                                        <SelectField
+                                            label="Type"
+                                            name="type"
+                                            formikProps={props}
+                                            isLoading={isAttributePending}
+                                            values={staticSelectListAttributeTypes}
+                                        />
+                                    </Flex>
                                     <TextareaField label="Description" name="description" isLoading={isAttributePending} formikProps={props} />
                                     <ButtonGroup>
                                         <Button

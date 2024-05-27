@@ -7,6 +7,7 @@ import {v1URL} from "../../../helpers/apiRequestsHelpers";
 export const defaultSelectedAttribute: AttributeType = {
     id: "",
     name: "",
+    type: "",
     enabled: false,
     description: "",
     createdAt: "",
@@ -17,6 +18,7 @@ export const defaultSelectedAttribute: AttributeType = {
 export interface AttributeType {
     id: string;
     name: string;
+    type: string;
     enabled: boolean;
     description: string;
     createdAt: string;

@@ -68,10 +68,10 @@ const addAttribute: MainRouteType = {path: "/attributes/create", onSidebar: fals
 const showAttribute: MainRouteType = {path: "/attributes/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/attributes/show/ShowAttributePage"))};
 const editAttribute: MainRouteType = {path: "/attributes/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/attributes/edit/EditAttributePage"))};
 
-const attributeValue: MainRouteType = {title: "Valeurs d'Attribut", path: "/attribute-values", icon: FiSliders, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/categories/CategoriesPage"))};
-const addAttributeValue: MainRouteType = {path: "/attribute-values/create", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/CreateCategoryPage"))};
-const showAttributeValue: MainRouteType = {path: "/attribute-values/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/show/ShowCategoryPage"))};
-const editAttributeValue: MainRouteType = {path: "/attribute-values/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/categories/edit/EditCategoryPage"))};
+const attributeValues: MainRouteType = {title: "Valeurs d'Attribut", path: "/attribute-values", icon: FiSliders, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/attributeValues/AttributeValuesPage"))};
+const addAttributeValue: MainRouteType = {path: "/attribute-values/create", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/attributeValues/CreateAttributeValuePage"))};
+const showAttributeValue: MainRouteType = {path: "/attribute-values/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/attributeValues/show/ShowAttributeValuePage"))};
+const editAttributeValue: MainRouteType = {path: "/attribute-values/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/attributeValues/edit/EditAttributeValuePage"))};
 
 export interface MainRouteType {
     icon?: IconType,
@@ -89,7 +89,7 @@ export const mainRoutes: any = {
     groups, addGroup, showGroup, editGroup,
     categories, addCategory, showCategory, editCategory,
     attributes, addAttribute, showAttribute, editAttribute,
-    attributeValue, addAttributeValue, showAttributeValue, editAttributeValue,
+    attributeValues, addAttributeValue, showAttributeValue, editAttributeValue,
     vendors, addVendor, showVendor, editVendor,
     coupons, addCoupon, showCoupon, editCoupon,
     countries, addCountry, showCountry, editCountry,

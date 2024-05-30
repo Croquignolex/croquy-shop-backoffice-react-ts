@@ -60,7 +60,7 @@ const useEditCategoryHook = (): EditCategoryHookType => {
             setEditCategoryAlertData({show: false});
 
             const toastMessage: string = `Categorie ${variables.name} mise à jour avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             navigate(`${mainRoutes.categories.path}/${categoryResponseData.id}`);
 

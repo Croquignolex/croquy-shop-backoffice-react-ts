@@ -62,7 +62,7 @@ const BrandsTableList: FC<BrandsTableListProps> = ({showCreator = false, fetchBr
                             brandsResponseData.empty ? <EmptyTableAlert /> : (
                                 brandsResponseData.content.map((brand: BrandType, index: number) => (
                                     <Tr key={index}>
-                                        <Td><ImageDisplay image={brand.logo} size={ImageSizeEnumType.row} /></Td>
+                                        <Td><ImageDisplay image={brand.logo} size={ImageSizeEnumType.ROW} /></Td>
                                         <Td>
                                             <Link
                                                 to={`${mainRoutes.brands.path}/${brand.id}`}

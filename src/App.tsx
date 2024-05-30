@@ -4,7 +4,6 @@ import { AbsoluteCenter, Box, Spinner } from "@chakra-ui/react";
 
 import { Routes } from "./routes";
 import { getLocaleStorageItem } from "./helpers/localStorageHelpers";
-import { initialGlobalUsersState, UsersContext, usersReducer } from "./contexts/UsersContext";
 import { LoginResponseDataType } from "./pages/login/loginData";
 import {
     initialGlobalUserState,
@@ -52,17 +51,14 @@ const GlobalState: FC = (): ReactElement => {
 
 const App: FC = (): ReactElement => {
     const [globalUserState, setGlobalUserState] = useReducer(userReducer, initialGlobalUserState);
-    const [globalUsersState, setGlobalUsersState] = useReducer(usersReducer, initialGlobalUsersState);
 
     return (
         <UserContext.Provider value={{ globalUserState, setGlobalUserState }}>
-            <UsersContext.Provider value={{ globalUsersState, setGlobalUsersState }}>
-                <Suspense fallback={<SuspenseLoader />}>
-                    <BrowserRouter>
-                        <GlobalState />
-                    </BrowserRouter>
-                </Suspense>
-            </UsersContext.Provider>
+            <Suspense fallback={<SuspenseLoader />}>
+                <BrowserRouter>
+                    <GlobalState />
+                </BrowserRouter>
+            </Suspense>
         </UserContext.Provider>
     );
 };

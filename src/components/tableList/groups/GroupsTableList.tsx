@@ -62,7 +62,7 @@ const GroupsTableList: FC<GroupsTableListProps> = ({showCreator = false, fetchGr
                             groupsResponseData.empty ? <EmptyTableAlert /> : (
                                 groupsResponseData.content.map((group: GroupType, index: number) => (
                                     <Tr key={index}>
-                                        <Td><ImageDisplay image={group.logo} size={ImageSizeEnumType.row} /></Td>
+                                        <Td><ImageDisplay image={group.logo} size={ImageSizeEnumType.ROW} /></Td>
                                         <Td>
                                             <Link
                                                 to={`${mainRoutes.groups.path}/${group.id}`}

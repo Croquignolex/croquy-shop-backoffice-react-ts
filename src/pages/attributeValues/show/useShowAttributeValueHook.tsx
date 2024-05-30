@@ -52,7 +52,7 @@ const useShowAttributeValueHook = (): ShowAttributeValueHookType => {
             setDeleteAttributeValueAlertData({show: false});
 
             const toastMessage: string = `Valeur d'attribut ${attributeValueResponseData.name} supprimée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
             navigate(`${mainRoutes.attributeValues.path}`);
@@ -72,7 +72,7 @@ const useShowAttributeValueHook = (): ShowAttributeValueHookType => {
             setToggleAttributeValueAlertData({show: false});
 
             const toastMessage: string = `Valeur d'attribut ${attributeValueResponseData.name} ${attributeValueResponseData.enabled ? "désactivée" : "activée"} avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onToggleModalClose();
             setAttributeValueResponseData({...attributeValueResponseData, enabled: !attributeValueResponseData.enabled});

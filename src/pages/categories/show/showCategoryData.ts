@@ -1,9 +1,9 @@
 import {ErrorAlertType, MediaType, URLParamType} from "../../../helpers/globalTypesHelper";
-import {UserType} from "../../users/usersPageData";
 import {categoriesApiURI} from "../../../constants/apiURIConstants";
 import {deleteRequest, getRequest, patchRequest} from "../../../helpers/axiosHelpers";
 import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {GroupType} from "../../groups/show/showGroupData";
+import {UserType} from "../../users/show/showUserData";
 
 export const defaultSelectedCategory: CategoryType = {
     id: "",

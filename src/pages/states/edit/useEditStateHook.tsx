@@ -60,7 +60,7 @@ const useEditStateHook = (): EditStateHookType => {
             setEditStateAlertData({show: false});
 
             const toastMessage: string = `Ville ${variables.name} mise à jour avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             navigate(`${mainRoutes.states.path}/${stateResponseData.id}`);
 

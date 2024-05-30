@@ -105,7 +105,7 @@ const ShowBrandPage = (): ReactElement => {
                                     <>
                                         <strong>Logo</strong>
                                         <ShowImage
-                                            imageSize={ImageSizeEnumType.small}
+                                            imageSize={ImageSizeEnumType.SMALL}
                                             id={"upload-logo"}
                                             isLoading={isBrandPending}
                                             image={brandResponseData.logo}

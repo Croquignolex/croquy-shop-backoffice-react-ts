@@ -60,7 +60,7 @@ const useEditGroupHook = (): EditGroupHookType => {
             setEditGroupAlertData({show: false});
 
             const toastMessage: string = `Groupe ${variables.name} mis à jour avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             navigate(`${mainRoutes.groups.path}/${groupResponseData.id}`);
 

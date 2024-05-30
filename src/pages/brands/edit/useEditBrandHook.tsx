@@ -60,7 +60,7 @@ const useEditBrandHook = (): EditBrandHookType => {
             setEditBrandAlertData({show: false});
 
             const toastMessage: string = `Marque ${variables.name} mise à jour avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             navigate(`${mainRoutes.brands.path}/${brandResponseData.id}`);
 

@@ -1,17 +1,7 @@
 import React, {FC, ReactElement} from "react";
-import {FiEdit, FiPlus, FiCheck, FiAlertCircle, FiTrash} from "react-icons/fi";
+import {FiEdit, FiPlus, FiCheck, FiTrash} from "react-icons/fi";
 import {Form, Formik, FormikProps} from "formik";
-import {
-    Skeleton,
-    Box,
-    Center,
-    Stack,
-    Button,
-    ButtonGroup,
-    FormErrorMessage,
-    Icon,
-    FormControl
-} from "@chakra-ui/react";
+import {Skeleton, Center, Stack, Button, ButtonGroup} from "@chakra-ui/react";
 
 import ImageDisplay from "../ImageDisplay";
 import {ImageSizeEnumType, MediaType} from "../../helpers/globalTypesHelper";
@@ -21,7 +11,15 @@ import {ChangeImageFormType, changeImageInitialStaticValues, changeImageSchema, 
 import ConfirmAlertDialog from "../ConfirmAlertDialog";
 import HiddenFileField from "../form/HiddenFileField";
 
-const ShowImage: FC<ShowImageProps> = ({id, image, imageSize, handleImageUpdate, imageBaseUrl, isLoading}): ReactElement => {
+const ShowImage: FC<ShowImageProps> = (
+    {
+       id,
+       image,
+       imageSize,
+       handleImageUpdate= (): void => {},
+       imageBaseUrl  = "",
+       isLoading
+}): ReactElement => {
     const {
         changeImageAlertData,
         handleChangeImage,
@@ -110,8 +108,8 @@ interface ShowImageProps {
     imageSize: ImageSizeEnumType,
     image: MediaType | null,
     isLoading: boolean,
-    imageBaseUrl: string,
-    handleImageUpdate: (a: MediaType | null) => void,
+    imageBaseUrl?: string,
+    handleImageUpdate?: (a: MediaType | null) => void,
 }
 
 export default ShowImage;

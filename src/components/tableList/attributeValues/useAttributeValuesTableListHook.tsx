@@ -46,7 +46,7 @@ const useAttributeValuesTableListHook = ({fetchAttributeValues, attributeValuesB
             setAttributeValuesQueryEnabled(true);
 
             const toastMessage: string = `Valeur d'attribut ${selectedAttributeValue.name} supprimée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
 

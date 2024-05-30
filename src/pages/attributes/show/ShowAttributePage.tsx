@@ -13,6 +13,7 @@ import ListSkeletonLoader from "../../../components/skeletonLoader/ListSkeletonL
 import DoubleActionButton from "../../../components/form/DoubleActionButton";
 import {ShowAttributeHookType} from "./showAttributeData";
 import NotFoundPage from "../../NotFoundPage";
+import EnumBadge from "../../../components/EnumBadge";
 
 const ShowAttributePage = (): ReactElement => {
     const {
@@ -61,7 +62,7 @@ const ShowAttributePage = (): ReactElement => {
                                             <Table size={"sm"}>
                                                 <Tbody>
                                                     <ListSkeletonLoader isLoading={isAttributePending} label={"Nom"}>{attributeResponseData.name}</ListSkeletonLoader>
-                                                    <ListSkeletonLoader isLoading={isAttributePending} label={"Type"}>{attributeResponseData.type}</ListSkeletonLoader>
+                                                    <ListSkeletonLoader isLoading={isAttributePending} label={"Type"}><EnumBadge data={attributeResponseData.type} attribute /></ListSkeletonLoader>
                                                     <ListSkeletonLoader isLoading={isAttributePending} label={"Status"}><StatusBadge enabled={attributeResponseData.enabled}/></ListSkeletonLoader>
                                                     <ListSkeletonLoader isLoading={isAttributePending} label={"Créer par"}>
                                                         <Link

@@ -59,7 +59,7 @@ export const generateFlattenRoutes = (routes: Array<any>): Array<any> => {
 };
 
 // Toast alert
-export const toastAlert = (toast: CreateToastFnReturn, title: string, status: AlertStatusEnumType = AlertStatusEnumType.success): void => {
+export const toastAlert = (toast: CreateToastFnReturn, title: string, status: AlertStatusEnumType = AlertStatusEnumType.SUCCESS): void => {
     toast.closeAll();
 
     toast({title, status});
@@ -98,7 +98,7 @@ export const errorAlert = (error: AxiosError<any>): ErrorAlertType => {
         }
     }
 
-    return { show: true, status: AlertStatusEnumType.error, message };
+    return { show: true, status: AlertStatusEnumType.ERROR, message };
 }
 
 // Get timezone name

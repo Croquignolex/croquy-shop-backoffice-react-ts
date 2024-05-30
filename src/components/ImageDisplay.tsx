@@ -12,16 +12,16 @@ const ImageDisplay: FC<ImageDisplayProps> = ({image, size, height = 0, width= 0}
     let r: string = "md";
 
     switch (size) {
-        case ImageSizeEnumType.row:
+        case ImageSizeEnumType.ROW:
             h = 35;
             w = 35;
         break;
-        case ImageSizeEnumType.small:
+        case ImageSizeEnumType.SMALL:
             h = 120;
             w = 120;
             r = "xl";
         break;
-        case ImageSizeEnumType.large:
+        case ImageSizeEnumType.LARGE:
             h = 200;
             w = 500;
             r = "xl";

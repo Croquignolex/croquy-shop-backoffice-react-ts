@@ -46,7 +46,7 @@ const useShopsTableListHook = ({fetchShops, shopsBaseUrl}: ShopsTableListHookPro
             setShopsQueryEnabled(true);
 
             const toastMessage: string = `Boutique ${selectedShop.name} supprimée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
 

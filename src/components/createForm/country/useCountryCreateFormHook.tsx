@@ -34,7 +34,7 @@ const useCountryCreateFormHook = ({modal, handleFinish, handleAdd}: CountryCreat
             setCreateCountryAlertData({show: false});
 
             const toastMessage: string = `Pays ${variables.name} créer avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             // Reload component
             if(next) {

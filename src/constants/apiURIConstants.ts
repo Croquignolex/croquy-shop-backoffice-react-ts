@@ -10,7 +10,10 @@ export const selectListApiURI = {
 };
 
 export const usersApiURI = {
-    list: "/users",
+    index: "/users",
+    store: "/users",
+    show: "/users/{id}",
+    toggle: "/users/{id}/toggle",
 };
 
 export const shopsApiURI = {

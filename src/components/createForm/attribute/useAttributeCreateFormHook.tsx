@@ -34,7 +34,7 @@ const useAttributeCreateFormHook = ({modal, handleFinish, handleAdd}: AttributeC
             setCreateAttributeAlertData({show: false});
 
             const toastMessage: string = `Atrribut ${variables.name} créer avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             // Reload component
             if(next) {

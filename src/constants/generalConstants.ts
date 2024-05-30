@@ -1,4 +1,4 @@
-import {AttributeTypeEnumType} from "../helpers/globalTypesHelper";
+import {AttributeTypeEnumType, GenderTypeEnumType, RoleTypeEnumType} from "../helpers/globalTypesHelper";
 import {FormSelectOptionType} from "../components/form/SelectField";
 
 export const formValidationMessage = {
@@ -23,7 +23,20 @@ export const format = {
 };
 
 export const staticSelectListAttributeTypes: Array<FormSelectOptionType> = [
-    {label: "Texte", key: AttributeTypeEnumType.text},
-    {label: "Couleur", key: AttributeTypeEnumType.color},
-    {label: "Selection", key: AttributeTypeEnumType.select}
+    {label: "Texte", key: AttributeTypeEnumType.TEXT},
+    {label: "Couleur", key: AttributeTypeEnumType.COLOR},
+    {label: "Sélection", key: AttributeTypeEnumType.SELECT}
+];
+
+export const staticSelectListGenderTypes: Array<FormSelectOptionType> = [
+    {label: "Masculin", key: GenderTypeEnumType.MALE},
+    {label: "Féminin", key: GenderTypeEnumType.FEMALE},
+    {label: "Autre", key: GenderTypeEnumType.UNKNOWN}
+];
+
+export const staticSelectListRoleTypes: Array<FormSelectOptionType> = [
+    {label: "Administrateur", key: RoleTypeEnumType.ADMIN},
+    {label: "Vendeur", key: RoleTypeEnumType.SELLER},
+    {label: "Super admin", key: RoleTypeEnumType.SUPER_ADMIN},
+    {label: "Gestionnaire", key: RoleTypeEnumType.MANAGER},
 ];

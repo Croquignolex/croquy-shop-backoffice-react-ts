@@ -122,7 +122,7 @@ const ShowCountryPage = (): ReactElement => {
                                         <strong>Drapeau</strong>
                                         <ShowImage
                                             id={"upload-flag"}
-                                            imageSize={ImageSizeEnumType.small}
+                                            imageSize={ImageSizeEnumType.SMALL}
                                             isLoading={isCountryPending}
                                             image={countryResponseData.flag}
                                             imageBaseUrl={flagBaseUrl}

@@ -46,7 +46,7 @@ const useBrandsTableListHook = ({fetchBrands, brandsBaseUrl}: BrandsTableListHoo
             setBrandsQueryEnabled(true);
 
             const toastMessage: string = `Marque ${selectedBrand.name} supprimée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
 

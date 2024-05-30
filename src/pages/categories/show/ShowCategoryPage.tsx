@@ -116,7 +116,7 @@ const ShowCategoryPage = (): ReactElement => {
                                         <strong>Logo</strong>
                                         <ShowImage
                                             id={"upload-logo"}
-                                            imageSize={ImageSizeEnumType.small}
+                                            imageSize={ImageSizeEnumType.SMALL}
                                             isLoading={isCategoryPending}
                                             image={categoryResponseData.logo}
                                             imageBaseUrl={logoBaseUrl}
@@ -136,7 +136,7 @@ const ShowCategoryPage = (): ReactElement => {
                                     <>
                                         <strong>Bannière</strong>
                                         <ShowImage
-                                            imageSize={ImageSizeEnumType.large}
+                                            imageSize={ImageSizeEnumType.LARGE}
                                             id={"upload-banner"}
                                             isLoading={isCategoryPending}
                                             image={categoryResponseData.banner}

@@ -1,8 +1,8 @@
 import {ErrorAlertType, MediaType, URLParamType} from "../../../helpers/globalTypesHelper";
-import {UserType} from "../../users/usersPageData";
 import {groupsApiURI} from "../../../constants/apiURIConstants";
 import {deleteRequest, getRequest, patchRequest} from "../../../helpers/axiosHelpers";
 import {v1URL} from "../../../helpers/apiRequestsHelpers";
+import {UserType} from "../../users/show/showUserData";
 
 export const defaultSelectedGroup: GroupType = {
     id: "",

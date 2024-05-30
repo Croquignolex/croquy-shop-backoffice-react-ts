@@ -52,7 +52,7 @@ const useShowGroupHook = (): ShowGroupHookType => {
             setDeleteGroupAlertData({show: false});
 
             const toastMessage: string = `Groupe ${groupResponseData.name} supprimé avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
             navigate(`${mainRoutes.groups.path}`);
@@ -72,7 +72,7 @@ const useShowGroupHook = (): ShowGroupHookType => {
             setToggleGroupAlertData({show: false});
 
             const toastMessage: string = `Groupe ${groupResponseData.name} ${groupResponseData.enabled ? "désactivé" : "activé"} avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onToggleModalClose();
             setGroupResponseData({...groupResponseData, enabled: !groupResponseData.enabled});

@@ -1,34 +1,52 @@
 import {FormikProps} from "formik";
 import {IconType} from "react-icons";
 
-import {UserType} from "../pages/users/usersPageData";
 import {CountryType} from "../pages/countries/show/showCountryData";
 import {StateType} from "../pages/states/show/showStateData";
 import {ShopType} from "../pages/shops/show/showShopData";
+import {UserType} from "../pages/users/show/showUserData";
+
+// ================================ Enums Start
+
+export enum AlertStatusEnumType {
+    INFO = 'info',
+    ERROR = 'error',
+    SUCCESS = 'success',
+    WARNING = 'warning',
+}
+
+export enum AttributeTypeEnumType {
+    TEXT = 'TEXT',
+    SELECT = 'SELECT',
+    COLOR = 'COLOR',
+}
+
+export enum GenderTypeEnumType {
+    MALE = 'MALE',
+    FEMALE = 'FEMALE',
+    UNKNOWN = 'UNKNOWN',
+}
+
+export enum RoleTypeEnumType {
+    SUPER_ADMIN = 'SUPER_ADMIN',
+    ADMIN = 'ADMIN',
+    MANAGER = 'MANAGER',
+    SELLER = 'SELLER',
+    CUSTOMER = 'CUSTOMER',
+}
+
+export enum ImageSizeEnumType {
+    ROW = 'row',
+    SMALL = 'small',
+    LARGE = 'large',
+}
+
+// ================================ Enums End
 
 export interface ErrorAlertType {
     show: boolean,
     status?: AlertStatusEnumType,
     message?: string
-}
-
-export enum AlertStatusEnumType {
-    info = 'info',
-    error = 'error',
-    success = 'success',
-    warning = 'warning',
-}
-
-export enum AttributeTypeEnumType {
-    text = 'TEXT',
-    select = 'SELECT',
-    color = 'COLOR',
-}
-
-export enum ImageSizeEnumType {
-    row = 'row',
-    small = 'small',
-    large = 'large',
 }
 
 export interface ReducerActionType {

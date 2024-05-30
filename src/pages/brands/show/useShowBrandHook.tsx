@@ -52,7 +52,7 @@ const useShowBrandHook = (): ShowBrandHookType => {
             setDeleteBrandAlertData({show: false});
 
             const toastMessage: string = `Marque ${brandResponseData.name} supprimée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
             navigate(`${mainRoutes.brands.path}`);
@@ -72,7 +72,7 @@ const useShowBrandHook = (): ShowBrandHookType => {
             setToggleBrandAlertData({show: false});
 
             const toastMessage: string = `Marque ${brandResponseData.name} ${brandResponseData.enabled ? "désactivée" : "activée"} avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onToggleModalClose();
             setBrandResponseData({...brandResponseData, enabled: !brandResponseData.enabled});

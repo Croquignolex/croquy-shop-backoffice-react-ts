@@ -60,7 +60,7 @@ const useEditVendorHook = (): EditVendorHookType => {
             setEditVendorAlertData({show: false});
 
             const toastMessage: string = `Fournisseur ${variables.name} mis à jour avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             navigate(`${mainRoutes.vendors.path}/${vendorResponseData.id}`);
 

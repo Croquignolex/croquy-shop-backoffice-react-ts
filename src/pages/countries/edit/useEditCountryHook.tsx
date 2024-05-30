@@ -60,7 +60,7 @@ const useEditCountryHook = (): EditCountryHookType => {
             setEditCountryAlertData({show: false});
 
             const toastMessage: string = `Pays ${variables.name} mis à jour avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             navigate(`${mainRoutes.countries.path}/${countryResponseData.id}`);
 

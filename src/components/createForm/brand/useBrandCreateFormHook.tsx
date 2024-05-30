@@ -34,7 +34,7 @@ const useBrandCreateFormHook = ({modal, handleFinish, handleAdd}: BrandCreateFor
             setCreateBrandAlertData({show: false});
 
             const toastMessage: string = `Marque ${variables.name} créer avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             // Reload component
             if(next) {

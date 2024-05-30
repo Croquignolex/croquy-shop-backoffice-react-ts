@@ -52,7 +52,7 @@ const useShowCountryHook = (): ShowCountryHookType => {
             setDeleteCountryAlertData({show: false});
 
             const toastMessage: string = `Pays ${countryResponseData.name} supprimé avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
             navigate(`${mainRoutes.countries.path}`);
@@ -72,7 +72,7 @@ const useShowCountryHook = (): ShowCountryHookType => {
             setToggleCountryAlertData({show: false});
 
             const toastMessage: string = `Pays ${countryResponseData.name} ${countryResponseData.enabled ? "désactivé" : "activé"} avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onToggleModalClose();
             setCountryResponseData({...countryResponseData, enabled: !countryResponseData.enabled});

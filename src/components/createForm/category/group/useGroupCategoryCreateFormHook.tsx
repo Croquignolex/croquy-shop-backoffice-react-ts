@@ -31,7 +31,7 @@ const useGroupCategoryCreateFormHook = ({groupId, handleFinish, handleAdd}: Grou
             setCreateGroupCategoryAlertData({show: false});
 
             const toastMessage: string = `Catégorie ${variables.name} ajoutée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             // Reload component
             if(next) {

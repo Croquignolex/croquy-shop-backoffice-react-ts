@@ -34,7 +34,7 @@ const useCouponCreateFormHook = ({modal, handleFinish, handleAdd}: CouponCreateF
             setCreateCouponAlertData({show: false});
 
             const toastMessage: string = `Coupon ${variables.code} créer avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             // Reload component
             if(next) {

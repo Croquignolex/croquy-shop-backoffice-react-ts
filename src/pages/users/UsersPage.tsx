@@ -1,25 +1,33 @@
 import React, {ReactElement} from "react";
+import {Button} from "@chakra-ui/react";
+import {Link} from "react-router-dom";
+import {FiPlusSquare} from "react-icons/fi";
 
-import useUsersPageHook from "./useUsersPageHook";
+import {mainRoutes} from "../../routes/mainRoutes";
+import PageHeader from "../../components/menu/PageHeader";
+import {usersApiURI} from "../../constants/apiURIConstants";
+import UsersTableList from "../../components/tableList/users/UsersTableList";
 
 const UsersPage = (): ReactElement => {
-    const { isPending, users, alertData } = useUsersPageHook();
-
     return (
         <>
-            {/*<DataTable
-                alertData={alertData}
-                isLoading={isPending}
-                currentPage={2}
-                pages={5}
-                handleSearch={(e: string) => {console.log("Search", e)}}
-                handleAddItem={() => {console.log("Add")}}
-                handleNextPage={() => {console.log("next")}}
-                handlePreviousPage={() => {console.log("previous")}}
-                headers={["Nom", "Age", "Email", "bonon"]}
-                data={[{nom: "Alex", age: "50", email: "tjnjn@ffff.fr"}, {nom: "Alex", age: "50", bonon: 95, email: "rfvr"}]}
+            <PageHeader title={mainRoutes.users.title} icon={mainRoutes.users.icon} />
+            <UsersTableList
+                fetchUsers
+                showCreator
+                usersBaseUrl={usersApiURI.index}
             >
-            </DataTable>*/}
+                <Button
+                    colorScheme='green'
+                    fontWeight="none"
+                    size={"sm"}
+                    leftIcon={<FiPlusSquare />}
+                    as={Link}
+                    to={mainRoutes.addUser.path}
+                >
+                    Nouvelle user
+                </Button>
+            </UsersTableList>
         </>
     );
 };

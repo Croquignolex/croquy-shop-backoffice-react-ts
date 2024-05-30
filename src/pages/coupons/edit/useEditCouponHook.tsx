@@ -64,7 +64,7 @@ const useEditCouponHook = (): EditCouponHookType => {
             setEditCouponAlertData({show: false});
 
             const toastMessage: string = `Coupon ${couponResponseData.code} mis à jour avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             navigate(`${mainRoutes.coupons.path}/${couponResponseData.id}`);
 

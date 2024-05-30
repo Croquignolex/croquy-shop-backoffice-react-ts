@@ -46,7 +46,7 @@ const useVendorsTableListHook = ({fetchVendors, vendorsBaseUrl}: VendorsTableLis
             setVendorsQueryEnabled(true);
 
             const toastMessage: string = `Fournisseur ${selectedVendor.name} supprimé avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
 

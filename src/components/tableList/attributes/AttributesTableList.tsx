@@ -15,6 +15,7 @@ import CustomAlert from "../../alert/CustomAlert";
 import SearchField from "../../form/SearchField";
 import {AttributeType} from "../../../pages/attributes/show/showAttributeData";
 import {AttributesTableListHookType} from "./attributesTableListData";
+import EnumBadge from "../../EnumBadge";
 
 const AttributesTableList: FC<AttributesTableListProps> = ({showCreator = false, fetchAttributes = false, attributesBaseUrl, children}): ReactElement => {
     const {
@@ -68,8 +69,8 @@ const AttributesTableList: FC<AttributesTableListProps> = ({showCreator = false,
                                                 {attribute.name}
                                             </Link>
                                         </Td>
-                                        <Td>{attribute.type}</Td>
-                                        <Td><StatusBadge enabled={attribute.enabled}/></Td>
+                                        <Td><EnumBadge data={attribute.type} attribute /></Td>
+                                        <Td><StatusBadge enabled={attribute.enabled} /></Td>
                                         <Td><Badge rounded="md">{stringDateFormat(attribute.createdAt)}</Badge></Td>
                                         {showCreator && (
                                             <Td>

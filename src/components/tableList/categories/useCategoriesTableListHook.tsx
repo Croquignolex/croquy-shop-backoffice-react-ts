@@ -46,7 +46,7 @@ const useCategoriesTableListHook = ({fetchCategories, categoriesBaseUrl}: Catego
             setCategoriesQueryEnabled(true);
 
             const toastMessage: string = `Categorie ${selectedCategory.name} supprimée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
 

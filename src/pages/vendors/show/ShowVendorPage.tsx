@@ -106,7 +106,7 @@ const ShowVendorPage = (): ReactElement => {
                                         <strong>Logo</strong>
                                         <ShowImage
                                             id={"upload-logo"}
-                                            imageSize={ImageSizeEnumType.small}
+                                            imageSize={ImageSizeEnumType.SMALL}
                                             isLoading={isVendorPending}
                                             image={vendorResponseData.logo}
                                             imageBaseUrl={logoBaseUrl}

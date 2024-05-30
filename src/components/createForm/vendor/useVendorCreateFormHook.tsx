@@ -34,7 +34,7 @@ const useVendorCreateFormHook = ({modal, handleFinish, handleAdd}: VendorCreateF
             setCreateVendorAlertData({show: false});
 
             const toastMessage: string = `Founisseur ${variables.name} créer avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             // Reload component
             if(next) {

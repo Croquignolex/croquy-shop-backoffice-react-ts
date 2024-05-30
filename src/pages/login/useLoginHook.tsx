@@ -43,7 +43,7 @@ const useLoginPageHook = (): LoginHookType => {
             setGlobalUserState({type: USER_GLOBAL_STATE_UPDATE_LOGIN_DATA, payload: responseData});
 
             const toastMessage: string = `Bienvenue ${responseData.firstName}`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             navigate(mainRoutes.dashboard.path);
 

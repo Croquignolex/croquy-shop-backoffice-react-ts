@@ -52,7 +52,7 @@ const useShowStateHook = (): ShowStateHookType => {
             setDeleteStateAlertData({show: false});
 
             const toastMessage: string = `Ville ${stateResponseData.name} supprimée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
             navigate(`${mainRoutes.states.path}`);
@@ -72,7 +72,7 @@ const useShowStateHook = (): ShowStateHookType => {
             setToggleStateAlertData({show: false});
 
             const toastMessage: string = `Ville ${stateResponseData.name} ${stateResponseData.enabled ? "désactivée" : "activée"} avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onToggleModalClose();
             setStateResponseData({...stateResponseData, enabled: !stateResponseData.enabled});

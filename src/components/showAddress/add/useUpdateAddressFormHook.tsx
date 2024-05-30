@@ -29,7 +29,7 @@ const useUpdateAddressFormHook = ({baseUrl, address, handleAddressUpdate}: Updat
             setAddAddressAlertData({show: false});
 
             const toastMessage: string = address ? `Addresse modifié avec succès` : `Addresse ajoutée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             handleAddressUpdate(data.data);
 

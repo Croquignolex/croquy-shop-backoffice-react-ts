@@ -33,7 +33,7 @@ const useShowImageHook = ({imageBaseUrl, image, handleImageUpdate}: ShowImageHoo
             setChangeImageAlertData({show: false});
 
             const toastMessage: string = `Image mise à jour avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             if(image === null) handleImageUpdate({...defaultMedia, path: data.data?.path});
             else handleImageUpdate({...image, path: data.data?.path});
@@ -53,7 +53,7 @@ const useShowImageHook = ({imageBaseUrl, image, handleImageUpdate}: ShowImageHoo
             setDeleteImageAlertData({show: false});
 
             const toastMessage: string = `Image supprimée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             handleImageUpdate(null);
             onDeleteModalClose();
@@ -80,7 +80,7 @@ const useShowImageHook = ({imageBaseUrl, image, handleImageUpdate}: ShowImageHoo
         if(image instanceof File) {
             changeImageResponse.mutate({image, baseUrl: imageBaseUrl});
         } else {
-            setChangeImageAlertData({show: true, status: AlertStatusEnumType.error, message: "Erreur de lecture de l'image"});
+            setChangeImageAlertData({show: true, status: AlertStatusEnumType.ERROR, message: "Erreur de lecture de l'image"});
         }
     };
 

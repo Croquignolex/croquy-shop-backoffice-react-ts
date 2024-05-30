@@ -46,7 +46,7 @@ const useGroupsTableListHook = ({fetchGroups, groupsBaseUrl}: GroupsTableListHoo
             setGroupsQueryEnabled(true);
 
             const toastMessage: string = `Groupe ${selectedGroup.name} supprimé avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
 

@@ -34,7 +34,7 @@ const useShopCreateFormHook = ({modal, handleFinish, handleAdd}: ShopCreateFormH
             setCreateShopAlertData({show: false});
 
             const toastMessage: string = `Boutique ${variables.name} créer avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             // Reload component
             if(next) {

@@ -52,7 +52,7 @@ const useShowCouponHook = (): ShowCouponHookType => {
             setDeleteCouponAlertData({show: false});
 
             const toastMessage: string = `Coupon ${couponResponseData.code} supprimé avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
             navigate(`${mainRoutes.coupons.path}`);
@@ -72,7 +72,7 @@ const useShowCouponHook = (): ShowCouponHookType => {
             setToggleCouponAlertData({show: false});
 
             const toastMessage: string = `Coupon ${couponResponseData.code} ${couponResponseData.enabled ? "désactivé" : "activé"} avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onToggleModalClose();
             setCouponResponseData({...couponResponseData, enabled: !couponResponseData.enabled});

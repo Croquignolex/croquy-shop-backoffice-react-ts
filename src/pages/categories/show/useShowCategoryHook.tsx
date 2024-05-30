@@ -52,7 +52,7 @@ const useShowCategoryHook = (): ShowCategoryHookType => {
             setDeleteCategoryAlertData({show: false});
 
             const toastMessage: string = `Catégorie ${categoryResponseData.name} supprimée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
             navigate(`${mainRoutes.categories.path}`);
@@ -72,7 +72,7 @@ const useShowCategoryHook = (): ShowCategoryHookType => {
             setToggleCategoryAlertData({show: false});
 
             const toastMessage: string = `Catégorie ${categoryResponseData.name} ${categoryResponseData.enabled ? "désactivée" : "activée"} avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onToggleModalClose();
             setCategoryResponseData({...categoryResponseData, enabled: !categoryResponseData.enabled});

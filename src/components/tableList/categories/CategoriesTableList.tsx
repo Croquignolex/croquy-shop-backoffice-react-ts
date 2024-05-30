@@ -63,7 +63,7 @@ const CategoriesTableList: FC<CategoriesTableListProps> = ({showGroup = false, s
                             categoriesResponseData.empty ? <EmptyTableAlert /> : (
                                 categoriesResponseData.content.map((category: CategoryType, index: number) => (
                                     <Tr key={index}>
-                                        <Td><ImageDisplay image={category.logo} size={ImageSizeEnumType.row} /></Td>
+                                        <Td><ImageDisplay image={category.logo} size={ImageSizeEnumType.ROW} /></Td>
                                         <Td>
                                             <Link
                                                 to={`${mainRoutes.categories.path}/${category.id}`}

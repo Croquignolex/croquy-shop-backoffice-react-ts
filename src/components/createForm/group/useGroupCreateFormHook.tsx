@@ -34,7 +34,7 @@ const useGroupCreateFormHook = ({modal, handleFinish, handleAdd}: GroupCreateFor
             setCreateGroupAlertData({show: false});
 
             const toastMessage: string = `Groupe ${variables.name} créer avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             // Reload component
             if(next) {

@@ -34,7 +34,7 @@ const useStateCreateFormHook = ({modal, handleFinish, handleAdd}: StateCreateFor
             setCreateStateAlertData({show: false});
 
             const toastMessage: string = `Ville ${variables.name} créer avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             // Reload component
             if(next) {

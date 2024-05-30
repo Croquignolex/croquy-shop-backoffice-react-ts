@@ -52,7 +52,7 @@ const useShowShopHook = (): ShowShopHookType => {
             setDeleteShopAlertData({show: false});
 
             const toastMessage: string = `Boutique ${shopResponseData.name} supprimée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
             navigate(`${mainRoutes.shops.path}`);
@@ -72,7 +72,7 @@ const useShowShopHook = (): ShowShopHookType => {
             setToggleShopAlertData({show: false});
 
             const toastMessage: string = `Boutique ${shopResponseData.name} ${shopResponseData.enabled ? "désactivée" : "activée"} avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onToggleModalClose();
             setShopResponseData({...shopResponseData, enabled: !shopResponseData.enabled});

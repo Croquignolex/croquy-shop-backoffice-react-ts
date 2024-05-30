@@ -61,7 +61,7 @@ const VendorsTableList: FC<VendorsTableListProps> = ({showCreator = false, fetch
                             vendorsResponseData.empty ? <EmptyTableAlert /> : (
                                 vendorsResponseData.content.map((vendor: VendorType, index: number) => (
                                     <Tr key={index}>
-                                        <Td><ImageDisplay image={vendor.logo} size={ImageSizeEnumType.row} /></Td>
+                                        <Td><ImageDisplay image={vendor.logo} size={ImageSizeEnumType.ROW} /></Td>
                                         <Td>
                                             <Link
                                                 to={`${mainRoutes.vendors.path}/${vendor.id}`}

@@ -60,7 +60,7 @@ const useEditAttributeValueHook = (): EditAttributeValueHookType => {
             setEditAttributeValueAlertData({show: false});
 
             const toastMessage: string = `Valeur d'attribut ${variables.name} mise à jour avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             navigate(`${mainRoutes.attributeValues.path}/${attributeValueResponseData.id}`);
 

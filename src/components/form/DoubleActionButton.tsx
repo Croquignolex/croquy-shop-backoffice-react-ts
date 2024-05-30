@@ -11,11 +11,14 @@ const TripleActionButton: FC<TripleActionButtonProps> = (
         showToggleModal,
         isListView = false,
         isDisabled = false,
-        showStatus = false
+        showStatus = false,
+        showDelete = true,
     }): ReactElement => {
    const handleDelete = (): void => {
-       if(isListView) showDeleteModal(state);
-       else showDeleteModal();
+       if(showDeleteModal) {
+           if(isListView) showDeleteModal(state);
+           else showDeleteModal();
+       }
    }
 
    return (
@@ -32,16 +35,18 @@ const TripleActionButton: FC<TripleActionButtonProps> = (
             >
                 Modifier
             </Button>
-            <Button
-                fontWeight="none"
-                colorScheme={"red"}
-                size={"sm"}
-                isDisabled={isDisabled}
-                leftIcon={<FiTrash />}
-                onClick={handleDelete}
-            >
-                Supprimer
-            </Button>
+            {showDelete && (
+                <Button
+                    fontWeight="none"
+                    colorScheme={"red"}
+                    size={"sm"}
+                    isDisabled={isDisabled}
+                    leftIcon={<FiTrash />}
+                    onClick={handleDelete}
+                >
+                    Supprimer
+                </Button>
+            )}
             {showStatus && (
                 <Button
                     fontWeight="none"
@@ -61,10 +66,11 @@ const TripleActionButton: FC<TripleActionButtonProps> = (
 interface TripleActionButtonProps {
     edithPath: string;
     state: any;
-    showDeleteModal: (a?: any) => void;
+    showDeleteModal?: (a?: any) => void;
     showToggleModal?: () => void;
     isListView?: boolean;
     showStatus?: boolean;
+    showDelete?: boolean;
     isDisabled?: boolean;
 }
 

@@ -46,7 +46,7 @@ const useStatesTableListHook = ({fetchStates, statesBaseUrl}: StatesTableListHoo
             setStatesQueryEnabled(true);
 
             const toastMessage: string = `Ville ${selectedState.name} supprimée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
 

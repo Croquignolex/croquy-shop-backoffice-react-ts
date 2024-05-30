@@ -1,9 +1,9 @@
-import {UserType} from "../../users/usersPageData";
 import {ErrorAlertType, URLParamType} from "../../../helpers/globalTypesHelper";
 import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {statesApiURI} from "../../../constants/apiURIConstants";
 import {deleteRequest, getRequest, patchRequest} from "../../../helpers/axiosHelpers";
 import {CountryType} from "../../countries/show/showCountryData";
+import {UserType} from "../../users/show/showUserData";
 
 export const defaultSelectedState: StateType = {
     id: "",

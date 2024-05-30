@@ -4,7 +4,7 @@ import { Tr, Td } from "@chakra-ui/react";
 import { AlertStatusEnumType } from "../../helpers/globalTypesHelper";
 import CustomAlert from "./CustomAlert";
 
-const EmptyTableAlert: FC<EmptyTableAlertProps> = ({ status = AlertStatusEnumType.info }): ReactElement => {
+const EmptyTableAlert: FC<EmptyTableAlertProps> = ({ status = AlertStatusEnumType.INFO }): ReactElement => {
     return (
         <Tr>
             <Td colSpan={10}>

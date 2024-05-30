@@ -30,7 +30,7 @@ const useShowAddressHook = ({addressBaseUrl, handleAddressUpdate}: ShowAddressHo
             setDeleteAddressAlertData({show: false});
 
             const toastMessage: string = `Addresse supprimée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             handleAddressUpdate(null);
             onDeleteModalClose();

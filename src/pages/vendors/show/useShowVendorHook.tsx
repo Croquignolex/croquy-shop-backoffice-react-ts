@@ -52,7 +52,7 @@ const useShowVendorHook = (): ShowVendorHookType => {
             setDeleteVendorAlertData({show: false});
 
             const toastMessage: string = `Fournisseur ${vendorResponseData.name} supprimé avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
             navigate(`${mainRoutes.vendors.path}`);
@@ -72,7 +72,7 @@ const useShowVendorHook = (): ShowVendorHookType => {
             setToggleVendorAlertData({show: false});
 
             const toastMessage: string = `Fournisseur ${vendorResponseData.name} ${vendorResponseData.enabled ? "désactivée" : "activée"} avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onToggleModalClose();
             setVendorResponseData({...vendorResponseData, enabled: !vendorResponseData.enabled});

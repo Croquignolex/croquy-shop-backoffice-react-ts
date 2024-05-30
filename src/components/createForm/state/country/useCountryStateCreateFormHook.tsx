@@ -31,7 +31,7 @@ const useCountryStateCreateFormHook = ({countryId, handleFinish, handleAdd}: Cou
             setCreateCountryStateAlertData({show: false});
 
             const toastMessage: string = `Ville ${variables.name} ajoutée avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             // Reload component
             if(next) {

@@ -62,7 +62,7 @@ const CountriesTableList: FC<CountriesTableListProps> = ({showCreator = false, f
                             countriesResponseData.empty ? <EmptyTableAlert /> : (
                                 countriesResponseData.content.map((country: CountryType, index: number) => (
                                     <Tr key={index}>
-                                        <Td><ImageDisplay image={country.flag} size={ImageSizeEnumType.row} /></Td>
+                                        <Td><ImageDisplay image={country.flag} size={ImageSizeEnumType.ROW} /></Td>
                                         <Td>
                                             <Link
                                                 to={`${mainRoutes.countries.path}/${country.id}`}

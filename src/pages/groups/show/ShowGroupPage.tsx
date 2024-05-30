@@ -123,7 +123,7 @@ const ShowGroupPage = (): ReactElement => {
                                         <strong>Logo</strong>
                                         <ShowImage
                                             id={"upload-logo"}
-                                            imageSize={ImageSizeEnumType.small}
+                                            imageSize={ImageSizeEnumType.SMALL}
                                             isLoading={isGroupPending}
                                             image={groupResponseData.logo}
                                             imageBaseUrl={logoBaseUrl}
@@ -143,7 +143,7 @@ const ShowGroupPage = (): ReactElement => {
                                     <>
                                         <strong>Bannière</strong>
                                         <ShowImage
-                                            imageSize={ImageSizeEnumType.large}
+                                            imageSize={ImageSizeEnumType.LARGE}
                                             id={"upload-banner"}
                                             isLoading={isGroupPending}
                                             image={groupResponseData.banner}

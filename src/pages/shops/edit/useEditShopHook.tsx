@@ -60,7 +60,7 @@ const useEditShopHook = (): EditShopHookType => {
             setEditShopAlertData({show: false});
 
             const toastMessage: string = `Boutique ${variables.name} mis à jour avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             navigate(`${mainRoutes.shops.path}/${shopResponseData.id}`);
 

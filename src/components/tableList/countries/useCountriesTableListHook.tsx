@@ -46,7 +46,7 @@ const useCountriesTableListHook = ({fetchCountries, countriesBaseUrl}: Countries
             setCountriesQueryEnabled(true);
 
             const toastMessage: string = `Pays ${selectedCountry.name} supprimé avec succès`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.success);
+            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             onDeleteModalClose();
 

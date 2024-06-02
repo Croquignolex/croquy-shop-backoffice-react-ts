@@ -1,6 +1,6 @@
 import React, {ReactElement} from "react";
 import {Link} from "react-router-dom";
-import {Badge, Box, Button, ButtonGroup, SimpleGrid, Skeleton, Stack, Table, Tbody,} from "@chakra-ui/react";
+import {Badge, Box, ButtonGroup, SimpleGrid, Skeleton, Stack, Table, Tbody,} from "@chakra-ui/react";
 
 import useShowUserHook from "./useShowUserHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
@@ -14,8 +14,8 @@ import {ShowUserHookType} from "./showUserData";
 import NotFoundPage from "../../NotFoundPage";
 import {ImageSizeEnumType} from "../../../helpers/globalTypesHelper";
 import EnumBadge from "../../../components/EnumBadge";
-import {FiLock, FiUnlock} from "react-icons/fi";
 import ImageDisplay from "../../../components/ImageDisplay";
+import DoubleActionButton from "../../../components/form/DoubleActionButton";
 
 const ShowUserPage = (): ReactElement => {
     const {
@@ -46,15 +46,14 @@ const ShowUserPage = (): ReactElement => {
                                     {!userAlertData.show && (
                                         <>
                                             <ButtonGroup>
-                                                <Button
-                                                    fontWeight="none"
-                                                    colorScheme={userResponseData.enabled ? "orange" : "green"}
-                                                    size={"sm"}
-                                                    leftIcon={userResponseData.enabled ? <FiLock /> : <FiUnlock />}
-                                                    onClick={showToggleModal}
-                                                >
-                                                    {userResponseData.enabled ? "Désactiver" : "Activer"}
-                                                </Button>
+                                                <DoubleActionButton
+                                                    isDisabled={isUserPending}
+                                                    showStatus={!isUserPending}
+                                                    state={userResponseData}
+                                                    showDelete={false}
+                                                    showToggleModal={showToggleModal}
+                                                    edithPath={`${mainRoutes.users.path}/${userResponseData.id}/edit`}
+                                                />
                                             </ButtonGroup>
                                             <Table size={"sm"}>
                                                 <Tbody>

@@ -58,7 +58,7 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
                             <Avatar bg='green.500' icon={<FiUser fontSize='1.5rem' color='white' />} />
                         </MenuButton>
                         <MenuList>
-                            <MenuGroup title={globalUserState.firstName}>
+                            <MenuGroup title={`${globalUserState.firstName} (${globalUserState.role})`}>
                             <MenuDivider />
                                 {menuItems.map((route: MenuItemType, index: number): ReactElement => (
                                     <Box as={NavLink} to={route.path} key={index}>

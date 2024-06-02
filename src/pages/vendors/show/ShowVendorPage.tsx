@@ -7,7 +7,7 @@ import {
     Tbody,
     ButtonGroup,
     Badge,
-    SimpleGrid, Spacer, GridItem,
+    SimpleGrid,
 } from "@chakra-ui/react";
 
 import useShowVendorHook from "./useShowVendorHook";
@@ -23,7 +23,7 @@ import {ShowVendorHookType} from "./showVendorData";
 import NotFoundPage from "../../NotFoundPage";
 import ShowAddress from "../../../components/showAddress/ShowAddress";
 import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
-import {countriesApiURI, vendorsApiURI} from "../../../constants/apiURIConstants";
+import {vendorsApiURI} from "../../../constants/apiURIConstants";
 import ShowImage from "../../../components/showImage/ShowImage";
 import {ImageSizeEnumType} from "../../../helpers/globalTypesHelper";
 

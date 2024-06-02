@@ -25,6 +25,7 @@ const editShop: MainRouteType = {path: "/shops/:id/edit", onSidebar: false, onHe
 const users: MainRouteType = {title: "Utilisateurs", path: "/users", icon: FiUsers, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/users/UsersPage"))};
 const addUser: MainRouteType = {path: "/users/create", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/users/CreateUserPage"))};
 const showUser: MainRouteType = {path: "/users/:id", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/users/show/ShowUserPage"))};
+const editUser: MainRouteType = {path: "/users/:id/edit", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/users/edit/EditUserPage"))};
 
 const countries: MainRouteType = {title: "Pays", path: "/countries", icon: FiFlag, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/countries/CountriesPage"))};
 const addCountry: MainRouteType = {path: "/countries/create", onSidebar: false, onHeader: false, component: lazy(() => import("../pages/countries/CreateCountryPage"))};
@@ -82,7 +83,7 @@ export interface MainRouteType {
 
 export const mainRoutes: any = {
     dashboard,
-    users, addUser, showUser,
+    users, addUser, showUser, editUser,
     shops, addShop, showShop, editShop,
     brands, addBrand, showBrand, editBrand,
     groups, addGroup, showGroup, editGroup,

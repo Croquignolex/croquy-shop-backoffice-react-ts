@@ -16,6 +16,7 @@ import {UsersTableListHookType} from "./usersTableListData";
 import ImageDisplay from "../../ImageDisplay";
 import {ImageSizeEnumType} from "../../../helpers/globalTypesHelper";
 import EnumBadge from "../../EnumBadge";
+import DoubleActionButton from "../../form/DoubleActionButton";
 
 const UsersTableList: FC<UsersTableListProps> = ({showCreator = false, fetchUsers = false, usersBaseUrl, children}): ReactElement => {
     const {
@@ -48,6 +49,7 @@ const UsersTableList: FC<UsersTableListProps> = ({showCreator = false, fetchUser
                             <Th>Statut</Th>
                             <Th>Créer le</Th>
                             {showCreator && <Th>Créer par</Th>}
+                            <Th textAlign={'right'}>Actions</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -81,6 +83,14 @@ const UsersTableList: FC<UsersTableListProps> = ({showCreator = false, fetchUser
                                                 </Link>
                                             </Td>
                                         )}
+                                        <Td textAlign={'right'}>
+                                            <DoubleActionButton
+                                                isListView
+                                                showDelete={false}
+                                                state={user}
+                                                edithPath={`${mainRoutes.users.path}/${user.id}/edit`}
+                                            />
+                                        </Td>
                                     </Tr>
                                 ))
                             )
@@ -96,6 +106,7 @@ const UsersTableList: FC<UsersTableListProps> = ({showCreator = false, fetchUser
                             <Th>Statut</Th>
                             <Th>Créer le</Th>
                             {showCreator && <Th>Créer par</Th>}
+                            <Th textAlign={'right'}>Actions</Th>
                         </Tr>
                     </Thead>
                 </Table>

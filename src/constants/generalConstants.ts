@@ -11,6 +11,7 @@ export const formValidationMessage = {
     email: "Addresse email invalide",
     minMax: "Nombre de caratères incorrect",
     confirm: "Les mots de passe ne sont pas indetiques",
+    old: "Les mots de passe ne doivent pas être indetiques",
     password: "Mot de passe invalide",
     imageAllowedFormat: "Format autorisés: PNG, JPG",
     imageAllowedSize: "La taille du fichier doit être moins de 2MB",

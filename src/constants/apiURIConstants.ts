@@ -13,6 +13,7 @@ export const usersApiURI = {
     index: "/users",
     store: "/users",
     show: "/users/{id}",
+    update: "/users/{id}",
     toggle: "/users/{id}/toggle",
 };
 

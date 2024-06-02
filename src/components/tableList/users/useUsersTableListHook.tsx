@@ -25,14 +25,14 @@ const useUsersTableListHook = ({fetchUsers, usersBaseUrl}: UsersTableListHookPro
         enabled: usersQueryEnabled,
     });
 
-    if(usersQueryEnabled && usersResponse.isError) {
+    if(usersQueryEnabled && !usersResponse.isFetching && usersResponse.isError) {
         setUsersQueryEnabled(false);
         setUsersAlertData(errorAlert(usersResponse.error));
 
         log("Users list failure", usersResponse);
     }
 
-    if(usersQueryEnabled && usersResponse.isSuccess && !usersResponse.isFetching) {
+    if(usersQueryEnabled && !usersResponse.isFetching && usersResponse.isSuccess) {
         setUsersQueryEnabled(false);
         setUsersAlertData({show: false});
 

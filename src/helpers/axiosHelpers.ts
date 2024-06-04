@@ -1,10 +1,10 @@
 import axios, { InternalAxiosRequestConfig, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 import {getLocaleStorageItem, setLocaleStorageItem, removeAllLocaleStorageItems} from "./localStorageHelpers";
-import {LoginResponseDataType} from "../pages/login/loginData";
 import {log} from "./generalHelpers";
 import {v1URL} from "./apiRequestsHelpers";
 import {authApiURI} from "../constants/apiURIConstants";
+import {LoginResponseDataType} from "../pages/login/useLoginHook";
 
 const axiosApiInstance: AxiosInstance = axios.create({ timeout: 30000 });
 

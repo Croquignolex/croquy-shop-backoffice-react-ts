@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import * as Yup from "yup";
 import { AxiosError, AxiosResponse } from "axios";
 import { CreateToastFnReturn, useToast } from "@chakra-ui/react";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
@@ -9,11 +10,57 @@ import { setLocaleStorageItem } from "../../helpers/localStorageHelpers";
 import { ErrorAlertType } from "../../helpers/globalTypesHelper";
 import { AlertStatusEnumType } from "../../helpers/globalTypesHelper";
 import { errorAlert, log, toastAlert } from "../../helpers/generalHelpers";
-import {LoginFormType, LoginHookType, loginRequest, LoginRequestDataType, LoginResponseDataType} from "./loginData";
+import {formValidationMessage} from "../../constants/generalConstants";
+import {v1URL} from "../../helpers/apiRequestsHelpers";
+import {authApiURI} from "../../constants/apiURIConstants";
+import {postRequest} from "../../helpers/axiosHelpers";
 import {
     USER_GLOBAL_STATE_TRUST_AUTHORIZED,
-    USER_GLOBAL_STATE_UPDATE_LOGIN_DATA, UserContext
+    USER_GLOBAL_STATE_UPDATE_LOGIN_DATA,
+    UserContext
 } from "../../contexts/UserContext";
+
+// ######################################## STATICS DATA ######################################## //
+
+export const loginInitialStaticValues: LoginFormType = {
+    username: '',
+    password: ''
+};
+
+export const loginSchema: Yup.ObjectSchema<LoginFormType> = Yup.object().shape({
+    username: Yup.string().required(formValidationMessage.required),
+    password: Yup.string().required(formValidationMessage.required),
+});
+
+export interface LoginFormType {
+    username: string,
+    password: string
+}
+
+interface LoginRequestDataType {
+    username: string,
+    password: string
+}
+
+export interface LoginResponseDataType {
+    firstName: string;
+    username: string;
+    role: string;
+}
+
+export interface LoginHookType {
+    handleLogin: (a: LoginFormType) => void,
+    isLoginPending: boolean,
+    loginAlertData: ErrorAlertType
+}
+
+export const loginRequest = ({username, password}: LoginRequestDataType): Promise<any> => {
+    const url: string = v1URL(authApiURI.login);
+
+    return postRequest(url, {username, password}, {headers: {public: true}});
+};
+
+// ######################################## HOOK ######################################## //
 
 const useLoginPageHook = (): LoginHookType => {
     const [loginAlertData, setLoginAlertData] = useState<ErrorAlertType>({show: false});
@@ -46,8 +93,6 @@ const useLoginPageHook = (): LoginHookType => {
             toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
 
             navigate(mainRoutes.dashboard.path);
-
-            log("Login successful", data);
         }
     });
 
@@ -63,3 +108,4 @@ const useLoginPageHook = (): LoginHookType => {
 };
 
 export default useLoginPageHook;
+

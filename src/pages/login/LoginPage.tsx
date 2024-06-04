@@ -5,9 +5,13 @@ import {Container, Flex, Heading, Stack, Button} from "@chakra-ui/react";
 
 import TextField from "../../components/form/TextField";
 import PasswordField from "../../components/form/PasswordField";
-import {LoginFormType, LoginHookType, loginSchema, loginInitialStaticValues} from "./loginData";
-import useLoginHook from "./useLoginHook";
 import CustomAlert from "../../components/alert/CustomAlert";
+import useLoginHook, {
+    LoginFormType,
+    LoginHookType,
+    loginInitialStaticValues,
+    loginSchema
+} from "./useLoginHook";
 
 const LoginPage = (): ReactElement => {
     const { handleLogin, isLoginPending, loginAlertData }: LoginHookType = useLoginHook();

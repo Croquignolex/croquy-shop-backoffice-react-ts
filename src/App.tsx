@@ -4,13 +4,14 @@ import { AbsoluteCenter, Box, Spinner } from "@chakra-ui/react";
 
 import { Routes } from "./routes";
 import { getLocaleStorageItem } from "./helpers/localStorageHelpers";
-import { LoginResponseDataType } from "./pages/login/loginData";
+import {LoginResponseDataType} from "./pages/login/useLoginHook";
 import {
     initialGlobalUserState,
     USER_GLOBAL_STATE_TRUST_UNAUTHORIZED,
     UserContext,
     USER_GLOBAL_STATE_TRUST_AUTHORIZED,
-    userReducer, USER_GLOBAL_STATE_UPDATE_LOGIN_DATA
+    userReducer,
+    USER_GLOBAL_STATE_UPDATE_LOGIN_DATA
 } from "./contexts/UserContext";
 
 const SuspenseLoader: FC = (): ReactElement => {

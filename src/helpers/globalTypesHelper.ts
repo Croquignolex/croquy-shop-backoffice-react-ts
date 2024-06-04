@@ -49,11 +49,6 @@ export interface ErrorAlertType {
     message?: string
 }
 
-export interface ReducerActionType {
-    type: string;
-    payload: any;
-}
-
 export interface MenuItemType {
     path: string,
     icon?: IconType,

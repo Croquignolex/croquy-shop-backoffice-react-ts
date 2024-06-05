@@ -1,3 +1,5 @@
+import {lazy, LazyExoticComponent, ReactElement} from "react";
+import {IconType} from "react-icons";
 import {
     FiPieChart,
     FiShoppingCart,
@@ -12,8 +14,6 @@ import {
     FiSliders,
     FiGrid
 } from "react-icons/fi";
-import { lazy, LazyExoticComponent, ReactElement } from "react";
-import { IconType } from "react-icons";
 
 const dashboard: MainRouteType = {title: "Tableau de board", path: "/dashboard", icon: FiPieChart, onSidebar: true, onHeader: false, component: lazy(() => import("../pages/dashboard/DashboardPage"))};
 

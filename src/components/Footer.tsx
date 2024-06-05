@@ -1,14 +1,12 @@
-import React, { FC, ReactElement } from "react";
-import { Box, Container, Text } from "@chakra-ui/react";
+import React, {FC, ReactElement} from "react";
+import {Box, Center} from "@chakra-ui/react";
 
-import { appInfo } from "../constants/envConstants";
+import {appInfo} from "../constants/envConstants";
 
 const Footer: FC = (): ReactElement => {
     return (
-        <Box bg={'gray.100'} position='absolute' bottom={0} left={0} right={0} borderTopWidth={1}>
-            <Container maxW={'6xl'} py={4}>
-                <Text align='center'>© 2024 {appInfo.name}. All rights reserved</Text>
-            </Container>
+        <Box bg="gray.200" position="fixed" bottom={0} left={0} right={0} borderTopWidth={1}>
+            <Center h="7vh">© 2024 {appInfo.name}. All rights reserved.</Center>
         </Box>
     );
 };

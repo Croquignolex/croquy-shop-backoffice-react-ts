@@ -1,9 +1,9 @@
-import React, { FC, ReactElement, Suspense, useContext, useReducer, useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
-import { AbsoluteCenter, Box, Spinner } from "@chakra-ui/react";
+import React, {FC, ReactElement, Suspense, useContext, useReducer, useEffect} from "react";
+import {BrowserRouter} from "react-router-dom";
+import {AbsoluteCenter, Box, Spinner} from "@chakra-ui/react";
 
-import { Routes } from "./routes";
-import { getLocaleStorageItem } from "./helpers/localStorageHelpers";
+import {Routes} from "./routes";
+import {getLocaleStorageItem} from "./helpers/localStorageHelpers";
 import {LoginResponseDataType} from "./pages/login/useLoginHook";
 import {
     initialGlobalUserState,
@@ -16,9 +16,9 @@ import {
 
 const SuspenseLoader: FC = (): ReactElement => {
     return (
-        <Box position='relative' h='100vh'>
-            <AbsoluteCenter axis='both'>
-                <Spinner color='orange' size='xl' />
+        <Box position="relative" h="100vh">
+            <AbsoluteCenter axis="both">
+                <Spinner color="orange" size="xl" />
             </AbsoluteCenter>
         </Box>
     );
@@ -28,7 +28,7 @@ const GlobalState: FC = (): ReactElement => {
     const { globalUserState, setGlobalUserState } = useContext(UserContext);
 
     useEffect((): void => {
-        const userPersistedData: any = getLocaleStorageItem('user');
+        const userPersistedData: any = getLocaleStorageItem("user");
 
         if(userPersistedData) {
             const data: LoginResponseDataType = userPersistedData;
@@ -42,7 +42,9 @@ const GlobalState: FC = (): ReactElement => {
     }, []);
 
     if(!globalUserState.isTrustedData) {
-        return <SuspenseLoader />;
+        return (
+            <SuspenseLoader />
+        );
     }
 
     return (

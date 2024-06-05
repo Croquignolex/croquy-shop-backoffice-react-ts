@@ -1,9 +1,8 @@
-import lodash from "lodash";
 import dayjs from "dayjs";
-import { AxiosError } from "axios";
-import { CreateToastFnReturn } from "@chakra-ui/react";
+import {AxiosError} from "axios";
+import {CreateToastFnReturn} from "@chakra-ui/react";
 
-import { AlertStatusEnumType, ErrorAlertType } from "./globalTypesHelper";
+import {AlertStatusEnumType, ErrorAlertType} from "./globalTypesHelper";
 import {format} from "../constants/generalConstants";
 
 // Custom log
@@ -15,29 +14,17 @@ export const log = (message: string, data?: any): void => {
     }
 };
 
-// Search a needle in a string
-export const needleSearch = (set: any, needle: string): boolean => {
-    if(set !== null && set !== '' && set !== undefined && set) {
-        return set.toString().toLowerCase().indexOf(needle.toLowerCase()) !== -1;
-    }
-
-    return false;
-};
-
 // Format date
 export const stringDateFormat = (stringDate: string = "", withHour: boolean = false): string => {
-    try {
-        let temp: string = (withHour)
-            ? dayjs(stringDate).format(format.dateDisplay)
-            : dayjs(stringDate).format(format.dateTimeDisplay);
+    let temp: string = (withHour)
+        ? dayjs(stringDate).format(format.dateDisplay)
+        : dayjs(stringDate).format(format.dateTimeDisplay);
 
-        if(temp === "Invalid Date") throw new Error("Invalid Date");
-
-        return temp;
-    } catch (e) {
-        log("String date format Exception", {e});
+    if(temp === "Invalid Date") {
+       return "";
     }
-    return "";
+
+    return temp;
 };
 
 // Format long string to avoid trim
@@ -52,12 +39,6 @@ export const formatString = (text: string, maxCharacters: number): string => {
     return text;
 };
 
-// Flatten nested routes
-export const generateFlattenRoutes = (routes: Array<any>): Array<any> => {
-    if (!routes) return [];
-    return lodash.flattenDeep(routes.map(({ routes: subRoutes, ...rest }) => [rest, generateFlattenRoutes(subRoutes)]));
-};
-
 // Toast alert
 export const toastAlert = (toast: CreateToastFnReturn, title: string, status: AlertStatusEnumType = AlertStatusEnumType.SUCCESS): void => {
     toast.closeAll();
@@ -69,8 +50,8 @@ export const toastAlert = (toast: CreateToastFnReturn, title: string, status: Al
 export const readFile = (file: File): Promise<string | null> => {
     return new Promise((resolve, reject): void => {
         const reader: FileReader = new FileReader();
-        reader.addEventListener('load', () => resolve(reader.result?.toString() || null), false);
-        reader.addEventListener('error', (error: ProgressEvent<FileReader>) => reject(error));
+        reader.addEventListener("load", () => resolve(reader.result?.toString() || null), false);
+        reader.addEventListener("error", (error: ProgressEvent<FileReader>) => reject(error));
         reader.readAsDataURL(file);
     });
 };
@@ -98,7 +79,7 @@ export const errorAlert = (error: AxiosError<any>): ErrorAlertType => {
         }
     }
 
-    return { show: true, status: AlertStatusEnumType.ERROR, message };
+    return {show: true, status: AlertStatusEnumType.ERROR, message};
 }
 
 // Get timezone name

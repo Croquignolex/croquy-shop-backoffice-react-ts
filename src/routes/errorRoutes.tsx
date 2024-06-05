@@ -1,12 +1,12 @@
 import { lazy, LazyExoticComponent, ReactElement } from "react";
 
-const LazyNotFoundPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/NotFoundPage'));
+const LazyNotFoundPage: LazyExoticComponent<() => ReactElement> = lazy(() => import("../pages/NotFoundPage"));
 
 const notFound: ErrorRouteType = {
-    name: 'notFound',
-    title: 'Page introuvable',
+    name: "notFound",
+    title: "Page introuvable",
     component: LazyNotFoundPage,
-    path: '*',
+    path: "*",
 };
 
 interface ErrorRouteType {

@@ -1,20 +1,20 @@
-import { Context, createContext } from "react";
+import {Context, createContext} from "react";
 import {LoginResponseDataType} from "../pages/login/useLoginHook";
 
-export const USER_GLOBAL_STATE_UPDATE_LOGIN_DATA: string = 'USER_GLOBAL_STATE_UPDATE_LOGIN_DATA';
-export const USER_GLOBAL_STATE_TRUST_UNAUTHORIZED: string = 'USER_GLOBAL_STATE_TRUSTED_UNAUTHORIZED';
-export const USER_GLOBAL_STATE_TRUST_AUTHORIZED: string = 'USER_GLOBAL_STATE_TRUSTED_AUTHORIZED';
-export const USER_GLOBAL_STATE_CLEAR_DATA: string = 'USER_GLOBAL_STATE_CLEAR_DATA';
+export const USER_GLOBAL_STATE_UPDATE_LOGIN_DATA: string = "USER_GLOBAL_STATE_UPDATE_LOGIN_DATA";
+export const USER_GLOBAL_STATE_TRUST_UNAUTHORIZED: string = "USER_GLOBAL_STATE_TRUSTED_UNAUTHORIZED";
+export const USER_GLOBAL_STATE_TRUST_AUTHORIZED: string = "USER_GLOBAL_STATE_TRUSTED_AUTHORIZED";
+export const USER_GLOBAL_STATE_CLEAR_DATA: string = "USER_GLOBAL_STATE_CLEAR_DATA";
 
 export const initialGlobalUserState: UserGlobalStateType = {
     isTrustedData: false,
     isAuthorized: false,
-    emailAddress: '',
-    lastName: '',
-    firstName: '',
-    username: '',
-    phoneNumber: '',
-    role: '',
+    emailAddress: "",
+    lastName: "",
+    firstName: "",
+    username: "",
+    phoneNumber: "",
+    role: "",
 };
 
 export const userReducer = (state: UserGlobalStateType = initialGlobalUserState, action: ReducerActionType): UserGlobalStateType => {

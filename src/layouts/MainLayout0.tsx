@@ -15,12 +15,6 @@ import {
     useBreakpointValue,
     useDisclosure,
 } from '@chakra-ui/react';
-import {
-    HamburgerIcon,
-    CloseIcon,
-    ChevronDownIcon,
-    ChevronRightIcon,
-} from '@chakra-ui/icons';
 
 export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
@@ -43,9 +37,9 @@ export default function WithSubnavigation() {
                     display={{ base: 'flex', md: 'none' }}>
                     <IconButton
                         onClick={onToggle}
-                        icon={
+                        /*icon={
                             isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-                        }
+                        }*/
                         variant={'ghost'}
                         aria-label={'Toggle Navigation'}
                     />
@@ -173,7 +167,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
                     justify={'flex-end'}
                     align={'center'}
                     flex={1}>
-                    <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
+                    {/*<Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />*/}
                 </Flex>
             </Stack>
         </Link>
@@ -214,7 +208,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
                 </Text>
                 {children && (
                     <Icon
-                        as={ChevronDownIcon}
+                        // as={ChevronDownIcon}
                         transition={'all .25s ease-in-out'}
                         transform={isOpen ? 'rotate(180deg)' : ''}
                         w={6}

@@ -1,4 +1,4 @@
-import axios, { InternalAxiosRequestConfig, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, {InternalAxiosRequestConfig, AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
 
 import {getLocaleStorageItem, setLocaleStorageItem, removeAllLocaleStorageItems} from "./localStorageHelpers";
 import {log} from "./generalHelpers";
@@ -6,10 +6,10 @@ import {v1URL} from "./apiRequestsHelpers";
 import {authApiURI} from "../constants/apiURIConstants";
 import {LoginResponseDataType} from "../pages/login/useLoginHook";
 
-const axiosApiInstance: AxiosInstance = axios.create({ timeout: 30000 });
+const axiosApiInstance: AxiosInstance = axios.create({timeout: 30000});
 
 axiosApiInstance.interceptors.request.use((config: InternalAxiosRequestConfig<any>) => {
-    config.headers["content-type"] = 'application/json';
+    config.headers["content-type"] = "application/json";
 
     if(!config.headers["public"]) {
         const accessToken: string = getLocaleStorageItem("access-token");
@@ -20,7 +20,7 @@ axiosApiInstance.interceptors.request.use((config: InternalAxiosRequestConfig<an
     }
 
     if(config.headers["file"]) {
-        config.headers["content-type"] = 'multipart/-data';
+        config.headers["content-type"] = "multipart/-data";
     }
 
     return config;
@@ -46,9 +46,9 @@ axiosApiInstance.interceptors.response.use((response: AxiosResponse<any, any>) =
                         const refreshToken: string = response.data?.refreshToken;
                         const responseData: LoginResponseDataType = response.data;
 
-                        setLocaleStorageItem('user', responseData);
-                        setLocaleStorageItem('access-token', accessToken);
-                        setLocaleStorageItem('refresh-token', refreshToken);
+                        setLocaleStorageItem("user", responseData);
+                        setLocaleStorageItem("access-token", accessToken);
+                        setLocaleStorageItem("refresh-token", refreshToken);
 
                         return axiosApiInstance(originalRequest);
                     }

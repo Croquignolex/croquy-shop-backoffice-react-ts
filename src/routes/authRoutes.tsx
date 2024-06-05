@@ -1,12 +1,12 @@
 import { lazy, LazyExoticComponent, ReactElement } from "react";
 
-const LazyLoginPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/login/LoginPage'));
+const LazyLoginPage: LazyExoticComponent<() => ReactElement> = lazy(() => import("../pages/login/LoginPage"));
 
 const login: AuthRoutType = {
-    name: 'login',
-    title: 'Connexion',
+    name: "login",
+    title: "Connexion",
     component: LazyLoginPage,
-    path: '/',
+    path: "/",
 };
 
 interface AuthRoutType {

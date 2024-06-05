@@ -6,42 +6,42 @@ import {StateType} from "../pages/states/show/showStateData";
 import {ShopType} from "../pages/shops/show/showShopData";
 import {UserType} from "../pages/users/show/showUserData";
 
-// ================================ Enums Start
+// ######################################## ENUMS TYPES ######################################## //
 
 export enum AlertStatusEnumType {
-    INFO = 'info',
-    ERROR = 'error',
-    SUCCESS = 'success',
-    WARNING = 'warning',
+    INFO = "info",
+    ERROR = "error",
+    SUCCESS = "success",
+    WARNING = "warning",
 }
 
 export enum AttributeTypeEnumType {
-    TEXT = 'TEXT',
-    SELECT = 'SELECT',
-    COLOR = 'COLOR',
+    TEXT = "TEXT",
+    SELECT = "SELECT",
+    COLOR = "COLOR",
 }
 
 export enum GenderTypeEnumType {
-    MALE = 'MALE',
-    FEMALE = 'FEMALE',
-    UNKNOWN = 'UNKNOWN',
+    MALE = "MALE",
+    FEMALE = "FEMALE",
+    UNKNOWN = "UNKNOWN",
 }
 
 export enum RoleTypeEnumType {
-    SUPER_ADMIN = 'SUPER_ADMIN',
-    ADMIN = 'ADMIN',
-    MANAGER = 'MANAGER',
-    SELLER = 'SELLER',
-    CUSTOMER = 'CUSTOMER',
+    SUPER_ADMIN = "SUPER_ADMIN",
+    ADMIN = "ADMIN",
+    MANAGER = "MANAGER",
+    SELLER = "SELLER",
+    CUSTOMER = "CUSTOMER",
 }
 
 export enum ImageSizeEnumType {
-    ROW = 'row',
-    SMALL = 'small',
-    LARGE = 'large',
+    ROW = "row",
+    SMALL = "small",
+    LARGE = "large",
 }
 
-// ================================ Enums End
+// ######################################## TYPES ######################################## //
 
 export interface ErrorAlertType {
     show: boolean,

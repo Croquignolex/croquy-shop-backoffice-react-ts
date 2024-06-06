@@ -3,12 +3,24 @@ import {Box, Center} from "@chakra-ui/react";
 
 import {appInfo} from "../constants/envConstants";
 
-const Footer: FC = (): ReactElement => {
+const Footer: FC<FooterProps> = ({fixed = false}): ReactElement => {
+    if(fixed) {
+        return (
+            <Box w="full" h="7vh" bg="gray.200" position="fixed" bottom={0} borderTopWidth={2}>
+                <Center h="full">© 2024 {appInfo.name}. All rights reserved.</Center>
+            </Box>
+        );
+    }
+
     return (
-        <Box bg="gray.200" position="fixed" bottom={0} left={0} right={0} borderTopWidth={1}>
-            <Center h="7vh">© 2024 {appInfo.name}. All rights reserved.</Center>
+        <Box w="full" h="7vh" bg="gray.200" borderTopWidth={2}>
+            <Center h="full">© 2024 {appInfo.name}. All rights reserved.</Center>
         </Box>
     );
 };
+
+interface FooterProps {
+    fixed?: boolean,
+}
 
 export default Footer;

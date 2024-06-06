@@ -3,11 +3,11 @@ import { Center, Spinner } from "@chakra-ui/react";
 
 const Loader: FC<LoaderProps> = ({center = true}): ReactElement => {
     if(center) {
-        return <Center><Spinner color='green' /></Center>
+        return <Center><Spinner color="green" /></Center>
     }
 
     return (
-        <Spinner color='green' />
+        <Spinner color="green" />
     );
 };
 

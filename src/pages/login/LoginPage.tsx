@@ -1,6 +1,6 @@
-import React, { ReactElement } from "react";
-import { Form, Formik, FormikProps } from "formik";
-import { FiLogIn } from "react-icons/fi";
+import React, {ReactElement} from "react";
+import {Form, Formik, FormikProps} from "formik";
+import {FaSign} from "react-icons/fa";
 import {Container, Heading, Stack, Button} from "@chakra-ui/react";
 
 import TextField from "../../components/form/TextField";
@@ -17,9 +17,9 @@ const LoginPage = (): ReactElement => {
     const { handleLogin, isLoginPending, loginAlertData }: LoginHookType = useLoginHook();
 
     return (
-        <Container maxW={'lg'}>
-            <Stack p={4} borderWidth='1px' borderRadius='xl' boxShadow='2xl'>
-                <Heading fontSize={'xl'} alignSelf='center' my={3}>Bienvenue</Heading>
+        <Container maxW={"lg"}>
+            <Stack p={4} borderWidth="1px" borderRadius="xl" boxShadow="2xl">
+                <Heading fontSize={"xl"} alignSelf="center" my={3}>Bienvenue</Heading>
                 <CustomAlert data={loginAlertData} />
                 <Formik initialValues={loginInitialStaticValues} validationSchema={loginSchema} onSubmit={handleLogin}>
                     {(props: FormikProps<LoginFormType>) => (
@@ -30,9 +30,9 @@ const LoginPage = (): ReactElement => {
                                 <Button
                                     colorScheme={"green"}
                                     isLoading={isLoginPending}
-                                    type='submit'
+                                    type="submit"
                                     fontWeight="none"
-                                    leftIcon={<FiLogIn />}
+                                    leftIcon={<FaSign />}
                                 >
                                     Connexion
                                 </Button>

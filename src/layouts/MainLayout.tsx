@@ -1,164 +1,181 @@
-// import { Outlet } from "react-router-dom";
-// import lodash from "lodash";
-// import { Box, Container, Drawer, DrawerContent, useDisclosure, Stack } from "@chakra-ui/react";
-
-// import SidebarContent from "../components/menu/SidebarContent";
-// import MobileNav from "../components/menu/MobileNav";
-// import Footer from "../components/Footer";
-// import { mainRoutes, MainRouteType } from "../routes/mainRoutes";
-// import { MenuItemType } from "../helpers/globalTypesHelper";
-
-import {FC, ReactElement, ReactNode} from 'react';
+import React, {FC, ReactElement, useContext} from "react";
+import {FaTimes, FaBars, FaUserAlt, FaSignOutAlt} from "react-icons/fa";
+import {NavigateFunction, NavLink, Outlet, useNavigate} from "react-router-dom";
 import {
     Box,
     Flex,
-    Avatar,
     HStack,
-    Link,
     IconButton,
-    Button,
+    useDisclosure,
+    Text,
+    Icon,
     Menu,
     MenuButton,
+    Avatar,
     MenuList,
     MenuItem,
-    MenuDivider,
-    useDisclosure,
-    useColorModeValue,
-    Stack,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
-const Links = ['Dashboard', 'Projects', 'Team'];
-
-const NavLink = ({ children }: { children: ReactNode }) => (
-    <Link
-        px={2}
-        py={1}
-        rounded={'md'}
-        _hover={{
-            textDecoration: 'none',
-            bg: useColorModeValue('gray.200', 'gray.700'),
-        }}
-        href={'#'}>
-        {children}
-    </Link>
-);
+import Footer from "../components/Footer";
+import {appInfo} from "../constants/envConstants";
+import {headerMenu, MainRouteType, sideMenu} from "../routes/mainRoutes";
+import {USER_GLOBAL_STATE_CLEAR_DATA, UserContext} from "../contexts/UserContext";
+import {removeAllLocaleStorageItems} from "../helpers/localStorageHelpers";
+import {authRoutes} from "../routes/authRoutes";
+import {MenuItemType} from "../helpers/globalTypesHelper";
+import EnumBadge from "../components/EnumBadge";
 
 const MainLayout: FC = (): ReactElement => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    return (
+        <Box bg="gray.50">
+            <Header />
 
-    /*const headerMenuItems: Array<MenuItemType> = useMemo((): Array<any> => (
-        lodash.toArray(mainRoutes)
-            .filter((route: MainRouteType): boolean => route.onHeader)
-            .map((route: MainRouteType): MenuItemType => ({
-                path: route.path, icon: route.icon, title: route.title,
-            }))
-    ), []);
+            <Box mt="10vh" mb="7vh" zIndex={1}>
+                <Outlet />
+            </Box>
 
-    const sidebarMenuItems: Array<MenuItemType> = useMemo((): Array<any> => (
-        lodash.toArray(mainRoutes)
-            .filter((route: MainRouteType): boolean => route.onSidebar)
-            .map((route: MainRouteType): MenuItemType => ({
-                path: route.path, icon: route.icon, title: route.title,
-            }))
-    ), []);*/
+            <Footer />
+        </Box>
+    );
+};
+
+const Header: FC = (): ReactElement => {
+    const {isOpen, onOpen, onClose} = useDisclosure();
+    const { globalUserState } = useContext(UserContext);
 
     return (
-        <>
-            <Box  px={4}>
-                <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-                    <IconButton
-                        size={'md'}
-                        // icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-                        aria-label={'Open Menu'}
-                        display={{ md: 'none' }}
-                        onClick={isOpen ? onClose : onOpen}
-                    />
-                    <HStack spacing={8} alignItems={'center'}>
-                        <Box>Logo</Box>
-                        <HStack
-                            as={'nav'}
-                            spacing={4}
-                            display={{ base: 'none', md: 'flex' }}>
-                            {Links.map((link) => (
-                                <NavLink key={link}>{link}</NavLink>
-                            ))}
-                        </HStack>
-                    </HStack>
-                    <Flex alignItems={'center'}>
-                        <Button
-                            variant={'solid'}
-                            colorScheme={'teal'}
-                            size={'sm'}
-                            mr={4}
-                            // leftIcon={<AddIcon />}
-                        >
-                            Action
-                        </Button>
-                        <Menu>
-                            <MenuButton
-                                as={Button}
-                                rounded={'full'}
-                                variant={'link'}
-                                cursor={'pointer'}
-                                minW={0}>
-                                <Avatar
-                                    size={'sm'}
-                                    src={
-                                        'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                                    }
-                                />
-                            </MenuButton>
-                            <MenuList>
-                                <MenuItem>Link 1</MenuItem>
-                                <MenuItem>Link 2</MenuItem>
-                                <MenuDivider />
-                                <MenuItem>Link 3</MenuItem>
-                            </MenuList>
-                        </Menu>
-                    </Flex>
-                </Flex>
+        <Box
+            w="full"
+            h="10vh"
+            px={4}
+            borderBottomWidth={1}
+            position="fixed"
+            top={0}
+            zIndex={2}
+            bg="green.500"
+        >
+            <Flex h="full" alignItems={"center"} justifyContent={"space-between"}>
+                <IconButton
+                    colorScheme="green"
+                    display={{ base: "flex", md: "none"}}
+                    onClick={isOpen ? onClose : onOpen}
+                    aria-label="open menu"
+                    icon={isOpen ? <FaTimes /> : <FaBars />}
+                />
+                <HStack spacing={8} alignItems={"center"}>
+                    <Box>
+                        <Text fontSize="xl" fontWeight="bold" color="white">
+                            {appInfo.name}
+                        </Text>
+                    </Box>
+                    <HeaderMenu />
+                </HStack>
+                <HStack alignItems={"center"}>
+                    <Box>
+                        <Text fontSize="1rem" color="white" fontWeight="bold">{globalUserState.firstName}</Text>
+                        <EnumBadge data={globalUserState.role} role />
+                    </Box>
+                    <SideMenu />
+                </HStack>
+            </Flex>
+            <MobileMenu />
+        </Box>
+    );
+};
 
-                {isOpen ? (
-                    <Box pb={4} display={{ md: 'none' }}>
-                        <Stack as={'nav'} spacing={4}>
+const MobileMenu: FC = (): ReactElement => {
+    return (
+        <div>
+            {/*{isOpen ? (
+                    <Box pb={4} display={{ md: "none" }}>
+                        <Stack as={"nav"} spacing={4}>
                             {Links.map((link) => (
                                 <NavLink key={link}>{link}</NavLink>
                             ))}
                         </Stack>
                     </Box>
-                ) : null}
-            </Box>
-
-            <Box p={4}>Main Content Here</Box>
-        </>
+                ) : null}*/}
+        </div>
     );
+};
 
-    /*return (
-        <Box minH="100vh" bg={"gray.50"}>
-            <SidebarContent
-                onClose={() => onClose}
-                display={{ base: 'none', md: 'block' }}
-                menuItems={sidebarMenuItems}
-                zIndex={3}
-                bg={"white"}
-                borderRightWidth={1}
-            />
-            <Drawer isOpen={isOpen} placement="left" onClose={onClose} returnFocusOnClose={false} onOverlayClick={onClose} size="full">
-                <DrawerContent>
-                    <SidebarContent onClose={onClose} menuItems={sidebarMenuItems} />
-                </DrawerContent>
-            </Drawer>
-            <Box w='full' pos="fixed" zIndex={2}>
-                <MobileNav onOpen={onOpen} menuItems={headerMenuItems} />
-            </Box>
-            <Stack ml={{ base: 0, md: 60 }} pb={75} zIndex={1}>
-                <Container maxW='7xl' mt={70}>
-                    <Outlet />
-                </Container>
-            </Stack>
-            <Footer />
+const SideMenu = (): ReactElement => {
+    const {setGlobalUserState} = useContext(UserContext);
+    const navigate: NavigateFunction = useNavigate();
+
+    const handleLogout = (): void => {
+        removeAllLocaleStorageItems();
+        setGlobalUserState({ type: USER_GLOBAL_STATE_CLEAR_DATA });
+        navigate(authRoutes.login.path);
+    };
+
+    return (
+        <Menu closeOnSelect={false}>
+            <MenuButton transition="all 0.3s">
+                <Avatar bg="gray.50" icon={<FaUserAlt fontSize="1.5rem" color="gray" />} />
+            </MenuButton>
+            <MenuList borderWidth="1px" borderRadius="xl" boxShadow="2xl">
+                {sideMenu.map((route: MenuItemType, index: number): ReactElement => (
+                    <Box as={NavLink} to={route.path} key={index}>
+                        {(props: any) => (
+                            <MenuItem
+                                key={index}
+                                bg={props?.isActive ? "green.500" : ""}
+                                _hover={{ fontWeight: props?.isActive ? "" : "bold" }}
+                                color={props?.isActive ? "white" : ""}
+                            >
+                                <Icon mr="2" as={route.icon} />
+                                {route.title}
+                            </MenuItem>
+                        )}
+                    </Box>
+                ))}
+                <MenuItem color="red" onClick={handleLogout} _hover={{fontWeight: "bold"}}>
+                    <Icon mr="2" as={FaSignOutAlt} />
+                    Déconnexion
+                </MenuItem>
+            </MenuList>
+        </Menu>
+    );
+};
+
+const HeaderMenu = () => {
+    return (
+        <HStack as="nav" spacing={4} display={{base: "none", md: "flex"}}>
+            {headerMenu.map((menu: MainRouteType | {subMenuLabel: string, subMenuItems: Array<MainRouteType>}, index: number): ReactElement => {
+                return ("path" in menu)
+                    ? <CustomNavItem menu={menu} key={index} />
+                    : <CustomSubMenu menu={menu} key={index} />;
+            })}
+        </HStack>
+    );
+};
+
+const CustomNavItem = ({key, menu}: {key: number, menu: MainRouteType}) => {
+    return (
+        <Box as={NavLink} to={menu.path} key={key}>
+            {(props: any) => (
+                <Text
+                    color="white"
+                    rounded="xl"
+                    px={2}
+                    py={1}
+                    alignItems="center"
+                    _hover={{fontWeight: props.isActive ? "" : "bold"}}
+                    bg={props.isActive ? "green.600" : ""}
+                >
+                    <Icon mr={1} as={menu.icon} />
+                    {menu.title}
+                </Text>
+            )}
         </Box>
-    );*/
+    );
+};
+
+const CustomSubMenu = ({key, menu}: {key: number, menu: {subMenuLabel: string, subMenuItems: Array<MainRouteType>}}) => {
+    return (
+        <div>submenu</div>
+    );
 };
 
 export default MainLayout;

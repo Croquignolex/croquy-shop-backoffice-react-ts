@@ -1,5 +1,5 @@
 import React, {FC, ReactElement, useContext} from "react";
-import {FaTimes, FaBars, FaUserAlt, FaSignOutAlt} from "react-icons/fa";
+import {FiX, FiMenu, FiUser, FiLogOut} from "react-icons/fi";
 import {NavigateFunction, NavLink, Outlet, useNavigate} from "react-router-dom";
 import {
     Box,
@@ -23,7 +23,7 @@ import {USER_GLOBAL_STATE_CLEAR_DATA, UserContext} from "../contexts/UserContext
 import {removeAllLocaleStorageItems} from "../helpers/localStorageHelpers";
 import {authRoutes} from "../routes/authRoutes";
 import {MenuItemType} from "../helpers/globalTypesHelper";
-import EnumBadge from "../components/EnumBadge";
+import {roleEnumConverter} from "../helpers/enumsHelpers";
 
 const MainLayout: FC = (): ReactElement => {
     return (
@@ -48,32 +48,32 @@ const Header: FC = (): ReactElement => {
             w="full"
             h="10vh"
             px={4}
-            borderBottomWidth={1}
+            borderBottomWidth="1px"
             position="fixed"
             top={0}
             zIndex={2}
-            bg="green.500"
+            bg="purple.500"
         >
             <Flex h="full" alignItems={"center"} justifyContent={"space-between"}>
                 <IconButton
-                    colorScheme="green"
+                    colorScheme="purple"
                     display={{ base: "flex", md: "none"}}
                     onClick={isOpen ? onClose : onOpen}
                     aria-label="open menu"
-                    icon={isOpen ? <FaTimes /> : <FaBars />}
+                    icon={isOpen ? <FiX /> : <FiMenu />}
                 />
                 <HStack spacing={8} alignItems={"center"}>
                     <Box>
-                        <Text fontSize="xl" fontWeight="bold" color="white">
+                        <Text fontSize="2xl" fontWeight="bold" color="white">
                             {appInfo.name}
                         </Text>
                     </Box>
                     <HeaderMenu />
                 </HStack>
                 <HStack alignItems={"center"}>
-                    <Box>
-                        <Text fontSize="1rem" color="white" fontWeight="bold">{globalUserState.firstName}</Text>
-                        <EnumBadge data={globalUserState.role} role />
+                    <Box textAlign="right">
+                        <Text fontSize="1rem" color="white">{globalUserState.firstName}</Text>
+                        <Text fontSize="0.8rem" color="white">{roleEnumConverter(globalUserState.role).label}</Text>
                     </Box>
                     <SideMenu />
                 </HStack>
@@ -110,9 +110,9 @@ const SideMenu = (): ReactElement => {
     };
 
     return (
-        <Menu closeOnSelect={false}>
-            <MenuButton transition="all 0.3s">
-                <Avatar bg="gray.50" icon={<FaUserAlt fontSize="1.5rem" color="gray" />} />
+        <Menu>
+            <MenuButton>
+                <Avatar bg="gray.50" icon={<FiUser fontSize="1.5rem" color="purple" />} />
             </MenuButton>
             <MenuList borderWidth="1px" borderRadius="xl" boxShadow="2xl">
                 {sideMenu.map((route: MenuItemType, index: number): ReactElement => (
@@ -120,7 +120,7 @@ const SideMenu = (): ReactElement => {
                         {(props: any) => (
                             <MenuItem
                                 key={index}
-                                bg={props?.isActive ? "green.500" : ""}
+                                bg={props?.isActive ? "purple.500" : ""}
                                 _hover={{ fontWeight: props?.isActive ? "" : "bold" }}
                                 color={props?.isActive ? "white" : ""}
                             >
@@ -131,7 +131,7 @@ const SideMenu = (): ReactElement => {
                     </Box>
                 ))}
                 <MenuItem color="red" onClick={handleLogout} _hover={{fontWeight: "bold"}}>
-                    <Icon mr="2" as={FaSignOutAlt} />
+                    <Icon mr="2" as={FiLogOut} />
                     Déconnexion
                 </MenuItem>
             </MenuList>
@@ -162,9 +162,8 @@ const CustomNavItem = ({key, menu}: {key: number, menu: MainRouteType}) => {
                     py={1}
                     alignItems="center"
                     _hover={{fontWeight: props.isActive ? "" : "bold"}}
-                    bg={props.isActive ? "green.600" : ""}
+                    bg={props.isActive ? "purple.600" : ""}
                 >
-                    <Icon mr={1} as={menu.icon} />
                     {menu.title}
                 </Text>
             )}

@@ -1,6 +1,6 @@
 import React, {ReactElement} from "react";
 import {Form, Formik, FormikProps} from "formik";
-import {FaSign} from "react-icons/fa";
+import {FiLogIn} from "react-icons/fi";
 import {Container, Heading, Stack, Button} from "@chakra-ui/react";
 
 import TextField from "../../components/form/TextField";
@@ -28,11 +28,12 @@ const LoginPage = (): ReactElement => {
                             <PasswordField label="Votre mot de passe" name="password" formikProps={props} />
                             <Stack>
                                 <Button
-                                    colorScheme={"green"}
+                                    colorScheme={"purple"}
                                     isLoading={isLoginPending}
                                     type="submit"
                                     fontWeight="none"
-                                    leftIcon={<FaSign />}
+                                    variant="outline"
+                                    leftIcon={<FiLogIn />}
                                 >
                                     Connexion
                                 </Button>

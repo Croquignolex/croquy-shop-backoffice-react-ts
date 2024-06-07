@@ -1,4 +1,6 @@
-.nobr { white-space: nowrap }
+body {background-color: #f7fafc;}
 
-.link { text-decoration: underline; cursor: pointer; }
-.link:hover { color: #38a169; }
+.nobr {white-space: nowrap}
+
+.link {text-decoration: underline; cursor: pointer;}
+.link:hover {color: #805ad5;}

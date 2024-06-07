@@ -11,19 +11,17 @@ import {
     FiColumns,
     FiTag,
     FiSliders,
-    FiGrid
+    FiGrid,
+    FiPieChart,
+    FiUser,
+    FiSettings,
+    FiHelpCircle
 } from "react-icons/fi";
-import {
-    FaChartPie,
-    FaUserAlt,
-    FaCog,
-    FaQuestionCircle
-} from "react-icons/fa";
 
-const dashboard: MainRouteType = {title: "Tableau de board", path: "/dashboard", icon: FaChartPie, component: lazy(() => import("../pages/dashboard/DashboardPage"))};
-const profile: MainRouteType = {title: "Mon profil", path: "/profile", icon: FaUserAlt, component: lazy(() => import("../pages/dashboard/DashboardPage"))};
-const settings: MainRouteType = {title: "Mes paramèttres", path: "/settings", icon: FaCog, component: lazy(() => import("../pages/dashboard/DashboardPage"))};
-const help: MainRouteType = {title: "Centre d'aide", path: "/help", icon: FaQuestionCircle, component: lazy(() => import("../pages/dashboard/DashboardPage"))};
+const dashboard: MainRouteType = {title: "Tableau de board", path: "/dashboard", icon: FiPieChart, component: lazy(() => import("../pages/dashboard/DashboardPage"))};
+const profile: MainRouteType = {title: "Mon profil", path: "/profile", icon: FiUser, component: lazy(() => import("../pages/dashboard/DashboardPage"))};
+const settings: MainRouteType = {title: "Mes paramèttres", path: "/settings", icon: FiSettings, component: lazy(() => import("../pages/dashboard/DashboardPage"))};
+const help: MainRouteType = {title: "Centre d'aide", path: "/help", icon: FiHelpCircle, component: lazy(() => import("../pages/dashboard/DashboardPage"))};
 
 const shops: MainRouteType = {title: "Boutiques", path: "/shops", icon: FiShoppingCart, component: lazy(() => import("../pages/shops/ShopsPage"))};
 const addShop: MainRouteType = {path: "/shops/create", component: lazy(() => import("../pages/shops/CreateShopPage"))};

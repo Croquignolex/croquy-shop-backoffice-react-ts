@@ -7,10 +7,10 @@ import {appInfo} from "../constants/envConstants";
 
 const AuthLayout: FC = (): ReactElement => {
     return (
-        <Box bg="white">
+        <Box>
             <Header />
 
-            <Flex align="center" justify="center" minH="80vh">
+            <Flex align="center" justify="center" minH="80vh" >
                 <Outlet />
             </Flex>
 
@@ -21,7 +21,7 @@ const AuthLayout: FC = (): ReactElement => {
 
 const Header: FC = (): ReactElement => {
     return (
-        <Box w="full" h="10vh" bg="green.500" borderBottomWidth={2}>
+        <Box w="full" h="10vh" bg="purple.500">
             <Center h="full">
                 <Text fontSize="2xl" fontWeight="bold" color="white">
                     {appInfo.name}

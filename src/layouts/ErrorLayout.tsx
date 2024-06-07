@@ -21,7 +21,7 @@ const ErrorLayout: FC = (): ReactElement => {
 
 const Header: FC = (): ReactElement => {
     return (
-        <Box w="full" h="10vh" bg="green.500" borderBottomWidth={2}>
+        <Box w="full" h="10vh" bg="purple.500">
             <Center h="full">
                 <Text fontSize="2xl" fontWeight="bold" color="white">
                     {appInfo.name}

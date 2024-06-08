@@ -1,6 +1,6 @@
-import React, { ReactElement, FC } from "react";
+import React, {ReactElement, FC} from "react";
 import {Field} from "formik";
-import { FiAlertCircle } from "react-icons/fi";
+import {FiAlertCircle} from "react-icons/fi";
 import {
     Input,
     FormLabel,
@@ -29,7 +29,7 @@ const TextField: FC<TextFieldProps> = (
 
             {isLoading
                 ? <Skeleton height={"40px"} width={"100%"} rounded={"md"} mb={4} />
-                : <Field as={Input} name={name} type="text" isDisabled={disabled} />
+                : <Field as={Input} name={name} type="text" isDisabled={disabled} borderColor="gray.300" />
             }
 
             <FormErrorMessage>

@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {ChakraProvider, extendTheme, Input} from "@chakra-ui/react";
+import {ChakraProvider, extendTheme} from "@chakra-ui/react";
 import {Dict} from "@chakra-ui/utils";
 import {QueryClientProvider, QueryClient} from "@tanstack/react-query";
 
 import "./assets/css/main.css";
+import "./i18n/config.ts";
 
 import App from "./App";
 
@@ -42,9 +43,13 @@ const theme: Dict = extendTheme({
                 fontSize: "sm"
             }
         },
-        Input: {
-            _hover: {
-                bg: 'red',
+        Button:{
+            baseStyle: {
+                fontWeight: "none",
+            },
+            defaultProps: {
+                colorScheme: "purple",
+                variant: "outline",
             },
         }
     },
@@ -52,7 +57,7 @@ const theme: Dict = extendTheme({
 
 root.render(
     // <React.StrictMode>
-        <ChakraProvider theme={theme} toastOptions={{defaultOptions: {position: "top"}}}>
+        <ChakraProvider theme={theme} toastOptions={{defaultOptions: {position: "top-right", isClosable: true}}}>
             <QueryClientProvider client={queryClient}>
                 <App />
             </QueryClientProvider>

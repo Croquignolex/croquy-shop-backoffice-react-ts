@@ -1,0 +1,7 @@
+{
+  "app_title": "CSB Backoffice",
+  "hello": "Salut in french",
+  "cancel": "Annuler",
+  "continue": "Continuez",
+  "user_greeting": "Hello, {{firstName}} {{lastName}} 👋"
+}

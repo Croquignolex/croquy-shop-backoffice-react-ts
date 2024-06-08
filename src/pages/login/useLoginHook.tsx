@@ -1,15 +1,15 @@
-import { useContext, useState } from "react";
+import {useContext, useState} from "react";
 import * as Yup from "yup";
-import { AxiosError, AxiosResponse } from "axios";
-import { CreateToastFnReturn, useToast } from "@chakra-ui/react";
-import { useMutation, UseMutationResult } from "@tanstack/react-query";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import {AxiosError, AxiosResponse} from "axios";
+import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
+import {useMutation, UseMutationResult} from "@tanstack/react-query";
+import {NavigateFunction, useNavigate} from "react-router-dom";
 
-import { mainRoutes } from "../../routes/mainRoutes";
-import { setLocaleStorageItem } from "../../helpers/localStorageHelpers";
-import { ErrorAlertType } from "../../helpers/globalTypesHelper";
-import { AlertStatusEnumType } from "../../helpers/globalTypesHelper";
-import { errorAlert, log, toastAlert } from "../../helpers/generalHelpers";
+import {mainRoutes} from "../../routes/mainRoutes";
+import {setLocaleStorageItem} from "../../helpers/localStorageHelpers";
+import {ErrorAlertType} from "../../helpers/globalTypesHelper";
+import {AlertStatusEnumType} from "../../helpers/globalTypesHelper";
+import {errorAlert, log} from "../../helpers/generalHelpers";
 import {formValidationMessage} from "../../constants/generalConstants";
 import {v1URL} from "../../helpers/apiRequestsHelpers";
 import {authApiURI} from "../../constants/apiURIConstants";
@@ -67,7 +67,7 @@ const useLoginPageHook = (): LoginHookType => {
 
     const toast: CreateToastFnReturn = useToast();
     const navigate: NavigateFunction = useNavigate();
-    const { setGlobalUserState } = useContext(UserContext);
+    const {setGlobalUserState} = useContext(UserContext);
 
     const loginResponse: UseMutationResult<AxiosResponse, AxiosError, LoginRequestDataType, any> = useMutation({
         mutationFn: loginRequest,
@@ -89,8 +89,12 @@ const useLoginPageHook = (): LoginHookType => {
             setGlobalUserState({type: USER_GLOBAL_STATE_TRUST_AUTHORIZED});
             setGlobalUserState({type: USER_GLOBAL_STATE_UPDATE_LOGIN_DATA, payload: responseData});
 
-            const toastMessage: string = `Bienvenue ${responseData.firstName}`;
-            toastAlert(toast, toastMessage, AlertStatusEnumType.SUCCESS);
+            toast.closeAll();
+            toast({
+                title: `Authentication`,
+                description: `Bienvenue ${responseData.firstName}`,
+                status: AlertStatusEnumType.SUCCESS,
+            });
 
             navigate(mainRoutes.dashboard.path);
         }

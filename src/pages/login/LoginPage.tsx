@@ -1,7 +1,7 @@
 import React, {ReactElement} from "react";
 import {Form, Formik, FormikProps} from "formik";
 import {FiLogIn} from "react-icons/fi";
-import {Text, Stack, Button, Box} from "@chakra-ui/react";
+import {Text, Stack, Button, Box, Select, Center} from "@chakra-ui/react";
 import {useTranslation} from "react-i18next";
 
 import TextField from "../../components/form/TextField";
@@ -22,8 +22,7 @@ const LoginPage = (): ReactElement => {
     return (
         <>
             <Box my={8}>
-                <LocaleSwitcher />
-                <Text>{t("user_greeting", {firstName: "toto", lastName: "tata"})}</Text>
+                {/*<Text>{t("user_greeting", {firstName: "toto", lastName: "tata"})}</Text>*/}
                 <Text fontSize={"xl"} mb={2} color="gray.700">Bienvenue</Text>
                 <Text>Merci d'entrer vos identifiants afin d'accéder à voter espace administrateur</Text>
             </Box>
@@ -43,6 +42,9 @@ const LoginPage = (): ReactElement => {
                     )}
                 </Formik>
             </Box>
+            <Center>
+                <LocaleSwitcher />
+            </Center>
         </>
     );
 };

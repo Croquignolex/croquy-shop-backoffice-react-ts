@@ -26,24 +26,24 @@ const PasswordField: FC<DefaultFieldProps> = (
     const isInvalid: boolean = !!formikProps.errors[name] && !!formikProps.touched[name];
 
     return (
-        <FormControl isInvalid={isInvalid} mb={4} px={1}>
+        <FormControl isInvalid={isInvalid} mb={4} px={1} variant="floating">
             <FormLabel fontSize="sm" fontWeight="normal">{label}</FormLabel>
 
             {isLoading
                 ? <Skeleton height={"40px"} width={"100%"} rounded={"md"} mb={4} />
                 : (
                     <InputGroup>
+                        <Field as={Input} name={name} type={showPassword ? "text" : "password"}  borderColor="gray.300" />
+                        
                         <InputRightElement>
                             <IconButton
-                                h='1.75rem'
+                                h="1.75rem"
                                 variant="text"
-                                aria-label={ showPassword ? 'Mask password' : 'Reveal password' }
+                                aria-label={ showPassword ? "Mask password" : "Reveal password" }
                                 icon={ showPassword ? <FiEyeOff /> : <FiEye /> }
                                 onClick={ () => setShowPassword(!showPassword) }
                             />
-                        </InputRightElement>
-
-                        <Field as={Input} name={name} type={showPassword ? 'text' : 'password'}  borderColor="gray.300" />
+                        </InputRightElement> 
                     </InputGroup>
                 )
             }

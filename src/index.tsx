@@ -2,12 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import {ChakraProvider, extendTheme} from "@chakra-ui/react";
 import {Dict} from "@chakra-ui/utils";
+import {ToastProviderProps} from "@chakra-ui/toast";
 import {QueryClientProvider, QueryClient} from "@tanstack/react-query";
 
 import "./assets/css/main.css";
 import "./i18n/config.ts";
 
 import App from "./App";
+import {AlertStatusEnumType} from "./helpers/globalTypesHelper";
+import ToastAlert from "./components/alert/ToastAlert";
 
 const root: ReactDOM.Root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
@@ -19,6 +22,15 @@ const queryClient: QueryClient = new QueryClient({
         },
     },
 });
+
+const toastOptions: ToastProviderProps = {
+    defaultOptions: {
+        position: "top-right",
+        isClosable: true,
+        status: AlertStatusEnumType.INFO,
+        render: ToastAlert
+    }
+}
 
 const theme: Dict = extendTheme({
     styles: {
@@ -43,7 +55,7 @@ const theme: Dict = extendTheme({
                 fontSize: "sm"
             }
         },
-        Button:{
+        Button: {
             baseStyle: {
                 fontWeight: "none",
             },
@@ -51,13 +63,18 @@ const theme: Dict = extendTheme({
                 colorScheme: "purple",
                 variant: "outline",
             },
-        }
+        },
+        Heading: {
+            baseStyle: {
+                color: "purple.500",
+            },
+        },
     },
 });
 
 root.render(
     // <React.StrictMode>
-        <ChakraProvider theme={theme} toastOptions={{defaultOptions: {position: "top-right", isClosable: true}}}>
+        <ChakraProvider theme={theme} toastOptions={toastOptions}>
             <QueryClientProvider client={queryClient}>
                 <App />
             </QueryClientProvider>

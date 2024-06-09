@@ -3,12 +3,10 @@ import * as Yup from "yup";
 import {AxiosError, AxiosResponse} from "axios";
 import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 import {useMutation, UseMutationResult} from "@tanstack/react-query";
-import {NavigateFunction, useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
-import {mainRoutes} from "../../routes/mainRoutes";
 import {setLocaleStorageItem} from "../../helpers/localStorageHelpers";
 import {ErrorAlertType} from "../../helpers/globalTypesHelper";
-import {AlertStatusEnumType} from "../../helpers/globalTypesHelper";
 import {errorAlert, log} from "../../helpers/generalHelpers";
 import {formValidationMessage} from "../../constants/generalConstants";
 import {v1URL} from "../../helpers/apiRequestsHelpers";
@@ -66,7 +64,8 @@ const useLoginPageHook = (): LoginHookType => {
     const [loginAlertData, setLoginAlertData] = useState<ErrorAlertType>({show: false});
 
     const toast: CreateToastFnReturn = useToast();
-    const navigate: NavigateFunction = useNavigate();
+    const {t} = useTranslation();
+
     const {setGlobalUserState} = useContext(UserContext);
 
     const loginResponse: UseMutationResult<AxiosResponse, AxiosError, LoginRequestDataType, any> = useMutation({
@@ -89,14 +88,7 @@ const useLoginPageHook = (): LoginHookType => {
             setGlobalUserState({type: USER_GLOBAL_STATE_TRUST_AUTHORIZED});
             setGlobalUserState({type: USER_GLOBAL_STATE_UPDATE_LOGIN_DATA, payload: responseData});
 
-            toast.closeAll();
-            toast({
-                title: `Authentication`,
-                description: `Bienvenue ${responseData.firstName}`,
-                status: AlertStatusEnumType.SUCCESS,
-            });
-
-            navigate(mainRoutes.dashboard.path);
+            toast({description: <>{t("welcome")} <strong>{responseData.firstName}</strong></>});
         }
     });
 

@@ -1,7 +1,0 @@
-{
-  "app_title": "CSB Backoffice",
-  "hello": "Hello in english",
-  "cancel": "Cancel",
-  "continue": "Comtinue",
-  "user_greeting": "Bonjour, {{firstName}} {{lastName}} 👋"
-}

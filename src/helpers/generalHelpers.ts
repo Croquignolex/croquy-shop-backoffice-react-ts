@@ -64,18 +64,18 @@ export const errorAlert = (error: AxiosError<any>): ErrorAlertType => {
         message = error.response.data.message;
     } else {
         switch (error.code) {
-            case AxiosError.ERR_FR_TOO_MANY_REDIRECTS: message = "Trop de redirections. Merci de contacter l'administrateur"; break;
-            case AxiosError.ERR_BAD_OPTION_VALUE: message = "Mauvaise valeur d'option. Merci de contacter l'administrateur"; break;
-            case AxiosError.ERR_DEPRECATED: message = "Erreur de dépréciation. Merci de contacter l'administrateur"; break;
-            case AxiosError.ECONNABORTED: message = "Connexion interrompu. Merci de contacter l'administrateur"; break;
-            case AxiosError.ERR_BAD_RESPONSE: message = "Mauvaise reponse. Merci de contacter l'administrateur"; break;
-            case AxiosError.ERR_BAD_REQUEST: message = "Mauvaise requête. Merci de contacter l'administrateur"; break;
-            case AxiosError.ERR_BAD_OPTION: message = "Mauvaise option. Merci de contacter l'administrateur"; break;
-            case AxiosError.ERR_NOT_SUPPORT: message = "Non supporté. Merci de contacter l'administrateur"; break;
-            case AxiosError.ERR_INVALID_URL: message = "URL invalide. Merci de contacter l'administrateur"; break;
-            case AxiosError.ERR_NETWORK: message = "Erreur réseau. Merci de contacter l'administrateur"; break;
-            case AxiosError.ETIMEDOUT: message = "Temps expiré. Merci de contacter l'administrateur"; break;
-            case AxiosError.ERR_CANCELED: message = "Annulé. Merci de contacter l'administrateur"; break;
+            case AxiosError.ERR_FR_TOO_MANY_REDIRECTS: message = "ERR_FR_TOO_MANY_REDIRECTS"; break;
+            case AxiosError.ERR_BAD_OPTION_VALUE: message = "ERR_BAD_OPTION_VALUE"; break;
+            case AxiosError.ERR_DEPRECATED: message = "ERR_DEPRECATEDr"; break;
+            case AxiosError.ECONNABORTED: message = "ECONNABORTED"; break;
+            case AxiosError.ERR_BAD_RESPONSE: message = "ERR_BAD_RESPONSE"; break;
+            case AxiosError.ERR_BAD_REQUEST: message = "ERR_BAD_REQUEST"; break;
+            case AxiosError.ERR_BAD_OPTION: message = "ERR_BAD_OPTION"; break;
+            case AxiosError.ERR_NOT_SUPPORT: message = "ERR_NOT_SUPPORT"; break;
+            case AxiosError.ERR_INVALID_URL: message = "ERR_INVALID_URL"; break;
+            case AxiosError.ERR_NETWORK: message = "ERR_NETWORK"; break;
+            case AxiosError.ETIMEDOUT: message = "ETIMEDOUT"; break;
+            case AxiosError.ERR_CANCELED: message = "ERR_CANCELED"; break;
         }
     }
 

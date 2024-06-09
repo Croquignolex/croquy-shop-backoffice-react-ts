@@ -1,0 +1,25 @@
+{
+  "welcome": "Welcome",
+  "login": "Login",
+  "your_login": "Your login",
+  "your_password": "Your password",
+  "copy_right": "All rights reserved",
+
+  "login_instructions": "Please enter your credentials to access your administration panel",
+
+  "INCORRECT_LOGIN_OR_PASSWORD": "Incorrect login or password",
+
+  "ERR_FR_TOO_MANY_REDIRECTS": "Too many redirections",
+  "ERR_BAD_OPTION_VALUE": "Bad option value",
+  "ERR_DEPRECATED": "Deprecated",
+  "ECONNABORTED": "Connexion aborted",
+  "ERR_BAD_RESPONSE": "Bad response",
+  "ERR_BAD_REQUEST": "Bad request",
+  "ERR_BAD_OPTION": "Bad option",
+  "ERR_NOT_SUPPORT": "Not supported",
+  "ERR_INVALID_URL": "Invalid URL",
+  "ERR_NETWORK": "Network error",
+  "ETIMEDOUT": "Timed out",
+  "ERR_CANCELED": "Request canceled",
+  "UNKNOWN": "Unknown error"
+}

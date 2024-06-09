@@ -1,20 +1,36 @@
-import { useTranslation } from "react-i18next";
-import {supportedLanguages} from "../i18n/config";
-import {Select} from "@chakra-ui/react";
+import {useTranslation} from "react-i18next";
+import {FiChevronDown} from "react-icons/fi";
+import {IconLanguage} from '@tabler/icons-react';
+import {Button, Menu, MenuButton, MenuItemOption, MenuList, MenuOptionGroup} from "@chakra-ui/react";
+import {FC, ReactElement} from "react";
 
-export default function LocaleSwitcher() {
-    const { i18n } = useTranslation();
+import {supportedLanguages} from "../i18n/config";
+
+const LocaleSwitcher: FC = () => {
+    const {i18n} = useTranslation();
 
     return (
-        <Select
-            value={i18n.resolvedLanguage}
-            onChange={(e) => i18n.changeLanguage(e.target.value)}
-        >
-            {Object.entries(supportedLanguages).map(([code, name]) => (
-                <option value={code} key={code}>
-                    {name}
-                </option>
-            ))}
-        </Select>
+        <Menu>
+            <MenuButton as={Button} colorScheme='purple' rightIcon={<FiChevronDown />} leftIcon={<IconLanguage />} w={150} border={0}>
+                {supportedLanguages.find((lang): boolean => lang.code === i18n.resolvedLanguage)?.label}
+            </MenuButton>
+            <MenuList shadow="default" rounded="lg" minW={150}>
+                <MenuOptionGroup defaultValue={i18n.resolvedLanguage}>
+                    {supportedLanguages.map(({code, label}, index: number): ReactElement => (
+                        <MenuItemOption
+                            value={code}
+                            onClick={() => i18n.changeLanguage(code)}
+                            key={index}
+                            bg="none"
+                            _hover={{fontWeight: (i18n.resolvedLanguage === code) ? "" : "bold"}}
+                        >
+                            {label}
+                        </MenuItemOption>
+                    ))}
+                </MenuOptionGroup>
+            </MenuList>
+        </Menu>
     );
-}
+};
+
+export default LocaleSwitcher;

@@ -1,0 +1,25 @@
+{
+  "welcome": "Bienvenue",
+  "login": "Bienvenue",
+  "your_login": "Votre identifiant",
+  "your_password": "Votre mot de passe",
+  "copy_right": "Tous droits reservés",
+
+  "login_instructions": "Merci d'entrer vos identifiants afin d'accéder à voter espace administrateur",
+
+  "INCORRECT_LOGIN_OR_PASSWORD": "Combinaison login mot de passe incorrecte",
+
+  "ERR_FR_TOO_MANY_REDIRECTS": "Trop de redirections",
+  "ERR_BAD_OPTION_VALUE": "Valeur d'option anormale",
+  "ERR_DEPRECATED": "Dépréciation",
+  "ECONNABORTED": "Connexion interrompu",
+  "ERR_BAD_RESPONSE": "Reponse anormale",
+  "ERR_BAD_REQUEST": "Requête anormale",
+  "ERR_BAD_OPTION": "Option anormale",
+  "ERR_NOT_SUPPORT": "Non supporté",
+  "ERR_INVALID_URL": "URL invalide",
+  "ERR_NETWORK": "Erreur réseau",
+  "ETIMEDOUT": "Temps expiré",
+  "ERR_CANCELED": "Requête Annulée",
+  "UNKNOWN": "Erreur inconnu"
+}

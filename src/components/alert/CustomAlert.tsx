@@ -1,20 +1,30 @@
-import React, { FC, ReactElement } from "react";
-import {AlertIcon, Alert, Stack} from "@chakra-ui/react";
+import React, {FC, ReactElement} from "react";
+import {Alert, AlertIcon} from "@chakra-ui/react";
+import {useTranslation} from "react-i18next";
 
-import { ErrorAlertType } from "../../helpers/globalTypesHelper";
+import {AlertStatusEnumType, ErrorAlertType} from "../../helpers/globalTypesHelper";
 
-const CustomAlert: FC<CustomAlertProps> = ({ data }): ReactElement | null => {
-    if(!data.show) {
+const CustomAlert: FC<CustomAlertProps> = ({data}): ReactElement | null => {
+    const {show, status, message} = data;
+    const {t} = useTranslation();
+    let color: string = "";
+
+    if(!show) {
         return null;
     }
 
+    switch (status) {
+        case AlertStatusEnumType.INFO: color = "blue.500"; break;
+        case AlertStatusEnumType.SUCCESS: color = "green.500"; break;
+        case AlertStatusEnumType.ERROR: color = "red.500"; break;
+        case AlertStatusEnumType.WARNING: color = "yellow.600"; break;
+    }
+
     return (
-        <Stack my={1}>
-            <Alert status={data?.status} rounded="md">
-                <AlertIcon />
-                {data?.message}
-            </Alert>
-        </Stack>
+        <Alert status={status} rounded="md" color={color}>
+            <AlertIcon/>
+            {message && t(message)}
+        </Alert>
     );
 };
 

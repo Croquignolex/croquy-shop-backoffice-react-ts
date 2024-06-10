@@ -7,27 +7,27 @@ export const roleEnumConverter = (role: string): {label: string, color: string} 
 
     switch (role) {
         case RoleTypeEnumType.SUPER_ADMIN:
-            label = "#Super Admin";
+            label = "Super Admin";
             color = "red.300";
             break;
         case RoleTypeEnumType.SELLER:
-            label = "#Vendeur";
+            label = "Vendeur";
             color = "blue.300";
             break;
         case RoleTypeEnumType.CUSTOMER:
-            label = "#Client";
+            label = "Client";
             color = "gray.300";
             break;
         case RoleTypeEnumType.MANAGER:
-            label = "#Gestionnaire";
+            label = "Gestionnaire";
             color = "purple.300";
             break;
         case RoleTypeEnumType.ADMIN:
-            label = "#Administrateur";
+            label = "Administrateur";
             color = "orange.300";
             break;
         default:
-            label = "#Inconnu";
+            label = "Inconnu";
             color = "gray.300";
             break;
     }

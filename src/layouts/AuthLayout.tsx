@@ -16,7 +16,7 @@ const AuthLayout: FC = (): ReactElement => {
                             <LocaleSwitcher />
                         </Flex>
                         <Center h="10vh">
-                            <Heading as={Link} to="/" fontSize="3xl">
+                            <Heading as={Link} to="/" fontSize="2xl">
                                 {appInfo.name}
                             </Heading>
                         </Center>

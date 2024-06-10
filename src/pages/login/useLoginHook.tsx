@@ -44,6 +44,7 @@ export interface LoginResponseDataType {
     firstName: string;
     username: string;
     role: string;
+    avatar: null;
 }
 
 export interface LoginHookType {

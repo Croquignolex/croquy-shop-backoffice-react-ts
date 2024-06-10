@@ -1,6 +1,6 @@
 import React, {FC, ReactElement, useContext} from "react";
 import {FiX, FiMenu, FiUser, FiLogOut} from "react-icons/fi";
-import {NavigateFunction, NavLink, Outlet, useNavigate} from "react-router-dom";
+import {Link, NavigateFunction, NavLink, Outlet, useNavigate} from "react-router-dom";
 import {
     Box,
     Flex,
@@ -13,7 +13,7 @@ import {
     MenuButton,
     Avatar,
     MenuList,
-    MenuItem,
+    MenuItem, Heading, Image,
 } from "@chakra-ui/react";
 
 import Footer from "../components/Footer";
@@ -22,8 +22,12 @@ import {headerMenu, MainRouteType, sideMenu} from "../routes/mainRoutes";
 import {USER_GLOBAL_STATE_CLEAR_DATA, UserContext} from "../contexts/UserContext";
 import {removeAllLocaleStorageItems} from "../helpers/localStorageHelpers";
 import {authRoutes} from "../routes/authRoutes";
-import {MenuItemType} from "../helpers/globalTypesHelper";
+import {ImageSizeEnumType, MenuItemType} from "../helpers/globalTypesHelper";
 import {roleEnumConverter} from "../helpers/enumsHelpers";
+import LocaleSwitcher from "../components/LocaleSwitcher";
+import ImageDisplay from "../components/ImageDisplay";
+import noImage from "../assets/img/no-image.jpg";
+import {API_MEDIA_V1_URL} from "../helpers/apiRequestsHelpers";
 
 const MainLayout: FC = (): ReactElement => {
     return (
@@ -40,6 +44,101 @@ const MainLayout: FC = (): ReactElement => {
 };
 
 const Header: FC = (): ReactElement => {
+    const {isOpen, onOpen, onClose} = useDisclosure();
+    const { globalUserState } = useContext(UserContext);
+
+    return (
+        <Box
+            w="full"
+            h="8vh"
+            px={4}
+            borderBottomWidth="1px"
+            position="fixed"
+            top={0}
+            zIndex={2}
+            bg="white"
+        >
+            <Flex h="full" alignItems={"center"} justifyContent={"space-between"}>
+                {/*<IconButton
+                    colorScheme="purple"
+                    display={{ base: "flex", md: "none"}}
+                    onClick={isOpen ? onClose : onOpen}
+                    aria-label="open menu"
+                    icon={isOpen ? <FiX /> : <FiMenu />}
+                />*/}
+                <HStack spacing={8} alignItems={"center"}>
+                    <Box>
+                        <Heading as={Link} to="/" fontSize="2xl">
+                            {appInfo.name}
+                        </Heading>
+                    </Box>
+                </HStack>
+                <HStack alignItems={"center"}>
+                    <LocaleSwitcher />
+                    {/*<SideMenu />*/}
+                    {/*<SideMenu />*/}
+                    <ProfileMenu />
+                </HStack>
+            </Flex>
+            <MobileMenu />
+        </Box>
+    );
+};
+
+const ProfileMenu = (): ReactElement => {
+    const {globalUserState, setGlobalUserState} = useContext(UserContext);
+    const navigate: NavigateFunction = useNavigate();
+
+    const handleLogout = (): void => {
+        removeAllLocaleStorageItems();
+        setGlobalUserState({ type: USER_GLOBAL_STATE_CLEAR_DATA });
+        navigate(authRoutes.login.path);
+    };
+
+    return (
+        <Menu>
+            <MenuButton>
+                <Avatar bg="purple.500" src={API_MEDIA_V1_URL + globalUserState.avatar?.path} />
+            </MenuButton>
+            <MenuList shadow="default" rounded="lg">
+                <MenuItem>
+                    <Flex px={4} py={2} alignItems={"center"}>
+                        <Avatar size="sm" bg="purple.500" src={API_MEDIA_V1_URL + globalUserState.avatar?.path} />
+                        <Box ml={4}>
+                            <Text fontSize="md">{globalUserState.firstName}</Text>
+                            <Text fontSize="sm" color="gray.400">{roleEnumConverter(globalUserState.role).label}</Text>
+                        </Box>
+                    </Flex>
+                </MenuItem>
+
+
+
+                {sideMenu.map((route: MenuItemType, index: number): ReactElement => (
+                    <Box as={NavLink} to={route.path} key={index}>
+                        {(props: any) => (
+                            <MenuItem
+                                key={index}
+                                bg={props?.isActive ? "purple.500" : ""}
+                                _hover={{ fontWeight: props?.isActive ? "" : "bold" }}
+                                color={props?.isActive ? "white" : ""}
+                            >
+
+                                <Icon mr="2" as={route.icon} />
+                                {route.title}
+                            </MenuItem>
+                        )}
+                    </Box>
+                ))}
+                <MenuItem color="red" onClick={handleLogout} _hover={{fontWeight: "bold"}}>
+                    <Icon mr="2" as={FiLogOut} />
+                    Déconnexion
+                </MenuItem>
+            </MenuList>
+        </Menu>
+    );
+};
+
+const HeaderOld: FC = (): ReactElement => {
     const {isOpen, onOpen, onClose} = useDisclosure();
     const { globalUserState } = useContext(UserContext);
 
@@ -75,7 +174,6 @@ const Header: FC = (): ReactElement => {
                         <Text fontSize="1rem" color="white">{globalUserState.firstName}</Text>
                         <Text fontSize="0.8rem" color="white">{roleEnumConverter(globalUserState.role).label}</Text>
                     </Box>
-                    <SideMenu />
                 </HStack>
             </Flex>
             <MobileMenu />
@@ -99,45 +197,7 @@ const MobileMenu: FC = (): ReactElement => {
     );
 };
 
-const SideMenu = (): ReactElement => {
-    const {setGlobalUserState} = useContext(UserContext);
-    const navigate: NavigateFunction = useNavigate();
 
-    const handleLogout = (): void => {
-        removeAllLocaleStorageItems();
-        setGlobalUserState({ type: USER_GLOBAL_STATE_CLEAR_DATA });
-        navigate(authRoutes.login.path);
-    };
-
-    return (
-        <Menu>
-            <MenuButton>
-                <Avatar bg="gray.50" icon={<FiUser fontSize="1.5rem" color="purple" />} />
-            </MenuButton>
-            <MenuList borderWidth="1px" borderRadius="xl" boxShadow="2xl">
-                {sideMenu.map((route: MenuItemType, index: number): ReactElement => (
-                    <Box as={NavLink} to={route.path} key={index}>
-                        {(props: any) => (
-                            <MenuItem
-                                key={index}
-                                bg={props?.isActive ? "purple.500" : ""}
-                                _hover={{ fontWeight: props?.isActive ? "" : "bold" }}
-                                color={props?.isActive ? "white" : ""}
-                            >
-                                <Icon mr="2" as={route.icon} />
-                                {route.title}
-                            </MenuItem>
-                        )}
-                    </Box>
-                ))}
-                <MenuItem color="red" onClick={handleLogout} _hover={{fontWeight: "bold"}}>
-                    <Icon mr="2" as={FiLogOut} />
-                    Déconnexion
-                </MenuItem>
-            </MenuList>
-        </Menu>
-    );
-};
 
 const HeaderMenu = () => {
     return (

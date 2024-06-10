@@ -1,5 +1,6 @@
 import {Context, createContext} from "react";
 import {LoginResponseDataType} from "../pages/login/useLoginHook";
+import {MediaType} from "../helpers/globalTypesHelper";
 
 export const USER_GLOBAL_STATE_UPDATE_LOGIN_DATA: string = "USER_GLOBAL_STATE_UPDATE_LOGIN_DATA";
 export const USER_GLOBAL_STATE_TRUST_UNAUTHORIZED: string = "USER_GLOBAL_STATE_TRUSTED_UNAUTHORIZED";
@@ -15,6 +16,7 @@ export const initialGlobalUserState: UserGlobalStateType = {
     username: "",
     phoneNumber: "",
     role: "",
+    avatar: null,
 };
 
 export const userReducer = (state: UserGlobalStateType = initialGlobalUserState, action: ReducerActionType): UserGlobalStateType => {
@@ -37,6 +39,7 @@ export const userReducer = (state: UserGlobalStateType = initialGlobalUserState,
                 firstName: loginDataPayload.firstName,
                 username: loginDataPayload.username,
                 role: loginDataPayload.role,
+                avatar: loginDataPayload.avatar,
             };
             return nextState || state;
 
@@ -58,6 +61,7 @@ interface UserGlobalStateType {
     firstName: string;
     username: string;
     role: string;
+    avatar: MediaType | null;
 }
 
 interface ReducerActionType {

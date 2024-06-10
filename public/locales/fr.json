@@ -9,7 +9,11 @@
   "not_found_description": "Oops! \uD83D\uDE16 L'URL démandé n'ai pas rétrouvé sur ce serveur",
   "back_to_home": "Retour à l'accueil",
 
+  "administration": "Administration",
+  "settings": "Paramètres",
+
   "login": "Connexion",
+  "logout": "Déconnexion",
   "dashboard": "Tableau de bord",
   "my_profile": "Mon profil",
   "my_parameters": "Mes paramètres",

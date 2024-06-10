@@ -11,7 +11,7 @@ const LocaleSwitcher: FC = () => {
 
     return (
         <Menu>
-            <MenuButton as={Button} colorScheme='purple' rightIcon={<FiChevronDown />} leftIcon={<IconLanguage />} w={150} border={0}>
+            <MenuButton as={Button} rightIcon={<FiChevronDown />} leftIcon={<IconLanguage />} w={150} border={0}>
                 {supportedLanguages.find((lang): boolean => lang.code === i18n.resolvedLanguage)?.label}
             </MenuButton>
             <MenuList shadow="default" rounded="lg" minW={150}>

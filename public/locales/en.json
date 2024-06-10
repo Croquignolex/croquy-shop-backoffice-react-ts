@@ -9,7 +9,11 @@
   "not_found_description": "Oops! \uD83D\uDE16 The requested URL was not found on this server",
   "back_to_home": "Back to hone",
 
+  "administration": "Administration",
+  "settings": "Settings",
+
   "login": "Login",
+  "logout": "Logout",
   "dashboard": "Dashboard",
   "my_profile": "My profile",
   "my_parameters": "My parameters",

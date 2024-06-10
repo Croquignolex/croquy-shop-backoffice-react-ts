@@ -5,6 +5,10 @@
   "your_password": "Your password",
   "copy_right": "All rights reserved",
 
+  "page_not_found": "Page not found",
+  "not_found_description": "Oops! \uD83D\uDE16 The requested URL was not found on this server",
+  "back_to_home": "Back to hone",
+
   "login": "Login",
   "dashboard": "Dashboard",
   "my_profile": "My profile",
@@ -21,7 +25,7 @@
   "categories": "Categories",
   "attributes": "Attributs",
   "attribute_values": "Attribute values",
-  "not_found": "Introuvable",
+  "not_found": "Not found",
 
   "authentication": "Authentication",
   "login_instructions": "Please enter your credentials to access your administration panel",

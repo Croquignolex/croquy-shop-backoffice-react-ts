@@ -5,6 +5,10 @@
   "your_password": "Votre mot de passe",
   "copy_right": "Tous droits reservés",
 
+  "page_not_found": "Page introuvable",
+  "not_found_description": "Oops! \uD83D\uDE16 L'URL démandé n'ai pas rétrouvé sur ce serveur",
+  "back_to_home": "Retour à l'accueil",
+
   "login": "Connexion",
   "dashboard": "Tableau de bord",
   "my_profile": "Mon profil",
@@ -21,7 +25,7 @@
   "categories": "Categories",
   "attributes": "Attributes",
   "attribute_values": "Valeurs d'Attribut",
-  "not_found": "Not found",
+  "not_found": "Introuvable",
 
   "authentication": "Authentification",
   "login_instructions": "Merci d'entrer vos identifiants afin d'accéder à voter espace administrateur",

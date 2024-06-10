@@ -14,7 +14,6 @@ const useLocalizeDocumentAttributes = (): void => {
     const allRoutes: Array<any> = useMemo(() => [
         ...lodash.toArray(mainRoutes),
         ...lodash.toArray(authRoutes),
-        ...lodash.toArray(errorRoutes)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     ], []);
 
@@ -26,7 +25,7 @@ const useLocalizeDocumentAttributes = (): void => {
             if(needleRoute?.title) title = needleRoute?.title;
             else title = extractFirstSegmentTitle();
         } else { 
-            title = extractFirstSegmentTitle();
+            title = extractFirstSegmentTitle() || errorRoutes.notFound.title;
         }
 
         if (i18n.resolvedLanguage) {

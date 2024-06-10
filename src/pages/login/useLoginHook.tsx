@@ -88,7 +88,10 @@ const useLoginPageHook = (): LoginHookType => {
             setGlobalUserState({type: USER_GLOBAL_STATE_TRUST_AUTHORIZED});
             setGlobalUserState({type: USER_GLOBAL_STATE_UPDATE_LOGIN_DATA, payload: responseData});
 
-            toast({description: <>{t("welcome")} <strong>{responseData.firstName}</strong></>});
+            toast({
+                title: t("authentication"),
+                description: `${t("welcome")} ${responseData.firstName}`
+            });
         }
     });
 

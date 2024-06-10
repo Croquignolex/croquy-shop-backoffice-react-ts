@@ -1,9 +1,9 @@
 import React, {FC, ReactElement} from "react";
 import {FiBell, FiX} from "react-icons/fi";
-import {Box, Icon, UseToastOptions, Text, Flex, CloseButton} from "@chakra-ui/react";
+import {Box, Icon, UseToastOptions, Text, Flex, Divider} from "@chakra-ui/react";
 import {AlertStatusEnumType} from "../../helpers/globalTypesHelper";
 
-const ToastAlert: FC<UseToastOptions> = ({description, status}): ReactElement => {
+const ToastAlert: FC<RenderProps> = ({title, description, status, isClosable, onClose}): ReactElement => {
     let color: string = "";
 
     switch (status) {
@@ -14,16 +14,37 @@ const ToastAlert: FC<UseToastOptions> = ({description, status}): ReactElement =>
     }
 
     return (
-        <Box p={4} rounded="lg" shadow="default" bg="white">
-            <Icon as={FiX} position="absolute" top={4} right={5} />
-            <Flex alignItems={"center"}>
-                <Icon mr="2" as={FiBell} color={color} />
-                <Text fontSize={"sm"} alignItems="center">
-                    {description}
-                </Text>
+        <Box rounded="lg" shadow="default" bg="white">
+            <Flex alignItems={"center"} justifyContent={"space-between"} px={4} pt={2} pb={1}>
+                <Flex alignItems={"center"}>
+                    <Icon mr="2" as={FiBell} color={color} />
+                    <Text fontSize={"sm"} alignItems="center" fontWeight="bold">
+                        {title}
+                    </Text>
+                </Flex>
+                {(isClosable) &&  (
+                    <div>
+                        <Icon
+                            cursor={"pointer"}
+                            as={FiX}
+                            fontSize={"sm"}
+                            color="gray.300"
+                            _hover={{color: "gray.400"}}
+                            onClick={() => onClose()}
+                        />
+                    </div>
+                )}
             </Flex>
+            <Divider />
+            <Text fontSize={"sm"} px={4} py={3}>
+                {description}
+            </Text>
         </Box>
     );
 };
+
+interface RenderProps extends UseToastOptions {
+    onClose(): void;
+}
 
 export default ToastAlert;

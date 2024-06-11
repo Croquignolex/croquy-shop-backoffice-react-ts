@@ -5,7 +5,7 @@ import {Badge, Box, ButtonGroup, SimpleGrid, Stack, Table, Tbody,} from "@chakra
 import useShowAttributeHook from "./useShowAttributeHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
 import CustomAlert from "../../../components/alert/CustomAlert";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import StatusBadge from "../../../components/StatusBadge";
 import {stringDateFormat} from "../../../helpers/generalHelpers";
@@ -36,10 +36,10 @@ const ShowAttributePage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
-                title={`Détail attribut ${attributeResponseData.name}`}
-                items={[{path: mainRoutes.attributes.path, label: 'Attributs'}]}
-            />
+            {/*<PageHeader*/}
+            {/*    title={`Détail attribut ${attributeResponseData.name}`}*/}
+            {/*    items={[{path: mainRoutes.attributes.path, label: 'Attributs'}]}*/}
+            {/*/>*/}
             <Stack>
                 <CustomAlert data={attributeAlertData} />
                 {attributeAlertData.show ? <NotFoundPage /> : (

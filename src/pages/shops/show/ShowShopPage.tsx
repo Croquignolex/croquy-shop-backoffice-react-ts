@@ -13,7 +13,7 @@ import {
 import useShowShopHook from "./useShowShopHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
 import CustomAlert from "../../../components/alert/CustomAlert";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import StatusBadge from "../../../components/StatusBadge";
 import {stringDateFormat} from "../../../helpers/generalHelpers";
@@ -49,10 +49,10 @@ const ShowShopPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
-                title={`Détail boutique ${shopResponseData.name}`}
-                items={[{path: mainRoutes.shops.path, label: 'Boutiques'}]}
-            />
+            {/*<PageHeader*/}
+            {/*    title={`Détail boutique ${shopResponseData.name}`}*/}
+            {/*    items={[{path: mainRoutes.shops.path, label: 'Boutiques'}]}*/}
+            {/*/>*/}
             <Stack>
                 <CustomAlert data={shopAlertData} />
                 {shopAlertData.show ? <NotFoundPage /> : (

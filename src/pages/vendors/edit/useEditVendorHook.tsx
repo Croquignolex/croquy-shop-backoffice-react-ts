@@ -8,7 +8,7 @@ import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesH
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import {vendorRequest, VendorType, defaultSelectedVendor} from "../show/showVendorData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 import {
     EditVendorFormType,
     EditVendorHookType,
@@ -88,7 +88,7 @@ const useEditVendorHook = (): EditVendorHookType => {
     const isEditVendorPending: boolean = updateVendorResponse.isPending;
     const isVendorPending: boolean = vendorResponse.isFetching;
 
-    const pageHeaderItems: Array<BreadcrumbItemsType> = [{path: mainRoutes.vendors.path, label: 'Fournisseurs'}];
+    const pageHeaderItems: Array<any> = [{path: mainRoutes.vendors.path, label: 'Fournisseurs'}];
     if(vendorResponseData.id) {
         pageHeaderItems.push({
             path: `${mainRoutes.vendors.path}/${vendorResponseData.id}`,

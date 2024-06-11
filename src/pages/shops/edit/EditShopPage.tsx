@@ -7,7 +7,7 @@ import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditShopHook from "./useEditShopHook";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {EditShopFormType, EditShopHookType, editShopSchema} from "./editShopData";
 import NotFoundPage from "../../NotFoundPage";
 
@@ -25,10 +25,10 @@ const EditShopPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
-                title={`Modifier boutique ${shopResponseData.name}`}
-                items={pageHeaderItems}
-            />
+            {/*<PageHeader*/}
+            {/*    title={`Modifier boutique ${shopResponseData.name}`}*/}
+            {/*    items={pageHeaderItems}*/}
+            {/*/>*/}
             <Container maxW={'3xl'}>
                 <CustomAlert data={shopAlertData} />
                 <CustomAlert data={editShopAlertData} />

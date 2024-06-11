@@ -7,7 +7,7 @@ import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditUserHook from "./useEditUserHook";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {EditUserFormType, EditUserHookType, editUserSchema} from "./editUserData";
 import NotFoundPage from "../../NotFoundPage";
 import PasswordField from "../../../components/form/PasswordField";
@@ -28,10 +28,10 @@ const EditUserPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
-                title={`Modifier utilisateur ${userResponseData.firstName}`}
-                items={pageHeaderItems}
-            />
+            {/*<PageHeader*/}
+            {/*    title={`Modifier utilisateur ${userResponseData.firstName}`}*/}
+            {/*    items={pageHeaderItems}*/}
+            {/*/>*/}
             <Container maxW={'3xl'}>
                 <CustomAlert data={userAlertData} />
                 <CustomAlert data={editUserAlertData} />

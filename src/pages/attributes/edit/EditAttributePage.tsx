@@ -7,7 +7,7 @@ import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditAttributeHook from "./useEditAttributeHook";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {EditAttributeFormType, EditAttributeHookType, editAttributeSchema} from "./editAttributeData";
 import NotFoundPage from "../../NotFoundPage";
 import {staticSelectListAttributeTypes} from "../../../constants/generalConstants";
@@ -27,10 +27,10 @@ const EditAttributePage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
+            {/*<PageHeader
                 title={`Modifier attribut ${attributeResponseData.name}`}
                 items={pageHeaderItems}
-            />
+            />*/}
             <Container maxW={'3xl'}>
                 <CustomAlert data={attributeAlertData} />
                 <CustomAlert data={editAttributeAlertData} />

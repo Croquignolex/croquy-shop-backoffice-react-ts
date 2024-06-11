@@ -4,14 +4,14 @@ import {Link} from "react-router-dom";
 import {FiPlusSquare} from "react-icons/fi";
 
 import {mainRoutes} from "../../routes/mainRoutes";
-import PageHeader from "../../components/menu/PageHeader";
+import PageHeader from "../../components/PageHeader";
 import {shopsApiURI} from "../../constants/apiURIConstants";
 import ShopsTableList from "../../components/tableList/shops/ShopsTableList";
 
 const ShopsPage = (): ReactElement => {
     return (
         <>
-            <PageHeader title={mainRoutes.shops.title} icon={mainRoutes.shops.icon} />
+            {/*<PageHeader title={mainRoutes.shops.title} icon={mainRoutes.shops.icon} />*/}
             <ShopsTableList
                 fetchShops
                 showCreator

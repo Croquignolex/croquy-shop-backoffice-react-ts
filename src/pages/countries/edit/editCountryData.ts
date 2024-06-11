@@ -6,7 +6,7 @@ import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {countriesApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
 import {CountryType} from "../show/showCountryData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 
 export const editCountryInitialStaticValues: EditCountryFormType = { name: '', phoneCode: '', description: '' };
 
@@ -32,7 +32,7 @@ export interface EditCountryHookType {
     isCountryPending: boolean,
     countryAlertData: ErrorAlertType,
     formCountry: EditCountryFormType,
-    pageHeaderItems: Array<BreadcrumbItemsType>,
+    pageHeaderItems: Array<any>,
     countryResponseData: CountryType,
     handleEditCountry: (a: EditCountryFormType) => void,
 }

@@ -22,7 +22,7 @@ import {
 import useShowGroupHook from "./useShowGroupHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
 import CustomAlert from "../../../components/alert/CustomAlert";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import StatusBadge from "../../../components/StatusBadge";
 import {stringDateFormat} from "../../../helpers/generalHelpers";
@@ -69,10 +69,10 @@ const ShowGroupPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
-                title={`Détail groupe ${groupResponseData.name}`}
-                items={[{path: mainRoutes.groups.path, label: 'Groupes'}]}
-            />
+            {/*<PageHeader*/}
+            {/*    title={`Détail groupe ${groupResponseData.name}`}*/}
+            {/*    items={[{path: mainRoutes.groups.path, label: 'Groupes'}]}*/}
+            {/*/>*/}
             <Stack>
                 <CustomAlert data={groupAlertData} />
                 {groupAlertData.show ? <NotFoundPage /> : (

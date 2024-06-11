@@ -8,7 +8,7 @@ import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesH
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import {attributeRequest, AttributeType, defaultSelectedAttribute} from "../show/showAttributeData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 import {
     EditAttributeFormType,
     EditAttributeHookType,
@@ -90,7 +90,7 @@ const useEditAttributeHook = (): EditAttributeHookType => {
     const isEditAttributePending: boolean = updateAttributeResponse.isPending;
     const isAttributePending: boolean = attributeResponse.isFetching;
 
-    const pageHeaderItems: Array<BreadcrumbItemsType> = [{path: mainRoutes.attributes.path, label: 'Attributs'}];
+    const pageHeaderItems: Array<any> = [{path: mainRoutes.attributes.path, label: 'Attributs'}];
     if(attributeResponseData.id) {
         pageHeaderItems.push({
             path: `${mainRoutes.attributes.path}/${attributeResponseData.id}`,

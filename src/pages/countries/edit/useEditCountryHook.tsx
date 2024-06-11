@@ -8,7 +8,7 @@ import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesH
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import {countryRequest, CountryType, defaultSelectedCountry} from "../show/showCountryData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 import {
     EditCountryFormType,
     EditCountryHookType,
@@ -88,7 +88,7 @@ const useEditCountryHook = (): EditCountryHookType => {
     const isEditCountryPending: boolean = updateCountryResponse.isPending;
     const isCountryPending: boolean = countryResponse.isFetching;
 
-    const pageHeaderItems: Array<BreadcrumbItemsType> = [{path: mainRoutes.countries.path, label: 'Pays'}];
+    const pageHeaderItems: Array<any> = [{path: mainRoutes.countries.path, label: 'Pays'}];
     if(countryResponseData.id) {
         pageHeaderItems.push({
             path: `${mainRoutes.countries.path}/${countryResponseData.id}`,

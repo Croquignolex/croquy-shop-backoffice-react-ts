@@ -6,7 +6,7 @@ import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {attributesApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
 import {AttributeType} from "../show/showAttributeData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 
 export const editAttributeInitialStaticValues: EditAttributeFormType = {name: '', type: '', description: ''};
 
@@ -32,7 +32,7 @@ export interface EditAttributeHookType {
     isAttributePending: boolean,
     attributeAlertData: ErrorAlertType,
     formAttribute: EditAttributeFormType,
-    pageHeaderItems: Array<BreadcrumbItemsType>,
+    pageHeaderItems: Array<any>,
     attributeResponseData: AttributeType,
     handleEditAttribute: (a: EditAttributeFormType) => void,
 }

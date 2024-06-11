@@ -4,14 +4,14 @@ import {Link} from "react-router-dom";
 import {Button} from "@chakra-ui/react";
 
 import {mainRoutes} from "../../routes/mainRoutes";
-import PageHeader from "../../components/menu/PageHeader";
+import PageHeader from "../../components/PageHeader";
 import StatesTableList from "../../components/tableList/states/StatesTableList";
 import {statesApiURI} from "../../constants/apiURIConstants";
 
 const StatesPage = (): ReactElement => {
     return (
         <>
-            <PageHeader title={mainRoutes.states.title} icon={mainRoutes.states.icon} />
+            {/*<PageHeader title={mainRoutes.states.title} icon={mainRoutes.states.icon} />*/}
             <StatesTableList
                 fetchStates
                 showCountry

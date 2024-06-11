@@ -8,7 +8,7 @@ import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesH
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import {couponRequest, CouponType, defaultSelectedCoupon} from "../show/showCouponData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 import {
     EditCouponFormType,
     EditCouponHookType,
@@ -98,7 +98,7 @@ const useEditCouponHook = (): EditCouponHookType => {
     const isEditCouponPending: boolean = updateCouponResponse.isPending;
     const isCouponPending: boolean = couponResponse.isFetching;
 
-    const pageHeaderItems: Array<BreadcrumbItemsType> = [{path: mainRoutes.coupons.path, label: 'Coupons'}];
+    const pageHeaderItems: Array<any> = [{path: mainRoutes.coupons.path, label: 'Coupons'}];
     if(couponResponseData.id) {
         pageHeaderItems.push({
             path: `${mainRoutes.coupons.path}/${couponResponseData.id}`,

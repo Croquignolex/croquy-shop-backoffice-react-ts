@@ -8,7 +8,7 @@ import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesH
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import {stateRequest, StateType, defaultSelectedState} from "../show/showStateData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 import {
     EditStateFormType,
     EditStateHookType,
@@ -90,7 +90,7 @@ const useEditStateHook = (): EditStateHookType => {
     const isEditStatePending: boolean = updateStateResponse.isPending;
     const isStatePending: boolean = stateResponse.isFetching;
 
-    const pageHeaderItems: Array<BreadcrumbItemsType> = [{path: mainRoutes.states.path, label: 'Villes'}];
+    const pageHeaderItems: Array<any> = [{path: mainRoutes.states.path, label: 'Villes'}];
     if(stateResponseData.id) {
         pageHeaderItems.push({
             path: `${mainRoutes.states.path}/${stateResponseData.id}`,

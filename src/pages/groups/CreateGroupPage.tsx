@@ -3,12 +3,12 @@ import {Box, Container, Stack} from "@chakra-ui/react";
 
 import GroupCreateForm from "../../components/createForm/group/GroupCreateForm";
 import {mainRoutes} from "../../routes/mainRoutes";
-import PageHeader from "../../components/menu/PageHeader";
+import PageHeader from "../../components/PageHeader";
 
 const CreateGroupPage = (): ReactElement => {
     return (
         <>
-            <PageHeader title={"Nouveau groupe"} items={[{path: mainRoutes.groups.path, label: 'Groupes'}]} />
+            {/*<PageHeader title={"Nouveau groupe"} items={[{path: mainRoutes.groups.path, label: 'Groupes'}]} />*/}
             <Container maxW={'3xl'}>
                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                     <GroupCreateForm />

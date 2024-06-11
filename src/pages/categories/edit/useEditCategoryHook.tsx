@@ -8,7 +8,7 @@ import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesH
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import {categoryRequest, CategoryType, defaultSelectedCategory} from "../show/showCategoryData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 import {
     EditCategoryFormType,
     EditCategoryHookType,
@@ -92,7 +92,7 @@ const useEditCategoryHook = (): EditCategoryHookType => {
     const isEditCategoryPending: boolean = updateCategoryResponse.isPending;
     const isCategoryPending: boolean = categoryResponse.isFetching;
 
-    const pageHeaderItems: Array<BreadcrumbItemsType> = [{path: mainRoutes.categories.path, label: 'Categories'}];
+    const pageHeaderItems: Array<any> = [{path: mainRoutes.categories.path, label: 'Categories'}];
     if(categoryResponseData.id) {
         pageHeaderItems.push({
             path: `${mainRoutes.categories.path}/${categoryResponseData.id}`,

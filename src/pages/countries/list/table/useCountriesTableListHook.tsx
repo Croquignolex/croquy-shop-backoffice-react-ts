@@ -4,9 +4,9 @@ import {useQuery, UseQueryResult} from "@tanstack/react-query";
 import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 
-import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
-import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
-import {CountryType, defaultSelectedCountry, destroyCountry} from "../../../pages/countries/show/showCountryData";
+import {AlertStatusEnumType, ErrorAlertType} from "../../../../helpers/globalTypesHelper";
+import {errorAlert, log, toastAlert} from "../../../../helpers/generalHelpers";
+import {CountryType, defaultSelectedCountry, destroyCountry} from "../../show/showCountryData";
 import {
     CountriesResponseDataType,
     CountriesTableListHookProps,

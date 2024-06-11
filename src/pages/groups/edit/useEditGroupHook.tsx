@@ -8,7 +8,7 @@ import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesH
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import {groupRequest, GroupType, defaultSelectedGroup} from "../show/showGroupData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 import {
     EditGroupFormType,
     EditGroupHookType,
@@ -90,7 +90,7 @@ const useEditGroupHook = (): EditGroupHookType => {
     const isEditGroupPending: boolean = updateGroupResponse.isPending;
     const isGroupPending: boolean = groupResponse.isFetching;
 
-    const pageHeaderItems: Array<BreadcrumbItemsType> = [{path: mainRoutes.groups.path, label: 'Groupes'}];
+    const pageHeaderItems: Array<any> = [{path: mainRoutes.groups.path, label: 'Groupes'}];
     if(groupResponseData.id) {
         pageHeaderItems.push({
             path: `${mainRoutes.groups.path}/${groupResponseData.id}`,

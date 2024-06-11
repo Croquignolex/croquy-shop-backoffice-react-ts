@@ -5,7 +5,7 @@ import {Box, Stack, Table, Tbody, ButtonGroup, Badge, SimpleGrid} from "@chakra-
 import useShowCouponHook from "./useShowCouponHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
 import CustomAlert from "../../../components/alert/CustomAlert";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import StatusBadge from "../../../components/StatusBadge";
 import {stringDateFormat} from "../../../helpers/generalHelpers";
@@ -35,10 +35,10 @@ const ShowCouponPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
+            {/*<PageHeader
                 title={`Détail coupon ${couponResponseData.code}`}
                 items={[{path: mainRoutes.coupons.path, label: 'Coupons'}]}
-            />
+            />*/}
             <Stack>
                 <CustomAlert data={couponAlertData} />
                 {couponAlertData.show ? <NotFoundPage /> : (

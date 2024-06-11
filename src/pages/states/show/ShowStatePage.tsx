@@ -13,7 +13,7 @@ import {
 import useShowStateHook from "./useShowStateHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
 import CustomAlert from "../../../components/alert/CustomAlert";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import StatusBadge from "../../../components/StatusBadge";
 import {stringDateFormat} from "../../../helpers/generalHelpers";
@@ -43,10 +43,10 @@ const ShowStatePage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
-                title={`Détail ville ${stateResponseData.name}`}
-                items={[{path: mainRoutes.states.path, label: 'Villes'}]}
-            />
+            {/*<PageHeader*/}
+            {/*    title={`Détail ville ${stateResponseData.name}`}*/}
+            {/*    items={[{path: mainRoutes.states.path, label: 'Villes'}]}*/}
+            {/*/>*/}
             <Stack>
                 <CustomAlert data={stateAlertData} />
                 {stateAlertData.show ? <NotFoundPage /> : (

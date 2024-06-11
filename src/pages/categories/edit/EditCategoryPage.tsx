@@ -7,7 +7,7 @@ import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditCategoryHook from "./useEditCategoryHook";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {EditCategoryFormType, EditCategoryHookType, editCategorySchema} from "./editCategoryData";
 import NotFoundPage from "../../NotFoundPage";
 import SelectField from "../../../components/form/SelectField";
@@ -36,10 +36,10 @@ const EditCategoryPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
+            {/*<PageHeader
                 title={`Modifier catégorie ${categoryResponseData.name}`}
                 items={pageHeaderItems}
-            />
+            />*/}
             <Container maxW={'3xl'}>
                 <CustomAlert data={categoryAlertData} />
                 <CustomAlert data={editCategoryAlertData} />

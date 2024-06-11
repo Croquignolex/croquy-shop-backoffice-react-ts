@@ -4,14 +4,14 @@ import {Link} from "react-router-dom";
 import {FiPlusSquare} from "react-icons/fi";
 
 import {mainRoutes} from "../../routes/mainRoutes";
-import PageHeader from "../../components/menu/PageHeader";
+import PageHeader from "../../components/PageHeader";
 import {groupsApiURI} from "../../constants/apiURIConstants";
 import GroupsTableList from "../../components/tableList/groups/GroupsTableList";
 
 const GroupsPage = (): ReactElement => {
     return (
         <>
-            <PageHeader title={mainRoutes.groups.title} icon={mainRoutes.groups.icon} />
+            {/*<PageHeader title={mainRoutes.groups.title} icon={mainRoutes.groups.icon} />*/}
             <GroupsTableList
                 fetchGroups
                 showCreator

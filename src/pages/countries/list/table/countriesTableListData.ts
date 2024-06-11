@@ -1,7 +1,7 @@
-import {ErrorAlertType, URLParamType} from "../../../helpers/globalTypesHelper";
-import {CountryType} from "../../../pages/countries/show/showCountryData";
-import {v1URL} from "../../../helpers/apiRequestsHelpers";
-import {getRequest} from "../../../helpers/axiosHelpers";
+import {ErrorAlertType, URLParamType} from "../../../../helpers/globalTypesHelper";
+import {CountryType} from "../../show/showCountryData";
+import {v1URL} from "../../../../helpers/apiRequestsHelpers";
+import {getRequest} from "../../../../helpers/axiosHelpers";
 
 export const defaultCountriesResponseData: CountriesResponseDataType = {
     content: [],

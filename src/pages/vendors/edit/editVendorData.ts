@@ -6,7 +6,7 @@ import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {vendorsApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
 import {VendorType} from "../show/showVendorData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 
 export const editVendorInitialStaticValues: EditVendorFormType = { name: '', description: '' };
 
@@ -30,7 +30,7 @@ export interface EditVendorHookType {
     isVendorPending: boolean,
     vendorAlertData: ErrorAlertType,
     formVendor: EditVendorFormType,
-    pageHeaderItems: Array<BreadcrumbItemsType>,
+    pageHeaderItems: Array<any>,
     vendorResponseData: VendorType,
     handleEditVendor: (a: EditVendorFormType) => void,
 }

@@ -6,7 +6,7 @@ import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {brandsApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
 import {BrandType} from "../show/showBrandData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 
 export const editBrandInitialStaticValues: EditBrandFormType = {
     name: '',
@@ -45,7 +45,7 @@ export interface EditBrandHookType {
     isBrandPending: boolean,
     brandAlertData: ErrorAlertType,
     formBrand: EditBrandFormType,
-    pageHeaderItems: Array<BreadcrumbItemsType>,
+    pageHeaderItems: Array<any>,
     brandResponseData: BrandType,
     handleEditBrand: (a: EditBrandFormType) => void,
 }

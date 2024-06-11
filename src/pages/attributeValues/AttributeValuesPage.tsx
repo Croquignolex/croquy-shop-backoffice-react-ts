@@ -4,14 +4,14 @@ import {Link} from "react-router-dom";
 import {FiPlusSquare} from "react-icons/fi";
 
 import {mainRoutes} from "../../routes/mainRoutes";
-import PageHeader from "../../components/menu/PageHeader";
+import PageHeader from "../../components/PageHeader";
 import {attributeValuesApiURI} from "../../constants/apiURIConstants";
 import AttributeValuesTableList from "../../components/tableList/attributeValues/AttributeValuesTableList";
 
 const AttributeValuesPage = (): ReactElement => {
     return (
         <>
-            <PageHeader title={mainRoutes.attributeValues.title} icon={mainRoutes.attributeValues.icon} />
+            {/*<PageHeader title={mainRoutes.attributeValues.title} icon={mainRoutes.attributeValues.icon} />*/}
             <AttributeValuesTableList
                 fetchAttributeValues
                 showCreator

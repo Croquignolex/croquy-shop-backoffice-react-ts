@@ -4,14 +4,14 @@ import {Link} from "react-router-dom";
 import {FiPlusSquare} from "react-icons/fi";
 
 import {mainRoutes} from "../../routes/mainRoutes";
-import PageHeader from "../../components/menu/PageHeader";
+import PageHeader from "../../components/PageHeader";
 import {couponsApiURI} from "../../constants/apiURIConstants";
 import CouponsTableList from "../../components/tableList/coupons/CouponsTableList";
 
 const CouponsPage = (): ReactElement => {
     return (
         <>
-            <PageHeader title={mainRoutes.coupons.title} icon={mainRoutes.coupons.icon} />
+            {/*<PageHeader title={mainRoutes.coupons.title} icon={mainRoutes.coupons.icon} />*/}
             <CouponsTableList
                 fetchCoupons
                 showCreator

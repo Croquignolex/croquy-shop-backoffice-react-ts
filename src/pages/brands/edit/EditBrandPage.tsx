@@ -7,7 +7,7 @@ import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditBrandHook from "./useEditBrandHook";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {EditBrandFormType, EditBrandHookType, editBrandSchema} from "./editBrandData";
 import NotFoundPage from "../../NotFoundPage";
 
@@ -25,10 +25,10 @@ const EditBrandPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
+            {/*<PageHeader
                 title={`Modifier marque ${brandResponseData.name}`}
                 items={pageHeaderItems}
-            />
+            />*/}
             <Container maxW={'3xl'}>
                 <CustomAlert data={brandAlertData} />
                 <CustomAlert data={editBrandAlertData} />

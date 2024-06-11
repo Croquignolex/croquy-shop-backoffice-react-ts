@@ -7,7 +7,7 @@ import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditGroupHook from "./useEditGroupHook";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {EditGroupFormType, EditGroupHookType, editGroupSchema} from "./editGroupData";
 import NotFoundPage from "../../NotFoundPage";
 
@@ -25,10 +25,10 @@ const EditGroupPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
-                title={`Modifier groupe ${groupResponseData.name}`}
-                items={pageHeaderItems}
-            />
+            {/*<PageHeader*/}
+            {/*    title={`Modifier groupe ${groupResponseData.name}`}*/}
+            {/*    items={pageHeaderItems}*/}
+            {/*/>*/}
             <Container maxW={'3xl'}>
                 <CustomAlert data={groupAlertData} />
                 <CustomAlert data={editGroupAlertData} />

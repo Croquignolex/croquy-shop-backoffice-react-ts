@@ -8,7 +8,7 @@ import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesH
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import {shopRequest, ShopType, defaultSelectedShop} from "../show/showShopData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 import {
     EditShopFormType,
     EditShopHookType,
@@ -88,7 +88,7 @@ const useEditShopHook = (): EditShopHookType => {
     const isEditShopPending: boolean = updateShopResponse.isPending;
     const isShopPending: boolean = shopResponse.isFetching;
 
-    const pageHeaderItems: Array<BreadcrumbItemsType> = [{path: mainRoutes.shops.path, label: 'Boutiques'}];
+    const pageHeaderItems: Array<any> = [{path: mainRoutes.shops.path, label: 'Boutiques'}];
     if(shopResponseData.id) {
         pageHeaderItems.push({
             path: `${mainRoutes.shops.path}/${shopResponseData.id}`,

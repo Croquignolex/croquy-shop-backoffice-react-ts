@@ -7,7 +7,7 @@ import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditCountryHook from "./useEditCountryHook";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {EditCountryFormType, EditCountryHookType, editCountrySchema} from "./editCountryData";
 import NotFoundPage from "../../NotFoundPage";
 
@@ -25,10 +25,10 @@ const EditCountryPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
-                title={`Modifier pays ${countryResponseData.name}`}
-                items={pageHeaderItems}
-            />
+            {/*<PageHeader*/}
+            {/*    title={`Modifier pays ${countryResponseData.name}`}*/}
+            {/*    items={pageHeaderItems}*/}
+            {/*/>*/}
             <Container maxW={'3xl'}>
                 <CustomAlert data={countryAlertData} />
                 <CustomAlert data={editCountryAlertData} />

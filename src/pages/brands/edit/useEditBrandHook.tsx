@@ -8,7 +8,7 @@ import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesH
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import {brandRequest, BrandType, defaultSelectedBrand} from "../show/showBrandData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 import {
     EditBrandFormType,
     EditBrandHookType,
@@ -90,7 +90,7 @@ const useEditBrandHook = (): EditBrandHookType => {
     const isEditBrandPending: boolean = updateBrandResponse.isPending;
     const isBrandPending: boolean = brandResponse.isFetching;
 
-    const pageHeaderItems: Array<BreadcrumbItemsType> = [{path: mainRoutes.brands.path, label: 'Marques'}];
+    const pageHeaderItems: Array<any> = [{path: mainRoutes.brands.path, label: 'Marques'}];
     if(brandResponseData.id) {
         pageHeaderItems.push({
             path: `${mainRoutes.brands.path}/${brandResponseData.id}`,

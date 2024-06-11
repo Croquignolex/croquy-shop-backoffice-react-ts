@@ -13,7 +13,7 @@ import {
 import useShowVendorHook from "./useShowVendorHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
 import CustomAlert from "../../../components/alert/CustomAlert";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import StatusBadge from "../../../components/StatusBadge";
 import {stringDateFormat} from "../../../helpers/generalHelpers";
@@ -53,10 +53,10 @@ const ShowVendorPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
-                title={`Détail fournisseur ${vendorResponseData.name}`}
-                items={[{path: mainRoutes.vendors.path, label: 'Fournisseurs'}]}
-            />
+            {/*<PageHeader*/}
+            {/*    title={`Détail fournisseur ${vendorResponseData.name}`}*/}
+            {/*    items={[{path: mainRoutes.vendors.path, label: 'Fournisseurs'}]}*/}
+            {/*/>*/}
             <Stack>
                 <CustomAlert data={vendorAlertData} />
                 {vendorAlertData.show ? <NotFoundPage /> : (

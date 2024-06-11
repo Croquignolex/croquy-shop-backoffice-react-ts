@@ -6,7 +6,7 @@ import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {couponsApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
 import {CouponType} from "../show/showCouponData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 import dayjs from "dayjs";
 
 export const editCouponInitialStaticValues: EditCouponFormType = {
@@ -68,7 +68,7 @@ export interface EditCouponHookType {
     isCouponPending: boolean,
     couponAlertData: ErrorAlertType,
     formCoupon: EditCouponFormType,
-    pageHeaderItems: Array<BreadcrumbItemsType>,
+    pageHeaderItems: Array<any>,
     couponResponseData: CouponType,
     handleEditCoupon: (a: EditCouponFormType) => void,
 }

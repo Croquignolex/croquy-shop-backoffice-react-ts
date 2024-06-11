@@ -6,7 +6,7 @@ import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {groupsApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
 import {GroupType} from "../show/showGroupData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 
 export const editGroupInitialStaticValues: EditGroupFormType = {
     name: '',
@@ -42,7 +42,7 @@ export interface EditGroupHookType {
     isGroupPending: boolean,
     groupAlertData: ErrorAlertType,
     formGroup: EditGroupFormType,
-    pageHeaderItems: Array<BreadcrumbItemsType>,
+    pageHeaderItems: Array<any>,
     groupResponseData: GroupType,
     handleEditGroup: (a: EditGroupFormType) => void,
 }

@@ -6,7 +6,7 @@ import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {statesApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
 import {StateType} from "../show/showStateData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 
 export const editStateInitialStaticValues: EditStateFormType = { name: "", countryId: "", description: "" };
 
@@ -32,7 +32,7 @@ export interface EditStateHookType {
     isStatePending: boolean,
     stateAlertData: ErrorAlertType,
     formState: EditStateFormType,
-    pageHeaderItems: Array<BreadcrumbItemsType>,
+    pageHeaderItems: Array<any>,
     stateResponseData: StateType,
     handleEditState: (a: EditStateFormType) => void,
 }

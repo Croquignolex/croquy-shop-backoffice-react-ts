@@ -4,14 +4,14 @@ import {Link} from "react-router-dom";
 import {FiPlusSquare} from "react-icons/fi";
 
 import {mainRoutes} from "../../routes/mainRoutes";
-import PageHeader from "../../components/menu/PageHeader";
+import PageHeader from "../../components/PageHeader";
 import {categoriesApiURI} from "../../constants/apiURIConstants";
 import CategoriesTableList from "../../components/tableList/categories/CategoriesTableList";
 
 const CategoriesPage = (): ReactElement => {
     return (
         <>
-            <PageHeader title={mainRoutes.categories.title} icon={mainRoutes.categories.icon} />
+            {/*<PageHeader title={mainRoutes.categories.title} icon={mainRoutes.categories.icon} />*/}
             <CategoriesTableList
                 fetchCategories
                 showGroup

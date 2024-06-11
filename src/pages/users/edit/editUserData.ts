@@ -6,7 +6,7 @@ import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {usersApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
 import {UserType} from "../show/showUserData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 
 export const editUserInitialStaticValues: EditUserFormType = {
     role: '',
@@ -47,7 +47,7 @@ export interface EditUserHookType {
     isUserPending: boolean,
     userAlertData: ErrorAlertType,
     formUser: EditUserFormType,
-    pageHeaderItems: Array<BreadcrumbItemsType>,
+    pageHeaderItems: Array<any>,
     userResponseData: UserType,
     handleEditUser: (a: EditUserFormType) => void,
 }

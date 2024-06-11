@@ -7,7 +7,7 @@ import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditAttributeValueHook from "./useEditAttributeValueHook";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {EditAttributeValueFormType, EditAttributeValueHookType, editAttributeValueSchema} from "./editAttributeValueData";
 import NotFoundPage from "../../NotFoundPage";
 
@@ -25,10 +25,10 @@ const EditAttributeValuePage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
+            {/*<PageHeader
                 title={`Modifier marque ${attributeValueResponseData.name}`}
                 items={pageHeaderItems}
-            />
+            />*/}
             <Container maxW={'3xl'}>
                 <CustomAlert data={attributeValueAlertData} />
                 <CustomAlert data={editAttributeValueAlertData} />

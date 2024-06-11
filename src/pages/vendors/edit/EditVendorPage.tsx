@@ -7,7 +7,7 @@ import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditVendorHook from "./useEditVendorHook";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {EditVendorFormType, EditVendorHookType, editVendorSchema} from "./editVendorData";
 import NotFoundPage from "../../NotFoundPage";
 
@@ -25,10 +25,10 @@ const EditVendorPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
-                title={`Modifier fournisseur ${vendorResponseData.name}`}
-                items={pageHeaderItems}
-            />
+            {/*<PageHeader*/}
+            {/*    title={`Modifier fournisseur ${vendorResponseData.name}`}*/}
+            {/*    items={pageHeaderItems}*/}
+            {/*/>*/}
             <Container maxW={'3xl'}>
                 <CustomAlert data={vendorAlertData} />
                 <CustomAlert data={editVendorAlertData} />

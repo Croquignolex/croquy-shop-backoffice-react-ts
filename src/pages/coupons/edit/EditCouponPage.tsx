@@ -7,7 +7,7 @@ import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditCouponHook from "./useEditCouponHook";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {EditCouponFormType, EditCouponHookType, editCouponSchema} from "./editCouponData";
 import NotFoundPage from "../../NotFoundPage";
 import NumberField from "../../../components/form/NumerField";
@@ -27,10 +27,10 @@ const EditCouponPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
-                title={`Modifier coupon ${couponResponseData.code}`}
-                items={pageHeaderItems}
-            />
+            {/*<PageHeader*/}
+            {/*    title={`Modifier coupon ${couponResponseData.code}`}*/}
+            {/*    items={pageHeaderItems}*/}
+            {/*/>*/}
             <Container maxW={'3xl'}>
                 <CustomAlert data={couponAlertData} />
                 <CustomAlert data={editCouponAlertData} />

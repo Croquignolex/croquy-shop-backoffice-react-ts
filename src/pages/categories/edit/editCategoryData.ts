@@ -6,7 +6,7 @@ import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {categoriesApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
 import {CategoryType} from "../show/showCategoryData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 
 export const editCategoryInitialStaticValues: EditCategoryFormType = {
     name: '',
@@ -45,7 +45,7 @@ export interface EditCategoryHookType {
     isCategoryPending: boolean,
     categoryAlertData: ErrorAlertType,
     formCategory: EditCategoryFormType,
-    pageHeaderItems: Array<BreadcrumbItemsType>,
+    pageHeaderItems: Array<any>,
     categoryResponseData: CategoryType,
     handleEditCategory: (a: EditCategoryFormType) => void,
 }

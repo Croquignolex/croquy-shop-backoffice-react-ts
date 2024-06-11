@@ -8,7 +8,7 @@ import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesH
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import {userRequest, UserType, defaultSelectedUser} from "../show/showUserData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 import {
     EditUserFormType,
     EditUserHookType,
@@ -90,7 +90,7 @@ const useEditUserHook = (): EditUserHookType => {
     const isEditUserPending: boolean = updateUserResponse.isPending;
     const isUserPending: boolean = userResponse.isFetching;
 
-    const pageHeaderItems: Array<BreadcrumbItemsType> = [{path: mainRoutes.users.path, label: 'Utilisateurs'}];
+    const pageHeaderItems: Array<any> = [{path: mainRoutes.users.path, label: 'Utilisateurs'}];
     if(userResponseData.id) {
         pageHeaderItems.push({
             path: `${mainRoutes.users.path}/${userResponseData.id}`,

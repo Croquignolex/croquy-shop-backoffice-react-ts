@@ -6,7 +6,7 @@ import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {shopsApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
 import {ShopType} from "../show/showShopData";
-import {BreadcrumbItemsType} from "../../../components/menu/PageBreadcrumb";
+// import {BreadcrumbItemsType} from "../../../components/PageHeader";
 
 export const editShopInitialStaticValues: EditShopFormType = { name: '', slug: '', description: '' };
 
@@ -34,7 +34,7 @@ export interface EditShopHookType {
     isShopPending: boolean,
     shopAlertData: ErrorAlertType,
     formShop: EditShopFormType,
-    pageHeaderItems: Array<BreadcrumbItemsType>,
+    pageHeaderItems: Array<any>,
     shopResponseData: ShopType,
     handleEditShop: (a: EditShopFormType) => void,
 }

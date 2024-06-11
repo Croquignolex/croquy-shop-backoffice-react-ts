@@ -1,6 +1,7 @@
-import React, {FC, ReactElement, useContext} from "react";
-import {FiLogOut, FiChevronDown} from "react-icons/fi";
+import React, {FC, ReactElement, useContext, useRef} from "react";
+import {FiLogOut, FiChevronDown, FiX, FiMenu} from "react-icons/fi";
 import {useTranslation} from "react-i18next";
+import {IconType} from "react-icons";
 import {Link, NavigateFunction, NavLink, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {
     Box,
@@ -17,6 +18,14 @@ import {
     Heading,
     MenuDivider,
     Button,
+    IconButton,
+    DrawerCloseButton,
+    Drawer,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerHeader,
+    DrawerBody,
+    DrawerFooter,
 } from "@chakra-ui/react";
 
 import Footer from "../components/Footer";
@@ -31,10 +40,10 @@ import {API_MEDIA_V1_URL} from "../helpers/apiRequestsHelpers";
 
 const MainLayout: FC = (): ReactElement => {
     return (
-        <Box bg="gray.50">
+        <Box>
             <Header />
 
-            <Box mt="10vh" mb="7vh" zIndex={1}>
+            <Box mt={{base: "flex", md: "8vh"}} zIndex={1} w="full" px={6}>
                 <Outlet />
             </Box>
 
@@ -44,41 +53,24 @@ const MainLayout: FC = (): ReactElement => {
 };
 
 const Header: FC = (): ReactElement => {
-    const {isOpen, onOpen, onClose} = useDisclosure();
-
     return (
-        <Box
-            w="full"
-            borderBottomWidth="1px"
-            position="fixed"
-            top={0}
-            zIndex={2}
-            bg="white"
-        >
+        <Box w="full" borderBottomWidth="1px" position="fixed" top={0} zIndex={2} bg="white">
             <Flex h="8vh" alignItems={"center"} justifyContent={"space-between"} borderBottomWidth={1} px={6}>
-                {/*<IconButton
-                    colorScheme="purple"
-                    display={{ base: "flex", md: "none"}}
-                    onClick={isOpen ? onClose : onOpen}
-                    aria-label="open menu"
-                    icon={isOpen ? <FiX /> : <FiMenu />}
-                />*/}
-                <HStack spacing={8} alignItems={"center"}>
-                    <Box>
-                        <Heading as={Link} to="/" fontSize="2xl">
-                            {appInfo.name}
-                        </Heading>
-                    </Box>
-                </HStack>
+                <MobileMenu />
+
+                <Heading as={Link} to="/" fontSize="2xl" display={{base: "none", md: "flex"}}>
+                    {appInfo.name}
+                </Heading>
+
                 <HStack alignItems={"center"}>
                     <LocaleSwitcher />
                     <SideMenu />
                 </HStack>
             </Flex>
+
             <HStack as="nav" display={{base: "none", md: "flex"}} h="7vh" px={6} spacing={1} shadow="default">
                 <HeaderMenu />
             </HStack>
-            <MobileMenu />
         </Box>
     );
 };
@@ -96,9 +88,11 @@ const SideMenu: FC = (): ReactElement => {
 
     return (
         <Menu>
+
             <MenuButton>
                 <Avatar bg="purple.500" src={API_MEDIA_V1_URL + globalUserState.avatar?.path} w={10} h={10} />
             </MenuButton>
+
             <MenuList shadow="default" rounded="lg">
                 <MenuItem bg={"none"} as={Link} to={mainRoutes.profile.path}>
                     <Flex px={4} py={2} alignItems={"center"} w={"full"} _hover={{bg: "purple.100", rounded: "md", color: "purple.500"}}>
@@ -109,9 +103,13 @@ const SideMenu: FC = (): ReactElement => {
                         </Box>
                     </Flex>
                 </MenuItem>
+
                 <MenuDivider />
+
                 <SubMenuItem items={sideMenu} />
+
                 <MenuDivider />
+
                 <MenuItem color="red" onClick={handleLogout} _hover={{fontWeight: "bold"}} py={0} bg={"none"}>
                     <Flex px={5} py={2} alignItems={"center"} w={"full"} _hover={{bg: "purple.100", rounded: "md"}}>
                         <Icon mr="2" as={FiLogOut} fontSize={"lg"} />
@@ -119,6 +117,7 @@ const SideMenu: FC = (): ReactElement => {
                     </Flex>
                 </MenuItem>
             </MenuList>
+
         </Menu>
     );
 };
@@ -133,7 +132,7 @@ const HeaderMenu: FC = (): ReactElement => {
 
     return (
         <>
-            {headerMenu.map((menu: MainRouteType | {subMenuLabel: string, subMenuItems: Array<MainRouteType>}, index: number): ReactElement => {
+            {headerMenu.map((menu: MainRouteType | {subMenuLabel: string, subMenuIcon: IconType, subMenuItems: Array<MainRouteType>}, index: number): ReactElement => {
                 if("path" in menu) {
                     return (
                         <NavLink to={menu.path} key={index}>
@@ -155,7 +154,7 @@ const HeaderMenu: FC = (): ReactElement => {
                 }
 
                 return (
-                    <Menu>
+                    <Menu key={index}>
                         <MenuButton
                             as={Button}
                             rightIcon={<FiChevronDown />}
@@ -165,8 +164,12 @@ const HeaderMenu: FC = (): ReactElement => {
                             _active={{color: "purple.500", bg: "purple.100"}}
                             bg={hasActiveRoute(menu.subMenuItems) ? "purple.100" : ""}
                         >
-                            {t(menu.subMenuLabel)}
+                            <Flex alignItems={"center"}>
+                                <Icon mr="2" as={menu.subMenuIcon} fontSize={"lg"} />
+                                {t(menu.subMenuLabel)}
+                            </Flex>
                         </MenuButton>
+
                         <MenuList shadow="default" rounded="lg">
                             <SubMenuItem items={menu.subMenuItems} />
                         </MenuList>
@@ -178,8 +181,38 @@ const HeaderMenu: FC = (): ReactElement => {
 };
 
 const MobileMenu: FC = (): ReactElement => {
+    const {isOpen, onOpen, onClose} = useDisclosure();
+    const {t} = useTranslation();
+
     return (
-        <div>
+        <Box display={{base: "flex", md: "none"}}>
+            <IconButton
+                colorScheme="purple"
+                onClick={isOpen ? onClose : onOpen}
+                aria-label="open menu"
+                icon={isOpen ? <FiX /> : <FiMenu />}
+                border={0}
+            />
+            <Drawer
+                isOpen={isOpen}
+                onClose={onClose}
+                placement={"left"}
+            >
+                <DrawerOverlay />
+                <DrawerContent>
+                    <DrawerCloseButton />
+
+                    <DrawerHeader>
+                        <Heading as={Link} to="/" fontSize="2xl">
+                            {appInfo.name}
+                        </Heading>
+                    </DrawerHeader>
+
+                    <DrawerBody>
+                        <HeaderMenu />
+                    </DrawerBody>
+                </DrawerContent>
+            </Drawer>
             {/*{isOpen ? (
                     <Box pb={4} display={{ md: "none" }}>
                         <Stack as={"nav"} spacing={4}>
@@ -189,7 +222,7 @@ const MobileMenu: FC = (): ReactElement => {
                         </Stack>
                     </Box>
                 ) : null}*/}
-        </div>
+        </Box>
     );
 };
 

@@ -5,7 +5,7 @@ import {Badge, Box, ButtonGroup, SimpleGrid, Skeleton, Stack, Table, Tbody,} fro
 import useShowUserHook from "./useShowUserHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
 import CustomAlert from "../../../components/alert/CustomAlert";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import StatusBadge from "../../../components/StatusBadge";
 import {stringDateFormat} from "../../../helpers/generalHelpers";
@@ -32,10 +32,10 @@ const ShowUserPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
-                title={`Détail utilisateur ${userResponseData.firstName}`}
-                items={[{path: mainRoutes.users.path, label: 'Utilisateurs'}]}
-            />
+            {/*<PageHeader*/}
+            {/*    title={`Détail utilisateur ${userResponseData.firstName}`}*/}
+            {/*    items={[{path: mainRoutes.users.path, label: 'Utilisateurs'}]}*/}
+            {/*/>*/}
             <Stack>
                 <CustomAlert data={userAlertData} />
                 {userAlertData.show ? <NotFoundPage /> : (

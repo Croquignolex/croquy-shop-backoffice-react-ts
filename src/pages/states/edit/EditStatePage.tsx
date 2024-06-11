@@ -7,7 +7,7 @@ import CustomAlert from "../../../components/alert/CustomAlert";
 import useEditStateHook from "./useEditStateHook";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {EditStateFormType, EditStateHookType, editStateSchema} from "./editStateData";
 import NotFoundPage from "../../NotFoundPage";
 import SelectField from "../../../components/form/SelectField";
@@ -36,10 +36,10 @@ const EditStatePage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
-                title={`Modifier ville ${stateResponseData.name}`}
-                items={pageHeaderItems}
-            />
+            {/*<PageHeader*/}
+            {/*    title={`Modifier ville ${stateResponseData.name}`}*/}
+            {/*    items={pageHeaderItems}*/}
+            {/*/>*/}
             <Container maxW={'3xl'}>
                 <CustomAlert data={stateAlertData} />
                 <CustomAlert data={editStateAlertData} />

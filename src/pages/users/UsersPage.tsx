@@ -4,14 +4,14 @@ import {Link} from "react-router-dom";
 import {FiPlusSquare} from "react-icons/fi";
 
 import {mainRoutes} from "../../routes/mainRoutes";
-import PageHeader from "../../components/menu/PageHeader";
+import PageHeader from "../../components/PageHeader";
 import {usersApiURI} from "../../constants/apiURIConstants";
 import UsersTableList from "../../components/tableList/users/UsersTableList";
 
 const UsersPage = (): ReactElement => {
     return (
         <>
-            <PageHeader title={mainRoutes.users.title} icon={mainRoutes.users.icon} />
+            {/*<PageHeader title={mainRoutes.users.title} icon={mainRoutes.users.icon} />*/}
             <UsersTableList
                 fetchUsers
                 showCreator

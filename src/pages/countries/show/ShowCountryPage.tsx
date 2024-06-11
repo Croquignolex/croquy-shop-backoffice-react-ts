@@ -22,7 +22,7 @@ import {
 import useShowCountryHook from "./useShowCountryHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
 import CustomAlert from "../../../components/alert/CustomAlert";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import StatusBadge from "../../../components/StatusBadge";
 import {stringDateFormat} from "../../../helpers/generalHelpers";
@@ -66,10 +66,10 @@ const ShowCountryPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
+            {/*<PageHeader
                 title={`Détail pays ${countryResponseData.name}`}
                 items={[{path: mainRoutes.countries.path, label: 'Pays'}]}
-            />
+            />*/}
             <Stack>
                 <CustomAlert data={countryAlertData} />
                 {countryAlertData.show ? <NotFoundPage /> : (

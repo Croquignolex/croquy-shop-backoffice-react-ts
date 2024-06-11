@@ -5,7 +5,7 @@ import {Badge, Box, ButtonGroup, SimpleGrid, Stack, Table, Tbody,} from "@chakra
 import useShowBrandHook from "./useShowBrandHook";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
 import CustomAlert from "../../../components/alert/CustomAlert";
-import PageHeader from "../../../components/menu/PageHeader";
+import PageHeader from "../../../components/PageHeader";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import StatusBadge from "../../../components/StatusBadge";
 import {stringDateFormat} from "../../../helpers/generalHelpers";
@@ -43,10 +43,10 @@ const ShowBrandPage = (): ReactElement => {
 
     return (
         <>
-            <PageHeader
+            {/*<PageHeader
                 title={`Détail marque ${brandResponseData.name}`}
                 items={[{path: mainRoutes.brands.path, label: 'Marques'}]}
-            />
+            />*/}
             <Stack>
                 <CustomAlert data={brandAlertData} />
                 {brandAlertData.show ? <NotFoundPage /> : (

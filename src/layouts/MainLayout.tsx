@@ -1,11 +1,11 @@
 import React, {FC, ReactElement, useContext} from "react";
-import {FiX, FiMenu, FiUser, FiLogOut, FiPieChart, FiArrowDown, FiChevronDown} from "react-icons/fi";
-import {Link, NavigateFunction, NavLink, Outlet, useNavigate} from "react-router-dom";
+import {FiLogOut, FiChevronDown} from "react-icons/fi";
+import {useTranslation} from "react-i18next";
+import {Link, NavigateFunction, NavLink, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {
     Box,
     Flex,
     HStack,
-    IconButton,
     useDisclosure,
     Text,
     Icon,
@@ -13,7 +13,10 @@ import {
     MenuButton,
     Avatar,
     MenuList,
-    MenuItem, Heading, Image, MenuDivider, Button,
+    MenuItem,
+    Heading,
+    MenuDivider,
+    Button,
 } from "@chakra-ui/react";
 
 import Footer from "../components/Footer";
@@ -22,14 +25,9 @@ import {headerMenu, mainRoutes, MainRouteType, sideMenu} from "../routes/mainRou
 import {USER_GLOBAL_STATE_CLEAR_DATA, UserContext} from "../contexts/UserContext";
 import {removeAllLocaleStorageItems} from "../helpers/localStorageHelpers";
 import {authRoutes} from "../routes/authRoutes";
-import {ImageSizeEnumType, MenuItemType} from "../helpers/globalTypesHelper";
 import {roleEnumConverter} from "../helpers/enumsHelpers";
 import LocaleSwitcher from "../components/LocaleSwitcher";
-import ImageDisplay from "../components/ImageDisplay";
-import noImage from "../assets/img/no-image.jpg";
 import {API_MEDIA_V1_URL} from "../helpers/apiRequestsHelpers";
-import {useTranslation} from "react-i18next";
-import {isDataView} from "node:util/types";
 
 const MainLayout: FC = (): ReactElement => {
     return (
@@ -77,7 +75,9 @@ const Header: FC = (): ReactElement => {
                     <SideMenu />
                 </HStack>
             </Flex>
-            <HeaderMenu />
+            <HStack as="nav" display={{base: "none", md: "flex"}} h="7vh" px={6} spacing={1} shadow="default">
+                <HeaderMenu />
+            </HStack>
             <MobileMenu />
         </Box>
     );
@@ -97,7 +97,7 @@ const SideMenu: FC = (): ReactElement => {
     return (
         <Menu>
             <MenuButton>
-                <Avatar bg="purple.500" src={API_MEDIA_V1_URL + globalUserState.avatar?.path} />
+                <Avatar bg="purple.500" src={API_MEDIA_V1_URL + globalUserState.avatar?.path} w={10} h={10} />
             </MenuButton>
             <MenuList shadow="default" rounded="lg">
                 <MenuItem bg={"none"} as={Link} to={mainRoutes.profile.path}>
@@ -113,7 +113,7 @@ const SideMenu: FC = (): ReactElement => {
                 <SubMenuItem items={sideMenu} />
                 <MenuDivider />
                 <MenuItem color="red" onClick={handleLogout} _hover={{fontWeight: "bold"}} py={0} bg={"none"}>
-                    <Flex px={4} py={2} alignItems={"center"} w={"full"} _hover={{bg: "purple.100", rounded: "md"}}>
+                    <Flex px={5} py={2} alignItems={"center"} w={"full"} _hover={{bg: "purple.100", rounded: "md"}}>
                         <Icon mr="2" as={FiLogOut} fontSize={"lg"} />
                         {t("logout")}
                     </Flex>
@@ -125,15 +125,25 @@ const SideMenu: FC = (): ReactElement => {
 
 const HeaderMenu: FC = (): ReactElement => {
     const {t} = useTranslation();
+    const {pathname} = useLocation();
+
+    const hasActiveRoute = (routes: Array<MainRouteType>) => {
+        return routes.find((route: MainRouteType): boolean => route.path === pathname);
+    }
 
     return (
-        <HStack as="nav" display={{base: "none", md: "flex"}} h="6vh" px={6} spacing={1}>
+        <>
             {headerMenu.map((menu: MainRouteType | {subMenuLabel: string, subMenuItems: Array<MainRouteType>}, index: number): ReactElement => {
                 if("path" in menu) {
                     return (
                         <NavLink to={menu.path} key={index}>
                             {(props: any) => (
-                                <Button variant={"none"} _hover={{bg: "purple.100", color: "purple.500"}} color={props?.isActive ? "purple.500" : ""}>
+                                <Button
+                                    variant={"none"}
+                                    _hover={{bg: props?.isActive ? "purple.100" : "gray.100", color: "purple.500"}}
+                                    color={props?.isActive ? "purple.500" : ""}
+                                    bg={props?.isActive ? "purple.100" : ""}
+                                >
                                     <Flex alignItems={"center"}>
                                         <Icon mr="2" as={menu.icon} fontSize={"lg"} />
                                         {t(menu.title || "")}
@@ -146,7 +156,15 @@ const HeaderMenu: FC = (): ReactElement => {
 
                 return (
                     <Menu>
-                        <MenuButton as={Button} rightIcon={<FiChevronDown />} variant={"none"} _hover={{bg: "purple.100", color: "purple.500"}}>
+                        <MenuButton
+                            as={Button}
+                            rightIcon={<FiChevronDown />}
+                            border={0}
+                            color={hasActiveRoute(menu.subMenuItems) ? "purple.500" : "gray.600"}
+                            _hover={{bg: hasActiveRoute(menu.subMenuItems) ? "purple.100" : "gray.100", color: "purple.500"}}
+                            _active={{color: "purple.500", bg: "purple.100"}}
+                            bg={hasActiveRoute(menu.subMenuItems) ? "purple.100" : ""}
+                        >
                             {t(menu.subMenuLabel)}
                         </MenuButton>
                         <MenuList shadow="default" rounded="lg">
@@ -155,7 +173,7 @@ const HeaderMenu: FC = (): ReactElement => {
                     </Menu>
                 )
             })}
-        </HStack>
+        </>
     );
 };
 

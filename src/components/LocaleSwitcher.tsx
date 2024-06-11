@@ -11,7 +11,16 @@ const LocaleSwitcher: FC = () => {
 
     return (
         <Menu>
-            <MenuButton as={Button} rightIcon={<FiChevronDown />} leftIcon={<IconLanguage />} w={150} border={0}>
+            <MenuButton
+                as={Button}
+                rightIcon={<FiChevronDown />}
+                leftIcon={<IconLanguage />}
+                w={150}
+                border={0}
+                color={"gray.600"}
+                _hover={{color: "purple.500", bg: "gray.100"}}
+                _active={{color: "purple.500", bg: "purple.100"}}
+            >
                 {supportedLanguages.find((lang): boolean => lang.code === i18n.resolvedLanguage)?.label}
             </MenuButton>
             <MenuList shadow="default" rounded="lg" minW={150}>
@@ -22,7 +31,8 @@ const LocaleSwitcher: FC = () => {
                             onClick={() => i18n.changeLanguage(code)}
                             key={index}
                             bg="none"
-                            _hover={{fontWeight: (i18n.resolvedLanguage === code) ? "" : "bold"}}
+                            _hover={{color: "purple.500"}}
+                            color={(i18n.resolvedLanguage === code) ? "purple.500" : ""}
                         >
                             {label}
                         </MenuItemOption>

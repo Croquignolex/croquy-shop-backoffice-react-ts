@@ -87,8 +87,8 @@ export interface MainRouteType {
 
 export const headerMenu = [
     dashboard,
-    {subMenuLabel: "administration", subMenuItems: [users, shops]},
-    {subMenuLabel: "settings", subMenuItems: [countries, states]},
+    // {subMenuLabel: "administration", subMenuItems: [users, shops]},
+    // {subMenuLabel: "settings", subMenuItems: [countries, states]},
 ];
 
 export const sideMenu = [

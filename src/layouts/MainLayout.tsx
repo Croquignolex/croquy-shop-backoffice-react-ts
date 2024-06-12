@@ -1,4 +1,4 @@
-import React, {FC, ReactElement, useContext, useRef} from "react";
+import React, {FC, ReactElement, useContext} from "react";
 import {FiLogOut, FiChevronDown, FiX, FiMenu} from "react-icons/fi";
 import {useTranslation} from "react-i18next";
 import {IconType} from "react-icons";
@@ -25,7 +25,12 @@ import {
     DrawerContent,
     DrawerHeader,
     DrawerBody,
-    DrawerFooter,
+    Stack,
+    Accordion,
+    AccordionItem,
+    AccordionIcon,
+    AccordionPanel,
+    AccordionButton,
 } from "@chakra-ui/react";
 
 import Footer from "../components/Footer";
@@ -43,7 +48,7 @@ const MainLayout: FC = (): ReactElement => {
         <Box>
             <Header />
 
-            <Box mt={{base: "flex", md: "8vh"}} zIndex={1} w="full" px={6}>
+            <Box mt={{base: "8vh", md: "15vh"}} zIndex={1} w="full" px={6}>
                 <Outlet />
             </Box>
 
@@ -183,6 +188,11 @@ const HeaderMenu: FC = (): ReactElement => {
 const MobileMenu: FC = (): ReactElement => {
     const {isOpen, onOpen, onClose} = useDisclosure();
     const {t} = useTranslation();
+    const {pathname} = useLocation();
+
+    const hasActiveRoute = (routes: Array<MainRouteType>) => {
+        return routes.find((route: MainRouteType): boolean => route.path === pathname);
+    }
 
     return (
         <Box display={{base: "flex", md: "none"}}>
@@ -208,20 +218,79 @@ const MobileMenu: FC = (): ReactElement => {
                         </Heading>
                     </DrawerHeader>
 
-                    <DrawerBody>
-                        <HeaderMenu />
+                    <DrawerBody as={Stack} spacing={2}>
+                        <Accordion allowToggle>
+                            {headerMenu.map((menu: MainRouteType | {subMenuLabel: string, subMenuIcon: IconType, subMenuItems: Array<MainRouteType>}, index: number): ReactElement => {
+                                if("path" in menu) {
+                                    return (
+                                        <AccordionItem border={0}>
+                                            <NavLink to={menu.path} key={index}>
+                                                {(props: any) => (
+                                                    <h2>
+                                                        <AccordionButton
+                                                            _hover={{bg: props?.isActive ? "purple.100" : "gray.100", color: "purple.500"}}
+                                                            color={props?.isActive ? "purple.500" : ""}
+                                                            bg={props?.isActive ? "purple.100" : ""}
+                                                            rounded={"md"}
+                                                        >
+                                                        <Flex alignItems={"center"}>
+                                                            <Icon mr="2" as={menu.icon} fontSize={"lg"} />
+                                                            {t(menu.title || "")}
+                                                        </Flex>
+                                                        </AccordionButton>
+                                                    </h2>
+                                                )}
+                                            </NavLink>
+                                        </AccordionItem>
+                                    );
+                                }
+
+                                return (
+                                    <AccordionItem border={0}>
+                                        <h2>
+                                            <AccordionButton
+                                                color={hasActiveRoute(menu.subMenuItems) ? "purple.500" : "gray.600"}
+                                                _hover={{bg: hasActiveRoute(menu.subMenuItems) ? "purple.100" : "gray.100", color: "purple.500"}}
+                                                bg={hasActiveRoute(menu.subMenuItems) ? "purple.100" : ""}
+                                                _expanded={{color: "purple.500", bg: "purple.100"}}
+                                                rounded={"md"}
+                                                as={HStack}
+                                                justifyContent={"space-between"}
+                                            >
+                                                <Flex alignItems={"center"}>
+                                                    <Icon mr="2" as={menu.subMenuIcon} fontSize={"lg"} />
+                                                    {t(menu.subMenuLabel)}
+                                                </Flex>
+                                                <AccordionIcon />
+                                            </AccordionButton>
+                                        </h2>
+                                        <AccordionPanel as={Stack} spacing={2}>
+                                            {menu.subMenuItems.map((route: MainRouteType, index: number): ReactElement => (
+                                                <NavLink to={route.path} key={index}>
+                                                    {(props: any) => (
+                                                        <Box
+                                                            key={index}
+                                                            _hover={{color: "purple.500"}}
+                                                            py={0}
+                                                            bg={"none"}
+                                                            color={props?.isActive ? "purple.500" : ""}
+                                                        >
+                                                            <Flex px={4} py={2} alignItems={"center"} w={"full"}>
+                                                                <Icon mr="2" as={route.icon} fontSize={"lg"} />
+                                                                {t(route.title || "")}
+                                                            </Flex>
+                                                        </Box>
+                                                    )}
+                                                </NavLink>
+                                            ))}
+                                        </AccordionPanel>
+                                    </AccordionItem>
+                                );
+                            })}
+                        </Accordion>
                     </DrawerBody>
                 </DrawerContent>
             </Drawer>
-            {/*{isOpen ? (
-                    <Box pb={4} display={{ md: "none" }}>
-                        <Stack as={"nav"} spacing={4}>
-                            {Links.map((link) => (
-                                <NavLink key={link}>{link}</NavLink>
-                            ))}
-                        </Stack>
-                    </Box>
-                ) : null}*/}
         </Box>
     );
 };

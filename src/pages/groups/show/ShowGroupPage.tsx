@@ -212,7 +212,7 @@ const ShowGroupPage = (): ReactElement => {
                             Supprimer le groupe <strong>{groupResponseData.name}</strong>?
                         </ConfirmAlertDialog>
                         <ConfirmAlertDialog
-                            colorScheme={groupResponseData.enabled ? "orange" : "green"}
+                            // colorScheme={groupResponseData.enabled ? "orange" : "green"}
                             handleConfirm={handleToggleGroup}
                             isOpen={isToggleModalOpen}
                             onClose={onToggleModalClose}

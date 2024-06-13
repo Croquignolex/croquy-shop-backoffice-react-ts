@@ -113,7 +113,7 @@ const ShowStatePage = (): ReactElement => {
                             Supprimer la ville <strong>{stateResponseData.name}</strong>?
                         </ConfirmAlertDialog>
                         <ConfirmAlertDialog
-                            colorScheme={stateResponseData.enabled ? "orange" : "green"}
+                            // colorScheme={stateResponseData.enabled ? "orange" : "green"}
                             handleConfirm={handleToggleState}
                             isOpen={isToggleModalOpen}
                             onClose={onToggleModalClose}

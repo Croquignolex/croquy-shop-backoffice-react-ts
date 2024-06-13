@@ -1,18 +1,21 @@
+import {FC, ReactElement} from "react";
 import {useTranslation} from "react-i18next";
 import {FiChevronDown} from "react-icons/fi";
 import {IconLanguage} from '@tabler/icons-react';
 import {Button, Menu, MenuButton, MenuItemOption, MenuList, MenuOptionGroup} from "@chakra-ui/react";
-import {FC, ReactElement} from "react";
 
 import {supportedLanguages} from "../i18n/config";
+import useLocalizeDocumentAttributes from "../hooks/useLocalizeDocumentAttributes";
 
 const LocaleSwitcher: FC = () => {
     const {i18n} = useTranslation();
+    useLocalizeDocumentAttributes();
 
     return (
         <Menu>
             <MenuButton
                 as={Button}
+                variant={"outline"}
                 rightIcon={<FiChevronDown />}
                 leftIcon={<IconLanguage />}
                 w={150}

@@ -60,6 +60,21 @@ export interface URLParamType {
     value: string;
 }
 
+export interface PaginationType {
+    totalPages: number,
+    totalElements: number,
+    size: number,
+    numberOfElements: number,
+    number: number,
+    first: boolean,
+    last: boolean,
+    empty: boolean,
+}
+
+export interface IDRequestDataType {
+    id: string,
+}
+
 export interface DefaultFieldProps {
     label: string;
     name: string;

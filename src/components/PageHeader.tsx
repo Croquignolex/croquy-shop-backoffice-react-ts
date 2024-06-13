@@ -23,7 +23,7 @@ const PageHeader: FC<{breadcrumb: Array<BreadcrumbItemsType>}> = ({breadcrumb = 
                         );
                     } else if(index === (breadcrumb.length - 1)) {
                        return (
-                           <BreadcrumbItem isCurrentPage>
+                           <BreadcrumbItem isCurrentPage key={index}>
                                <BreadcrumbLink>
                                    {t(label)}
                                </BreadcrumbLink>

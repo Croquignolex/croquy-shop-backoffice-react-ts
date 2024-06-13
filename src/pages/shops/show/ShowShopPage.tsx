@@ -121,7 +121,7 @@ const ShowShopPage = (): ReactElement => {
                             Supprimer la boutique <strong>{shopResponseData.name}</strong>?
                         </ConfirmAlertDialog>
                         <ConfirmAlertDialog
-                            colorScheme={shopResponseData.enabled ? "orange" : "green"}
+                            // colorScheme={shopResponseData.enabled ? "orange" : "green"}
                             handleConfirm={handleToggleShop}
                             isOpen={isToggleModalOpen}
                             onClose={onToggleModalClose}

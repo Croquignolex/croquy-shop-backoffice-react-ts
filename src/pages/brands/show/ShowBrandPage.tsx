@@ -126,7 +126,7 @@ const ShowBrandPage = (): ReactElement => {
                             Supprimer la marque <strong>{brandResponseData.name}</strong>?
                         </ConfirmAlertDialog>
                         <ConfirmAlertDialog
-                            colorScheme={brandResponseData.enabled ? "orange" : "green"}
+                            // colorScheme={brandResponseData.enabled ? "orange" : "green"}
                             handleConfirm={handleToggleBrand}
                             isOpen={isToggleModalOpen}
                             onClose={onToggleModalClose}

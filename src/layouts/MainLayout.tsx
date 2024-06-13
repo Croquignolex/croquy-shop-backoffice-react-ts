@@ -59,7 +59,7 @@ const MainLayout: FC = (): ReactElement => {
 
 const Header: FC = (): ReactElement => {
     return (
-        <Box w="full" borderBottomWidth="1px" position="fixed" top={0} zIndex={2} bg="white">
+        <Box w="full" position="fixed" top={0} zIndex={2} bg="white">
             <Flex h="8vh" alignItems={"center"} justifyContent={"space-between"} borderBottomWidth={1} px={6}>
                 <MobileMenu />
 
@@ -109,11 +109,11 @@ const SideMenu: FC = (): ReactElement => {
                     </Flex>
                 </MenuItem>
 
-                <MenuDivider />
+                <MenuDivider borderColor={"gray.300"} />
 
                 <SubMenuItem items={sideMenu} />
 
-                <MenuDivider />
+                <MenuDivider borderColor={"gray.300"} />
 
                 <MenuItem color="red" onClick={handleLogout} _hover={{fontWeight: "bold"}} py={0} bg={"none"}>
                     <Flex px={5} py={2} alignItems={"center"} w={"full"} _hover={{bg: "purple.100", rounded: "md"}}>
@@ -223,8 +223,8 @@ const MobileMenu: FC = (): ReactElement => {
                             {headerMenu.map((menu: MainRouteType | {subMenuLabel: string, subMenuIcon: IconType, subMenuItems: Array<MainRouteType>}, index: number): ReactElement => {
                                 if("path" in menu) {
                                     return (
-                                        <AccordionItem border={0}>
-                                            <NavLink to={menu.path} key={index}>
+                                        <AccordionItem border={0} key={index}>
+                                            <NavLink to={menu.path}>
                                                 {(props: any) => (
                                                     <h2>
                                                         <AccordionButton
@@ -246,7 +246,7 @@ const MobileMenu: FC = (): ReactElement => {
                                 }
 
                                 return (
-                                    <AccordionItem border={0}>
+                                    <AccordionItem border={0} key={index}>
                                         <h2>
                                             <AccordionButton
                                                 color={hasActiveRoute(menu.subMenuItems) ? "purple.500" : "gray.600"}
@@ -269,7 +269,6 @@ const MobileMenu: FC = (): ReactElement => {
                                                 <NavLink to={route.path} key={index}>
                                                     {(props: any) => (
                                                         <Box
-                                                            key={index}
                                                             _hover={{color: "purple.500"}}
                                                             py={0}
                                                             bg={"none"}

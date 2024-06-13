@@ -114,14 +114,13 @@ export const sideMenu = [
 export const mainRoutes: any = {
     dashboard,
     profile, settings, help,
-    countries, addCountry
-    // countries, addCountry, showCountry, editCountry,
+    countries, addCountry, showCountry, editCountry,
 
 
 
 
 
-    /*users, addUser, showUser, editUser,
+    users, addUser, showUser, editUser,
     shops, addShop, showShop, editShop,
     brands, addBrand, showBrand, editBrand,
     groups, addGroup, showGroup, editGroup,
@@ -130,5 +129,5 @@ export const mainRoutes: any = {
     attributeValues, addAttributeValue, showAttributeValue, editAttributeValue,
     vendors, addVendor, showVendor, editVendor,
     coupons, addCoupon, showCoupon, editCoupon,
-    states, addState, showState, editState,*/
+    states, addState, showState, editState,
 };

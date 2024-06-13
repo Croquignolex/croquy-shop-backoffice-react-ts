@@ -17,7 +17,8 @@ const root: ReactDOM.Root = ReactDOM.createRoot(document.getElementById("root") 
 const queryClient: QueryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            // staleTime: 0,
+            staleTime: 0,
+            // refetchOnWindowFocus: false,
             // cacheTime: 0,
         },
     },
@@ -38,6 +39,10 @@ const theme: Dict = extendTheme({
             body: {
                 bg: "#f8f7fa",
                 color: "gray.600",
+            },
+            thead: {
+                h: "6vh",
+                bg: "gray.50",
             },
         },
     },
@@ -61,12 +66,25 @@ const theme: Dict = extendTheme({
             },
             defaultProps: {
                 colorScheme: "purple",
-                variant: "outline",
+                // variant: "outline",
             },
+        },
+        Badge: {
+            baseStyle: {
+                rounded: "md",
+                px: 3,
+                textTransform: "capitalize",
+                fontWeight: "none",
+            }
         },
         Heading: {
             baseStyle: {
                 color: "purple.500",
+            },
+        },
+        Divider: {
+            baseStyle: {
+                borderColor: "gray.300",
             },
         },
     },

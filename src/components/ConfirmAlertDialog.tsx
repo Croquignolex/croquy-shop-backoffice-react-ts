@@ -1,5 +1,6 @@
 import React, { FC, ReactElement, useRef, MutableRefObject, ReactNode } from "react";
 import {FiThumbsUp, FiThumbsDown} from "react-icons/fi";
+import {useTranslation} from "react-i18next";
 import {
     AlertDialog,
     AlertDialogOverlay,
@@ -16,41 +17,52 @@ import {
 import CustomAlert from "./alert/CustomAlert";
 import {ErrorAlertType} from "../helpers/globalTypesHelper";
 
-const ConfirmAlertDialog: FC<ConfirmAlertDialogProps> = ({ isOpen, isLoading, onClose, colorScheme = "red", title = "Supression",
-                                                             handleConfirm, alertData, children }): ReactElement => {
-    const cancelRef: MutableRefObject<any> = useRef<any>()
+const ConfirmAlertDialog: FC<ConfirmAlertDialogProps> = (
+    {
+        isOpen,
+        isLoading,
+        onClose,
+        title = "delete",
+        handleConfirm,
+        alertData,
+        children
+    }): ReactElement => {
+
+    const {t} = useTranslation();
+    const cancelRef: MutableRefObject<any> = useRef<any>();
 
     return (
         <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose} isCentered closeOnOverlayClick={false}>
             <AlertDialogOverlay>
                 <AlertDialogContent>
-                    <AlertDialogHeader>{title}</AlertDialogHeader>
+                    <AlertDialogHeader fontSize={"md"}>{t(title)}</AlertDialogHeader>
 
-                    <AlertDialogCloseButton />
+                    <AlertDialogCloseButton _hover={{bg: "purple.100", color: "purple.500"}} />
 
                     <Stack mx={2}><CustomAlert data={alertData} /></Stack>
 
-                    <AlertDialogBody>{children}</AlertDialogBody>
+                    <AlertDialogBody fontSize={"sm"}>{children}</AlertDialogBody>
 
                     <AlertDialogFooter>
                         <ButtonGroup>
                             <Button
-                                ref={cancelRef}
-                                onClick={onClose}
-                                size={"sm"}
-                                leftIcon={<FiThumbsDown />}
-                                isDisabled={isLoading}
-                            >
-                                Non
-                            </Button>
-                            <Button
-                                colorScheme={colorScheme}
+                                colorScheme={"green"}
                                 onClick={handleConfirm}
                                 size={"sm"}
                                 leftIcon={<FiThumbsUp />}
                                 isLoading={isLoading}
                             >
-                                Oui
+                                {t("yes")}
+                            </Button>
+                            <Button
+                                onClick={onClose}
+                                size={"sm"}
+                                colorScheme={"red"}
+                                leftIcon={<FiThumbsDown />}
+                                isDisabled={isLoading}
+                                ref={cancelRef}
+                            >
+                                {t("no")}
                             </Button>
                         </ButtonGroup>
                     </AlertDialogFooter>
@@ -62,7 +74,6 @@ const ConfirmAlertDialog: FC<ConfirmAlertDialogProps> = ({ isOpen, isLoading, on
 
 interface ConfirmAlertDialogProps {
     isOpen: boolean;
-    colorScheme?: string;
     isLoading: boolean;
     onClose: () => void;
     handleConfirm: () => void,

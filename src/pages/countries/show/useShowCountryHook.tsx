@@ -8,7 +8,7 @@ import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 import {AlertStatusEnumType, ErrorAlertType, MediaType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {DestroyCountryRequestDataType} from "../list/table/countriesTableListData";
+// import {DestroyCountryRequestDataType} from "../list/table/countriesTableListData";
 import {
     countryRequest,
     CountryType,
@@ -41,7 +41,7 @@ const useShowCountryHook = (): ShowCountryHookType => {
         enabled: countryQueryEnabled,
     });
 
-    const destroyCountryCountryResponse: UseMutationResult<AxiosResponse, AxiosError, DestroyCountryRequestDataType, any> = useMutation({
+    const destroyCountryCountryResponse: UseMutationResult<AxiosResponse, AxiosError, any, any> = useMutation({
         mutationFn: destroyCountry,
         onError: (error: AxiosError): void => {
             setDeleteCountryAlertData(errorAlert(error));

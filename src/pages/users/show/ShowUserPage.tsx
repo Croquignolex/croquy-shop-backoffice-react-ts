@@ -108,7 +108,7 @@ const ShowUserPage = (): ReactElement => {
                             </Box>
                         </SimpleGrid>
                         <ConfirmAlertDialog
-                            colorScheme={userResponseData.enabled ? "orange" : "green"}
+                            // colorScheme={userResponseData.enabled ? "orange" : "green"}
                             handleConfirm={handleToggleUser}
                             isOpen={isToggleModalOpen}
                             onClose={onToggleModalClose}

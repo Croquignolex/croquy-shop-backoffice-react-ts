@@ -17,8 +17,8 @@ export const log = (message: string, data?: any): void => {
 // Format date
 export const stringDateFormat = (stringDate: string = "", withHour: boolean = false): string => {
     let temp: string = (withHour)
-        ? dayjs(stringDate).format(format.dateDisplay)
-        : dayjs(stringDate).format(format.dateTimeDisplay);
+        ? dayjs(stringDate).format(format.frDateDisplay)
+        : dayjs(stringDate).format(format.frDateDisplay);
 
     if(temp === "Invalid Date") {
        return "";
@@ -28,15 +28,12 @@ export const stringDateFormat = (stringDate: string = "", withHour: boolean = fa
 };
 
 // Format long string to avoid trim
-export const formatString = (text: string, maxCharacters: number): string => {
-    try {
-        if(text.length > maxCharacters) {
-            return text.substring(0, maxCharacters) + "...";
-        }
-    } catch (e) {
-        log("String format Exception", {e});
-    }
-    return text;
+export const formatString = (text: string = "", maxCharacters: number): string => {
+    let stringText: string = text.toString();
+
+    return (stringText.length > maxCharacters)
+        ? stringText.substring(0, maxCharacters) + "..."
+        : stringText
 };
 
 // Toast alert

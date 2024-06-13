@@ -1,4 +1,15 @@
 {
+  "date": "{{value, date}}",
+  "date_time": "{{value, datetime}}",
+
+  "status_true": "Enabled",
+  "status_false": "Disabled",
+  "toggle_true": "Disable",
+  "toggle_false": "Enable",
+  "delete": "Delete",
+  "yes": "Yes",
+  "no": "No",
+
   "app": "CSB",
   "welcome": "Welcome",
   "your_login": "Your login",
@@ -9,9 +20,20 @@
   "page_not_found": "Page not found",
   "not_found_description": "Oops! \uD83D\uDE16 The requested URL was not found on this server",
   "back_to_home": "Back to hone",
+  "delete_country": "Delete country",
+  "country_deleted": "Country {{name}} successfully deleted",
+  "country_toggled": "Country {{name}} status successfully changed",
 
   "administration": "Administration",
   "settings": "Settings",
+
+  "details": "Details",
+  "actions": "Actions",
+  "created_by": "Created by",
+  "created_at": "Created at",
+  "status": "Status",
+  "phone_code": "Phone code",
+  "flag": "Flag",
 
   "login": "Login",
   "logout": "Logout",

@@ -1,4 +1,15 @@
 {
+  "date": "{{value, date}}",
+  "date_time": "{{value, datetime}}",
+
+  "status_true": "Actif",
+  "status_false": "Inactif",
+  "toggle_true": "Désactiver",
+  "toggle_false": "Activer",
+  "delete": "Suppression",
+  "yes": "Oui",
+  "no": "Non",
+
   "app": "CSB",
   "welcome": "Bienvenue",
   "your_login": "Votre identifiant",
@@ -9,9 +20,20 @@
   "page_not_found": "Page introuvable",
   "not_found_description": "Oops! \uD83D\uDE16 L'URL démandé n'ai pas rétrouvé sur ce serveur",
   "back_to_home": "Retour à l'accueil",
+  "delete_country": "Supprimer le pays",
+  "country_deleted": "Pays {{name}} supprimé avec succès",
+  "country_toggled": "Status du pays {{name}} changé avec succès",
 
   "administration": "Administration",
   "settings": "Paramètres",
+
+  "details": "Détails",
+  "actions": "Actions",
+  "created_by": "Créer par",
+  "created_at": "Créer le",
+  "status": "Statut",
+  "phone_code": "Incide tel.",
+  "flag": "Drapeau",
 
   "login": "Connexion",
   "logout": "Déconnexion",

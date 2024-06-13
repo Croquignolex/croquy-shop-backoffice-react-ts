@@ -28,7 +28,7 @@ const useLocalizeDocumentAttributes = (): void => {
             title = extractFirstSegmentTitle() || errorRoutes.notFound.title;
         }
 
-        if (i18n.resolvedLanguage) {
+        if (i18n.resolvedLanguage && (document.documentElement.lang !== i18n.resolvedLanguage)) {
             document.documentElement.lang = i18n.resolvedLanguage;
             document.documentElement.dir = i18n.dir(i18n.resolvedLanguage);
         }

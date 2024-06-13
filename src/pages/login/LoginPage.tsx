@@ -32,7 +32,7 @@ const LoginPage = (): ReactElement => {
                             <TextField label={t("your_login")} name="username" formikProps={props} />
                             <PasswordField label={t("your_password")} name="password" formikProps={props} />
                             <Stack mt={8}>
-                                <Button isLoading={isLoginPending} type="submit" leftIcon={<FiLogIn />}>
+                                <Button isLoading={isLoginPending} type="submit" leftIcon={<FiLogIn />} variant={"outline"}>
                                     {t("login")}
                                 </Button>
                             </Stack>

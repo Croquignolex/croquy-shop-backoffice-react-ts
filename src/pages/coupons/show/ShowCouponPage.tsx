@@ -99,7 +99,7 @@ const ShowCouponPage = (): ReactElement => {
                             Supprimer le coupon <strong>{couponResponseData.code}</strong>?
                         </ConfirmAlertDialog>
                         <ConfirmAlertDialog
-                            colorScheme={couponResponseData.enabled ? "orange" : "green"}
+                            // colorScheme={couponResponseData.enabled ? "orange" : "green"}
                             handleConfirm={handleToggleCoupon}
                             isOpen={isToggleModalOpen}
                             onClose={onToggleModalClose}

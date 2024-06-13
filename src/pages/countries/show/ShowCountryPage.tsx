@@ -190,7 +190,7 @@ const ShowCountryPage = (): ReactElement => {
                             Supprimer le pays <strong>{countryResponseData.name}</strong>?
                         </ConfirmAlertDialog>
                         <ConfirmAlertDialog
-                            colorScheme={countryResponseData.enabled ? "orange" : "green"}
+                            // colorScheme={countryResponseData.enabled ? "orange" : "green"}
                             handleConfirm={handleToggleCountry}
                             isOpen={isToggleModalOpen}
                             onClose={onToggleModalClose}

@@ -157,7 +157,7 @@ const ShowCategoryPage = (): ReactElement => {
                             Supprimer la catégorie <strong>{categoryResponseData.name}</strong>?
                         </ConfirmAlertDialog>
                         <ConfirmAlertDialog
-                            colorScheme={categoryResponseData.enabled ? "orange" : "green"}
+                            // colorScheme={categoryResponseData.enabled ? "orange" : "green"}
                             handleConfirm={handleToggleCategory}
                             isOpen={isToggleModalOpen}
                             onClose={onToggleModalClose}

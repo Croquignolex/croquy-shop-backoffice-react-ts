@@ -1,7 +1,5 @@
 import React, {ReactElement} from "react";
-import {Box, Button, Stack} from "@chakra-ui/react";
-import {Link} from "react-router-dom";
-import {FiPlusSquare} from "react-icons/fi";
+import {Box} from "@chakra-ui/react";
 
 import {mainRoutes, settingsSubMenu} from "../../../routes/mainRoutes";
 import PageHeader from "../../../components/PageHeader";
@@ -14,10 +12,12 @@ const CountriesListPage = (): ReactElement => {
             <PageHeader
                 breadcrumb={[
                     {label: settingsSubMenu.subMenuLabel},
+                    {label: settingsSubMenu.subMenuLabel},
                     {label: mainRoutes.countries.title},
                 ]}
             />
-            <Box py={4} rounded="lg" shadow="default" bg="white" overflow={"scroll"}>
+
+            <Box py={4} rounded="lg" shadow="default" bg="white">
                 <CountriesTableList
                     fetchCountries
                     showCreator

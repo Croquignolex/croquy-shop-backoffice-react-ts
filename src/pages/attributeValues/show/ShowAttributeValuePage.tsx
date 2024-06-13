@@ -97,7 +97,7 @@ const ShowAttributeValuePage = (): ReactElement => {
                             Supprimer la valeur d'attribut <strong>{attributeValueResponseData.name}</strong>?
                         </ConfirmAlertDialog>
                         <ConfirmAlertDialog
-                            colorScheme={attributeValueResponseData.enabled ? "orange" : "green"}
+                            // colorScheme={attributeValueResponseData.enabled ? "orange" : "green"}
                             handleConfirm={handleToggleAttributeValue}
                             isOpen={isToggleModalOpen}
                             onClose={onToggleModalClose}

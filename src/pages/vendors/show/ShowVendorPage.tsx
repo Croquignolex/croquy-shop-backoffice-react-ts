@@ -137,7 +137,7 @@ const ShowVendorPage = (): ReactElement => {
                             Supprimer le fournisseur <strong>{vendorResponseData.name}</strong>?
                         </ConfirmAlertDialog>
                         <ConfirmAlertDialog
-                            colorScheme={vendorResponseData.enabled ? "orange" : "green"}
+                            // colorScheme={vendorResponseData.enabled ? "orange" : "green"}
                             handleConfirm={handleToggleVendor}
                             isOpen={isToggleModalOpen}
                             onClose={onToggleModalClose}

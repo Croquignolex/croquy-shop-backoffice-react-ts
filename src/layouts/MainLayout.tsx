@@ -202,6 +202,7 @@ const MobileMenu: FC = (): ReactElement => {
                 aria-label="open menu"
                 icon={isOpen ? <FiX /> : <FiMenu />}
                 border={0}
+                variant={"outline"}
             />
             <Drawer
                 isOpen={isOpen}

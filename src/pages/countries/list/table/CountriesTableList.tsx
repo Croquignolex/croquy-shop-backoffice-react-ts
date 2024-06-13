@@ -1,4 +1,4 @@
-import React, {FC, ReactElement} from "react";
+import React, {ChangeEvent, FC, ReactElement} from "react";
 import {Link} from "react-router-dom";
 import {
     Badge,
@@ -49,6 +49,7 @@ const CountriesTableList: FC<CountriesTableListProps> = (
         isCountriesFetching,
         countriesAlertData,
         reloadList,
+        showItems
     }: CountriesTableListHookType = useCountriesTableListHook({fetchCountries, countriesBaseUrl});
     const {
        onDeleteModalClose,
@@ -76,7 +77,7 @@ const CountriesTableList: FC<CountriesTableListProps> = (
 
             <Divider my={6} />
 
-            <Actions />
+            <Actions showItems={showItems} />
 
             <Divider mt={6} />
 
@@ -110,6 +111,7 @@ const CountriesTableList: FC<CountriesTableListProps> = (
                 {t("delete_country")} <strong>{deletedCountry.name}</strong>?
             </ConfirmAlertDialog>
             <ConfirmAlertDialog
+                title={t(`toggle_${toggledCountry.enabled}`)}
                 handleConfirm={handleToggleCountry}
                 isOpen={isToggleModalOpen}
                 onClose={onToggleModalClose}
@@ -143,7 +145,7 @@ const Filters: FC = (): ReactElement => {
     );
 };
 
-const Actions: FC = (): ReactElement => {
+const Actions: FC<{showItems: (a: number) => void}> = ({showItems}): ReactElement => {
     const {t} = useTranslation();
 
     return (
@@ -159,8 +161,13 @@ const Actions: FC = (): ReactElement => {
             <Stack direction={{base: "column", md: "row"}}>
                 <HStack>
                     <Text>{t("show")}</Text>
-                    <Select name={"sort"} borderColor="gray.300">
-                        <option value="">Choisir</option>
+                    <Select name={"sort"} borderColor="gray.300" onChange={(event: ChangeEvent<HTMLSelectElement>) => showItems(parseInt(event.target.value))}>
+                        <option value={7}>7</option>
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                        <option value={50}>50</option>
+                        <option value={100}>100</option>
+                        <option value={250}>250</option>
                     </Select>
                     <Text>{t("items")}</Text>
                 </HStack>

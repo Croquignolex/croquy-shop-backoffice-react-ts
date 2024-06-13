@@ -30,6 +30,7 @@ export interface CountriesTableListHookType {
     isCountriesFetching: boolean,
     countriesAlertData: ErrorAlertType,
     reloadList: () => void,
+    showItems: (a: number) => void
 }
 
 export interface CountriesTableListHookProps {
@@ -61,7 +62,7 @@ const useCountriesTableListHook = ({fetchCountries, countriesBaseUrl}: Countries
     let countriesResponseData: CountriesResponseDataType = defaultCountriesResponseData;
 
     const countriesResponse: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
-        queryKey: ["countries", sortAndFilterData.page],
+        queryKey: ["countries", {page: sortAndFilterData.page, size: sortAndFilterData.size}],
         queryFn: () => countriesRequest(sortAndFilterData),
         placeholderData: keepPreviousData,
         enabled: fetchCountries,
@@ -80,13 +81,18 @@ const useCountriesTableListHook = ({fetchCountries, countriesBaseUrl}: Countries
         countriesResponse.refetch().then();
     }
 
+    const showItems = (size: number): void => {
+        setSortAndFilterData({...sortAndFilterData, size});
+    }
+
     const isCountriesFetching: boolean = countriesResponse.isFetching;
 
     return {
         countriesResponseData,
         isCountriesFetching,
         countriesAlertData,
-        reloadList
+        reloadList,
+        showItems
     };
 };
 

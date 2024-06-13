@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
 import {useQuery, UseQueryResult, keepPreviousData} from "@tanstack/react-query";
 
@@ -6,13 +5,8 @@ import {errorAlert} from "../../../../helpers/generalHelpers";
 import {v1URL} from "../../../../helpers/apiRequestsHelpers";
 import {getRequest} from "../../../../helpers/axiosHelpers";
 import {CountryType,} from "../../show/showCountryData";
-import {defaultPaginationData} from "../../../../constants/generalConstants";
-import {
-    ErrorAlertType,
-    PaginationType,
-    SortAndFilterRequestDataType,
-    URLParamType
-} from "../../../../helpers/globalTypesHelper";
+import {defaultPaginationData, SortAndFilterRequestDataType} from "../../../../hooks/useSortAndFilterHook";
+import {ErrorAlertType, PaginationType, URLParamType} from "../../../../helpers/globalTypesHelper";
 
 // ######################################## STATICS DATA ######################################## //
 
@@ -30,12 +24,11 @@ export interface CountriesTableListHookType {
     isCountriesFetching: boolean,
     countriesAlertData: ErrorAlertType,
     reloadList: () => void,
-    showItems: (a: number) => void
 }
 
 export interface CountriesTableListHookProps {
     fetchCountries: boolean,
-    countriesBaseUrl: string,
+    sortAndFilterData: SortAndFilterRequestDataType,
 }
 
 const countriesRequest = ({page, size, needle, baseUrl}: SortAndFilterRequestDataType): Promise<any> => {
@@ -51,18 +44,12 @@ const countriesRequest = ({page, size, needle, baseUrl}: SortAndFilterRequestDat
 
 // ######################################## HOOK ######################################## //
 
-const useCountriesTableListHook = ({fetchCountries, countriesBaseUrl}: CountriesTableListHookProps): CountriesTableListHookType => {
-    const [sortAndFilterData, setSortAndFilterData] = useState<SortAndFilterRequestDataType>({
-        size: defaultPaginationData.size,
-        baseUrl: countriesBaseUrl,
-        page: defaultPaginationData.number,
-    });
-
+const useCountriesTableListHook = ({fetchCountries, sortAndFilterData}: CountriesTableListHookProps): CountriesTableListHookType => {
     let countriesAlertData: ErrorAlertType = {show: false};
     let countriesResponseData: CountriesResponseDataType = defaultCountriesResponseData;
 
     const countriesResponse: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
-        queryKey: ["countries", {page: sortAndFilterData.page, size: sortAndFilterData.size}],
+        queryKey: ["countries", {page: sortAndFilterData.page, size: sortAndFilterData.size, needle: sortAndFilterData.needle}],
         queryFn: () => countriesRequest(sortAndFilterData),
         placeholderData: keepPreviousData,
         enabled: fetchCountries,
@@ -81,10 +68,6 @@ const useCountriesTableListHook = ({fetchCountries, countriesBaseUrl}: Countries
         countriesResponse.refetch().then();
     }
 
-    const showItems = (size: number): void => {
-        setSortAndFilterData({...sortAndFilterData, size});
-    }
-
     const isCountriesFetching: boolean = countriesResponse.isFetching;
 
     return {
@@ -92,7 +75,6 @@ const useCountriesTableListHook = ({fetchCountries, countriesBaseUrl}: Countries
         isCountriesFetching,
         countriesAlertData,
         reloadList,
-        showItems
     };
 };
 

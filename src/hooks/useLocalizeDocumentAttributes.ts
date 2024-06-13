@@ -41,7 +41,7 @@ const useLocalizeDocumentAttributes = (): void => {
         const segment: string[] = pathname.split('/');
         const needleRoute: any = allRoutes.find((route: any): boolean => route?.path === `/${segment[1]}`);
         return needleRoute?.title;
-    }
-}
+    };
+};
 
 export default useLocalizeDocumentAttributes;

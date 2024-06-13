@@ -1,9 +1,4 @@
-import {
-    AttributeTypeEnumType,
-    GenderTypeEnumType,
-    PaginationType,
-    RoleTypeEnumType
-} from "../helpers/globalTypesHelper";
+import {AttributeTypeEnumType, GenderTypeEnumType, RoleTypeEnumType} from "../helpers/globalTypesHelper";
 import {FormSelectOptionType} from "../components/form/SelectField";
 
 export const formValidationMessage = {
@@ -48,14 +43,3 @@ export const staticSelectListRoleTypes: Array<FormSelectOptionType> = [
     {label: "Super admin", key: RoleTypeEnumType.SUPER_ADMIN},
     {label: "Gestionnaire", key: RoleTypeEnumType.MANAGER},
 ];
-
-export const defaultPaginationData: PaginationType = {
-    totalPages: 0,
-    totalElements: 0,
-    size: 7,
-    numberOfElements: 0,
-    number: 0,
-    first: false,
-    last: false,
-    empty: true
-}

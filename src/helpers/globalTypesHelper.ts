@@ -75,13 +75,6 @@ export interface IDRequestDataType {
     id: string,
 }
 
-export interface SortAndFilterRequestDataType {
-    page?: number,
-    size?: number,
-    needle?: string,
-    baseUrl: string
-}
-
 export interface DefaultFieldProps {
     label: string;
     name: string;

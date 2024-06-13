@@ -1,12 +1,9 @@
-import React, {ChangeEvent, FC, ReactElement} from "react";
-import {Link} from "react-router-dom";
+import React, {FC, ReactElement} from "react";
 import {
     Badge,
     Box,
-    Button,
     Divider,
     HStack,
-    Stack,
     Table,
     TableContainer,
     Tbody,
@@ -14,9 +11,6 @@ import {
     Th,
     Thead,
     Tr,
-    Text,
-    Select,
-    Input,
 } from "@chakra-ui/react";
 
 import EmptyTableAlert from "../../../../components/alert/EmptyTableAlert";
@@ -26,15 +20,16 @@ import TableSkeletonLoader from "../../../../components/skeletonLoader/TableSkel
 import useCountriesTableListHook, {CountriesResponseDataType, CountriesTableListHookType} from "./useCountriesTableListHook";
 import CustomAlert from "../../../../components/alert/CustomAlert";
 import {CountryType} from "../../show/showCountryData";
-import {FiFlag, FiPlusSquare} from "react-icons/fi";
 import {useTranslation} from "react-i18next";
-import LocaleSwitcher from "../../../../components/LocaleSwitcher";
 import RowImage from "../../../../components/RowImage";
 import EditIconButton from "../../../../components/form/EditIconButton";
 import DeleteIconButton from "../../../../components/form/DeleteButtonIcon";
 import MoreIconButton from "../../../../components/form/MoreButtonIcon";
 import useCountryDeleteHook, {CountryDeleteHookType} from "./useCountryDeleteHook";
 import useCountryToggleHook, {CountryToggleHookType} from "./useCountryToggleHook";
+import TableActions from "../../../../components/table/TableActions";
+import useSortAndFilterHook, {SortAndFilterHookType} from "../../../../hooks/useSortAndFilterHook";
+import TableHeaderCel from "../../../../components/table/TableHeaderCel";
 
 const CountriesTableList: FC<CountriesTableListProps> = (
     {
@@ -44,13 +39,13 @@ const CountriesTableList: FC<CountriesTableListProps> = (
     }): ReactElement => {
 
     const {t} = useTranslation();
+    const {showItems, search, sortAndFilterData}: SortAndFilterHookType = useSortAndFilterHook({baseUrl: countriesBaseUrl});
     const {
         countriesResponseData,
         isCountriesFetching,
         countriesAlertData,
         reloadList,
-        showItems
-    }: CountriesTableListHookType = useCountriesTableListHook({fetchCountries, countriesBaseUrl});
+    }: CountriesTableListHookType = useCountriesTableListHook({fetchCountries, sortAndFilterData});
     const {
        onDeleteModalClose,
        selectedCountry: deletedCountry,
@@ -73,11 +68,7 @@ const CountriesTableList: FC<CountriesTableListProps> = (
 
     return (
         <>
-            <Filters />
-
-            <Divider my={6} />
-
-            <Actions showItems={showItems} />
+            <TableActions showItems={showItems} search={search} />
 
             <Divider mt={6} />
 
@@ -124,64 +115,6 @@ const CountriesTableList: FC<CountriesTableListProps> = (
     );
 };
 
-const Filters: FC = (): ReactElement => {
-    const {t} = useTranslation();
-
-    return (
-        <Stack px={6}>
-            <Text>{t("filter")}</Text>
-            <Stack direction={{base: "column", md: "row"}}>
-                <Select name={"sort"} borderColor="gray.300">
-                    <option value="">Choisir</option>
-                </Select>
-                <Select name={"sort"} borderColor="gray.300">
-                    <option value="">Choisir</option>
-                </Select>
-                <Select name={"sort"} borderColor="gray.300">
-                    <option value="">Choisir</option>
-                </Select>
-            </Stack>
-        </Stack>
-    );
-};
-
-const Actions: FC<{showItems: (a: number) => void}> = ({showItems}): ReactElement => {
-    const {t} = useTranslation();
-
-    return (
-        <Stack px={6} justifyContent={"space-between"} direction={{base: "column", md: "row"}}>
-            <Box w={{base: "full", md: "sm"}}>
-                {/*<SearchField handleSearch={(needle: string) => fetchPaginatedNeedleCountries(needle)} />*/}
-                <Input
-                    type="text"
-                    size="md"
-                    placeholder="Rechercher..."
-                />
-            </Box>
-            <Stack direction={{base: "column", md: "row"}}>
-                <HStack>
-                    <Text>{t("show")}</Text>
-                    <Select name={"sort"} borderColor="gray.300" onChange={(event: ChangeEvent<HTMLSelectElement>) => showItems(parseInt(event.target.value))}>
-                        <option value={7}>7</option>
-                        <option value={10}>10</option>
-                        <option value={20}>20</option>
-                        <option value={50}>50</option>
-                        <option value={100}>100</option>
-                        <option value={250}>250</option>
-                    </Select>
-                    <Text>{t("items")}</Text>
-                </HStack>
-                <HStack>
-                    <LocaleSwitcher />
-                    <Button leftIcon={<FiFlag />} as={Link} to={mainRoutes.addCountry.path}>
-                        Ajouter un pays
-                    </Button>
-                </HStack>
-            </Stack>
-        </Stack>
-    );
-};
-
 const CustomTable: FC<CustomTableProps> = (
     {
         showCreator,
@@ -198,11 +131,11 @@ const CustomTable: FC<CustomTableProps> = (
             <Table size={"sm"}>
                 <Thead>
                     <Tr>
-                        <Th>{t("flag")}</Th>
-                        <Th>{t("phone_code")}</Th>
-                        <Th>{t("status")}</Th>
-                        <Th>{t("created_at")}</Th>
-                        {showCreator && <Th>{t("created_by")}</Th>}
+                        <TableHeaderCel label={"country"} field={"name"} />
+                        <TableHeaderCel label={"phone_code"} field={"phoneCode"} />
+                        <TableHeaderCel label={"status"} field={"enabled"} />
+                        <TableHeaderCel label={"created_at"} field={"createdAt"} />
+                        {showCreator && <TableHeaderCel label={"created_by"} field={"creator"} />}
                         <Th>{t("actions")}</Th>
                     </Tr>
                 </Thead>

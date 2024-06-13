@@ -2,7 +2,7 @@ import React, {ReactElement, FC, useState, ChangeEvent, KeyboardEvent} from "rea
 import { Input, InputGroup, InputLeftElement, InputRightElement, IconButton } from "@chakra-ui/react";
 import { FiSearch, FiX } from "react-icons/fi";
 
-const SearchField: FC<SearchFieldProps> = ({ handleSearch = (): void => {} }): ReactElement => {
+const SearchField: FC<SearchFieldProps> = ({handleSearch}): ReactElement => {
     const [needle, setNeedle] = useState<string>("");
 
     const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>): void => {
@@ -57,7 +57,7 @@ const SearchField: FC<SearchFieldProps> = ({ handleSearch = (): void => {} }): R
 };
 
 interface SearchFieldProps {
-    handleSearch?: (a: string) => void,
+    handleSearch: (a: string) => void,
 }
 
 export default SearchField;

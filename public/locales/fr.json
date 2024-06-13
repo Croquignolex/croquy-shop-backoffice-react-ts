@@ -1,6 +1,7 @@
 {
   "date": "{{value, date}}",
   "date_time": "{{value, datetime}}",
+  "no_data": "Pas de données",
 
   "status_true": "Actif",
   "status_false": "Inactif",
@@ -39,6 +40,7 @@
   "status": "Statut",
   "phone_code": "Incide tel.",
   "flag": "Drapeau",
+  "country": "Pays",
 
   "login": "Connexion",
   "logout": "Déconnexion",

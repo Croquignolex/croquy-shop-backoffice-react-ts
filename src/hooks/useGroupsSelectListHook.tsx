@@ -1,56 +1,48 @@
-import {useState, Dispatch, SetStateAction} from "react";
 import { AxiosError, AxiosResponse } from "axios";
 import {useQuery, UseQueryResult} from "@tanstack/react-query";
 
-import {log} from "../helpers/generalHelpers";
 import {GroupType} from "../pages/groups/show/showGroupData";
 import {getRequest} from "../helpers/axiosHelpers";
 import {selectListApiURI} from "../constants/apiURIConstants";
 import {FormSelectOptionType} from "../components/form/SelectField";
 import {apiBaseURL} from "../constants/envConstants";
 
+// ######################################## STATICS DATA ######################################## //
+
+export interface GroupsSelectListHookType {
+    selectListGroups: Array<FormSelectOptionType>,
+    isSelectListGroupsFetching: boolean,
+    reloadList: () => void,
+}
+
+const groupsSelectListRequest = (): Promise<any> => {
+    const url: string = `${apiBaseURL}/api/v1${selectListApiURI.groups}`;
+
+    return getRequest(url, {headers: {public: true}});
+};
+
+// ######################################## HOOK ######################################## //
+
 const useGroupsSelectListHook = (): GroupsSelectListHookType => {
-    const [selectListGroups, setSelectListGroups] = useState<Array<FormSelectOptionType>>([]);
-    const [groupsQueryEnabled, setGroupsQueryEnabled] = useState<boolean>(true);
+    let selectListGroups: Array<FormSelectOptionType> = [];
 
     const groupsResponse: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
         queryKey: ["groups-select-list"],
         queryFn: () => groupsSelectListRequest(),
-        enabled: groupsQueryEnabled,
     });
 
-    if(groupsQueryEnabled && groupsResponse.isError) {
-        setGroupsQueryEnabled(false);
-
-        log("Groups list failure", groupsResponse);
-    }
-
-    if(groupsQueryEnabled && groupsResponse.isSuccess && !groupsResponse.isFetching) {
+    if(!groupsResponse.isFetching && groupsResponse.isSuccess) {
         const groups: Array<GroupType> = groupsResponse.data.data || [];
-
-        const selectListGroups: Array<FormSelectOptionType> = groups.map((group: GroupType): FormSelectOptionType => ({label: group.name, key: group.id}));
-
-        setGroupsQueryEnabled(false);
-        setSelectListGroups(selectListGroups);
-
-        log("Select groups list successful", groupsResponse);
+        selectListGroups = groups.map((group: GroupType): FormSelectOptionType => ({label: group.name, key: group.id}));
     }
 
-    const isSelectListGroupsPending: boolean = groupsResponse.isFetching;
+    const reloadList = (): void => {
+        groupsResponse.refetch().then();
+    }
 
-    return {selectListGroups, isSelectListGroupsPending, setGroupsQueryEnabled};
-};
+    const isSelectListGroupsFetching: boolean = groupsResponse.isFetching;
 
-export interface GroupsSelectListHookType {
-    selectListGroups: Array<FormSelectOptionType>,
-    isSelectListGroupsPending: boolean,
-    setGroupsQueryEnabled: Dispatch<SetStateAction<boolean>>,
-}
-
-export const groupsSelectListRequest = (): Promise<any> => {
-    const url: string = `${apiBaseURL}/api/v1${selectListApiURI.groups}`;
-
-    return getRequest(url, {headers: {public: true}});
+    return {selectListGroups, isSelectListGroupsFetching, reloadList};
 };
 
 export default useGroupsSelectListHook;

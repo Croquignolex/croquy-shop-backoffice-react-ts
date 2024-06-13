@@ -8,7 +8,7 @@ const EmptyTableAlert: FC<EmptyTableAlertProps> = ({ status = AlertStatusEnumTyp
     return (
         <Tr>
             <Td colSpan={10}>
-                <CustomAlert data={{status, show: true, message: "Pas de données"}}/>
+                <CustomAlert data={{status, show: true, message: "no_data"}}/>
             </Td>
         </Tr>
     )

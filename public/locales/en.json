@@ -1,6 +1,7 @@
 {
   "date": "{{value, date}}",
   "date_time": "{{value, datetime}}",
+  "no_data": "No data",
 
   "status_true": "Enabled",
   "status_false": "Disabled",
@@ -39,6 +40,7 @@
   "status": "Status",
   "phone_code": "Phone code",
   "flag": "Flag",
+  "country": "Country",
 
   "login": "Login",
   "logout": "Logout",

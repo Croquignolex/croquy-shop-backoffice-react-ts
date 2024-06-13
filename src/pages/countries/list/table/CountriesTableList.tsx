@@ -1,6 +1,5 @@
 import React, {FC, ReactElement} from "react";
 import {Link} from "react-router-dom";
-import {FiTrash2, FiMoreVertical} from "react-icons/fi";
 import {
     Badge,
     Box,
@@ -21,20 +20,13 @@ import {
 } from "@chakra-ui/react";
 
 import EmptyTableAlert from "../../../../components/alert/EmptyTableAlert";
-import Pagination from "../../../../components/Pagination";
 import ConfirmAlertDialog from "../../../../components/ConfirmAlertDialog";
 import {mainRoutes} from "../../../../routes/mainRoutes";
 import TableSkeletonLoader from "../../../../components/skeletonLoader/TableSkeletonLoader";
-import useCountriesTableListHook, {
-    CountriesResponseDataType,
-    CountriesTableListHookType
-} from "./useCountriesTableListHook";
+import useCountriesTableListHook, {CountriesResponseDataType, CountriesTableListHookType} from "./useCountriesTableListHook";
 import CustomAlert from "../../../../components/alert/CustomAlert";
-import SearchField from "../../../../components/form/SearchField";
 import {CountryType} from "../../show/showCountryData";
-import ImageDisplay from "../../../../components/ImageDisplay";
-import {ImageSizeEnumType} from "../../../../helpers/globalTypesHelper";
-import {FiPlusSquare} from "react-icons/fi";
+import {FiFlag, FiPlusSquare} from "react-icons/fi";
 import {useTranslation} from "react-i18next";
 import LocaleSwitcher from "../../../../components/LocaleSwitcher";
 import RowImage from "../../../../components/RowImage";
@@ -42,6 +34,7 @@ import EditIconButton from "../../../../components/form/EditIconButton";
 import DeleteIconButton from "../../../../components/form/DeleteButtonIcon";
 import MoreIconButton from "../../../../components/form/MoreButtonIcon";
 import useCountryDeleteHook, {CountryDeleteHookType} from "./useCountryDeleteHook";
+import useCountryToggleHook, {CountryToggleHookType} from "./useCountryToggleHook";
 
 const CountriesTableList: FC<CountriesTableListProps> = (
     {
@@ -53,36 +46,30 @@ const CountriesTableList: FC<CountriesTableListProps> = (
     const {t} = useTranslation();
     const {
         countriesResponseData,
-        isCountriesPending,
+        isCountriesFetching,
         countriesAlertData,
         reloadList,
     }: CountriesTableListHookType = useCountriesTableListHook({fetchCountries, countriesBaseUrl});
-
     const {
-           onDeleteModalClose,
-           selectedCountry,
-           showDeleteModal,
-           isDeleteModalOpen,
-           deleteCountryAlertData,
-           isDeleteCountryPending,
-           handleDeleteCountry,
-       }: CountryDeleteHookType = useCountryDeleteHook({reloadList});
+       onDeleteModalClose,
+       selectedCountry: deletedCountry,
+       showDeleteModal,
+       isDeleteModalOpen,
+       deleteCountryAlertData,
+       isDeleteCountryPending,
+       handleDeleteCountry,
+   }: CountryDeleteHookType = useCountryDeleteHook({deleted: reloadList});
+    const {
+        onToggleModalClose,
+        selectedCountry: toggledCountry,
+        showToggleModal,
+        isToggleModalOpen,
+        toggleCountryAlertData,
+        isToggleCountryPending,
+        handleToggleCountry,
+    }: CountryToggleHookType = useCountryToggleHook({toggled: reloadList});
 
-    /*const {
-        countriesResponseData,
-        isCountriesPending,
-        countriesAlertData,
-        fetchPaginatedCountries,
-        fetchPaginatedNeedleCountries,
-        onDeleteModalClose,
-        selectedCountry,
-        showDeleteModal,
-        isDeleteModalOpen,
-        deleteCountryAlertData,
-        isDeleteCountryPending,
-        handleDeleteCountry,
-    }: CountriesTableListHookType = useCountriesTableListHook({fetchCountries, countriesBaseUrl});
-*/
+
     return (
         <>
             <Filters />
@@ -96,9 +83,10 @@ const CountriesTableList: FC<CountriesTableListProps> = (
             <Box px={6}><CustomAlert data={countriesAlertData} /></Box>
 
             <CustomTable
-                isCountriesPending={isCountriesPending}
+                isCountriesPending={isCountriesFetching}
                 showCreator={showCreator}
                 showDeleteModal={showDeleteModal}
+                showToggleModal={showToggleModal}
                 countriesResponseData={countriesResponseData}
             />
 
@@ -112,13 +100,23 @@ const CountriesTableList: FC<CountriesTableListProps> = (
                 currentPageElements={countriesResponseData.numberOfElements}
             />*/}
             <ConfirmAlertDialog
+                danger
                 handleConfirm={handleDeleteCountry}
                 isOpen={isDeleteModalOpen}
                 onClose={onDeleteModalClose}
                 isLoading={isDeleteCountryPending}
                 alertData={deleteCountryAlertData}
             >
-                {t("delete_country")} <strong>{selectedCountry.name}</strong>?
+                {t("delete_country")} <strong>{deletedCountry.name}</strong>?
+            </ConfirmAlertDialog>
+            <ConfirmAlertDialog
+                handleConfirm={handleToggleCountry}
+                isOpen={isToggleModalOpen}
+                onClose={onToggleModalClose}
+                isLoading={isToggleCountryPending}
+                alertData={toggleCountryAlertData}
+            >
+                {t(`toggle_country_${toggledCountry.enabled}`)} <strong>{toggledCountry.name}</strong>?
             </ConfirmAlertDialog>
         </>
     );
@@ -168,12 +166,8 @@ const Actions: FC = (): ReactElement => {
                 </HStack>
                 <HStack>
                     <LocaleSwitcher />
-                    <Button
-                        leftIcon={<FiPlusSquare />}
-                        as={Link}
-                        to={mainRoutes.addCountry.path}
-                    >
-                        Nouveau pays
+                    <Button leftIcon={<FiFlag />} as={Link} to={mainRoutes.addCountry.path}>
+                        Ajouter un pays
                     </Button>
                 </HStack>
             </Stack>
@@ -186,6 +180,7 @@ const CustomTable: FC<CustomTableProps> = (
         showCreator,
         isCountriesPending,
         showDeleteModal,
+        showToggleModal,
         countriesResponseData
     }): ReactElement => {
 
@@ -252,7 +247,7 @@ const CustomTable: FC<CustomTableProps> = (
                                                 url={`${mainRoutes.countries.path}/${country.id}`}
                                                 state={country}
                                                 status={country.enabled}
-                                                showStatusToggleModal={showDeleteModal}
+                                                showStatusToggleModal={showToggleModal}
                                             />
                                         </HStack>
                                     </Td>
@@ -270,6 +265,7 @@ interface CustomTableProps {
     showCreator?: boolean;
     isCountriesPending: boolean;
     showDeleteModal: (a: CountryType) => void,
+    showToggleModal: (a: CountryType) => void,
     countriesResponseData: CountriesResponseDataType,
 }
 

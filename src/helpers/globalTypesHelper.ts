@@ -57,7 +57,7 @@ export interface MenuItemType {
 
 export interface URLParamType {
     param: string;
-    value: string;
+    value: any;
 }
 
 export interface PaginationType {
@@ -73,6 +73,13 @@ export interface PaginationType {
 
 export interface IDRequestDataType {
     id: string,
+}
+
+export interface SortAndFilterRequestDataType {
+    page?: number,
+    size?: number,
+    needle?: string,
+    baseUrl: string
 }
 
 export interface DefaultFieldProps {

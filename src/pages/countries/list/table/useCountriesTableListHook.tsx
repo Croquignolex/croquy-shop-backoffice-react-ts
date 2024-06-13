@@ -1,17 +1,22 @@
 import { useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
-import {useQuery, UseQueryResult} from "@tanstack/react-query";
+import {useQuery, UseQueryResult, keepPreviousData} from "@tanstack/react-query";
 
 import {errorAlert} from "../../../../helpers/generalHelpers";
 import {v1URL} from "../../../../helpers/apiRequestsHelpers";
 import {getRequest} from "../../../../helpers/axiosHelpers";
-import {defaultPaginationData} from "../../../../constants/generalConstants";
 import {CountryType,} from "../../show/showCountryData";
-import {ErrorAlertType, PaginationType, URLParamType} from "../../../../helpers/globalTypesHelper";
+import {defaultPaginationData} from "../../../../constants/generalConstants";
+import {
+    ErrorAlertType,
+    PaginationType,
+    SortAndFilterRequestDataType,
+    URLParamType
+} from "../../../../helpers/globalTypesHelper";
 
 // ######################################## STATICS DATA ######################################## //
 
-export const defaultCountriesResponseData: CountriesResponseDataType = {
+const defaultCountriesResponseData: CountriesResponseDataType = {
     content: [],
     ...defaultPaginationData
 }
@@ -22,7 +27,7 @@ export interface CountriesResponseDataType extends PaginationType {
 
 export interface CountriesTableListHookType {
     countriesResponseData: CountriesResponseDataType,
-    isCountriesPending: boolean,
+    isCountriesFetching: boolean,
     countriesAlertData: ErrorAlertType,
     reloadList: () => void,
 }
@@ -32,12 +37,12 @@ export interface CountriesTableListHookProps {
     countriesBaseUrl: string,
 }
 
-export const countriesRequest = (page: number, size: number, needle: string, baseUrl: string): Promise<any> => {
-    const queries: Array<URLParamType> = [
-        {param: "page", value: page.toString()},
-        {param: "size", value: size.toString()},
-        {param: "needle", value: needle.toString()}
-    ];
+const countriesRequest = ({page, size, needle, baseUrl}: SortAndFilterRequestDataType): Promise<any> => {
+    const queries: Array<URLParamType> = [];
+    if(page) queries.push({param: "page", value: page});
+    if(size) queries.push({param: "size", value: size});
+    if(needle) queries.push({param: "needle", value: needle});
+
     const url: string = v1URL(baseUrl, [], queries);
 
     return getRequest(url);
@@ -46,38 +51,40 @@ export const countriesRequest = (page: number, size: number, needle: string, bas
 // ######################################## HOOK ######################################## //
 
 const useCountriesTableListHook = ({fetchCountries, countriesBaseUrl}: CountriesTableListHookProps): CountriesTableListHookType => {
-    const [countriesQueryEnabled, setCountriesQueryEnabled] = useState<boolean>(fetchCountries);
-    const [countriesAlertData, setCountriesAlertData] = useState<ErrorAlertType>({show: false});
-    const [countriesResponseData, setCountriesResponseData] = useState<CountriesResponseDataType>(defaultCountriesResponseData);
-    const [searchNeedle, setSearchNeedle] = useState<string>("");
+    const [sortAndFilterData, setSortAndFilterData] = useState<SortAndFilterRequestDataType>({
+        size: defaultPaginationData.size,
+        baseUrl: countriesBaseUrl,
+        page: defaultPaginationData.number,
+    });
+
+    let countriesAlertData: ErrorAlertType = {show: false};
+    let countriesResponseData: CountriesResponseDataType = defaultCountriesResponseData;
 
     const countriesResponse: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
-        queryKey: ["countries"],
-        queryFn: () => countriesRequest(countriesResponseData.number, countriesResponseData.size, searchNeedle, countriesBaseUrl),
-        enabled: countriesQueryEnabled,
+        queryKey: ["countries", sortAndFilterData.page],
+        queryFn: () => countriesRequest(sortAndFilterData),
+        placeholderData: keepPreviousData,
+        enabled: fetchCountries,
     });
-console.log("countriesResponse.isStale", countriesResponse.isStale)
-    if(countriesQueryEnabled && !countriesResponse.isPending && countriesResponse.isError) {
-        setCountriesQueryEnabled(false);
-        setCountriesAlertData(errorAlert(countriesResponse.error));
+
+    if(!countriesResponse.isFetching && countriesResponse.isError) {
+        countriesAlertData = errorAlert(countriesResponse.error);
     }
 
-    if(countriesQueryEnabled && !countriesResponse.isPending && countriesResponse.isSuccess) {
-        setCountriesQueryEnabled(false);
-        setCountriesAlertData({show: false});
-        setCountriesResponseData(countriesResponse.data.data);
+    if(!countriesResponse.isFetching && countriesResponse.isSuccess) {
+        countriesAlertData = {show: false};
+        countriesResponseData = countriesResponse.data.data;
     }
 
     const reloadList = (): void => {
         countriesResponse.refetch().then();
     }
 
-    const isCountriesPending: boolean = countriesResponse.isFetching;
-    console.log({countriesQueryEnabled, isCountriesPending})
+    const isCountriesFetching: boolean = countriesResponse.isFetching;
 
     return {
         countriesResponseData,
-        isCountriesPending,
+        isCountriesFetching,
         countriesAlertData,
         reloadList
     };

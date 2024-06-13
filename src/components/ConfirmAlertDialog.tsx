@@ -25,7 +25,8 @@ const ConfirmAlertDialog: FC<ConfirmAlertDialogProps> = (
         title = "delete",
         handleConfirm,
         alertData,
-        children
+        children,
+        danger
     }): ReactElement => {
 
     const {t} = useTranslation();
@@ -35,9 +36,11 @@ const ConfirmAlertDialog: FC<ConfirmAlertDialogProps> = (
         <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose} isCentered closeOnOverlayClick={false}>
             <AlertDialogOverlay>
                 <AlertDialogContent>
-                    <AlertDialogHeader fontSize={"md"}>{t(title)}</AlertDialogHeader>
+                    <AlertDialogHeader fontSize={"md"} color={`${danger ? "red.500" : "purple.500"}`}>
+                        {t(title)}
+                    </AlertDialogHeader>
 
-                    <AlertDialogCloseButton _hover={{bg: "purple.100", color: "purple.500"}} />
+                    <AlertDialogCloseButton _hover={{bg: `${danger ? "red.100" : "purple.100"}`, color: `${danger ? "red.500" : "purple.500"}`}} />
 
                     <Stack mx={2}><CustomAlert data={alertData} /></Stack>
 
@@ -46,23 +49,23 @@ const ConfirmAlertDialog: FC<ConfirmAlertDialogProps> = (
                     <AlertDialogFooter>
                         <ButtonGroup>
                             <Button
-                                colorScheme={"green"}
+                                onClick={onClose}
+                                size={"sm"}
+                                colorScheme={"gray"}
+                                leftIcon={<FiThumbsDown />}
+                                isDisabled={isLoading}
+                                ref={cancelRef}
+                            >
+                                {t("no")}
+                            </Button>
+                            <Button
+                                colorScheme={`${danger ? "red" : "purple"}`}
                                 onClick={handleConfirm}
                                 size={"sm"}
                                 leftIcon={<FiThumbsUp />}
                                 isLoading={isLoading}
                             >
                                 {t("yes")}
-                            </Button>
-                            <Button
-                                onClick={onClose}
-                                size={"sm"}
-                                colorScheme={"red"}
-                                leftIcon={<FiThumbsDown />}
-                                isDisabled={isLoading}
-                                ref={cancelRef}
-                            >
-                                {t("no")}
                             </Button>
                         </ButtonGroup>
                     </AlertDialogFooter>
@@ -80,6 +83,7 @@ interface ConfirmAlertDialogProps {
     children: ReactNode,
     alertData: ErrorAlertType,
     title?: string,
+    danger?: boolean,
 }
 
 export default ConfirmAlertDialog;

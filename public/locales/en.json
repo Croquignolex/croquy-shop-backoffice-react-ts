@@ -22,7 +22,10 @@
   "back_to_home": "Back to hone",
   "delete_country": "Delete country",
   "country_deleted": "Country {{name}} successfully deleted",
-  "country_toggled": "Country {{name}} status successfully changed",
+  "toggle_country_true": "Disable country",
+  "toggle_country_false": "Enable country",
+  "country_toggled_true": "Country {{name}} successfully enabled",
+  "country_toggled_false": "Country {{name}} successfully disabled",
 
   "administration": "Administration",
   "settings": "Settings",

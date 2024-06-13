@@ -28,7 +28,7 @@ export interface CountryDeleteHookType {
 }
 
 export interface CountryDeleteHookProps {
-    reloadList: () => void,
+    deleted: () => void,
 }
 
 export const destroyCountry = ({id}: IDRequestDataType): Promise<any> => {
@@ -40,7 +40,7 @@ export const destroyCountry = ({id}: IDRequestDataType): Promise<any> => {
 
 // ######################################## HOOK ######################################## //
 
-const useCountryDeleteHook = ({reloadList}: CountryDeleteHookProps): CountryDeleteHookType => {
+const useCountryDeleteHook = ({deleted}: CountryDeleteHookProps): CountryDeleteHookType => {
     const { onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose } = useDisclosure();
 
     const toast: CreateToastFnReturn = useToast();
@@ -56,7 +56,7 @@ const useCountryDeleteHook = ({reloadList}: CountryDeleteHookProps): CountryDele
         },
         onSuccess: (): void => {
             setDeleteCountryAlertData({show: false});
-            reloadList();
+            deleted();
 
             toast({
                 title: t("delete"),

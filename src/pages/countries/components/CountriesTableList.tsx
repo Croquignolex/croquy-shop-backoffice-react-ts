@@ -1,4 +1,5 @@
 import React, {FC, ReactElement} from "react";
+import {useTranslation} from "react-i18next";
 import {
     Badge,
     Box,
@@ -8,28 +9,31 @@ import {
     TableContainer,
     Tbody,
     Td,
-    Th,
-    Thead,
     Tr,
 } from "@chakra-ui/react";
 
-import EmptyTableAlert from "../../../../components/alert/EmptyTableAlert";
-import ConfirmAlertDialog from "../../../../components/ConfirmAlertDialog";
-import {mainRoutes} from "../../../../routes/mainRoutes";
-import TableSkeletonLoader from "../../../../components/skeletonLoader/TableSkeletonLoader";
-import useCountriesTableListHook, {CountriesResponseDataType, CountriesTableListHookType} from "./useCountriesTableListHook";
-import CustomAlert from "../../../../components/alert/CustomAlert";
-import {CountryType} from "../../show/showCountryData";
-import {useTranslation} from "react-i18next";
-import RowImage from "../../../../components/RowImage";
-import EditIconButton from "../../../../components/form/EditIconButton";
-import DeleteIconButton from "../../../../components/form/DeleteButtonIcon";
-import MoreIconButton from "../../../../components/form/MoreButtonIcon";
-import useCountryDeleteHook, {CountryDeleteHookType} from "./useCountryDeleteHook";
-import useCountryToggleHook, {CountryToggleHookType} from "./useCountryToggleHook";
-import TableActions from "../../../../components/table/TableActions";
-import useSortAndFilterHook, {SortAndFilterHookType} from "../../../../hooks/useSortAndFilterHook";
-import TableHeaderCel from "../../../../components/table/TableHeaderCel";
+import EmptyTableAlert from "../../../components/alert/EmptyTableAlert";
+import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
+import {mainRoutes} from "../../../routes/mainRoutes";
+import TableSkeletonLoader from "../../../components/skeletonLoader/TableSkeletonLoader";
+import CustomAlert from "../../../components/alert/CustomAlert";
+import {CountryType} from "../show/showCountryData";
+import RowImage from "../../../components/RowImage";
+import EditIconButton from "../../../components/form/EditIconButton";
+import DeleteIconButton from "../../../components/form/DeleteButtonIcon";
+import MoreIconButton from "../../../components/form/MoreButtonIcon";
+import useCountryDeleteHook, {CountryDeleteHookType} from "../hooks/useCountryDeleteHook";
+import useCountryToggleHook, {CountryToggleHookType} from "../hooks/useCountryToggleHook";
+import TableActions from "../../../components/table/TableActions";
+import TableHeader from "../../../components/table/TableHeaderCel";
+import useSortAndFilterHook, {
+    SortAndFilterHookType,
+    SortAndFilterRequestDataType
+} from "../../../hooks/useSortAndFilterHook";
+import useCountriesTableListHook, {
+    CountriesResponseDataType,
+    CountriesTableListHookType
+} from "../hooks/useCountriesTableListHook";
 
 const CountriesTableList: FC<CountriesTableListProps> = (
     {
@@ -38,47 +42,35 @@ const CountriesTableList: FC<CountriesTableListProps> = (
         countriesBaseUrl
     }): ReactElement => {
 
-    const {t} = useTranslation();
-    const {showItems, search, sortAndFilterData}: SortAndFilterHookType = useSortAndFilterHook({baseUrl: countriesBaseUrl});
+    const {
+        handleShowItems,
+        handleSearch,
+        handleSort,
+        sortAndFilterData
+    }: SortAndFilterHookType = useSortAndFilterHook({baseUrl: countriesBaseUrl});
     const {
         countriesResponseData,
         isCountriesFetching,
         countriesAlertData,
         reloadList,
     }: CountriesTableListHookType = useCountriesTableListHook({fetchCountries, sortAndFilterData});
-    const {
-       onDeleteModalClose,
-       selectedCountry: deletedCountry,
-       showDeleteModal,
-       isDeleteModalOpen,
-       deleteCountryAlertData,
-       isDeleteCountryPending,
-       handleDeleteCountry,
-   }: CountryDeleteHookType = useCountryDeleteHook({deleted: reloadList});
-    const {
-        onToggleModalClose,
-        selectedCountry: toggledCountry,
-        showToggleModal,
-        isToggleModalOpen,
-        toggleCountryAlertData,
-        isToggleCountryPending,
-        handleToggleCountry,
-    }: CountryToggleHookType = useCountryToggleHook({toggled: reloadList});
-
 
     return (
         <>
-            <TableActions showItems={showItems} search={search} />
+            <TableActions handleShowItems={handleShowItems} handleSearch={handleSearch} />
 
             <Divider mt={6} />
 
-            <Box px={6}><CustomAlert data={countriesAlertData} /></Box>
+            <Box px={6}>
+                <CustomAlert data={countriesAlertData} />
+            </Box>
 
             <CustomTable
+                handleSort={handleSort}
                 isCountriesPending={isCountriesFetching}
                 showCreator={showCreator}
-                showDeleteModal={showDeleteModal}
-                showToggleModal={showToggleModal}
+                reloadList={reloadList}
+                sortAndFilterData={sortAndFilterData}
                 countriesResponseData={countriesResponseData}
             />
 
@@ -91,54 +83,52 @@ const CountriesTableList: FC<CountriesTableListProps> = (
                 totalElements={countriesResponseData.totalElements}
                 currentPageElements={countriesResponseData.numberOfElements}
             />*/}
-            <ConfirmAlertDialog
-                danger
-                handleConfirm={handleDeleteCountry}
-                isOpen={isDeleteModalOpen}
-                onClose={onDeleteModalClose}
-                isLoading={isDeleteCountryPending}
-                alertData={deleteCountryAlertData}
-            >
-                {t("delete_country")} <strong>{deletedCountry.name}</strong>?
-            </ConfirmAlertDialog>
-            <ConfirmAlertDialog
-                title={t(`toggle_${toggledCountry.enabled}`)}
-                handleConfirm={handleToggleCountry}
-                isOpen={isToggleModalOpen}
-                onClose={onToggleModalClose}
-                isLoading={isToggleCountryPending}
-                alertData={toggleCountryAlertData}
-            >
-                {t(`toggle_country_${toggledCountry.enabled}`)} <strong>{toggledCountry.name}</strong>?
-            </ConfirmAlertDialog>
         </>
     );
 };
 
 const CustomTable: FC<CustomTableProps> = (
     {
-        showCreator,
+        showCreator = false,
         isCountriesPending,
-        showDeleteModal,
-        showToggleModal,
+        handleSort,
+        reloadList,
+        sortAndFilterData,
         countriesResponseData
     }): ReactElement => {
 
     const {t} = useTranslation();
+    const {
+        onDeleteModalClose,
+        selectedCountry: deletedCountry,
+        showDeleteModal,
+        isDeleteModalOpen,
+        deleteCountryAlertData,
+        isDeleteCountryPending,
+        handleDeleteCountry,
+    }: CountryDeleteHookType = useCountryDeleteHook({deleted: reloadList});
+    const {
+        onToggleModalClose,
+        selectedCountry: toggledCountry,
+        showToggleModal,
+        isToggleModalOpen,
+        toggleCountryAlertData,
+        isToggleCountryPending,
+        handleToggleCountry,
+    }: CountryToggleHookType = useCountryToggleHook({toggled: reloadList});
+
+    const fields: Array<{field: string, label: string, show: boolean}> = [
+        {field: "name", label: "country", show: true},
+        {field: "phoneCode", label: "phone_code", show: true},
+        {field: "enabled", label: "status", show: true},
+        {field: "createdAt", label: "created_at", show: true},
+        {field: "creator", label: "created_by", show: showCreator},
+    ];
 
     return (
         <TableContainer>
             <Table size={"sm"}>
-                <Thead>
-                    <Tr>
-                        <TableHeaderCel label={"country"} field={"name"} />
-                        <TableHeaderCel label={"phone_code"} field={"phoneCode"} />
-                        <TableHeaderCel label={"status"} field={"enabled"} />
-                        <TableHeaderCel label={"created_at"} field={"createdAt"} />
-                        {showCreator && <TableHeaderCel label={"created_by"} field={"creator"} />}
-                        <Th>{t("actions")}</Th>
-                    </Tr>
-                </Thead>
+                <TableHeader fields={fields} handleSort={handleSort} sortAndFilterData={sortAndFilterData} />
                 <Tbody>
                     {isCountriesPending ? <TableSkeletonLoader /> : (
                         countriesResponseData.empty ? <EmptyTableAlert /> : (
@@ -197,15 +187,36 @@ const CustomTable: FC<CustomTableProps> = (
                     )}
                 </Tbody>
             </Table>
+            <ConfirmAlertDialog
+                danger
+                handleConfirm={handleDeleteCountry}
+                isOpen={isDeleteModalOpen}
+                onClose={onDeleteModalClose}
+                isLoading={isDeleteCountryPending}
+                alertData={deleteCountryAlertData}
+            >
+                {t("delete_country")} <strong>{deletedCountry.name}</strong>?
+            </ConfirmAlertDialog>
+            <ConfirmAlertDialog
+                title={t(`toggle_${toggledCountry.enabled}`)}
+                handleConfirm={handleToggleCountry}
+                isOpen={isToggleModalOpen}
+                onClose={onToggleModalClose}
+                isLoading={isToggleCountryPending}
+                alertData={toggleCountryAlertData}
+            >
+                {t(`toggle_country_${toggledCountry.enabled}`)} <strong>{toggledCountry.name}</strong>?
+            </ConfirmAlertDialog>
         </TableContainer>
     );
 };
 
 interface CustomTableProps {
     showCreator?: boolean;
+    reloadList: () => void,
     isCountriesPending: boolean;
-    showDeleteModal: (a: CountryType) => void,
-    showToggleModal: (a: CountryType) => void,
+    handleSort: (a: string, b: string) => void
+    sortAndFilterData: SortAndFilterRequestDataType,
     countriesResponseData: CountriesResponseDataType,
 }
 

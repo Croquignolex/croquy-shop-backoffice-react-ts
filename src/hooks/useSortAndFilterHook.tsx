@@ -12,19 +12,22 @@ export const defaultPaginationData: PaginationType = {
     number: 0,
     first: false,
     last: false,
-    empty: true
+    empty: true,
 }
 
 export interface SortAndFilterRequestDataType {
     page?: number,
     size?: number,
     needle?: string,
-    baseUrl: string
+    baseUrl: string,
+    sort?: string,
+    direction?: string,
 }
 
 export interface SortAndFilterHookType {
-    showItems: (a: number) => void,
-    search: (a: string) => void,
+    handleShowItems: (a: number) => void,
+    handleSearch: (a: string) => void,
+    handleSort: (a: string, b: string) => void
     sortAndFilterData: SortAndFilterRequestDataType
 }
 
@@ -39,17 +42,23 @@ const useSortAndFilterHook = ({baseUrl}: SortAndFilterHookProps): SortAndFilterH
         baseUrl,
         size: defaultPaginationData.size,
         page: defaultPaginationData.number,
+        sort: "createdAt",
+        direction: "desc",
     });
 
-    const showItems = (size: number): void => {
+    const handleShowItems = (size: number): void => {
         setSortAndFilterData({...sortAndFilterData, size});
     }
 
-    const search = (needle: string): void => {
+    const handleSearch = (needle: string): void => {
         setSortAndFilterData({...sortAndFilterData, needle});
     }
 
-    return {showItems, search, sortAndFilterData};
+    const handleSort = (sort: string, direction: string): void => {
+        setSortAndFilterData({...sortAndFilterData, sort, direction});
+    }
+
+    return {handleShowItems, handleSearch, handleSort, sortAndFilterData};
 };
 
 export default useSortAndFilterHook;

@@ -4,16 +4,16 @@ import { AxiosError, AxiosResponse } from "axios";
 import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 
-import {errorAlert} from "../../../../helpers/generalHelpers";
-import {v1URL} from "../../../../helpers/apiRequestsHelpers";
-import {deleteRequest} from "../../../../helpers/axiosHelpers";
-import {CountryType, defaultSelectedCountry,} from "../../show/showCountryData";
-import {countriesApiURI} from "../../../../constants/apiURIConstants";
+import {errorAlert} from "../../../helpers/generalHelpers";
+import {v1URL} from "../../../helpers/apiRequestsHelpers";
+import {deleteRequest} from "../../../helpers/axiosHelpers";
+import {CountryType, defaultSelectedCountry,} from "../show/showCountryData";
+import {countriesApiURI} from "../../../constants/apiURIConstants";
 import {
     ErrorAlertType,
     IDRequestDataType,
     URLParamType
-} from "../../../../helpers/globalTypesHelper";
+} from "../../../helpers/globalTypesHelper";
 
 // ######################################## STATICS DATA ######################################## //
 

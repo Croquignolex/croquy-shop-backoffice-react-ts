@@ -4,7 +4,7 @@ import {Box} from "@chakra-ui/react";
 import {mainRoutes, settingsSubMenu} from "../../../routes/mainRoutes";
 import PageHeader from "../../../components/PageHeader";
 import {countriesApiURI} from "../../../constants/apiURIConstants";
-import CountriesTableList from "./table/CountriesTableList";
+import CountriesTableList from "./CountriesTableList";
 
 const CountriesListPage = (): ReactElement => {
     return (

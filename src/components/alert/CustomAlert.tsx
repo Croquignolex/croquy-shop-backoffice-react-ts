@@ -21,7 +21,7 @@ const CustomAlert: FC<CustomAlertProps> = ({data}): ReactElement | null => {
     }
 
     return (
-        <Alert status={status} rounded="md" color={color}>
+        <Alert status={status} rounded="md" color={color} my={2}>
             <AlertIcon/>
             {message && t(message)}
         </Alert>

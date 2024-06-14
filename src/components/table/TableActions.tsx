@@ -8,18 +8,22 @@ import {mainRoutes} from "../../routes/mainRoutes";
 import SearchField from "../form/SearchField";
 import LocaleSwitcher from "../LocaleSwitcher";
 
-const TableActions: FC<TableActionsProps> = ({showItems, search}): ReactElement => {
+const TableActions: FC<TableActionsProps> = ({handleShowItems, handleSearch}): ReactElement => {
     const {t} = useTranslation();
 
     return (
         <Stack px={6} justifyContent={"space-between"} direction={{base: "column", md: "row"}}>
             <Box w={{base: "full", md: "sm"}}>
-                <SearchField handleSearch={search} />
+                <SearchField handleSearch={handleSearch} />
             </Box>
             <Stack direction={{base: "column", md: "row"}}>
                 <HStack>
                     <Text>{t("show")}</Text>
-                    <Select name={"sort"} borderColor="gray.300" onChange={(event: ChangeEvent<HTMLSelectElement>) => showItems(parseInt(event.target.value))}>
+                    <Select
+                        name={"sort"}
+                        borderColor="gray.300"
+                        onChange={(event: ChangeEvent<HTMLSelectElement>) => handleShowItems(parseInt(event.target.value))}
+                    >
                         <option value={7}>7</option>
                         <option value={10}>10</option>
                         <option value={20}>20</option>
@@ -41,8 +45,8 @@ const TableActions: FC<TableActionsProps> = ({showItems, search}): ReactElement 
 };
 
 interface TableActionsProps {
-    showItems: (a: number) => void,
-    search: (a: string) => void,
+    handleShowItems: (a: number) => void,
+    handleSearch: (a: string) => void,
 }
 
 export default TableActions;

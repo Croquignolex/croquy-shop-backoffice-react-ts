@@ -34,8 +34,8 @@ const addUser: MainRouteType = {path: "/users/create", component: lazy(() => imp
 const showUser: MainRouteType = {path: "/users/:id", component: lazy(() => import("../pages/users/show/ShowUserPage"))};
 const editUser: MainRouteType = {path: "/users/:id/edit", component: lazy(() => import("../pages/users/edit/EditUserPage"))};
 
-const countries: MainRouteType = {title: "countries", path: "/countries", icon: FiFlag, component: lazy(() => import("../pages/countries/list/CountriesListPage"))};
-const addCountry: MainRouteType = {path: "/countries/create", component: lazy(() => import("../pages/countries/CreateCountryPage"))};
+const countries: MainRouteType = {title: "countries", path: "/countries", icon: FiFlag, component: lazy(() => import("../pages/countries/components/CountriesListPage"))};
+const addCountry: MainRouteType = {path: "/countries/create", component: lazy(() => import("../pages/countries/components/CountryCreatePage"))};
 const showCountry: MainRouteType = {path: "/countries/:id", component: lazy(() => import("../pages/countries/show/ShowCountryPage"))};
 const editCountry: MainRouteType = {path: "/countries/:id/edit", component: lazy(() => import("../pages/countries/edit/EditCountryPage"))};
 

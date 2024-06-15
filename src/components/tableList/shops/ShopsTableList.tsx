@@ -107,7 +107,7 @@ const ShopsTableList: FC<ShopsTableListProps> = ({showCreator = false, fetchShop
                     </Thead>
                 </Table>
             </TableContainer>
-            <Pagination
+           {/* <Pagination
                 show={!shopsResponseData.empty}
                 handleNextPage={() => fetchPaginatedShops(true)}
                 handlePreviousPage={() => fetchPaginatedShops(false)}
@@ -115,7 +115,7 @@ const ShopsTableList: FC<ShopsTableListProps> = ({showCreator = false, fetchShop
                 pages={shopsResponseData.totalPages}
                 totalElements={shopsResponseData.totalElements}
                 currentPageElements={shopsResponseData.numberOfElements}
-            />
+            />*/}
             <ConfirmAlertDialog
                 handleConfirm={handleDeleteShop}
                 isOpen={isDeleteModalOpen}

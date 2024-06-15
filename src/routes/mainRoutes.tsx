@@ -1,9 +1,8 @@
 import {lazy, LazyExoticComponent, ReactElement} from "react";
-import {IconType} from "react-icons";
+import {IconFlag} from '@tabler/icons-react';
 import {
     FiShoppingCart,
     FiUsers,
-    FiFlag,
     FiMap,
     FiPercent,
     FiTruck,
@@ -34,7 +33,7 @@ const addUser: MainRouteType = {path: "/users/create", component: lazy(() => imp
 const showUser: MainRouteType = {path: "/users/:id", component: lazy(() => import("../pages/users/show/ShowUserPage"))};
 const editUser: MainRouteType = {path: "/users/:id/edit", component: lazy(() => import("../pages/users/edit/EditUserPage"))};
 
-const countries: MainRouteType = {title: "countries", path: "/countries", icon: FiFlag, component: lazy(() => import("../pages/countries/components/CountriesListPage"))};
+const countries: MainRouteType = {title: "countries", path: "/countries", icon: IconFlag, component: lazy(() => import("../pages/countries/components/CountriesListPage"))};
 const addCountry: MainRouteType = {path: "/countries/create", component: lazy(() => import("../pages/countries/components/CountryCreatePage"))};
 const showCountry: MainRouteType = {path: "/countries/:id", component: lazy(() => import("../pages/countries/show/ShowCountryPage"))};
 const editCountry: MainRouteType = {path: "/countries/:id/edit", component: lazy(() => import("../pages/countries/edit/EditCountryPage"))};
@@ -80,7 +79,7 @@ const showAttributeValue: MainRouteType = {path: "/attribute-values/:id", compon
 const editAttributeValue: MainRouteType = {path: "/attribute-values/:id/edit", component: lazy(() => import("../pages/attributeValues/edit/EditAttributeValuePage"))};
 
 export interface MainRouteType {
-    icon?: IconType,
+    icon?: any,
     title?: string,
     component: LazyExoticComponent<() => ReactElement>,
     path: string,
@@ -94,7 +93,7 @@ export const administrationSubMenu = {
 };
 
 export const settingsSubMenu = {
-    subMenuLabel: "settings",
+    subMenuLabel: "tools",
     subMenuIcon: FiTool,
     subMenuItems: [countries]
 };

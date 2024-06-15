@@ -22,7 +22,7 @@ import {
 
 const UpdateAddressForm: FC<UpdateAddressFormProps> = ({baseUrl, address, handleAddressUpdate}): ReactElement => {
     const { onOpen: onAddStateModalOpen, isOpen: isAddStateModalOpen, onClose: onAddStateModalClose } = useDisclosure();
-    const {selectListStates, isSelectListStatesPending, setStatesQueryEnabled}: StatesSelectListHookType = useStatesSelectListHook();
+    const {selectListStates, isSelectListStatesFetching, reloadList}: StatesSelectListHookType = useStatesSelectListHook();
     const {
         addAddressAlertData,
         isAddAddressPending,
@@ -46,13 +46,13 @@ const UpdateAddressForm: FC<UpdateAddressFormProps> = ({baseUrl, address, handle
                 {(props: FormikProps<UpdateAddressFormType>) => (
                     <Form>
                         <SelectLink onModalOpen={onAddStateModalOpen} label={"Ajouter une ville"} />
-                        <SelectField
+                        {/*<SelectField
                             label="Ville"
                             name="stateId"
                             formikProps={props}
                             values={selectListStates}
                             isLoading={isSelectListStatesPending}
-                        />
+                        />*/}
                         <Flex>
                             <TextField label="Address" name="streetAddress" formikProps={props} />
                             <TextField label="Boite postale" name="zipcode" formikProps={props} />
@@ -81,14 +81,14 @@ const UpdateAddressForm: FC<UpdateAddressFormProps> = ({baseUrl, address, handle
                 isOpen={isAddStateModalOpen}
                 onClose={onAddStateModalClose}
             >
-                <StateCreateForm
+                {/*<StateCreateForm
                     modal
                     handleAdd={(): void => setStatesQueryEnabled(true)}
                     handleFinish={(): void => {
                         onAddStateModalClose();
                         setStatesQueryEnabled(true);
                     }}
-                />
+                />*/}
             </FormModal>
         </Stack>
     );

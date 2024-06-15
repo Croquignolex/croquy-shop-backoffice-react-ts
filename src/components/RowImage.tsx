@@ -42,7 +42,7 @@ const RowImage: FC<RowImageProps> = (
                 >
                     {title}
                 </Text>
-                <Text fontSize={"xs"}>{formatString(description, 50)}</Text>
+                <Text fontSize={"xs"} title={description}>{formatString(description, 30)}</Text>
             </Stack>
         </HStack>
     );

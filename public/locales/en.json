@@ -1,7 +1,10 @@
 {
+  "search": "Search...",
   "date": "{{value, date}}",
   "date_time": "{{value, datetime}}",
   "no_data": "No data",
+  "page_on": "Page {{currentPage}} on {{totalPages}}",
+  "elements_on": "{{currentPageElements}} élément(s) on {{totalElements}}",
 
   "status_true": "Enabled",
   "status_false": "Disabled",
@@ -12,6 +15,7 @@
   "no": "No",
   "show": "Show",
   "items": "Items",
+  "tools": "Tools",
 
   "app": "CSB",
   "welcome": "Welcome",
@@ -41,6 +45,7 @@
   "phone_code": "Phone code",
   "flag": "Flag",
   "country": "Country",
+  "add_country": "Add country",
 
   "login": "Login",
   "logout": "Logout",

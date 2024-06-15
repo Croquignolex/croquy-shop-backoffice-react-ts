@@ -125,7 +125,7 @@ const CategoriesTableList: FC<CategoriesTableListProps> = ({showGroup = false, s
                     </Thead>
                 </Table>
             </TableContainer>
-            <Pagination
+            {/*<Pagination
                 show={!categoriesResponseData.empty}
                 handleNextPage={() => fetchPaginatedCategories(true)}
                 handlePreviousPage={() => fetchPaginatedCategories(false)}
@@ -133,7 +133,7 @@ const CategoriesTableList: FC<CategoriesTableListProps> = ({showGroup = false, s
                 pages={categoriesResponseData.totalPages}
                 totalElements={categoriesResponseData.totalElements}
                 currentPageElements={categoriesResponseData.numberOfElements}
-            />
+            />*/}
             <ConfirmAlertDialog
                 handleConfirm={handleDeleteCategory}
                 isOpen={isDeleteModalOpen}

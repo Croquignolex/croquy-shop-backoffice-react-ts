@@ -23,8 +23,8 @@ const StateCreateForm: FC<StateCreateFormProps> = ({modal = false, handleFinish,
     const { onOpen: onAddCountryModalOpen, isOpen: isAddCountryModalOpen, onClose: onAddCountryModalClose } = useDisclosure();
     const {
         selectListCountries,
-        setCountriesQueryEnabled,
-        isSelectListCountriesPending
+        isSelectListCountriesFetching,
+        reloadList
     }: CountriesSelectListHookType = useCountriesSelectListHook();
     const {
         createStateAlertData,
@@ -43,13 +43,13 @@ const StateCreateForm: FC<StateCreateFormProps> = ({modal = false, handleFinish,
                         <SelectLink onModalOpen={onAddCountryModalOpen} label={"Ajouter un pays"} />
                         <Flex>
                             <TextField label="Nom" name="name" formikProps={props} />
-                            <SelectField
+                            {/*<SelectField
                                 label="Pays"
                                 name="countryId"
                                 formikProps={props}
                                 values={selectListCountries}
                                 isLoading={isSelectListCountriesPending}
-                            />
+                            />*/}
                         </Flex>
                         <TextareaField label="Description" name="description" formikProps={props} />
                         <Stack>
@@ -67,14 +67,14 @@ const StateCreateForm: FC<StateCreateFormProps> = ({modal = false, handleFinish,
                 isOpen={isAddCountryModalOpen}
                 onClose={onAddCountryModalClose}
             >
-                <CountryCreateForm
+               {/* <CountryCreateForm
                     modal
                     handleAdd={(): void => setCountriesQueryEnabled(true)}
                     handleFinish={(): void => {
                         onAddCountryModalClose();
                         setCountriesQueryEnabled(true);
                     }}
-                />
+                />*/}
             </FormModal>
         </Stack>
     );

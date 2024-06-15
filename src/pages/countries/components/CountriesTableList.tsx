@@ -25,7 +25,8 @@ import MoreIconButton from "../../../components/form/MoreButtonIcon";
 import useCountryDeleteHook, {CountryDeleteHookType} from "../hooks/useCountryDeleteHook";
 import useCountryToggleHook, {CountryToggleHookType} from "../hooks/useCountryToggleHook";
 import TableActions from "../../../components/table/TableActions";
-import TableHeader from "../../../components/table/TableHeaderCel";
+import TableHeader from "../../../components/table/TableHeader";
+import Pagination from "../../../components/Pagination";
 import useSortAndFilterHook, {
     SortAndFilterHookType,
     SortAndFilterRequestDataType
@@ -43,6 +44,7 @@ const CountriesTableList: FC<CountriesTableListProps> = (
     }): ReactElement => {
 
     const {
+        handleChangePage,
         handleShowItems,
         handleSearch,
         handleSort,
@@ -56,7 +58,7 @@ const CountriesTableList: FC<CountriesTableListProps> = (
     }: CountriesTableListHookType = useCountriesTableListHook({fetchCountries, sortAndFilterData});
 
     return (
-        <>
+        <Box py={4} rounded="lg" shadow="default" bg="white">
             <TableActions handleShowItems={handleShowItems} handleSearch={handleSearch} />
 
             <Divider mt={6} />
@@ -74,16 +76,15 @@ const CountriesTableList: FC<CountriesTableListProps> = (
                 countriesResponseData={countriesResponseData}
             />
 
-            {/*<Pagination
+            <Pagination
                 show={!countriesResponseData.empty}
-                handleNextPage={() => fetchPaginatedCountries(true)}
-                handlePreviousPage={() => fetchPaginatedCountries(false)}
+                handleGotoPage={handleChangePage}
                 currentPage={countriesResponseData.number + 1}
-                pages={countriesResponseData.totalPages}
+                totalPages={countriesResponseData.totalPages}
                 totalElements={countriesResponseData.totalElements}
                 currentPageElements={countriesResponseData.numberOfElements}
-            />*/}
-        </>
+            />
+        </Box>
     );
 };
 
@@ -117,12 +118,12 @@ const CustomTable: FC<CustomTableProps> = (
         handleToggleCountry,
     }: CountryToggleHookType = useCountryToggleHook({toggled: reloadList});
 
-    const fields: Array<{field: string, label: string, show: boolean}> = [
-        {field: "name", label: "country", show: true},
-        {field: "phoneCode", label: "phone_code", show: true},
-        {field: "enabled", label: "status", show: true},
-        {field: "createdAt", label: "created_at", show: true},
-        {field: "creator", label: "created_by", show: showCreator},
+    const fields: Array<{field: string, label: string, show: boolean, sort: boolean, search: boolean}> = [
+        {field: "name", label: "country", show: true, sort: true, search: true},
+        {field: "phoneCode", label: "phone_code", show: true, sort: true, search: true},
+        {field: "enabled", label: "status", show: true, sort: true, search: false},
+        {field: "createdAt", label: "created_at", show: true, sort: true, search: false},
+        {field: "creator", label: "created_by", show: showCreator, sort: false, search: false},
     ];
 
     return (

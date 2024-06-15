@@ -107,7 +107,7 @@ const AttributeValuesTableList: FC<AttributeValuesTableListProps> = ({showCreato
                     </Thead>
                 </Table>
             </TableContainer>
-            <Pagination
+            {/*<Pagination
                 show={!attributeValuesResponseData.empty}
                 handleNextPage={() => fetchPaginatedAttributeValues(true)}
                 handlePreviousPage={() => fetchPaginatedAttributeValues(false)}
@@ -115,7 +115,7 @@ const AttributeValuesTableList: FC<AttributeValuesTableListProps> = ({showCreato
                 pages={attributeValuesResponseData.totalPages}
                 totalElements={attributeValuesResponseData.totalElements}
                 currentPageElements={attributeValuesResponseData.numberOfElements}
-            />
+            />*/}
             <ConfirmAlertDialog
                 handleConfirm={handleDeleteAttributeValue}
                 isOpen={isDeleteModalOpen}

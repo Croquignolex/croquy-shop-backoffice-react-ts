@@ -1,7 +1,10 @@
 {
+  "search": "Rechercher...",
   "date": "{{value, date}}",
   "date_time": "{{value, datetime}}",
   "no_data": "Pas de données",
+  "page_on": "Page {{currentPage}} sur {{totalPages}}",
+  "elements_on": "{{currentPageElements}} élément(s) sur {{totalElements}}",
 
   "status_true": "Actif",
   "status_false": "Inactif",
@@ -12,6 +15,7 @@
   "no": "Non",
   "show": "Voir",
   "items": "Eléments",
+  "tools": "Outils",
 
   "app": "CSB",
   "welcome": "Bienvenue",
@@ -41,6 +45,7 @@
   "phone_code": "Incide tel.",
   "flag": "Drapeau",
   "country": "Pays",
+  "add_country": "Ajouter un pays",
 
   "login": "Connexion",
   "logout": "Déconnexion",

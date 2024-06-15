@@ -112,7 +112,7 @@ const GroupsTableList: FC<GroupsTableListProps> = ({showCreator = false, fetchGr
                     </Thead>
                 </Table>
             </TableContainer>
-            <Pagination
+            {/*<Pagination
                 show={!groupsResponseData.empty}
                 handleNextPage={() => fetchPaginatedGroups(true)}
                 handlePreviousPage={() => fetchPaginatedGroups(false)}
@@ -120,7 +120,7 @@ const GroupsTableList: FC<GroupsTableListProps> = ({showCreator = false, fetchGr
                 pages={groupsResponseData.totalPages}
                 totalElements={groupsResponseData.totalElements}
                 currentPageElements={groupsResponseData.numberOfElements}
-            />
+            />*/}
             <ConfirmAlertDialog
                 handleConfirm={handleDeleteGroup}
                 isOpen={isDeleteModalOpen}

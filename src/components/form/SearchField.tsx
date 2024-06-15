@@ -1,8 +1,11 @@
 import React, {ReactElement, FC, useState, ChangeEvent, KeyboardEvent} from "react";
 import { Input, InputGroup, InputLeftElement, InputRightElement, IconButton } from "@chakra-ui/react";
 import { FiSearch, FiX } from "react-icons/fi";
+import {useTranslation} from "react-i18next";
 
 const SearchField: FC<SearchFieldProps> = ({handleSearch}): ReactElement => {
+    const {t} = useTranslation();
+
     const [needle, setNeedle] = useState<string>("");
 
     const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>): void => {
@@ -35,7 +38,7 @@ const SearchField: FC<SearchFieldProps> = ({handleSearch}): ReactElement => {
             <Input
                 type="text"
                 size="md"
-                placeholder="Rechercher..."
+                placeholder={t("search")}
                 value={needle}
                 onKeyUp={handleKeyPress}
                 onChange={handleNeedle}

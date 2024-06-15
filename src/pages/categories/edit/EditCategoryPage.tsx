@@ -20,8 +20,8 @@ const EditCategoryPage = (): ReactElement => {
     const { onOpen: onAddGroupModalOpen, isOpen: isAddGroupModalOpen, onClose: onAddGroupModalClose } = useDisclosure();
     const {
         selectListGroups,
-        setGroupsQueryEnabled,
-        isSelectListGroupsPending
+        isSelectListGroupsFetching,
+        reloadList
     }: GroupsSelectListHookType = useGroupsSelectListHook();
     const {
         editCategoryAlertData,
@@ -51,13 +51,13 @@ const EditCategoryPage = (): ReactElement => {
                                     <SelectLink onModalOpen={onAddGroupModalOpen} label={"Ajouter un groupe"} />
                                     <Flex>
                                         <TextField label="Nom" name="name" isLoading={isCategoryPending} formikProps={props} />
-                                        <SelectField
+                                        {/*<SelectField
                                             label="Group"
                                             name="groupId"
                                             formikProps={props}
                                             values={selectListGroups}
                                             isLoading={isSelectListGroupsPending}
-                                        />
+                                        />*/}
                                     </Flex>
                                     <Flex>
                                         <TextField label="Slug" name="slug" isLoading={isCategoryPending} formikProps={props} />
@@ -87,14 +87,14 @@ const EditCategoryPage = (): ReactElement => {
                             isOpen={isAddGroupModalOpen}
                             onClose={onAddGroupModalClose}
                         >
-                            <GroupCreateForm
+                            {/*<GroupCreateForm
                                 modal
                                 handleAdd={(): void => setGroupsQueryEnabled(true)}
                                 handleFinish={(): void => {
                                     onAddGroupModalClose();
                                     setGroupsQueryEnabled(true);
                                 }}
-                            />
+                            />*/}
                         </FormModal>
                     </Stack>
                 )}

@@ -23,8 +23,8 @@ const CategoryCreateForm: FC<CategoryCreateFormProps> = ({modal = false, handleF
     const { onOpen: onAddGroupModalOpen, isOpen: isAddGroupModalOpen, onClose: onAddGroupModalClose } = useDisclosure();
     const {
         selectListGroups,
-        setGroupsQueryEnabled,
-        isSelectListGroupsPending
+        isSelectListGroupsFetching,
+        reloadList
     }: GroupsSelectListHookType = useGroupsSelectListHook();
     const {
         createCategoryAlertData,
@@ -43,13 +43,13 @@ const CategoryCreateForm: FC<CategoryCreateFormProps> = ({modal = false, handleF
                         <SelectLink onModalOpen={onAddGroupModalOpen} label={"Ajouter un groupe"} />
                         <Flex>
                             <TextField label="Nom" name="name" formikProps={props} />
-                            <SelectField
+                            {/*<SelectField
                                 label="Group"
                                 name="groupId"
                                 formikProps={props}
                                 values={selectListGroups}
                                 isLoading={isSelectListGroupsPending}
-                            />
+                            />*/}
                         </Flex>
                         <Flex>
                             <TextField label="Slug" name="slug" formikProps={props} />
@@ -74,14 +74,14 @@ const CategoryCreateForm: FC<CategoryCreateFormProps> = ({modal = false, handleF
                 isOpen={isAddGroupModalOpen}
                 onClose={onAddGroupModalClose}
             >
-                <GroupCreateForm
+                {/*<GroupCreateForm
                     modal
                     handleAdd={(): void => setGroupsQueryEnabled(true)}
                     handleFinish={(): void => {
                         onAddGroupModalClose();
                         setGroupsQueryEnabled(true);
                     }}
-                />
+                />*/}
             </FormModal>
         </Stack>
     );

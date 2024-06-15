@@ -112,7 +112,7 @@ const BrandsTableList: FC<BrandsTableListProps> = ({showCreator = false, fetchBr
                     </Thead>
                 </Table>
             </TableContainer>
-            <Pagination
+            {/*<Pagination
                 show={!brandsResponseData.empty}
                 handleNextPage={() => fetchPaginatedBrands(true)}
                 handlePreviousPage={() => fetchPaginatedBrands(false)}
@@ -120,7 +120,7 @@ const BrandsTableList: FC<BrandsTableListProps> = ({showCreator = false, fetchBr
                 pages={brandsResponseData.totalPages}
                 totalElements={brandsResponseData.totalElements}
                 currentPageElements={brandsResponseData.numberOfElements}
-            />
+            />*/}
             <ConfirmAlertDialog
                 handleConfirm={handleDeleteBrand}
                 isOpen={isDeleteModalOpen}

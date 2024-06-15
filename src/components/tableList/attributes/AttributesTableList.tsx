@@ -108,7 +108,7 @@ const AttributesTableList: FC<AttributesTableListProps> = ({showCreator = false,
                     </Thead>
                 </Table>
             </TableContainer>
-            <Pagination
+            {/*<Pagination
                 show={!attributesResponseData.empty}
                 handleNextPage={() => fetchPaginatedAttributes(true)}
                 handlePreviousPage={() => fetchPaginatedAttributes(false)}
@@ -116,7 +116,7 @@ const AttributesTableList: FC<AttributesTableListProps> = ({showCreator = false,
                 pages={attributesResponseData.totalPages}
                 totalElements={attributesResponseData.totalElements}
                 currentPageElements={attributesResponseData.numberOfElements}
-            />
+            />*/}
             <ConfirmAlertDialog
                 handleConfirm={handleDeleteAttribute}
                 isOpen={isDeleteModalOpen}

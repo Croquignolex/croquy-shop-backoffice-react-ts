@@ -109,7 +109,7 @@ const VendorsTableList: FC<VendorsTableListProps> = ({showCreator = false, fetch
                     </Thead>
                 </Table>
             </TableContainer>
-            <Pagination
+            {/*<Pagination
                 show={!vendorsResponseData.empty}
                 handleNextPage={() => fetchPaginatedVendors(true)}
                 handlePreviousPage={() => fetchPaginatedVendors(false)}
@@ -117,7 +117,7 @@ const VendorsTableList: FC<VendorsTableListProps> = ({showCreator = false, fetch
                 pages={vendorsResponseData.totalPages}
                 totalElements={vendorsResponseData.totalElements}
                 currentPageElements={vendorsResponseData.numberOfElements}
-            />
+            />*/}
             <ConfirmAlertDialog
                 handleConfirm={handleDeleteVendor}
                 isOpen={isDeleteModalOpen}

@@ -1,51 +1,96 @@
-import React, {FC, MouseEventHandler, ReactElement} from "react";
+import React, {FC, ReactElement, useMemo} from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { Box, HStack, Button, Spacer, ButtonGroup } from "@chakra-ui/react";
+import {Box, HStack, Button, Text, Icon, Stack} from "@chakra-ui/react";
+import {useTranslation} from "react-i18next";
 
-const Pagination: FC<PaginationProps> = ({ show, currentPage, pages, currentPageElements, totalElements,
-                                           handlePreviousPage, handleNextPage }): ReactElement | null => {
+const Pagination: FC<PaginationProps> = (
+    {
+        show,
+        currentPage,
+        totalPages,
+        currentPageElements,
+        totalElements,
+        handleGotoPage
+    }): ReactElement | null => {
+
+    const {t} = useTranslation();
+    const buildButtons: Array<{label: number, active: boolean}> = useMemo(() => {
+        const buttons: Array<{label: number, active: boolean}> = [];
+
+        for(let i: number = 1; i <= totalPages; i++) {
+            buttons.push({label: i, active: currentPage === i});
+        }
+
+        return buttons;
+    }, [currentPage, totalPages]);
+
     if(!show) {
         return null;
     }
 
+    const goToPreviousPage = (): void => {
+        if (currentPage > 1) {
+            // -1 page start at 0
+            handleGotoPage(currentPage - 2);
+        }
+    }
+
+    const goToNextPage = (): void => {
+        if (currentPage < totalPages) {
+            // -1 page start at 0
+            handleGotoPage(currentPage);
+        }
+    }
+
+    const goToPage = (page: number): void => {
+        if (page >= 1 && page <= totalPages && page !== currentPage) {
+            // -1 page start at 0
+            handleGotoPage(page - 1);
+        }
+    }
+
     return (
-        <HStack>
-            <Box fontSize={"sm"}>
-                Page {currentPage} sur {pages} <br/>
-                {currentPageElements} élément(s) sur {totalElements}
+        <HStack pt={4} px={6} justifyContent={"space-between"}>
+            <Box fontSize={"xs"}>
+                <Text>{t("page_on", {currentPage, totalPages})}</Text>
+                <Text>{t("elements_on", {currentPageElements, totalElements})}</Text>
             </Box>
-            <Spacer />
-            <ButtonGroup gap='1'>
+            <Stack direction={{base: "column", md: "row"}}>
                 <Button
-                    size={"sm"}
-                    leftIcon={<FiChevronLeft />}
-                    variant='outline'
-                    fontWeight="none"
-                    onClick={handlePreviousPage}
+                    onClick={goToPreviousPage}
+                    variant={"outline"}
                     isDisabled={(currentPage === 1)}
+                    size={{base: "sm", md: "md"}}
                 >
-                    Précédent
+                    <Icon as={FiChevronLeft} />
                 </Button>
+                {buildButtons.map((button: {label: number, active: boolean}, index: number) => (
+                    <Button
+                        onClick={() => goToPage(button.label)}
+                        isDisabled={button.active}
+                        variant={button.active ? "solid" : "outline"}
+                        size={{base: "sm", md: "md"}}
+                    >
+                        {button.label}
+                    </Button>
+                ))}
                 <Button
-                    size={"sm"}
-                    rightIcon={<FiChevronRight />}
-                    variant='outline'
-                    fontWeight="none"
-                    onClick={handleNextPage}
-                    isDisabled={(currentPage === pages)}
+                    onClick={goToNextPage}
+                    variant={"outline"}
+                    isDisabled={(currentPage === totalPages)}
+                    size={{base: "sm", md: "md"}}
                 >
-                    Suivant
+                    <Icon as={FiChevronRight} />
                 </Button>
-            </ButtonGroup>
+            </Stack>
         </HStack>
     )
 };
 
 interface PaginationProps {
     show: boolean
-    handlePreviousPage?: MouseEventHandler,
-    handleNextPage?: MouseEventHandler,
-    pages: number,
+    handleGotoPage: (a: number) => void,
+    totalPages: number,
     currentPage: number,
     currentPageElements: number,
     totalElements: number,

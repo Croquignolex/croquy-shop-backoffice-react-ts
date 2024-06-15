@@ -20,8 +20,8 @@ const EditStatePage = (): ReactElement => {
     const { onOpen: onAddCountryModalOpen, isOpen: isAddCountryModalOpen, onClose: onAddCountryModalClose } = useDisclosure();
     const {
         selectListCountries,
-        setCountriesQueryEnabled,
-        isSelectListCountriesPending
+        isSelectListCountriesFetching,
+        reloadList
     }: CountriesSelectListHookType = useCountriesSelectListHook();
     const {
         editStateAlertData,
@@ -51,13 +51,13 @@ const EditStatePage = (): ReactElement => {
                                     <SelectLink onModalOpen={onAddCountryModalOpen} label={"Ajouter un pays"} />
                                     <Flex>
                                         <TextField label="Nom" name="name" isLoading={isStatePending} formikProps={props} />
-                                        <SelectField
+                                        {/*<SelectField
                                             label="Pays"
                                             name="countryId"
                                             formikProps={props}
                                             values={selectListCountries}
                                             isLoading={isSelectListCountriesPending}
-                                        />
+                                        />*/}
                                     </Flex>
                                     <TextareaField label="Description" name="description" isLoading={isStatePending} formikProps={props} />
                                     <ButtonGroup>
@@ -80,14 +80,14 @@ const EditStatePage = (): ReactElement => {
                             isOpen={isAddCountryModalOpen}
                             onClose={onAddCountryModalClose}
                         >
-                            <CountryCreateForm
+                            {/*<CountryCreateForm
                                 modal
                                 handleAdd={(): void => setCountriesQueryEnabled(true)}
                                 handleFinish={(): void => {
                                     onAddCountryModalClose();
                                     setCountriesQueryEnabled(true);
                                 }}
-                            />
+                            />*/}
                         </FormModal>
                     </Stack>
                 )}

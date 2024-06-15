@@ -110,7 +110,7 @@ const CouponsTableList: FC<CouponsTableListProps> = ({showCreator = false, fetch
                     </Thead>
                 </Table>
             </TableContainer>
-            <Pagination
+            {/*<Pagination
                 show={!couponsResponseData.empty}
                 handleNextPage={() => fetchPaginatedCoupons(true)}
                 handlePreviousPage={() => fetchPaginatedCoupons(false)}
@@ -118,7 +118,7 @@ const CouponsTableList: FC<CouponsTableListProps> = ({showCreator = false, fetch
                 pages={couponsResponseData.totalPages}
                 totalElements={couponsResponseData.totalElements}
                 currentPageElements={couponsResponseData.numberOfElements}
-            />
+            />*/}
             <ConfirmAlertDialog
                 handleConfirm={handleDeleteCoupon}
                 isOpen={isDeleteModalOpen}

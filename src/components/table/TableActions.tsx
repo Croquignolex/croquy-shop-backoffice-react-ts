@@ -1,8 +1,8 @@
 import React, {ChangeEvent, FC, ReactElement} from "react";
 import {Box, Button, HStack, Select, Stack, Text} from "@chakra-ui/react";
 import {useTranslation} from "react-i18next";
-import {FiPlus} from "react-icons/fi";
 import {Link} from "react-router-dom";
+import {IconFlagPlus} from '@tabler/icons-react';
 
 import {mainRoutes} from "../../routes/mainRoutes";
 import SearchField from "../form/SearchField";
@@ -35,8 +35,8 @@ const TableActions: FC<TableActionsProps> = ({handleShowItems, handleSearch}): R
                 </HStack>
                 <HStack>
                     <LocaleSwitcher />
-                    <Button leftIcon={<FiPlus />} as={Link} to={mainRoutes.addCountry.path} px={{base: 4, sm: 6}}>
-                        Ajouter un pays
+                    <Button leftIcon={<IconFlagPlus />} as={Link} to={mainRoutes.addCountry.path} px={{base: 4, sm: 6}}>
+                        {t("add_country")}
                     </Button>
                 </HStack>
             </Stack>

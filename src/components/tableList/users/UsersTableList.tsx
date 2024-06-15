@@ -111,7 +111,7 @@ const UsersTableList: FC<UsersTableListProps> = ({showCreator = false, fetchUser
                     </Thead>
                 </Table>
             </TableContainer>
-            <Pagination
+            {/*<Pagination
                 show={!usersResponseData.empty}
                 handleNextPage={() => fetchPaginatedUsers(true)}
                 handlePreviousPage={() => fetchPaginatedUsers(false)}
@@ -119,7 +119,7 @@ const UsersTableList: FC<UsersTableListProps> = ({showCreator = false, fetchUser
                 pages={usersResponseData.totalPages}
                 totalElements={usersResponseData.totalElements}
                 currentPageElements={usersResponseData.numberOfElements}
-            />
+            />*/}
         </Stack>
     );
 };

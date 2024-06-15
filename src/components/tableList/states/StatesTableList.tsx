@@ -117,7 +117,7 @@ const StatesTableList: FC<StatesTableListProps> = ({showCountry = false, showCre
                     </Thead>
                 </Table>
             </TableContainer>
-            <Pagination
+           {/* <Pagination
                 show={!statesResponseData.empty}
                 handleNextPage={() => fetchPaginatedStates(true)}
                 handlePreviousPage={() => fetchPaginatedStates(false)}
@@ -125,7 +125,7 @@ const StatesTableList: FC<StatesTableListProps> = ({showCountry = false, showCre
                 pages={statesResponseData.totalPages}
                 totalElements={statesResponseData.totalElements}
                 currentPageElements={statesResponseData.numberOfElements}
-            />
+            />*/}
             <ConfirmAlertDialog
                 handleConfirm={handleDeleteState}
                 isOpen={isDeleteModalOpen}

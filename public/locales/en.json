@@ -16,6 +16,9 @@
   "show": "Show",
   "items": "Items",
   "tools": "Tools",
+  "error": "Error",
+  "download": "Téléchargement",
+  "file_downloaded": "{{type}} file downloaded",
 
   "app": "CSB",
   "welcome": "Welcome",
@@ -23,6 +26,7 @@
   "your_password": "Your password",
   "copy_right": "All rights reserved",
   "filter": "Filter",
+  "export": "Export",
 
   "page_not_found": "Page not found",
   "not_found_description": "Oops! \uD83D\uDE16 The requested URL was not found on this server",

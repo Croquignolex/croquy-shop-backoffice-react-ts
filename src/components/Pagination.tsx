@@ -66,6 +66,7 @@ const Pagination: FC<PaginationProps> = (
                 </Button>
                 {buildButtons.map((button: {label: number, active: boolean}, index: number) => (
                     <Button
+                        key={index}
                         onClick={() => goToPage(button.label)}
                         isDisabled={button.active}
                         variant={button.active ? "solid" : "outline"}

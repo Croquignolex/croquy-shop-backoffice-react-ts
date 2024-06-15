@@ -1,14 +1,29 @@
 import React, {ChangeEvent, FC, ReactElement} from "react";
-import {Box, Button, HStack, Select, Stack, Text} from "@chakra-ui/react";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
-import {IconFlagPlus} from '@tabler/icons-react';
+import {IconFlagPlus, IconFileTypePdf, IconFileTypeCsv} from "@tabler/icons-react";
+import {FiChevronDown, FiDownload} from "react-icons/fi";
+import {
+    Box,
+    Button,
+    Flex,
+    HStack,
+    Icon,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    Select,
+    Stack,
+    Text
+} from "@chakra-ui/react";
 
 import {mainRoutes} from "../../routes/mainRoutes";
 import SearchField from "../form/SearchField";
-import LocaleSwitcher from "../LocaleSwitcher";
+import useDownloadFileHook, {DownloadFileHookType} from "../../hooks/useDownloadFileHook";
+import {FileType} from "../../helpers/globalTypesHelper";
 
-const TableActions: FC<TableActionsProps> = ({handleShowItems, handleSearch}): ReactElement => {
+const TableActions: FC<TableActionsProps> = ({handleShowItems, handleSearch, baseUrl}): ReactElement => {
     const {t} = useTranslation();
 
     return (
@@ -17,24 +32,9 @@ const TableActions: FC<TableActionsProps> = ({handleShowItems, handleSearch}): R
                 <SearchField handleSearch={handleSearch} />
             </Box>
             <Stack direction={{base: "column", md: "row"}}>
+                <ShowItemsSelect handleShowItems={handleShowItems} />
                 <HStack>
-                    <Text>{t("show")}</Text>
-                    <Select
-                        name={"sort"}
-                        borderColor="gray.300"
-                        onChange={(event: ChangeEvent<HTMLSelectElement>) => handleShowItems(parseInt(event.target.value))}
-                    >
-                        <option value={7}>7</option>
-                        <option value={10}>10</option>
-                        <option value={20}>20</option>
-                        <option value={50}>50</option>
-                        <option value={100}>100</option>
-                        <option value={250}>250</option>
-                    </Select>
-                    <Text>{t("items")}</Text>
-                </HStack>
-                <HStack>
-                    <LocaleSwitcher />
+                    <DownloadButton baseUrl={baseUrl} />
                     <Button leftIcon={<IconFlagPlus />} as={Link} to={mainRoutes.addCountry.path} px={{base: 4, sm: 6}}>
                         {t("add_country")}
                     </Button>
@@ -44,9 +44,85 @@ const TableActions: FC<TableActionsProps> = ({handleShowItems, handleSearch}): R
     );
 };
 
+const ShowItemsSelect: FC<{handleShowItems: (a: number) => void}> = ({handleShowItems}): ReactElement => {
+    const {t} = useTranslation();
+
+    const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        handleShowItems(parseInt(event.target.value));
+    };
+
+    return (
+        <HStack>
+            <Text>{t("show")}</Text>
+            <Select name={"sort"} borderColor="gray.300" onChange={handleChange}>
+                <option value={7}>7</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
+                <option value={250}>250</option>
+            </Select>
+            <Text>{t("items")}</Text>
+        </HStack>
+    );
+};
+
+const DownloadButton: FC<{baseUrl: string}> = ({baseUrl}): ReactElement => {
+    const {t} = useTranslation();
+    const {handleDownload, isDownloadFilePending}: DownloadFileHookType = useDownloadFileHook({baseUrl});
+
+    return (
+        <Menu>
+            <MenuButton
+                as={Button}
+                variant={"outline"}
+                rightIcon={<FiChevronDown />}
+                leftIcon={<FiDownload />}
+                isLoading={isDownloadFilePending}
+                w={150}
+                border={0}
+                color={"gray.600"}
+                _hover={{color: "purple.500", bg: "gray.100"}}
+                _active={{color: "purple.500", bg: "purple.100"}}
+            >
+                {t("export")}
+            </MenuButton>
+            <MenuList shadow="default" rounded="lg" minW={150}>
+                <MenuItem py={0} bg={"none"}>
+                    <Flex
+                        px={4}
+                        py={2}
+                        alignItems={"center"}
+                        w={"full"}
+                        _hover={{color: "purple.500"}}
+                        onClick={() => handleDownload(FileType.EXCEL)}
+                    >
+                        <Icon mr="2" as={IconFileTypeCsv} fontSize={"lg"} />
+                        Excel
+                    </Flex>
+                </MenuItem>
+                <MenuItem py={0} bg={"none"}>
+                    <Flex
+                        px={4}
+                        py={2}
+                        alignItems={"center"}
+                        w={"full"}
+                        _hover={{color: "purple.500"}}
+                        onClick={() => handleDownload(FileType.PDF)}
+                    >
+                        <Icon mr="2" as={IconFileTypePdf} fontSize={"lg"} />
+                        PDF
+                    </Flex>
+                </MenuItem>
+            </MenuList>
+        </Menu>
+    );
+};
+
 interface TableActionsProps {
     handleShowItems: (a: number) => void,
     handleSearch: (a: string) => void,
+    baseUrl: string
 }
 
 export default TableActions;

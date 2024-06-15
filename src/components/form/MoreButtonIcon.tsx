@@ -24,7 +24,7 @@ const MoreIconButton: FC<MoreIconButtonProps> = ({state, showStatusToggleModal, 
            <MenuList shadow="default" rounded="lg">
                <MenuItem py={0} bg={"none"}>
                    <Flex
-                       px={5}
+                       px={4}
                        py={2}
                        alignItems={"center"}
                        w={"full"}
@@ -39,7 +39,7 @@ const MoreIconButton: FC<MoreIconButtonProps> = ({state, showStatusToggleModal, 
                </MenuItem>
                <MenuItem py={0} bg={"none"}>
                    <Flex
-                       px={5}
+                       px={4}
                        py={2}
                        alignItems={"center"}
                        w={"full"}

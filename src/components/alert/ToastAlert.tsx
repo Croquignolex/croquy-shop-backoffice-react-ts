@@ -16,18 +16,18 @@ const ToastAlert: FC<RenderProps> = (
     let color: string = "";
 
     switch (status) {
-        case AlertStatusEnumType.INFO: color = "purple.500"; break;
-        case AlertStatusEnumType.SUCCESS: color = "green.500"; break;
-        case AlertStatusEnumType.ERROR: color = "red.500"; break;
-        case AlertStatusEnumType.WARNING: color = "yellow.600"; break;
+        case AlertStatusEnumType.INFO: color = "purple"; break;
+        case AlertStatusEnumType.SUCCESS: color = "green"; break;
+        case AlertStatusEnumType.ERROR: color = "red"; break;
+        case AlertStatusEnumType.WARNING: color = "yellow"; break;
     }
 
     return (
-        <Box rounded="lg" shadow="default" bg={"purple.100"}>
+        <Box rounded="lg" shadow="default" bg={`${color}.100`}>
             <Flex alignItems={"center"} justifyContent={"space-between"} px={4} pt={2} pb={1} >
                 <Flex alignItems={"center"}>
-                    <Icon mr="2" as={FiBell} color={color} />
-                    <Text fontSize={"sm"} alignItems="center" color={"purple.500"}>
+                    <Icon mr="2" as={FiBell} color={`${color}.500`} />
+                    <Text fontSize={"sm"} alignItems="center" color={`${color}.500`}>
                         {title}
                     </Text>
                 </Flex>

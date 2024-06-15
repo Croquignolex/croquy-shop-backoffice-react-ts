@@ -41,6 +41,11 @@ export enum ImageSizeEnumType {
     LARGE = "large",
 }
 
+export enum FileType {
+    PDF = "PDF",
+    EXCEL = "Excel",
+}
+
 // ######################################## TYPES ######################################## //
 
 export interface ErrorAlertType {

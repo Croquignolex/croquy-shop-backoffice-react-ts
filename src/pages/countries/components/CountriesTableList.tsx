@@ -1,8 +1,10 @@
 import React, {FC, ReactElement} from "react";
 import {useTranslation} from "react-i18next";
+import {IconFlagPlus} from "@tabler/icons-react";
 import {
     Badge,
     Box,
+    Button,
     Divider,
     HStack,
     Table,
@@ -10,6 +12,7 @@ import {
     Tbody,
     Td,
     Tr,
+    useDisclosure,
 } from "@chakra-ui/react";
 
 import EmptyTableAlert from "../../../components/alert/EmptyTableAlert";
@@ -27,6 +30,8 @@ import useCountryToggleHook, {CountryToggleHookType} from "../hooks/useCountryTo
 import TableActions from "../../../components/table/TableActions";
 import TableHeader from "../../../components/table/TableHeader";
 import Pagination from "../../../components/Pagination";
+import DrawerForm from "../../../components/DrawerForm";
+import CountryAddForm from "./CountryAddForm";
 import useSortAndFilterHook, {
     SortAndFilterHookType,
     SortAndFilterRequestDataType
@@ -43,6 +48,8 @@ const CountriesTableList: FC<CountriesTableListProps> = (
         countriesBaseUrl
     }): ReactElement => {
 
+    const {onOpen: onAddCountryDrawerOpen, isOpen: isAddCountryDrawerOpen, onClose: onAddCountryDrawerClose} = useDisclosure();
+    const {t} = useTranslation();
     const {
         handleChangePage,
         handleShowItems,
@@ -59,7 +66,15 @@ const CountriesTableList: FC<CountriesTableListProps> = (
 
     return (
         <Box py={4} rounded="lg" shadow="default" bg="white">
-            <TableActions handleShowItems={handleShowItems} handleSearch={handleSearch} baseUrl={countriesBaseUrl} />
+            <TableActions handleShowItems={handleShowItems} handleSearch={handleSearch} baseUrl={countriesBaseUrl}>
+                <Button
+                    leftIcon={<IconFlagPlus />}
+                    px={{base: 4, sm: 6}}
+                    onClick={onAddCountryDrawerOpen}
+                >
+                    {t("add_country")}
+                </Button>
+            </TableActions>
 
             <Divider mt={6} />
 
@@ -84,6 +99,20 @@ const CountriesTableList: FC<CountriesTableListProps> = (
                 totalElements={countriesResponseData.totalElements}
                 currentPageElements={countriesResponseData.numberOfElements}
             />
+
+            <DrawerForm
+                title={t("add_country")}
+                isOpen={isAddCountryDrawerOpen}
+                onClose={onAddCountryDrawerClose}
+            >
+                <CountryAddForm
+                    added={reloadList}
+                    finished={(): void => {
+                        onAddCountryDrawerClose();
+                        reloadList();
+                    }}
+                />
+            </DrawerForm>
         </Box>
     );
 };

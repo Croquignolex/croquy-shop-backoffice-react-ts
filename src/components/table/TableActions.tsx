@@ -1,7 +1,6 @@
-import React, {ChangeEvent, FC, ReactElement} from "react";
+import React, {ChangeEvent, FC, ReactElement, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
-import {Link} from "react-router-dom";
-import {IconFlagPlus, IconFileTypePdf, IconFileTypeCsv} from "@tabler/icons-react";
+import {IconFileTypePdf, IconFileTypeCsv} from "@tabler/icons-react";
 import {FiChevronDown, FiDownload} from "react-icons/fi";
 import {
     Box,
@@ -18,29 +17,26 @@ import {
     Text
 } from "@chakra-ui/react";
 
-import {mainRoutes} from "../../routes/mainRoutes";
 import SearchField from "../form/SearchField";
 import useDownloadFileHook, {DownloadFileHookType} from "../../hooks/useDownloadFileHook";
 import {FileType} from "../../helpers/globalTypesHelper";
 
-const TableActions: FC<TableActionsProps> = ({handleShowItems, handleSearch, baseUrl}): ReactElement => {
-    const {t} = useTranslation();
-
+const TableActions: FC<TableActionsProps> = ({handleShowItems, handleSearch, baseUrl, children}): ReactElement => {
     return (
-        <Stack px={6} justifyContent={"space-between"} direction={{base: "column", md: "row"}}>
-            <Box w={{base: "full", md: "sm"}}>
-                <SearchField handleSearch={handleSearch} />
-            </Box>
-            <Stack direction={{base: "column", md: "row"}}>
-                <ShowItemsSelect handleShowItems={handleShowItems} />
-                <HStack>
-                    <DownloadButton baseUrl={baseUrl} />
-                    <Button leftIcon={<IconFlagPlus />} as={Link} to={mainRoutes.addCountry.path} px={{base: 4, sm: 6}}>
-                        {t("add_country")}
-                    </Button>
-                </HStack>
+        <div>
+            <Stack px={6} justifyContent={"space-between"} direction={{base: "column", md: "row"}}>
+                <Box w={{base: "full", md: "sm"}}>
+                    <SearchField handleSearch={handleSearch} />
+                </Box>
+                <Stack direction={{base: "column", md: "row"}}>
+                    <ShowItemsSelect handleShowItems={handleShowItems} />
+                    <HStack>
+                        <DownloadButton baseUrl={baseUrl} />
+                        {children}
+                    </HStack>
+                </Stack>
             </Stack>
-        </Stack>
+        </div>
     );
 };
 
@@ -122,7 +118,8 @@ const DownloadButton: FC<{baseUrl: string}> = ({baseUrl}): ReactElement => {
 interface TableActionsProps {
     handleShowItems: (a: number) => void,
     handleSearch: (a: string) => void,
-    baseUrl: string
+    baseUrl: string,
+    children: ReactNode,
 }
 
 export default TableActions;

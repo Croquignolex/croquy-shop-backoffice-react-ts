@@ -80,7 +80,7 @@ const EditStatePage = (): ReactElement => {
                             isOpen={isAddCountryModalOpen}
                             onClose={onAddCountryModalClose}
                         >
-                            {/*<CountryCreateForm
+                            {/*<CountryAddForm
                                 modal
                                 handleAdd={(): void => setCountriesQueryEnabled(true)}
                                 handleFinish={(): void => {

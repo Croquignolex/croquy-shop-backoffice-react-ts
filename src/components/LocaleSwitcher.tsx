@@ -1,15 +1,15 @@
 import {FC, ReactElement} from "react";
 import {useTranslation} from "react-i18next";
 import {FiChevronDown} from "react-icons/fi";
-import {IconLanguage} from '@tabler/icons-react';
+import {IconLanguage} from "@tabler/icons-react";
 import {Button, Menu, MenuButton, MenuItemOption, MenuList, MenuOptionGroup} from "@chakra-ui/react";
 
 import {supportedLanguages} from "../i18n/config";
-import useLocalizeDocumentAttributes from "../hooks/useLocalizeDocumentAttributes";
+import useLocalizeDocumentAttributesHook from "../hooks/useLocalizeDocumentAttributesHook";
 
 const LocaleSwitcher: FC = () => {
     const {i18n} = useTranslation();
-    useLocalizeDocumentAttributes();
+    useLocalizeDocumentAttributesHook();
 
     return (
         <Menu>

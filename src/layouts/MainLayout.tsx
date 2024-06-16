@@ -203,15 +203,13 @@ const MobileMenu: FC = (): ReactElement => {
                 icon={isOpen ? <FiX /> : <FiMenu />}
                 border={0}
                 variant={"outline"}
+                bg={"purple.100"}
+                color={"purple.500"}
             />
-            <Drawer
-                isOpen={isOpen}
-                onClose={onClose}
-                placement={"left"}
-            >
+            <Drawer isOpen={isOpen} onClose={onClose} placement={"left"}>
                 <DrawerOverlay />
                 <DrawerContent>
-                    <DrawerCloseButton />
+                    <DrawerCloseButton bg={"purple.100"} color={"purple.500"} />
 
                     <DrawerHeader>
                         <Heading as={Link} to="/" fontSize="2xl">

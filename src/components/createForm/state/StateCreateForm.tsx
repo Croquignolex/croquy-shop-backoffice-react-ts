@@ -67,7 +67,7 @@ const StateCreateForm: FC<StateCreateFormProps> = ({modal = false, handleFinish,
                 isOpen={isAddCountryModalOpen}
                 onClose={onAddCountryModalClose}
             >
-               {/* <CountryCreateForm
+               {/* <CountryAddForm
                     modal
                     handleAdd={(): void => setCountriesQueryEnabled(true)}
                     handleFinish={(): void => {

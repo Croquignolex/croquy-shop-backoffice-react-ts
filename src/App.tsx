@@ -5,7 +5,7 @@ import {AbsoluteCenter, Box, Spinner} from "@chakra-ui/react";
 import {Routes} from "./routes";
 import {getLocaleStorageItem} from "./helpers/localStorageHelpers";
 import {LoginResponseDataType} from "./pages/login/useLoginHook";
-import useLocalizeDocumentAttributes from "./hooks/useLocalizeDocumentAttributes";
+import useLocalizeDocumentAttributesHook from "./hooks/useLocalizeDocumentAttributesHook";
 import {
     initialGlobalUserState,
     USER_GLOBAL_STATE_TRUST_UNAUTHORIZED,
@@ -27,7 +27,7 @@ const SuspenseLoader: FC = (): ReactElement => {
 
 const GlobalState: FC = (): ReactElement => {
     const { globalUserState, setGlobalUserState } = useContext(UserContext);
-    useLocalizeDocumentAttributes();
+    useLocalizeDocumentAttributesHook();
 
     useEffect((): void => {
         const userPersistedData: any = getLocaleStorageItem("user");

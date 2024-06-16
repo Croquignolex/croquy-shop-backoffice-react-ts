@@ -1,4 +1,9 @@
 {
+  "name": "Nom",
+  "description": "Description",
+  "confirm": "Confirmer",
+  "confirm_and_continue": "Confirmer & continuer",
+
   "search": "Rechercher...",
   "date": "{{value, date}}",
   "date_time": "{{value, datetime}}",
@@ -37,6 +42,7 @@
   "toggle_country_false": "Activer le pays",
   "country_toggled_true": "Pays {{name}} désactivé avec succès",
   "country_toggled_false": "Pays {{name}} activé avec succès",
+  "country_added": "Pays {{name}} ajouté avec succès",
 
   "administration": "Administration",
   "settings": "Paramètres",
@@ -50,6 +56,7 @@
   "flag": "Drapeau",
   "country": "Pays",
   "add_country": "Ajouter un pays",
+  "new_country": "Nouveau pays",
 
   "login": "Connexion",
   "logout": "Déconnexion",

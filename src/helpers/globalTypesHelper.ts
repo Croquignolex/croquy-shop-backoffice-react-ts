@@ -41,6 +41,13 @@ export enum ImageSizeEnumType {
     LARGE = "large",
 }
 
+export enum SizeType {
+    SMALL = "sm",
+    MEDIUM = "md",
+    LARGE = "lg",
+    EXTRA_LARGE = "xl",
+}
+
 export enum FileType {
     PDF = "PDF",
     EXCEL = "Excel",

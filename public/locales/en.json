@@ -1,4 +1,9 @@
 {
+  "name": "Name",
+  "description": "Description",
+  "confirm": "Confirm",
+  "confirm_and_continue": "Confirm & continue",
+
   "search": "Search...",
   "date": "{{value, date}}",
   "date_time": "{{value, datetime}}",
@@ -37,6 +42,7 @@
   "toggle_country_false": "Enable country",
   "country_toggled_true": "Country {{name}} successfully enabled",
   "country_toggled_false": "Country {{name}} successfully disabled",
+  "country_added": "Country {{name}} successfully added",
 
   "administration": "Administration",
   "settings": "Settings",
@@ -50,6 +56,7 @@
   "flag": "Flag",
   "country": "Country",
   "add_country": "Add country",
+  "new_country": "New country",
 
   "login": "Login",
   "logout": "Logout",

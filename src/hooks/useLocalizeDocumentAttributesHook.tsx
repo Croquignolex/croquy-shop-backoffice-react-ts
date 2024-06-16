@@ -7,7 +7,7 @@ import {mainRoutes} from "../routes/mainRoutes";
 import {authRoutes} from "../routes/authRoutes";
 import {errorRoutes} from "../routes/errorRoutes";
 
-const useLocalizeDocumentAttributes = (): void => {
+const useLocalizeDocumentAttributesHook = (): void => {
     const {t, i18n} = useTranslation();
     const {pathname} = useLocation();
     
@@ -44,4 +44,4 @@ const useLocalizeDocumentAttributes = (): void => {
     };
 };
 
-export default useLocalizeDocumentAttributes;
+export default useLocalizeDocumentAttributesHook;

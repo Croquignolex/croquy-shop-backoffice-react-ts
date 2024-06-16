@@ -2,6 +2,7 @@ import React, { ReactElement, FC } from "react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import {FiCheck} from "react-icons/fi";
 import {FormikProps} from "formik";
+import {useTranslation} from "react-i18next";
 
 const DoubleSaveButton: FC<DoubleSaveButtonProps> = (
     {
@@ -10,6 +11,8 @@ const DoubleSaveButton: FC<DoubleSaveButtonProps> = (
         isLoading = false,
         isDisabled = false
     }): ReactElement => {
+
+   const {t} = useTranslation();
    let isValid: boolean = false;
 
    if(formikProps) {
@@ -19,25 +22,21 @@ const DoubleSaveButton: FC<DoubleSaveButtonProps> = (
    return (
         <ButtonGroup>
             <Button
-                colorScheme={"green"}
                 isLoading={isLoading}
                 isDisabled={isDisabled}
                 type='submit'
-                fontWeight="none"
                 leftIcon={<FiCheck />}
             >
-                Confirmer
+                {t("confirm")}
             </Button>
             <Button
-                colorScheme={"orange"}
+                variant={"outline"}
                 isLoading={isLoading}
                 isDisabled={isDisabled || !isValid}
-                type='button'
-                fontWeight="none"
                 leftIcon={<FiCheck />}
                 onClick={handleSaveAndContinue}
             >
-                Confirmer et continuer
+                {t("confirm_and_continue")}
             </Button>
         </ButtonGroup>
     );

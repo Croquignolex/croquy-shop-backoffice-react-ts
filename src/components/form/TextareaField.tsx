@@ -2,6 +2,7 @@ import React, { ReactElement, FC } from "react";
 import {Textarea, FormLabel, FormErrorMessage, FormControl, Icon, Skeleton} from "@chakra-ui/react";
 import { Field } from "formik";
 import { FiAlertCircle } from "react-icons/fi";
+import {useTranslation} from "react-i18next";
 
 import {DefaultFieldProps} from "../../helpers/globalTypesHelper";
 
@@ -13,6 +14,7 @@ const TextareaField: FC<DefaultFieldProps> = (
         formikProps,
     }): ReactElement => {
 
+    const {t} = useTranslation();
     const isInvalid: boolean = !!formikProps.errors[name] && !!formikProps.touched[name];
 
     return (
@@ -26,7 +28,7 @@ const TextareaField: FC<DefaultFieldProps> = (
 
             <FormErrorMessage>
                 <Icon mr="2" as={FiAlertCircle} />
-                {formikProps.errors[name]?.toString()}
+                {t(formikProps.errors[name]?.toString() || "")}
             </FormErrorMessage>
         </FormControl>
     );

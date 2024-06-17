@@ -1,12 +1,16 @@
 import React, {ReactElement, FC, ChangeEvent} from "react";
 import {Field, FormikProps} from "formik";
+import {FiAlertCircle} from "react-icons/fi";
+import {useTranslation} from "react-i18next";
 import {FormControl, FormErrorMessage, Icon, Input} from "@chakra-ui/react";
 
 import {defaultMedia, MediaType} from "../../helpers/globalTypesHelper";
 import {log, readFile} from "../../helpers/generalHelpers";
-import {FiAlertCircle} from "react-icons/fi";
+
 
 const HiddenFileField: FC<HiddenFileFieldProps> = ({id, image, handleImageUpdate, formikProps}): ReactElement => {
+    const {t} = useTranslation();
+
     const handleFileUpload = (e: ChangeEvent<HTMLInputElement>): void => {
         if (e.target.files && e.target.files.length > 0) {
             const file: File = e.target.files[0];
@@ -29,7 +33,7 @@ const HiddenFileField: FC<HiddenFileFieldProps> = ({id, image, handleImageUpdate
             <FormControl isInvalid={isInvalid}>
                 <FormErrorMessage>
                     <Icon mr="2" as={FiAlertCircle} />
-                    {formikProps.errors["image"]?.toString()}
+                    {t(formikProps.errors["image"]?.toString() || "")}
                 </FormErrorMessage>
             </FormControl>
         </>

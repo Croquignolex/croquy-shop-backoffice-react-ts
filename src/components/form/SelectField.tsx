@@ -1,6 +1,7 @@
 import React, { ReactElement, FC } from "react";
 import {FiAlertCircle} from "react-icons/fi";
 import { Field } from "formik";
+import {useTranslation} from "react-i18next";
 import {
     FormLabel,
     FormErrorMessage,
@@ -21,6 +22,7 @@ const SelectField: FC<SelectFormFieldProps> = (
         formikProps,
     }): ReactElement => {
 
+    const {t} = useTranslation();
     const isInvalid: boolean = !!formikProps.errors[name] && !!formikProps.touched[name];
 
     return (
@@ -41,7 +43,7 @@ const SelectField: FC<SelectFormFieldProps> = (
 
             <FormErrorMessage>
                 <Icon mr="2" as={FiAlertCircle} />
-                {formikProps.errors[name]?.toString()}
+                {t(formikProps.errors[name]?.toString() || "")}
             </FormErrorMessage>
         </FormControl>
     );

@@ -2,19 +2,18 @@ import {AttributeTypeEnumType, GenderTypeEnumType, RoleTypeEnumType} from "../he
 import {FormSelectOptionType} from "../components/form/SelectField";
 
 export const formValidationMessage = {
-    required: "Merci de remplir ce champ",
-    match: "Le format de ce champ n'ai pas correct",
-    minNumber: "Merci de rentrer une value supérieure",
-    minDate: "Merci de choisir une date futur",
-    dateAfter: "Merci de choisir une date ultérieure à la date de départ",
-    maxNumber: "Merci de rentrer une value inférieure",
-    email: "Addresse email invalide",
-    minMax: "Nombre de caratères incorrect",
-    confirm: "Les mots de passe ne sont pas indetiques",
-    old: "Les mots de passe ne doivent pas être indetiques",
-    password: "Mot de passe invalide",
-    imageAllowedFormat: "Format autorisés: PNG, JPG",
-    imageAllowedSize: "La taille du fichier doit être moins de 2MB",
+    required: "FORM_REQUIRED",
+    match: "FORM_MATCH",
+    minNumber: "FORM_MIN_NUMBER",
+    minDate: "FORM_DATE_AFTER",
+    dateAfter: "FORM_DATE_BEFORE",
+    maxNumber: "FORM_MAX_NUMBER",
+    email: "FORM_EMAIL",
+    confirm: "FORM_CONFIRM_PASSWORD",
+    old: "FORM_OLD_PASSWORD",
+    password: "FORM_INVALID_PASSWORD",
+    imageAllowedFormat: "FORM_ALLOWED_IMAGE_FORMAT",
+    imageAllowedSize: "FORM_ALLOWED_IMAGE_SIZE",
 };
 
 export const format = {

@@ -1,15 +1,15 @@
-import React, { ReactElement, FC } from "react";
+import React, {ReactElement, FC, ReactNode} from "react";
 import {Flex, Icon, Menu, MenuButton, MenuItem, MenuList} from "@chakra-ui/react";
 import {FiEye, FiMoreVertical, FiToggleRight} from "react-icons/fi";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 
-const MoreIconButton: FC<MoreIconButtonProps> = ({state, showStatusToggleModal, url, status}): ReactElement => {
+const MoreIconButton: FC<MoreIconButtonProps> = ({state, showStatusToggleModal, url, status, children}): ReactElement => {
     const {t} = useTranslation();
 
     const handleStatusToggleModal = (): void => {
-        if(state) showStatusToggleModal(state)
-        else showStatusToggleModal()
+        if(state) showStatusToggleModal(state);
+        else showStatusToggleModal();
     }
 
    return (
@@ -50,6 +50,7 @@ const MoreIconButton: FC<MoreIconButtonProps> = ({state, showStatusToggleModal, 
                        {t(`toggle_${status}`)}
                    </Flex>
                </MenuItem>
+               {children}
            </MenuList>
        </Menu>
     );
@@ -60,6 +61,7 @@ interface MoreIconButtonProps {
     state: any;
     url: any;
     status: boolean;
+    children?: ReactNode;
 }
 
 export default MoreIconButton;

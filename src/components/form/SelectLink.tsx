@@ -1,7 +1,7 @@
 import React, { ReactElement, FC } from "react";
 import {Text, Box} from "@chakra-ui/react";
 
-const SelectLink: FC<CustomDateFieldProps> = ({onModalOpen, label}): ReactElement => {
+const SelectLink: FC<SelectLinkProps> = ({onModalOpen, label}): ReactElement => {
     return (
         <Box textAlign="right">
             <Text as={"span"} fontSize="sm" className="link" onClick={onModalOpen}>
@@ -11,7 +11,7 @@ const SelectLink: FC<CustomDateFieldProps> = ({onModalOpen, label}): ReactElemen
     );
 };
 
-interface CustomDateFieldProps {
+interface SelectLinkProps {
     onModalOpen: () => void;
     label: string,
 }

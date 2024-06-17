@@ -20,7 +20,7 @@ const SearchField: FC<SearchFieldProps> = ({handleSearch}): ReactElement => {
 
     const handleClearNeedle = (): void => {
         setNeedle("");
-        handleSearch("")
+        handleSearch("");
     }
 
     return (

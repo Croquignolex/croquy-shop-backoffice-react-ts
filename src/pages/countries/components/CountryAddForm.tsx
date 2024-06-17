@@ -13,7 +13,6 @@ import useCountryAddHook, {
     addCountryInitialStaticValues,
     addCountrySchema
 } from "../hooks/useCountryAddHook";
-import EditorField from "../../../components/form/EditorField";
 
 const CountryAddForm: FC<CountryAddFormProps> = ({added, finished}): ReactElement => {
     const {t} = useTranslation();

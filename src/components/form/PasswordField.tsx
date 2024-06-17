@@ -1,6 +1,7 @@
 import React, { ReactElement, FC, useState } from "react";
 import { Field } from "formik";
 import { FiAlertCircle, FiEye, FiEyeOff } from "react-icons/fi";
+import {useTranslation} from "react-i18next";
 import {
     Input,
     FormLabel,
@@ -22,6 +23,7 @@ const PasswordField: FC<DefaultFieldProps> = (
         formikProps,
     }): ReactElement => {
 
+    const {t} = useTranslation();
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const isInvalid: boolean = !!formikProps.errors[name] && !!formikProps.touched[name];
 
@@ -50,7 +52,7 @@ const PasswordField: FC<DefaultFieldProps> = (
 
             <FormErrorMessage>
                 <Icon mr="2" as={FiAlertCircle} />
-                {formikProps.errors[name]?.toString()}
+                {t(formikProps.errors[name]?.toString() || "")}
             </FormErrorMessage>
         </FormControl>
     );

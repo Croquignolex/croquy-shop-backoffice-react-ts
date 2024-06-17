@@ -1,5 +1,6 @@
 import React, { ReactElement, FC } from "react";
 import { Field } from "formik";
+import {useTranslation} from "react-i18next";
 import { FiAlertCircle } from "react-icons/fi";
 import {
     Input,
@@ -20,6 +21,7 @@ const DateField: FC<DefaultFieldProps> = (
         formikProps,
     }): ReactElement => {
 
+    const {t} = useTranslation();
     const isInvalid: boolean = !!formikProps.errors[name] && !!formikProps.touched[name];
 
     return (
@@ -33,7 +35,7 @@ const DateField: FC<DefaultFieldProps> = (
 
             <FormErrorMessage>
                 <Icon mr="2" as={FiAlertCircle} />
-                {formikProps.errors[name]?.toString()}
+                {t(formikProps.errors[name]?.toString() || "")}
             </FormErrorMessage>
         </FormControl>
     );

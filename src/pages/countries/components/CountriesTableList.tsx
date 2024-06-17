@@ -1,12 +1,12 @@
 import React, {FC, ReactElement} from "react";
 import {useTranslation} from "react-i18next";
-import {IconFlagPlus} from "@tabler/icons-react";
+import {IconFlagPlus, IconFlagCog} from "@tabler/icons-react";
 import {
     Badge,
     Box,
     Button,
-    Divider,
-    HStack,
+    Divider, Flex,
+    HStack, Icon, MenuItem,
     Table,
     TableContainer,
     Tbody,
@@ -40,6 +40,7 @@ import useCountriesTableListHook, {
     CountriesResponseDataType,
     CountriesTableListHookType
 } from "../hooks/useCountriesTableListHook";
+import {FiToggleRight} from "react-icons/fi";
 
 const CountriesTableList: FC<CountriesTableListProps> = (
     {
@@ -208,7 +209,21 @@ const CustomTable: FC<CustomTableProps> = (
                                                 state={country}
                                                 status={country.enabled}
                                                 showStatusToggleModal={showToggleModal}
-                                            />
+                                            >
+                                                <MenuItem py={0} bg={"none"}>
+                                                    <Flex
+                                                        px={4}
+                                                        py={2}
+                                                        alignItems={"center"}
+                                                        w={"full"}
+                                                        _hover={{color: "purple.500"}}
+                                                        // onClick={handleStatusToggleModal}
+                                                    >
+                                                        <Icon mr="2" as={IconFlagCog} fontSize={"lg"} />
+                                                        {t("change_flag")}
+                                                    </Flex>
+                                                </MenuItem>
+                                            </MoreIconButton>
                                         </HStack>
                                     </Td>
                                 </Tr>

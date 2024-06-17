@@ -1,6 +1,8 @@
 import React, { ReactElement, FC } from "react";
 import { Field } from "formik";
 import { FiAlertCircle } from "react-icons/fi";
+import {useTranslation} from "react-i18next";
+import {FieldAttributes} from "formik/dist/Field";
 import {
     FormLabel,
     FormErrorMessage,
@@ -14,7 +16,6 @@ import {
     NumberDecrementStepper
 } from "@chakra-ui/react";
 
-import {FieldAttributes} from "formik/dist/Field";
 import {DefaultFieldProps} from "../../helpers/globalTypesHelper";
 
 const NumberField: FC<NumberFieldProps> = (
@@ -27,6 +28,7 @@ const NumberField: FC<NumberFieldProps> = (
         formikProps,
     }): ReactElement => {
 
+    const {t} = useTranslation();
     const isInvalid: boolean = !!formikProps.errors[name] && !!formikProps.touched[name];
 
     return (
@@ -59,7 +61,7 @@ const NumberField: FC<NumberFieldProps> = (
             }
             <FormErrorMessage>
                 <Icon mr="2" as={FiAlertCircle} />
-                {formikProps.errors[name]?.toString()}
+                {t(formikProps.errors[name]?.toString() || "")}
             </FormErrorMessage>
         </FormControl>
     );

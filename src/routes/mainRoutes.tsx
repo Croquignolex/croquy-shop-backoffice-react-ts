@@ -36,7 +36,6 @@ const editUser: MainRouteType = {path: "/users/:id/edit", component: lazy(() => 
 const countries: MainRouteType = {title: "countries", path: "/countries", icon: IconFlag, component: lazy(() => import("../pages/countries/components/CountriesListPage"))};
 const addCountry: MainRouteType = {path: "/countries/create", component: lazy(() => import("../pages/countries/components/CountryCreatePage"))};
 const showCountry: MainRouteType = {path: "/countries/:id", component: lazy(() => import("../pages/countries/show/ShowCountryPage"))};
-const editCountry: MainRouteType = {path: "/countries/:id/edit", component: lazy(() => import("../pages/countries/edit/EditCountryPage"))};
 
 const states: MainRouteType = {title: "states", path: "/states", icon: FiMap, component: lazy(() => import("../pages/states/StatesPage"))};
 const addState: MainRouteType = {path: "/states/create", component: lazy(() => import("../pages/states/CreateStatePage"))};
@@ -113,7 +112,7 @@ export const sideMenu = [
 export const mainRoutes: any = {
     dashboard,
     profile, settings, help,
-    countries, addCountry, showCountry, editCountry,
+    countries, addCountry, showCountry,
 
 
 

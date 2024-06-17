@@ -13,6 +13,7 @@
   "FORM_ALLOWED_IMAGE_SIZE": "File size should be less than 2MB",
 
   "change_flag": "Change flag",
+  "edit_country": "Edit country",
   "add": "Add",
   "name": "Name",
   "description": "Description",
@@ -47,6 +48,7 @@
   "copy_right": "All rights reserved",
   "filter": "Filter",
   "export": "Export",
+  "edit": "Edit",
 
   "page_not_found": "Page not found",
   "not_found_description": "Oops! \uD83D\uDE16 The requested URL was not found on this server",
@@ -58,6 +60,7 @@
   "country_toggled_true": "Country {{name}} successfully enabled",
   "country_toggled_false": "Country {{name}} successfully disabled",
   "country_added": "Country {{name}} successfully added",
+  "country_edited": "Country {{name}} successfully edited",
 
   "administration": "Administration",
   "settings": "Settings",

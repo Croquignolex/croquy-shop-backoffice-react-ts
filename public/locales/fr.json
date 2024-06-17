@@ -13,6 +13,7 @@
   "FORM_ALLOWED_IMAGE_SIZE": "La taille du fichier doit être moins de 2MB",
 
   "change_flag": "Changer le drapeau",
+  "edit_country": "Modifier le pays",
   "add": "Ajout",
   "name": "Nom",
   "description": "Description",
@@ -47,6 +48,7 @@
   "copy_right": "Tous droits reservés",
   "filter": "Filtre",
   "export": "Exporter",
+  "edit": "Modification",
 
   "page_not_found": "Page introuvable",
   "not_found_description": "Oops! \uD83D\uDE16 L'URL démandé n'ai pas rétrouvé sur ce serveur",
@@ -58,6 +60,7 @@
   "country_toggled_true": "Pays {{name}} désactivé avec succès",
   "country_toggled_false": "Pays {{name}} activé avec succès",
   "country_added": "Pays {{name}} ajouté avec succès",
+  "country_edited": "Pays {{name}} modifié avec succès",
 
   "administration": "Administration",
   "settings": "Paramètres",

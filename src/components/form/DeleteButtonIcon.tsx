@@ -4,8 +4,8 @@ import {FiTrash2} from "react-icons/fi";
 
 const DeleteIconButton: FC<DeleteIconButtonProps> = ({state, showDeleteModal}): ReactElement => {
     const handleDelete = (): void => {
-        if(state) showDeleteModal(state)
-        else showDeleteModal()
+        if(state) showDeleteModal(state);
+        else showDeleteModal();
     }
 
    return (

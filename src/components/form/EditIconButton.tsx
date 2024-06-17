@@ -3,16 +3,21 @@ import {Text} from "@chakra-ui/react";
 import {FiEdit} from "react-icons/fi";
 import {Link} from "react-router-dom";
 
-const EditIconButton: FC<EditIconButtonProps> = ({state, url}): ReactElement => {
+const EditIconButton: FC<EditIconButtonProps> = ({state, showEditDrawer}): ReactElement => {
+    const handleEdit = (): void => {
+        if(state) showEditDrawer(state)
+        else showEditDrawer()
+    }
+
    return (
-       <Text as={Link} color={"purple.500"} to={url} state={state} _hover={{color: "purple.700"}}>
+       <Text as={Link} color={"purple.500"} _hover={{color: "purple.700"}} onClick={handleEdit}>
            <FiEdit />
        </Text>
     );
 };
 
 interface EditIconButtonProps {
-    url: string;
+    showEditDrawer: (a?: any) => void;
     state: any;
 }
 

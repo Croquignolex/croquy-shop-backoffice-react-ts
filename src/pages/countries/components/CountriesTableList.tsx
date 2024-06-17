@@ -1,12 +1,15 @@
-import React, {FC, ReactElement} from "react";
+import React, {FC, ReactElement, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {IconFlagPlus, IconFlagCog} from "@tabler/icons-react";
 import {
     Badge,
     Box,
     Button,
-    Divider, Flex,
-    HStack, Icon, MenuItem,
+    Divider,
+    Flex,
+    HStack,
+    Icon,
+    MenuItem,
     Table,
     TableContainer,
     Tbody,
@@ -20,7 +23,7 @@ import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import TableSkeletonLoader from "../../../components/skeletonLoader/TableSkeletonLoader";
 import CustomAlert from "../../../components/alert/CustomAlert";
-import {CountryType} from "../show/showCountryData";
+import {CountryType, defaultSelectedCountry} from "../show/showCountryData";
 import RowImage from "../../../components/RowImage";
 import EditIconButton from "../../../components/form/EditIconButton";
 import DeleteIconButton from "../../../components/form/DeleteButtonIcon";
@@ -32,6 +35,7 @@ import TableHeader from "../../../components/table/TableHeader";
 import Pagination from "../../../components/Pagination";
 import DrawerForm from "../../../components/DrawerForm";
 import CountryAddForm from "./CountryAddForm";
+import CountryEditForm from "./CountryEditForm";
 import useSortAndFilterHook, {
     SortAndFilterHookType,
     SortAndFilterRequestDataType
@@ -40,7 +44,6 @@ import useCountriesTableListHook, {
     CountriesResponseDataType,
     CountriesTableListHookType
 } from "../hooks/useCountriesTableListHook";
-import {FiToggleRight} from "react-icons/fi";
 
 const CountriesTableList: FC<CountriesTableListProps> = (
     {
@@ -51,6 +54,7 @@ const CountriesTableList: FC<CountriesTableListProps> = (
 
     const {onOpen: onAddCountryDrawerOpen, isOpen: isAddCountryDrawerOpen, onClose: onAddCountryDrawerClose} = useDisclosure();
     const {t} = useTranslation();
+
     const {
         handleChangePage,
         handleShowItems,
@@ -128,7 +132,11 @@ const CustomTable: FC<CustomTableProps> = (
         countriesResponseData
     }): ReactElement => {
 
+    const {onOpen: onEditCountryDrawerOpen, isOpen: isEditCountryDrawerOpen, onClose: onEditCountryDrawerClose} = useDisclosure();
     const {t} = useTranslation();
+
+    const [selectedCountry, setSelectedCountry] = useState<CountryType>(defaultSelectedCountry);
+
     const {
         onDeleteModalClose,
         selectedCountry: deletedCountry,
@@ -197,8 +205,11 @@ const CustomTable: FC<CustomTableProps> = (
                                     <Td>
                                         <HStack>
                                             <EditIconButton
-                                                url={`${mainRoutes.countries.path}/${country.id}/edit`}
                                                 state={country}
+                                                showEditDrawer={() => {
+                                                    onEditCountryDrawerOpen();
+                                                    setSelectedCountry(country);
+                                                }}
                                             />
                                             <DeleteIconButton
                                                 state={country}
@@ -232,6 +243,7 @@ const CustomTable: FC<CustomTableProps> = (
                     )}
                 </Tbody>
             </Table>
+
             <ConfirmAlertDialog
                 danger
                 handleConfirm={handleDeleteCountry}
@@ -242,6 +254,7 @@ const CustomTable: FC<CustomTableProps> = (
             >
                 {t("delete_country")} <strong>{deletedCountry.name}</strong>?
             </ConfirmAlertDialog>
+
             <ConfirmAlertDialog
                 title={t(`toggle_${toggledCountry.enabled}`)}
                 handleConfirm={handleToggleCountry}
@@ -252,6 +265,20 @@ const CustomTable: FC<CustomTableProps> = (
             >
                 {t(`toggle_country_${toggledCountry.enabled}`)} <strong>{toggledCountry.name}</strong>?
             </ConfirmAlertDialog>
+
+            <DrawerForm
+                title={t("edit_country")}
+                isOpen={isEditCountryDrawerOpen}
+                onClose={onEditCountryDrawerClose}
+            >
+                <CountryEditForm
+                    selectedCountry={selectedCountry}
+                    finished={(): void => {
+                        onEditCountryDrawerClose();
+                        reloadList();
+                    }}
+                />
+            </DrawerForm>
         </TableContainer>
     );
 };

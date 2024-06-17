@@ -36,7 +36,7 @@ const DropzoneField: FC<DropzoneFieldProps> = ({formikProps, image, handlePrevie
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formikProps, image]);
-    const {getRootProps, isDragActive} = useDropzone({onDrop});
+    const {getRootProps, isDragActive} = useDropzone( {onDrop, accept: {'image/png': ['.png'], 'image/jpg': ['.jpg']}});
 
     const isInvalid: boolean = !!formikProps.errors["image"] && !!formikProps.touched["image"];
 

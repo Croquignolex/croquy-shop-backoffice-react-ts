@@ -3,14 +3,9 @@ import {Text} from "@chakra-ui/react";
 import {FiEdit} from "react-icons/fi";
 import {Link} from "react-router-dom";
 
-const EditIconButton: FC<EditIconButtonProps> = ({state, showEditDrawer}): ReactElement => {
-    const handleEdit = (): void => {
-        if(state) showEditDrawer(state)
-        else showEditDrawer()
-    }
-
+const EditIconButton: FC<EditIconButtonProps> = ({showEditDrawer}): ReactElement => {
    return (
-       <Text as={Link} color={"purple.500"} _hover={{color: "purple.700"}} onClick={handleEdit}>
+       <Text as={Link} color={"purple.500"} _hover={{color: "purple.700"}} onClick={showEditDrawer}>
            <FiEdit />
        </Text>
     );
@@ -18,7 +13,6 @@ const EditIconButton: FC<EditIconButtonProps> = ({state, showEditDrawer}): React
 
 interface EditIconButtonProps {
     showEditDrawer: (a?: any) => void;
-    state: any;
 }
 
 export default EditIconButton;

@@ -11,6 +11,8 @@
   "FORM_INVALID_PASSWORD": "Mot de passe invalide",
   "FORM_ALLOWED_IMAGE_FORMAT": "Format autorisés: PNG, JPG",
   "FORM_ALLOWED_IMAGE_SIZE": "La taille du fichier doit être moins de 2MB",
+  "FORM_IMAGE_UPLOAD_ABORT": "Intéruption dans le téléchargement de l'image",
+  "FORM_IMAGE_UPLOAD_ERROR": "Erreur durant le téléchargement de l'image",
 
   "change_flag": "Changer le drapeau",
   "edit_country": "Modifier le pays",
@@ -49,6 +51,10 @@
   "filter": "Filtre",
   "export": "Exporter",
   "edit": "Modification",
+  "image_changed": "Image mise à jour avec succès",
+  "image_unreadable": "Erreur de lecture de l'image",
+  "dropzone_text": "Deposez votre fichier ici ou cliquez pour télécharger",
+  "dropzone_texts": "Deposez vos fichiers ici ou cliquez pour télécharger",
 
   "page_not_found": "Page introuvable",
   "not_found_description": "Oops! \uD83D\uDE16 L'URL démandé n'ai pas rétrouvé sur ce serveur",
@@ -61,6 +67,9 @@
   "country_toggled_false": "Pays {{name}} activé avec succès",
   "country_added": "Pays {{name}} ajouté avec succès",
   "country_edited": "Pays {{name}} modifié avec succès",
+  "image_deleted": "Image supprimée avec succès",
+  "delete_image": "Supprimer l'image",
+  "change": "Changement",
 
   "administration": "Administration",
   "settings": "Paramètres",

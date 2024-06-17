@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from "react";
-import {Center, Image} from "@chakra-ui/react";
+import {Image} from "@chakra-ui/react";
 
 import {ImageSizeEnumType, MediaType} from "../helpers/globalTypesHelper";
 
@@ -31,20 +31,18 @@ const ImageDisplay: FC<ImageDisplayProps> = ({image, size, height = 0, width= 0}
     const src: string = image?.base64 || (image?.path ? API_MEDIA_V1_URL + image?.path : "");
 
     return (
-        <Center>
-            <Image
-                maxW={w}
-                maxH={h}
-                // width={width ? width : undefined}
-                // height={height ? height : undefined}
-                rounded={r}
-                objectFit='cover'
-                src={src}
-                fallbackSrc={noImage}
-                borderWidth={1}
-                alt='...'
-            />
-        </Center>
+        <Image
+            maxW={w}
+            maxH={h}
+            // width={width ? width : undefined}
+            // height={height ? height : undefined}
+            rounded={r}
+            objectFit='cover'
+            src={src}
+            fallbackSrc={noImage}
+            borderWidth={1}
+            alt='...'
+        />
     );
 };
 

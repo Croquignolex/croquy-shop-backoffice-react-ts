@@ -31,7 +31,7 @@ export interface CountryDeleteHookProps {
     deleted: () => void,
 }
 
-export const destroyCountry = ({id}: IDRequestDataType): Promise<any> => {
+export const destroyCountryRequest = ({id}: IDRequestDataType): Promise<any> => {
     const params: Array<URLParamType> = [{param: "id", value: id}];
     const url: string = v1URL(countriesApiURI.destroy, params);
 
@@ -41,7 +41,7 @@ export const destroyCountry = ({id}: IDRequestDataType): Promise<any> => {
 // ######################################## HOOK ######################################## //
 
 const useCountryDeleteHook = ({deleted}: CountryDeleteHookProps): CountryDeleteHookType => {
-    const { onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose } = useDisclosure();
+    const {onOpen: onDeleteModalOpen, isOpen: isDeleteModalOpen, onClose: onDeleteModalClose} = useDisclosure();
 
     const toast: CreateToastFnReturn = useToast();
     const {t} = useTranslation();
@@ -50,7 +50,7 @@ const useCountryDeleteHook = ({deleted}: CountryDeleteHookProps): CountryDeleteH
     const [selectedCountry, setSelectedCountry] = useState<CountryType>(defaultSelectedCountry);
 
     const destroyCountryCountryResponse: UseMutationResult<AxiosResponse, AxiosError, IDRequestDataType, any> = useMutation({
-        mutationFn: destroyCountry,
+        mutationFn: destroyCountryRequest,
         onError: (error: AxiosError): void => {
             setDeleteCountryAlertData(errorAlert(error));
         },

@@ -1,33 +1,92 @@
-import React, {useCallback} from 'react'
-import {useDropzone} from 'react-dropzone'
+import React, {FC, ReactNode, useCallback} from "react"
+import {useDropzone} from "react-dropzone"
+import {useTranslation} from "react-i18next";
+import {Box, Flex, FormControl, FormErrorMessage, HStack, Icon, IconButton, Stack, Text} from "@chakra-ui/react";
+import {FiAlertCircle, FiUpload} from "react-icons/fi";
+import {FormikProps} from "formik";
 
-export default function DropzoneField() {
-    const onDrop = useCallback((acceptedFiles: any) => {
-        // Do something with the files
-        acceptedFiles.forEach((file: any) => {
-            const reader = new FileReader()
+import {defaultMedia, MediaType} from "../../helpers/globalTypesHelper";
 
-            reader.onabort = () => console.log('file reading was aborted')
-            reader.onerror = () => console.log('file reading has failed')
-            reader.onload = () => {
-                // Do whatever you want with the file contents
-                const binaryStr = reader.result
-                console.log(binaryStr)
+const DropzoneField: FC<DropzoneFieldProps> = ({formikProps, image, handlePreview, handleLoading, children}) => {
+    const {t} = useTranslation();
+
+    const onDrop = useCallback((acceptedFiles: Array<File>): void => {
+        acceptedFiles.forEach((file: File): void => {
+            handleLoading(true);
+            const reader: FileReader = new FileReader();
+            formikProps.setFieldTouched("image", true).then();
+
+            reader.onabort = () => formikProps.setFieldError("image", "FORM_IMAGE_UPLOAD_ABORT");
+
+            reader.onerror = () => formikProps.setFieldError("image", "FORM_IMAGE_UPLOAD_ERROR");
+
+            reader.onload = (): void => {
+                formikProps.setFieldValue("image", file).then(
+                    (): void => {
+                        const base64: string | undefined = reader.result?.toString();
+
+                        if(image === null) handlePreview({...defaultMedia, base64});
+                        else handlePreview({...image, base64});
+
+                        handleLoading(false);
+                    }
+                );
             }
-            reader.readAsArrayBuffer(file)
-        })
-    }, [])
+            reader.readAsDataURL(file);
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [formikProps, image]);
+    const {getRootProps, isDragActive} = useDropzone({onDrop});
 
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+    const isInvalid: boolean = !!formikProps.errors["image"] && !!formikProps.touched["image"];
 
     return (
-        <div {...getRootProps()}>
-            <input {...getInputProps()} />
-            {
-                isDragActive ?
-                    <p>Drop the files here ...</p> :
-                    <p>Drag 'n' drop some files here, or click to select files</p>
-            }
-        </div>
-    )
+        <FormControl isInvalid={isInvalid} mb={4} px={1}>
+            <Flex
+                {...getRootProps()}
+                borderColor={isInvalid ? "red.500" : (isDragActive ? "purple.500" : "gray.500")}
+                borderStyle={"dashed"}
+                borderWidth={2}
+                rounded={"lg"}
+                h={"15vh"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                as={Stack}
+                cursor={"pointer"}
+                _hover={{bg: "gray.50"}}
+            >
+                <Box>
+                    <IconButton
+                        aria-label="open menu"
+                        icon={<FiUpload/>}
+                        border={0}
+                        variant={"outline"}
+                        bg={"gray.100"}
+                        color={"gray.500"}
+                        _hover={{bg: "gray.100"}}
+                    />
+                </Box>
+                <Text>{t("dropzone_text")}</Text>
+            </Flex>
+
+            <FormControl isInvalid={isInvalid}>
+                <FormErrorMessage>
+                    <Icon mr="2" as={FiAlertCircle} />
+                    {t(formikProps.errors["image"]?.toString() || "")}
+                </FormErrorMessage>
+            </FormControl>
+
+            <HStack mt={2}>{children}</HStack>
+        </FormControl>
+    );
+};
+
+interface DropzoneFieldProps {
+    formikProps: FormikProps<any>,
+    image: MediaType | null,
+    handlePreview: (a: MediaType | null) => void,
+    children: ReactNode,
+    handleLoading: (a: boolean) => void,
 }
+
+export default DropzoneField;

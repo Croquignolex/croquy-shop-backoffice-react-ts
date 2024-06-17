@@ -41,6 +41,11 @@ export enum ImageSizeEnumType {
     LARGE = "large",
 }
 
+export enum ShapeEnumType {
+    SQUARE = "SQUARE",
+    RECTANGLE = "RECTANGLE",
+}
+
 export enum SizeType {
     SMALL = "sm",
     MEDIUM = "md",

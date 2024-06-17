@@ -11,6 +11,8 @@
   "FORM_INVALID_PASSWORD": "Invalid password",
   "FORM_ALLOWED_IMAGE_FORMAT": "Accepted format: PNG, JPG",
   "FORM_ALLOWED_IMAGE_SIZE": "File size should be less than 2MB",
+  "FORM_IMAGE_UPLOAD_ABORT": "Image upload aborted",
+  "FORM_IMAGE_UPLOAD_ERROR": "Error occur when uploaded",
 
   "change_flag": "Change flag",
   "edit_country": "Edit country",
@@ -49,6 +51,10 @@
   "filter": "Filter",
   "export": "Export",
   "edit": "Edit",
+  "image_changed": "Image successfully changed",
+  "image_unreadable": "Unreadable image error",
+  "dropzone_text": "Drop your file here or click to upload",
+  "dropzone_texts": "Drop your files here or click to upload",
 
   "page_not_found": "Page not found",
   "not_found_description": "Oops! \uD83D\uDE16 The requested URL was not found on this server",
@@ -61,6 +67,9 @@
   "country_toggled_false": "Country {{name}} successfully disabled",
   "country_added": "Country {{name}} successfully added",
   "country_edited": "Country {{name}} successfully edited",
+  "image_deleted": "Image successfully deleted",
+  "delete_image": "Delete image",
+  "change": "Change",
 
   "administration": "Administration",
   "settings": "Settings",

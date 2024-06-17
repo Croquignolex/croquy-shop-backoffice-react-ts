@@ -31,7 +31,7 @@ export interface CountryToggleHookProps {
     toggled: () => void,
 }
 
-export const toggleCountry = ({id}: IDRequestDataType): Promise<any> => {
+export const toggleCountryRequest = ({id}: IDRequestDataType): Promise<any> => {
     const params: Array<URLParamType> = [{param: "id", value: id}];
     const url: string = v1URL(countriesApiURI.toggle, params);
 
@@ -50,7 +50,7 @@ const useCountryToggleHook = ({toggled}: CountryToggleHookProps): CountryToggleH
     const [selectedCountry, setSelectedCountry] = useState<CountryType>(defaultSelectedCountry);
 
     const toggleCountryCountryResponse: UseMutationResult<AxiosResponse, AxiosError, IDRequestDataType, any> = useMutation({
-        mutationFn: toggleCountry,
+        mutationFn: toggleCountryRequest,
         onError: (error: AxiosError): void => {
             setToggleCountryAlertData(errorAlert(error));
         },

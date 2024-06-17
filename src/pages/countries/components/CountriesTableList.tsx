@@ -6,10 +6,7 @@ import {
     Box,
     Button,
     Divider,
-    Flex,
     HStack,
-    Icon,
-    MenuItem,
     Table,
     TableContainer,
     Tbody,
@@ -36,6 +33,10 @@ import Pagination from "../../../components/Pagination";
 import DrawerForm from "../../../components/DrawerForm";
 import CountryAddForm from "./CountryAddForm";
 import CountryEditForm from "./CountryEditForm";
+import ImageUpdateForm from "../../../components/ImageUpdateForm";
+import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
+import {countriesApiURI} from "../../../constants/apiURIConstants";
+import MoreMenuItem from "../../../components/form/MoreMenuItem";
 import useSortAndFilterHook, {
     SortAndFilterHookType,
     SortAndFilterRequestDataType
@@ -133,9 +134,12 @@ const CustomTable: FC<CustomTableProps> = (
     }): ReactElement => {
 
     const {onOpen: onEditCountryDrawerOpen, isOpen: isEditCountryDrawerOpen, onClose: onEditCountryDrawerClose} = useDisclosure();
+    const {onOpen: onChangeCountryFlagDrawerOpen, isOpen: isChangeCountryFlagDrawerOpen, onClose: onChangeCountryFlagDrawerClose} = useDisclosure();
     const {t} = useTranslation();
 
     const [selectedCountry, setSelectedCountry] = useState<CountryType>(defaultSelectedCountry);
+
+    const flagBaseUrl: string = joinBaseUrlWithParams(countriesApiURI.flag, [{param: "id", value: selectedCountry.id}]);
 
     const {
         onDeleteModalClose,
@@ -205,15 +209,15 @@ const CustomTable: FC<CustomTableProps> = (
                                     <Td>
                                         <HStack>
                                             <EditIconButton
-                                                state={country}
-                                                showEditDrawer={() => {
+                                                showEditDrawer={(): void => {
                                                     onEditCountryDrawerOpen();
                                                     setSelectedCountry(country);
                                                 }}
                                             />
                                             <DeleteIconButton
-                                                state={country}
-                                                showDeleteModal={showDeleteModal}
+                                                showDeleteModal={(): void => {
+                                                    showDeleteModal(country);
+                                                }}
                                             />
                                             <MoreIconButton
                                                 url={`${mainRoutes.countries.path}/${country.id}`}
@@ -221,19 +225,14 @@ const CustomTable: FC<CustomTableProps> = (
                                                 status={country.enabled}
                                                 showStatusToggleModal={showToggleModal}
                                             >
-                                                <MenuItem py={0} bg={"none"}>
-                                                    <Flex
-                                                        px={4}
-                                                        py={2}
-                                                        alignItems={"center"}
-                                                        w={"full"}
-                                                        _hover={{color: "purple.500"}}
-                                                        // onClick={handleStatusToggleModal}
-                                                    >
-                                                        <Icon mr="2" as={IconFlagCog} fontSize={"lg"} />
-                                                        {t("change_flag")}
-                                                    </Flex>
-                                                </MenuItem>
+                                                <MoreMenuItem
+                                                    label={t("change_flag")}
+                                                    icon={IconFlagCog}
+                                                    showDrawer={(): void => {
+                                                        onChangeCountryFlagDrawerOpen();
+                                                        setSelectedCountry(country);
+                                                    }}
+                                                />
                                             </MoreIconButton>
                                         </HStack>
                                     </Td>
@@ -277,6 +276,18 @@ const CustomTable: FC<CustomTableProps> = (
                         onEditCountryDrawerClose();
                         reloadList();
                     }}
+                />
+            </DrawerForm>
+
+            <DrawerForm
+                title={t("change_flag")}
+                isOpen={isChangeCountryFlagDrawerOpen}
+                onClose={onChangeCountryFlagDrawerClose}
+            >
+                <ImageUpdateForm
+                    flag
+                    image={selectedCountry.flag}
+                    imageBaseUrl={flagBaseUrl}
                 />
             </DrawerForm>
         </TableContainer>

@@ -86,6 +86,11 @@ const theme: Dict = extendTheme({
                 borderColor: "gray.300",
             },
         },
+        Spinner:  {
+            baseStyle: {
+                color: "purple.500",
+            },
+        },
     },
 });
 

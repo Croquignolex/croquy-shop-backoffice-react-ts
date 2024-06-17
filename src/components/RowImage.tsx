@@ -13,12 +13,12 @@ const RowImage: FC<RowImageProps> = (
         title,
         description,
         url,
-        flag,
-        user,
+        flag = false,
+        user = false,
         state
     }): ReactElement | null => {
 
-    const src: string = API_MEDIA_V1_URL + image?.path;
+    const src: string = image?.base64 || (image?.path ? API_MEDIA_V1_URL + image?.path : "");
     const fallbackSrc: string = flag ? defaultFlag : "";
 
     if(!title) {

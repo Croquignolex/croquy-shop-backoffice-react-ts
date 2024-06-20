@@ -65,6 +65,8 @@
   "toggle_country_false": "Activer le pays",
   "country_toggled_true": "Pays {{name}} désactivé avec succès",
   "country_toggled_false": "Pays {{name}} activé avec succès",
+  "state_toggled_true": "Ville {{name}} désactivée avec succès",
+  "state_toggled_false": "Ville {{name}} activée avec succès",
   "country_added": "Pays {{name}} ajouté avec succès",
   "country_edited": "Pays {{name}} modifié avec succès",
   "image_deleted": "Image supprimée avec succès",

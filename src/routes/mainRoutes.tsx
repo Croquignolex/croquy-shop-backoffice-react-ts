@@ -1,9 +1,11 @@
 import {lazy, LazyExoticComponent, ReactElement} from "react";
-import {IconFlag} from '@tabler/icons-react';
+import {
+    IconFlag,
+    IconMap
+} from '@tabler/icons-react';
 import {
     FiShoppingCart,
     FiUsers,
-    FiMap,
     FiPercent,
     FiTruck,
     FiAward,
@@ -37,10 +39,9 @@ const countries: MainRouteType = {title: "countries", path: "/countries", icon: 
 const addCountry: MainRouteType = {path: "/countries/create", component: lazy(() => import("../pages/countries/components/CountryCreatePage"))};
 const showCountry: MainRouteType = {path: "/countries/:id", component: lazy(() => import("../pages/countries/show/ShowCountryPage"))};
 
-const states: MainRouteType = {title: "states", path: "/states", icon: FiMap, component: lazy(() => import("../pages/states/StatesPage"))};
-const addState: MainRouteType = {path: "/states/create", component: lazy(() => import("../pages/states/CreateStatePage"))};
+const states: MainRouteType = {title: "states", path: "/states", icon: IconMap, component: lazy(() => import("../pages/states/components/StatesListPage"))};
+const addState: MainRouteType = {path: "/states/create", component: lazy(() => import("../pages/states/components/StateCreatePage"))};
 const showState: MainRouteType = {path: "/states/:id", component: lazy(() => import("../pages/states/show/ShowStatePage"))};
-const editState: MainRouteType = {path: "/states/:id/edit", component: lazy(() => import("../pages/states/edit/EditStatePage"))};
 
 const coupons: MainRouteType = {title: "coupons", path: "/coupons", icon: FiPercent, component: lazy(() => import("../pages/coupons/CouponsPage"))};
 const addCoupon: MainRouteType = {path: "/coupons/create", component: lazy(() => import("../pages/coupons/CreateCouponPage"))};
@@ -94,7 +95,7 @@ export const administrationSubMenu = {
 export const settingsSubMenu = {
     subMenuLabel: "tools",
     subMenuIcon: FiTool,
-    subMenuItems: [countries]
+    subMenuItems: [countries, states]
 };
 
 export const headerMenu = [
@@ -113,7 +114,7 @@ export const mainRoutes: any = {
     dashboard,
     profile, settings, help,
     countries, addCountry, showCountry,
-
+    states, addState, showState,
 
 
 
@@ -127,5 +128,5 @@ export const mainRoutes: any = {
     attributeValues, addAttributeValue, showAttributeValue, editAttributeValue,
     vendors, addVendor, showVendor, editVendor,
     coupons, addCoupon, showCoupon, editCoupon,
-    states, addState, showState, editState,
+
 };

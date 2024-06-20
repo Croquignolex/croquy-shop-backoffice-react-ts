@@ -20,40 +20,41 @@ import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import TableSkeletonLoader from "../../../components/skeletonLoader/TableSkeletonLoader";
 import CustomAlert from "../../../components/alert/CustomAlert";
-import {CountryType, defaultSelectedCountry} from "../show/showCountryData";
+import {StateType, defaultSelectedState} from "../show/showStateData";
 import RowImage from "../../../components/RowImage";
 import EditIconButton from "../../../components/form/EditIconButton";
 import DeleteIconButton from "../../../components/form/DeleteButtonIcon";
 import MoreIconButton from "../../../components/form/MoreButtonIcon";
-import useCountryDeleteHook, {CountryDeleteHookType} from "../hooks/useCountryDeleteHook";
-import useCountryToggleHook, {CountryToggleHookType} from "../hooks/useCountryToggleHook";
+import useStateDeleteHook, {StateDeleteHookType} from "../hooks/useStateDeleteHook";
+import useStateToggleHook, {StateToggleHookType} from "../hooks/useStateToggleHook";
 import TableActions from "../../../components/table/TableActions";
 import TableHeader from "../../../components/table/TableHeader";
 import Pagination from "../../../components/Pagination";
 import DrawerForm from "../../../components/DrawerForm";
-import CountryAddForm from "./CountryAddForm";
-import CountryEditForm from "./CountryEditForm";
+import StateAddForm from "./StateAddForm";
+import StateEditForm from "./StateEditForm";
 import ImageUpdateForm from "../../../components/ImageUpdateForm";
 import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
-import {countriesApiURI} from "../../../constants/apiURIConstants";
+import {statesApiURI} from "../../../constants/apiURIConstants";
 import MoreMenuItem from "../../../components/form/MoreMenuItem";
 import useSortAndFilterHook, {
     SortAndFilterHookType,
     SortAndFilterRequestDataType
 } from "../../../hooks/useSortAndFilterHook";
-import useCountriesTableListHook, {
-    CountriesResponseDataType,
-    CountriesTableListHookType
-} from "../hooks/useCountriesTableListHook";
+import useStatesTableListHook, {
+    StatesResponseDataType,
+    StatesTableListHookType
+} from "../hooks/useStatesTableListHook";
 
-const CountriesTableList: FC<CountriesTableListProps> = (
+const StatesTableList: FC<StatesTableListProps> = (
     {
         showCreator = false,
-        fetchCountries = false,
-        countriesBaseUrl
+        showCountry = false,
+        fetchStates = false,
+        statesBaseUrl
     }): ReactElement => {
 
-    const {onOpen: onAddCountryDrawerOpen, isOpen: isAddCountryDrawerOpen, onClose: onAddCountryDrawerClose} = useDisclosure();
+    const {onOpen: onAddStateDrawerOpen, isOpen: isAddStateDrawerOpen, onClose: onAddStateDrawerClose} = useDisclosure();
     const {t} = useTranslation();
 
     const {
@@ -62,59 +63,59 @@ const CountriesTableList: FC<CountriesTableListProps> = (
         handleSearch,
         handleSort,
         sortAndFilterData
-    }: SortAndFilterHookType = useSortAndFilterHook({baseUrl: countriesBaseUrl});
+    }: SortAndFilterHookType = useSortAndFilterHook({baseUrl: statesBaseUrl});
     const {
-        countriesResponseData,
-        isCountriesFetching,
-        countriesAlertData,
+        statesResponseData,
+        isStatesFetching,
+        statesAlertData,
         reloadList,
-    }: CountriesTableListHookType = useCountriesTableListHook({fetchCountries, sortAndFilterData});
+    }: StatesTableListHookType = useStatesTableListHook({fetchStates, sortAndFilterData});
 
     return (
         <Box py={4} rounded="lg" shadow="default" bg="white">
-            <TableActions handleShowItems={handleShowItems} handleSearch={handleSearch} baseUrl={countriesBaseUrl}>
+            <TableActions handleShowItems={handleShowItems} handleSearch={handleSearch} baseUrl={statesBaseUrl}>
                 <Button
                     leftIcon={<IconFlagPlus />}
                     px={{base: 4, sm: 6}}
-                    onClick={onAddCountryDrawerOpen}
+                    onClick={onAddStateDrawerOpen}
                 >
-                    {t("add_country")}
+                    {t("add_state")}
                 </Button>
             </TableActions>
 
             <Divider mt={6} />
 
             <Box px={6}>
-                <CustomAlert data={countriesAlertData} />
+                <CustomAlert data={statesAlertData} />
             </Box>
 
             <CustomTable
                 handleSort={handleSort}
-                isCountriesPending={isCountriesFetching}
+                isStatesPending={isStatesFetching}
                 showCreator={showCreator}
                 reloadList={reloadList}
                 sortAndFilterData={sortAndFilterData}
-                countriesResponseData={countriesResponseData}
+                statesResponseData={statesResponseData}
             />
 
             <Pagination
-                show={!countriesResponseData.empty}
+                show={!statesResponseData.empty}
                 handleGotoPage={handleChangePage}
-                currentPage={countriesResponseData.number + 1}
-                totalPages={countriesResponseData.totalPages}
-                totalElements={countriesResponseData.totalElements}
-                currentPageElements={countriesResponseData.numberOfElements}
+                currentPage={statesResponseData.number + 1}
+                totalPages={statesResponseData.totalPages}
+                totalElements={statesResponseData.totalElements}
+                currentPageElements={statesResponseData.numberOfElements}
             />
 
             <DrawerForm
-                title={t("add_country")}
-                isOpen={isAddCountryDrawerOpen}
-                onClose={onAddCountryDrawerClose}
+                title={t("add_state")}
+                isOpen={isAddStateDrawerOpen}
+                onClose={onAddStateDrawerClose}
             >
-                <CountryAddForm
+                <StateAddForm
                     added={reloadList}
                     finished={(): void => {
-                        onAddCountryDrawerClose();
+                        onAddStateDrawerClose();
                         reloadList();
                     }}
                 />
@@ -126,42 +127,42 @@ const CountriesTableList: FC<CountriesTableListProps> = (
 const CustomTable: FC<CustomTableProps> = (
     {
         showCreator = false,
-        isCountriesPending,
+        isStatesPending,
         handleSort,
         reloadList,
         sortAndFilterData,
-        countriesResponseData
+        statesResponseData
     }): ReactElement => {
 
-    const {onOpen: onEditCountryDrawerOpen, isOpen: isEditCountryDrawerOpen, onClose: onEditCountryDrawerClose} = useDisclosure();
-    const {onOpen: onChangeCountryFlagDrawerOpen, isOpen: isChangeCountryFlagDrawerOpen, onClose: onChangeCountryFlagDrawerClose} = useDisclosure();
+    const {onOpen: onEditStateDrawerOpen, isOpen: isEditStateDrawerOpen, onClose: onEditStateDrawerClose} = useDisclosure();
+    const {onOpen: onChangeStateFlagDrawerOpen, isOpen: isChangeStateFlagDrawerOpen, onClose: onChangeStateFlagDrawerClose} = useDisclosure();
     const {t} = useTranslation();
 
-    const [selectedCountry, setSelectedCountry] = useState<CountryType>(defaultSelectedCountry);
+    const [selectedState, setSelectedState] = useState<StateType>(defaultSelectedState);
 
-    const flagBaseUrl: string = joinBaseUrlWithParams(countriesApiURI.flag, [{param: "id", value: selectedCountry.id}]);
+    const flagBaseUrl: string = joinBaseUrlWithParams(statesApiURI.flag, [{param: "id", value: selectedState.id}]);
 
     const {
         onDeleteModalClose,
-        selectedCountry: deletedCountry,
+        selectedState: deletedState,
         showDeleteModal,
         isDeleteModalOpen,
-        deleteCountryAlertData,
-        isDeleteCountryPending,
-        handleDeleteCountry,
-    }: CountryDeleteHookType = useCountryDeleteHook({deleted: reloadList});
+        deleteStateAlertData,
+        isDeleteStatePending,
+        handleDeleteState,
+    }: StateDeleteHookType = useStateDeleteHook({deleted: reloadList});
     const {
         onToggleModalClose,
-        selectedCountry: toggledCountry,
+        selectedState: toggledState,
         showToggleModal,
         isToggleModalOpen,
-        toggleCountryAlertData,
-        isToggleCountryPending,
-        handleToggleCountry,
-    }: CountryToggleHookType = useCountryToggleHook({toggled: reloadList});
+        toggleStateAlertData,
+        isToggleStatePending,
+        handleToggleState,
+    }: StateToggleHookType = useStateToggleHook({toggled: reloadList});
 
     const fields: Array<{field: string, label: string, show: boolean, sort: boolean, search: boolean}> = [
-        {field: "name", label: "country", show: true, sort: true, search: true},
+        {field: "name", label: "state", show: true, sort: true, search: true},
         {field: "phoneCode", label: "phone_code", show: true, sort: true, search: true},
         {field: "enabled", label: "status", show: true, sort: true, search: false},
         {field: "createdAt", label: "created_at", show: true, sort: true, search: false},
@@ -173,36 +174,36 @@ const CustomTable: FC<CustomTableProps> = (
             <Table size={"sm"}>
                 <TableHeader fields={fields} handleSort={handleSort} sortAndFilterData={sortAndFilterData} />
                 <Tbody>
-                    {isCountriesPending ? <TableSkeletonLoader /> : (
-                        countriesResponseData.empty ? <EmptyTableAlert /> : (
-                            countriesResponseData.content.map((country: CountryType, index: number) => (
+                    {isStatesPending ? <TableSkeletonLoader /> : (
+                        statesResponseData.empty ? <EmptyTableAlert /> : (
+                            statesResponseData.content.map((state: StateType, index: number) => (
                                 <Tr key={index}>
                                     <Td>
                                         <RowImage
                                             flag
-                                            image={country.flag}
-                                            title={country.name}
-                                            state={country}
-                                            url={`${mainRoutes.countries.path}/${country.id}`}
-                                            description={country.description}
+                                            image={state.flag}
+                                            title={state.name}
+                                            state={state}
+                                            url={`${mainRoutes.states.path}/${state.id}`}
+                                            description={state.description}
                                         />
                                     </Td>
-                                    <Td>{country.phoneCode}</Td>
+                                    <Td>{state.phoneCode}</Td>
                                     <Td>
-                                        <Badge colorScheme={`${country.enabled ? "green" : "red"}`}>
-                                            {t(`status_${country.enabled}`)}
+                                        <Badge colorScheme={`${state.enabled ? "green" : "red"}`}>
+                                            {t(`status_${state.enabled}`)}
                                         </Badge>
                                     </Td>
-                                    <Td>{t("date_time", {value: country.createdAt})}</Td>
+                                    <Td>{t("date_time", {value: state.createdAt})}</Td>
                                     {showCreator && (
                                         <Td>
                                             <RowImage
                                                 user
-                                                image={country.creator?.avatar}
-                                                title={country.creator?.firstName}
-                                                state={country.creator}
-                                                url={`${mainRoutes.users.path}/${country.creator?.id}`}
-                                                description={country.creator?.email || country.creator?.username}
+                                                image={state.creator?.avatar}
+                                                title={state.creator?.firstName}
+                                                state={state.creator}
+                                                url={`${mainRoutes.users.path}/${state.creator?.id}`}
+                                                description={state.creator?.email || state.creator?.username}
                                             />
                                         </Td>
                                     )}
@@ -210,27 +211,27 @@ const CustomTable: FC<CustomTableProps> = (
                                         <HStack>
                                             <EditIconButton
                                                 showEditDrawer={(): void => {
-                                                    onEditCountryDrawerOpen();
-                                                    setSelectedCountry(country);
+                                                    onEditStateDrawerOpen();
+                                                    setSelectedState(state);
                                                 }}
                                             />
                                             <DeleteIconButton
                                                 showDeleteModal={(): void => {
-                                                    showDeleteModal(country);
+                                                    showDeleteModal(state);
                                                 }}
                                             />
                                             <MoreIconButton
-                                                url={`${mainRoutes.countries.path}/${country.id}`}
-                                                state={country}
-                                                status={country.enabled}
+                                                url={`${mainRoutes.states.path}/${state.id}`}
+                                                state={state}
+                                                status={state.enabled}
                                                 showStatusToggleModal={showToggleModal}
                                             >
                                                 <MoreMenuItem
                                                     label={t("change_flag")}
                                                     icon={IconFlagCog}
                                                     showDrawer={(): void => {
-                                                        onChangeCountryFlagDrawerOpen();
-                                                        setSelectedCountry(country);
+                                                        onChangeStateFlagDrawerOpen();
+                                                        setSelectedState(state);
                                                     }}
                                                 />
                                             </MoreIconButton>
@@ -245,35 +246,35 @@ const CustomTable: FC<CustomTableProps> = (
 
             <ConfirmAlertDialog
                 danger
-                handleConfirm={handleDeleteCountry}
+                handleConfirm={handleDeleteState}
                 isOpen={isDeleteModalOpen}
                 onClose={onDeleteModalClose}
-                isLoading={isDeleteCountryPending}
-                alertData={deleteCountryAlertData}
+                isLoading={isDeleteStatePending}
+                alertData={deleteStateAlertData}
             >
-                {t("delete_country")} <strong>{deletedCountry.name}</strong>?
+                {t("delete_state")} <strong>{deletedState.name}</strong>?
             </ConfirmAlertDialog>
 
             <ConfirmAlertDialog
-                title={t(`toggle_${toggledCountry.enabled}`)}
-                handleConfirm={handleToggleCountry}
+                title={t(`toggle_${toggledState.enabled}`)}
+                handleConfirm={handleToggleState}
                 isOpen={isToggleModalOpen}
                 onClose={onToggleModalClose}
-                isLoading={isToggleCountryPending}
-                alertData={toggleCountryAlertData}
+                isLoading={isToggleStatePending}
+                alertData={toggleStateAlertData}
             >
-                {t(`toggle_country_${toggledCountry.enabled}`)} <strong>{toggledCountry.name}</strong>?
+                {t(`toggle_state_${toggledState.enabled}`)} <strong>{toggledState.name}</strong>?
             </ConfirmAlertDialog>
 
             <DrawerForm
-                title={t("edit_country")}
-                isOpen={isEditCountryDrawerOpen}
-                onClose={onEditCountryDrawerClose}
+                title={t("edit_state")}
+                isOpen={isEditStateDrawerOpen}
+                onClose={onEditStateDrawerClose}
             >
-                <CountryEditForm
-                    selectedCountry={selectedCountry}
+                <StateEditForm
+                    selectedState={selectedState}
                     finished={(): void => {
-                        onEditCountryDrawerClose();
+                        onEditStateDrawerClose();
                         reloadList();
                     }}
                 />
@@ -281,12 +282,12 @@ const CustomTable: FC<CustomTableProps> = (
 
             <DrawerForm
                 title={t("change_flag")}
-                isOpen={isChangeCountryFlagDrawerOpen}
-                onClose={onChangeCountryFlagDrawerClose}
+                isOpen={isChangeStateFlagDrawerOpen}
+                onClose={onChangeStateFlagDrawerClose}
             >
                 <ImageUpdateForm
                     flag
-                    image={selectedCountry.flag}
+                    image={selectedState.flag}
                     imageBaseUrl={flagBaseUrl}
                 />
             </DrawerForm>
@@ -297,16 +298,17 @@ const CustomTable: FC<CustomTableProps> = (
 interface CustomTableProps {
     showCreator?: boolean;
     reloadList: () => void,
-    isCountriesPending: boolean;
+    isStatesPending: boolean;
     handleSort: (a: string, b: string) => void
     sortAndFilterData: SortAndFilterRequestDataType,
-    countriesResponseData: CountriesResponseDataType,
+    statesResponseData: StatesResponseDataType,
 }
 
-interface CountriesTableListProps {
+interface StatesTableListProps {
     showCreator?: boolean;
-    fetchCountries?: boolean;
-    countriesBaseUrl: string;
+    showCountry?: boolean;
+    fetchStates?: boolean;
+    statesBaseUrl: string;
 }
 
-export default CountriesTableList;
+export default StatesTableList;

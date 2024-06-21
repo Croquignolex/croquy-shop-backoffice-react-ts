@@ -1,7 +1,7 @@
 import { AxiosError, AxiosResponse } from "axios";
 import {useQuery, UseQueryResult} from "@tanstack/react-query";
 
-import {StateType} from "../pages/states/show/showStateData";
+// import {StateType} from "../pages/states/show/showStateData";
 import {getRequest} from "../helpers/axiosHelpers";
 import {selectListApiURI} from "../constants/apiURIConstants";
 import {FormSelectOptionType} from "../components/form/SelectField";
@@ -31,10 +31,10 @@ const useStatesSelectListHook = (): StatesSelectListHookType => {
         queryFn: () => statesSelectListRequest(),
     });
 
-    if(!statesResponse.isFetching && statesResponse.isSuccess) {
+    /*if(!statesResponse.isFetching && statesResponse.isSuccess) {
         const states: Array<StateType> = statesResponse.data.data || [];
         selectListStates = states.map((state: StateType): FormSelectOptionType => ({label: state.name, key: state.id}));
-    }
+    }*/
 
     const reloadList = (): void => {
         statesResponse.refetch().then();

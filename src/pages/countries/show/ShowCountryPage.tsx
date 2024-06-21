@@ -30,7 +30,7 @@ import ListSkeletonLoader from "../../../components/skeletonLoader/ListSkeletonL
 import DoubleActionButton from "../../../components/form/DoubleActionButton";
 import {ShowCountryHookType} from "./showCountryData";
 import ShowImage from "../../../components/showImage/ShowImage";
-import StatesTableList from "../../../components/tableList/states/StatesTableList";
+// import StatesTableList from "../../../components/tableList/states/StatesTableList";
 import {countriesApiURI} from "../../../constants/apiURIConstants";
 import { joinBaseUrlWithParams } from "../../../helpers/apiRequestsHelpers";
 import NotFoundPage from "../../NotFoundPage";
@@ -141,7 +141,7 @@ const ShowCountryPage = (): ReactElement => {
                                     </TabList>
                                     <TabPanels>
                                         <TabPanel key={statesSequence}>
-                                            {countryResponseData.id && (
+                                            {/*{countryResponseData.id && (
                                                 <StatesTableList
                                                     fetchStates
                                                     showCreator
@@ -157,7 +157,7 @@ const ShowCountryPage = (): ReactElement => {
                                                         Ajouter une ville
                                                     </Button>
                                                 </StatesTableList>
-                                            )}
+                                            )}*/}
                                         </TabPanel>
                                         {/*<TabPanel>
                                         <p>two!</p>

@@ -39,9 +39,9 @@ const countries: MainRouteType = {title: "countries", path: "/countries", icon: 
 const addCountry: MainRouteType = {path: "/countries/create", component: lazy(() => import("../pages/countries/components/CountryCreatePage"))};
 const showCountry: MainRouteType = {path: "/countries/:id", component: lazy(() => import("../pages/countries/show/ShowCountryPage"))};
 
-const states: MainRouteType = {title: "states", path: "/states", icon: IconMap, component: lazy(() => import("../pages/states/components/StatesListPage"))};
-const addState: MainRouteType = {path: "/states/create", component: lazy(() => import("../pages/states/components/StateCreatePage"))};
-const showState: MainRouteType = {path: "/states/:id", component: lazy(() => import("../pages/states/show/ShowStatePage"))};
+// const states: MainRouteType = {title: "states", path: "/states", icon: IconMap, component: lazy(() => import("../pages/states/components/StatesListPage"))};
+// const addState: MainRouteType = {path: "/states/create", component: lazy(() => import("../pages/states/components/StateCreatePage"))};
+// const showState: MainRouteType = {path: "/states/:id", component: lazy(() => import("../pages/states/show/ShowStatePage"))};
 
 const coupons: MainRouteType = {title: "coupons", path: "/coupons", icon: FiPercent, component: lazy(() => import("../pages/coupons/CouponsPage"))};
 const addCoupon: MainRouteType = {path: "/coupons/create", component: lazy(() => import("../pages/coupons/CreateCouponPage"))};
@@ -95,7 +95,7 @@ export const administrationSubMenu = {
 export const settingsSubMenu = {
     subMenuLabel: "tools",
     subMenuIcon: FiTool,
-    subMenuItems: [countries, states]
+    subMenuItems: [countries]
 };
 
 export const headerMenu = [
@@ -114,7 +114,7 @@ export const mainRoutes: any = {
     dashboard,
     profile, settings, help,
     countries, addCountry, showCountry,
-    states, addState, showState,
+    // states, addState, showState,
 
 
 

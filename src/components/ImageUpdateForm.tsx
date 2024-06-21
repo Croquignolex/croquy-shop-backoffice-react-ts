@@ -1,6 +1,6 @@
 import React, {FC, ReactElement, useState} from "react";
 import {Form, Formik, FormikProps} from "formik";
-import {Box, Button, Spinner} from "@chakra-ui/react";
+import {Box, Button, CreateToastFnReturn, Spinner, useToast} from "@chakra-ui/react";
 import {useTranslation} from "react-i18next";
 import {FiCheck} from "react-icons/fi";
 
@@ -10,40 +10,62 @@ import DropzoneField from "./form/DropzoneField";
 import ImagePreview from "./ImagePreview";
 import DeleteIconButton from "./form/DeleteButtonIcon";
 import ConfirmAlertDialog from "./ConfirmAlertDialog";
-import useImageDeleteHook, {ImageDeleteHookType} from "../hooks/useImageDeleteHook";
 import useImageUpdateHook, {
-    ImageUpdateHookType, UpdateImageFormType,
+    ImageUpdateHookType,
+    UpdateImageFormType,
     updateImageInitialStaticValues,
     updateImageSchema
 } from "../hooks/useImageUpdateHook";
+import useIDActionRequestHook, {
+    IDActionRequestHookType,
+    IDActionRequestType
+} from "../hooks/useIDActionRequestHook";
 
-const ImageUpdateForm: FC<CountryFlagFormProps> = ({flag = false, image, imageBaseUrl}): ReactElement => {
+const ImageUpdateForm: FC<CountryFlagFormProps> = ({flag = false, image, baseUrl, item}): ReactElement => {
     const [loading, setLoading] = useState<boolean>(false);
     const [preview, setPreview] = useState<MediaType | null>(image);
 
     const {t} = useTranslation();
+    const toast: CreateToastFnReturn = useToast();
+
+    const deleteDone = (): void => {
+        toast({
+            title: t("delete"),
+            description: `${t("image_deleted")}`
+        });
+        setPreview(null);
+    };
+
+    const updateDone = (): void => {
+        toast({
+            title: t("change"),
+            description: `${t("image_changed")}`
+        });
+        preview && setPreview({...preview, path: "fake"});
+    };
+
     const {
         isUpdateImagePending,
         updateImageAlertData,
         handleUpdateImage,
     }: ImageUpdateHookType = useImageUpdateHook({
-        imageBaseUrl,
-        finished: (): void => {
-            preview && setPreview({...preview, path: "fake"});
-        }
+        item,
+        baseUrl,
+        done: updateDone
     });
+
     const {
-        onDeleteModalClose,
-        showDeleteModal,
-        isDeleteModalOpen,
-        deleteImageAlertData,
-        isDeleteImagePending,
-        handleDeleteImage,
-    }: ImageDeleteHookType = useImageDeleteHook({
-        imageBaseUrl,
-        deleted: (): void => {
-            setPreview(null);
-        }
+        onModalClose: onDeleteModalClose,
+        showModal: showDeleteModal,
+        isModalOpen: isDeleteModalOpen,
+        alertData: deleteImageAlertData,
+        isPending: isDeleteImagePending,
+        handleRequest: handleDeleteImage,
+    }: IDActionRequestHookType = useIDActionRequestHook({
+        done: deleteDone,
+        item,
+        baseUrl,
+        type: IDActionRequestType.DELETE
     });
 
     const shape: ShapeEnumType = flag ? ShapeEnumType.SQUARE : ShapeEnumType.RECTANGLE;
@@ -104,9 +126,10 @@ const ImageUpdateForm: FC<CountryFlagFormProps> = ({flag = false, image, imageBa
 };
 
 interface CountryFlagFormProps {
-    imageBaseUrl: string,
+    baseUrl: string,
     image: MediaType | null,
     flag?: boolean,
+    item: any,
 }
 
 export default ImageUpdateForm;

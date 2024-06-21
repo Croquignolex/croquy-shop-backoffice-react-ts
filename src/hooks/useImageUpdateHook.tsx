@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
 import {useMutation, UseMutationResult} from "@tanstack/react-query";
-import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
-import {useTranslation} from "react-i18next";
 import * as Yup from "yup";
 
-import {AlertStatusEnumType, ErrorAlertType} from "../helpers/globalTypesHelper";
+import {AlertStatusEnumType, ErrorAlertType, URLParamType} from "../helpers/globalTypesHelper";
 import {errorAlert} from "../helpers/generalHelpers";
 import {formValidationMessage} from "../constants/generalConstants";
 import {v1URL} from "../helpers/apiRequestsHelpers";
@@ -37,6 +35,7 @@ export interface UpdateImageFormType {
 }
 
 export interface UpdateImageRequestDataType {
+    id?: string,
     image: File,
     baseUrl: string,
 }
@@ -48,12 +47,14 @@ export interface ImageUpdateHookType {
 }
 
 interface ImageUpdateHookProps {
-    imageBaseUrl: string,
-    finished: () => void,
+    baseUrl: string,
+    done: () => void,
+    item: any,
 }
 
-export const changeImageRequest = ({image, baseUrl}: UpdateImageRequestDataType): Promise<any> => {
-    const url: string = v1URL(baseUrl);
+export const changeImageRequest = ({image, baseUrl, id}: UpdateImageRequestDataType): Promise<any> => {
+    const params: Array<URLParamType> = [{param: "id", value: id}];
+    const url: string = v1URL(baseUrl, params);
 
     const bodyFormData: FormData = new FormData();
     bodyFormData.append("image", image);
@@ -63,10 +64,7 @@ export const changeImageRequest = ({image, baseUrl}: UpdateImageRequestDataType)
 
 // ######################################## HOOK ######################################## //
 
-const useImageUpdateHook = ({imageBaseUrl, finished}: ImageUpdateHookProps): ImageUpdateHookType => {
-    const {t} = useTranslation();
-    const toast: CreateToastFnReturn = useToast();
-
+const useImageUpdateHook = ({baseUrl, done, item}: ImageUpdateHookProps): ImageUpdateHookType => {
     const [updateImageAlertData, setUpdateImageAlertData] = useState<ErrorAlertType>({show: false});
 
     const updateImageResponse: UseMutationResult<AxiosResponse, AxiosError, UpdateImageRequestDataType, any> = useMutation({
@@ -76,19 +74,13 @@ const useImageUpdateHook = ({imageBaseUrl, finished}: ImageUpdateHookProps): Ima
         },
         onSuccess: (): void => {
             setUpdateImageAlertData({show: false});
-
-            finished();
-
-            toast({
-                title: t("change"),
-                description: `${t("image_changed")}`
-            });
+            done();
         }
     });
 
     const handleUpdateImage = ({image}: UpdateImageFormType): void => {
         if(image instanceof File) {
-            updateImageResponse.mutate({image, baseUrl: imageBaseUrl});
+            updateImageResponse.mutate({image, baseUrl, id: item?.id});
         } else {
             setUpdateImageAlertData({show: true, status: AlertStatusEnumType.ERROR, message: "image_unreadable"});
         }

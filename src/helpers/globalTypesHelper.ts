@@ -2,7 +2,7 @@ import {FormikProps} from "formik";
 import {IconType} from "react-icons";
 
 import {CountryType} from "../pages/countries/show/showCountryData";
-import {StateType} from "../pages/states/show/showStateData";
+// import {StateType} from "../pages/states/show/showStateData";
 import {ShopType} from "../pages/shops/show/showShopData";
 import {UserType} from "../pages/users/show/showUserData";
 
@@ -127,6 +127,7 @@ export interface AddressType {
     description?: string;
     shop?: ShopType;
     creator?: UserType;
-    state?: StateType;
+    // state?: StateType;
+    state?: any;
     createdAt: string;
 }

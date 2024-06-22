@@ -1,7 +1,6 @@
 import React, {FC, ReactElement} from "react";
 import {useTranslation} from "react-i18next";
-import {IconFlagPlus} from "@tabler/icons-react";
-import {Box, Button, Divider, useDisclosure} from "@chakra-ui/react";
+import {Box, Divider, useDisclosure} from "@chakra-ui/react";
 
 import CustomAlert from "../../../components/alert/CustomAlert";
 import TableActions from "../../../components/table/TableActions";
@@ -11,6 +10,7 @@ import CountryAddForm from "./CountryAddForm";
 import useTableListHook, {TableListHookType} from "../../../hooks/useTableListHook";
 import useSortAndFilterHook, {SortAndFilterHookType} from "../../../hooks/useSortAndFilterHook";
 import CountriesCustomTable from "./CountriesCustomTable";
+import AddButton from "../../../components/form/AddButton";
 
 const CountriesTableList: FC<CountriesTableListProps> = (
     {
@@ -39,13 +39,7 @@ const CountriesTableList: FC<CountriesTableListProps> = (
     return (
         <Box py={4} rounded="lg" shadow="default" bg="white">
             <TableActions handleShowItems={handleShowItems} handleSearch={handleSearch} baseUrl={countriesBaseUrl}>
-                <Button
-                    leftIcon={<IconFlagPlus />}
-                    px={{base: 4, sm: 6}}
-                    onClick={onAddCountryDrawerOpen}
-                >
-                    {t("add_country")}
-                </Button>
+                <AddButton onAddDrawerOpen={onAddCountryDrawerOpen} />
             </TableActions>
 
             <Divider mt={6} />

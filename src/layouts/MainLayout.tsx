@@ -1,7 +1,6 @@
 import React, {FC, ReactElement, useContext} from "react";
 import {FiLogOut, FiChevronDown, FiX, FiMenu} from "react-icons/fi";
 import {useTranslation} from "react-i18next";
-import {IconType} from "react-icons";
 import {Link, NavigateFunction, NavLink, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {
     Box,
@@ -137,7 +136,7 @@ const HeaderMenu: FC = (): ReactElement => {
 
     return (
         <>
-            {headerMenu.map((menu: MainRouteType | {subMenuLabel: string, subMenuIcon: IconType, subMenuItems: Array<MainRouteType>}, index: number): ReactElement => {
+            {headerMenu.map((menu: MainRouteType | {subMenuLabel: string, subMenuIcon: any, subMenuItems: Array<MainRouteType>}, index: number): ReactElement => {
                 if("path" in menu) {
                     return (
                         <NavLink to={menu.path} key={index}>
@@ -219,7 +218,7 @@ const MobileMenu: FC = (): ReactElement => {
 
                     <DrawerBody as={Stack} spacing={2}>
                         <Accordion allowToggle>
-                            {headerMenu.map((menu: MainRouteType | {subMenuLabel: string, subMenuIcon: IconType, subMenuItems: Array<MainRouteType>}, index: number): ReactElement => {
+                            {headerMenu.map((menu: MainRouteType | {subMenuLabel: string, subMenuIcon: any, subMenuItems: Array<MainRouteType>}, index: number): ReactElement => {
                                 if("path" in menu) {
                                     return (
                                         <AccordionItem border={0} key={index}>

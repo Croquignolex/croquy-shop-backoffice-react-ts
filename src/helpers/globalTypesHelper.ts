@@ -88,10 +88,6 @@ export interface PaginationType {
     empty: boolean,
 }
 
-export interface IDRequestDataType {
-    id: string,
-}
-
 export interface DefaultFieldProps {
     label: string;
     name: string;

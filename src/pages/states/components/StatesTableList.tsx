@@ -1,7 +1,6 @@
 import React, {FC, ReactElement} from "react";
 import {useTranslation} from "react-i18next";
-import {IconMapPlus} from "@tabler/icons-react";
-import {Box, Button, Divider, useDisclosure} from "@chakra-ui/react";
+import {Box, Divider, useDisclosure} from "@chakra-ui/react";
 
 import CustomAlert from "../../../components/alert/CustomAlert";
 import TableActions from "../../../components/table/TableActions";
@@ -11,6 +10,7 @@ import StateAddForm from "./StateAddForm";
 import useTableListHook, {TableListHookType} from "../../../hooks/useTableListHook";
 import useSortAndFilterHook, {SortAndFilterHookType} from "../../../hooks/useSortAndFilterHook";
 import StatesCustomTable from "./StatesCustomTable";
+import AddButton from "../../../components/form/AddButton";
 
 const StatesTableList: FC<StatesTableListProps> = (
     {
@@ -40,13 +40,7 @@ const StatesTableList: FC<StatesTableListProps> = (
     return (
         <Box py={4} rounded="lg" shadow="default" bg="white">
             <TableActions handleShowItems={handleShowItems} handleSearch={handleSearch} baseUrl={statesBaseUrl}>
-                <Button
-                    leftIcon={<IconMapPlus />}
-                    px={{base: 4, sm: 6}}
-                    onClick={onAddStateDrawerOpen}
-                >
-                    {t("add_state")}
-                </Button>
+                <AddButton onAddDrawerOpen={onAddStateDrawerOpen} />
             </TableActions>
 
             <Divider mt={6} />

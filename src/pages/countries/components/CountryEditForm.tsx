@@ -44,7 +44,7 @@ const CountryEditForm: FC<CountryEditFormProps> = ({selectedCountry, finished}):
                                 type='submit'
                                 leftIcon={<FiCheck />}
                             >
-                                {t("confirm")}
+                                {t("update")}
                             </Button>
                         </ButtonGroup>
                     </Form>

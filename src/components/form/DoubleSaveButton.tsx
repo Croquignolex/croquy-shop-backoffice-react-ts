@@ -27,7 +27,7 @@ const DoubleSaveButton: FC<DoubleSaveButtonProps> = (
                 type='submit'
                 leftIcon={<FiCheck />}
             >
-                {t("confirm")}
+                {t("save")}
             </Button>
             <Button
                 variant={"outline"}
@@ -36,7 +36,7 @@ const DoubleSaveButton: FC<DoubleSaveButtonProps> = (
                 leftIcon={<FiCheck />}
                 onClick={handleSaveAndContinue}
             >
-                {t("confirm_and_continue")}
+                {t("save_and_continue")}
             </Button>
         </ButtonGroup>
     );

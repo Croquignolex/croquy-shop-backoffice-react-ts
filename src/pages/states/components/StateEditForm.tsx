@@ -64,7 +64,7 @@ const StateEditForm: FC<StateEditFormProps> = ({selectedState, finished}): React
                                 type='submit'
                                 leftIcon={<FiCheck />}
                             >
-                                {t("confirm")}
+                                {t("update")}
                             </Button>
                         </ButtonGroup>
                     </Form>

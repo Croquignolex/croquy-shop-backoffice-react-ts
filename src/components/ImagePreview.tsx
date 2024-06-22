@@ -5,6 +5,7 @@ import {MediaType, ShapeEnumType, SizeType} from "../helpers/globalTypesHelper";
 
 import {API_MEDIA_V1_URL} from "../helpers/apiRequestsHelpers";
 import defaultFlag from "../assets/img/default-flag.png";
+import defaultImage from "../assets/img/default-image.png";
 
 const ImagePreview: FC<ImagePreviewProps> = (
     {
@@ -12,6 +13,7 @@ const ImagePreview: FC<ImagePreviewProps> = (
         size,
         shape, 
         flag =  false,
+        logo =  false,
         user =  false,
     }): ReactElement => {
     
@@ -26,8 +28,11 @@ const ImagePreview: FC<ImagePreviewProps> = (
     }
 
     const src: string = image?.base64 || (image?.path ? API_MEDIA_V1_URL + image?.path : "");
-    const fallbackSrc: string = flag ? defaultFlag : "";
+    let fallbackSrc: string = "";
     w = shape === ShapeEnumType.RECTANGLE ? h * 2 : w;
+
+    if(flag) fallbackSrc = defaultFlag;
+    if(logo) fallbackSrc = defaultImage;
     
     return (
         <>
@@ -44,6 +49,7 @@ interface ImagePreviewProps {
     size: SizeType,
     shape: ShapeEnumType,
     flag?: boolean,
+    logo?: boolean,
     user?: boolean,
 }
 

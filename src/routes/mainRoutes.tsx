@@ -1,14 +1,16 @@
 import {lazy, LazyExoticComponent, ReactElement} from "react";
 import {
     IconFlag,
-    IconMap
+    IconMap,
+    IconAd2,
+    IconBadgeTm,
+    IconTool
 } from '@tabler/icons-react';
 import {
     FiShoppingCart,
     FiUsers,
     FiPercent,
     FiTruck,
-    FiAward,
     FiColumns,
     FiTag,
     FiSliders,
@@ -16,7 +18,6 @@ import {
     FiPieChart,
     FiUser,
     FiSettings,
-    FiTool,
     FiHelpCircle
 } from "react-icons/fi";
 
@@ -36,11 +37,9 @@ const showUser: MainRouteType = {path: "/users/:id", component: lazy(() => impor
 const editUser: MainRouteType = {path: "/users/:id/edit", component: lazy(() => import("../pages/users/edit/EditUserPage"))};
 
 const countries: MainRouteType = {title: "countries", path: "/countries", icon: IconFlag, component: lazy(() => import("../pages/countries/components/CountriesListPage"))};
-const addCountry: MainRouteType = {path: "/countries/create", component: lazy(() => import("../pages/countries/components/CountryCreatePage"))};
 const showCountry: MainRouteType = {path: "/countries/:id", component: lazy(() => import("../pages/countries/show/ShowCountryPage"))};
 
 const states: MainRouteType = {title: "states", path: "/states", icon: IconMap, component: lazy(() => import("../pages/states/components/StatesListPage"))};
-const addState: MainRouteType = {path: "/states/create", component: lazy(() => import("../pages/states/components/StateCreatePage"))};
 const showState: MainRouteType = {path: "/states/:id", component: lazy(() => import("../pages/states/show/ShowStatePage"))};
 
 const coupons: MainRouteType = {title: "coupons", path: "/coupons", icon: FiPercent, component: lazy(() => import("../pages/coupons/CouponsPage"))};
@@ -53,10 +52,8 @@ const addVendor: MainRouteType = {path: "/vendors/create", component: lazy(() =>
 const showVendor: MainRouteType = {path: "/vendors/:id", component: lazy(() => import("../pages/vendors/show/ShowVendorPage"))};
 const editVendor: MainRouteType = {path: "/vendors/:id/edit", component: lazy(() => import("../pages/vendors/edit/EditVendorPage"))};
 
-const brands: MainRouteType = {title: "brands", path: "/brands", icon: FiAward, component: lazy(() => import("../pages/brands/BrandsPage"))};
-const addBrand: MainRouteType = {path: "/brands/create", component: lazy(() => import("../pages/brands/CreateBrandPage"))};
+const brands: MainRouteType = {title: "brands", path: "/brands", icon: IconBadgeTm, component: lazy(() => import("../pages/brands/components/BrandsListPage"))};
 const showBrand: MainRouteType = {path: "/brands/:id", component: lazy(() => import("../pages/brands/show/ShowBrandPage"))};
-const editBrand: MainRouteType = {path: "/brands/:id/edit", component: lazy(() => import("../pages/brands/edit/EditBrandPage"))};
 
 const groups: MainRouteType = {title: "groups", path: "/groups", icon: FiColumns, component: lazy(() => import("../pages/groups/GroupsPage"))};
 const addGroup: MainRouteType = {path: "/groups/create", component: lazy(() => import("../pages/groups/CreateGroupPage"))};
@@ -94,13 +91,20 @@ export const administrationSubMenu = {
 
 export const settingsSubMenu = {
     subMenuLabel: "tools",
-    subMenuIcon: FiTool,
+    subMenuIcon: IconTool,
     subMenuItems: [countries, states]
+};
+
+export const  marketingSubMenu = {
+    subMenuLabel: "marketing",
+    subMenuIcon: IconAd2,
+    subMenuItems: [brands, coupons]
 };
 
 export const headerMenu = [
     dashboard,
     administrationSubMenu,
+    marketingSubMenu,
     settingsSubMenu,
 ];
 
@@ -113,20 +117,20 @@ export const sideMenu = [
 export const mainRoutes: any = {
     dashboard,
     profile, settings, help,
-    countries, addCountry, showCountry,
-    states, addState, showState,
-
-
+    countries, showCountry,
+    states, showState,
+    // coupons, addCoupon, showCoupon, editCoupon,
+    brands, showBrand,
 
 
     users, addUser, showUser, editUser,
     shops, addShop, showShop, editShop,
-    brands, addBrand, showBrand, editBrand,
+
     groups, addGroup, showGroup, editGroup,
     categories, addCategory, showCategory, editCategory,
     attributes, addAttribute, showAttribute, editAttribute,
     attributeValues, addAttributeValue, showAttributeValue, editAttributeValue,
     vendors, addVendor, showVendor, editVendor,
-    coupons, addCoupon, showCoupon, editCoupon,
+
 
 };

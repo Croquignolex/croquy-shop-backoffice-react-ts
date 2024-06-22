@@ -21,7 +21,15 @@ import useIDActionRequestHook, {
     IDActionRequestType
 } from "../hooks/useIDActionRequestHook";
 
-const ImageUpdateForm: FC<CountryFlagFormProps> = ({flag = false, image, baseUrl, item}): ReactElement => {
+const ImageUpdateForm: FC<CountryFlagFormProps> = (
+    {
+        flag = false,
+        logo = false,
+        image,
+        baseUrl,
+        item
+    }): ReactElement => {
+
     const [loading, setLoading] = useState<boolean>(false);
     const [preview, setPreview] = useState<MediaType | null>(image);
 
@@ -68,7 +76,7 @@ const ImageUpdateForm: FC<CountryFlagFormProps> = ({flag = false, image, baseUrl
         type: IDActionRequestType.DELETE
     });
 
-    const shape: ShapeEnumType = flag ? ShapeEnumType.SQUARE : ShapeEnumType.RECTANGLE;
+    const shape: ShapeEnumType = (flag || logo) ? ShapeEnumType.SQUARE : ShapeEnumType.RECTANGLE;
 
     return (
         <Box>
@@ -85,7 +93,8 @@ const ImageUpdateForm: FC<CountryFlagFormProps> = ({flag = false, image, baseUrl
                             {loading ? <Spinner /> : (
                                 <>
                                     <ImagePreview
-                                        flag
+                                        flag={flag}
+                                        logo={logo}
                                         image={preview}
                                         size={SizeType.MEDIUM}
                                         shape={shape}
@@ -129,6 +138,7 @@ interface CountryFlagFormProps {
     baseUrl: string,
     image: MediaType | null,
     flag?: boolean,
+    logo?: boolean,
     item: any,
 }
 

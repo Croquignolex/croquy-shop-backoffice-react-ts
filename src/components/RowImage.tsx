@@ -4,6 +4,7 @@ import {HStack, Stack, Image, Text, Avatar} from "@chakra-ui/react";
 
 import {MediaType} from "../helpers/globalTypesHelper";
 import defaultFlag from "../assets/img/default-flag.png";
+import defaultImage from "../assets/img/default-image.png";
 import {API_MEDIA_V1_URL} from "../helpers/apiRequestsHelpers";
 import {formatString} from "../helpers/generalHelpers";
 
@@ -14,13 +15,17 @@ const RowImage: FC<RowImageProps> = (
         description,
         url,
         flag = false,
+        logo = false,
         user = false,
         plain = false,
         state
     }): ReactElement | null => {
 
     const src: string = image?.base64 || (image?.path ? API_MEDIA_V1_URL + image?.path : "");
-    const fallbackSrc: string = flag ? defaultFlag : "";
+    let fallbackSrc: string = "";
+
+    if(flag) fallbackSrc = defaultFlag;
+    if(logo) fallbackSrc = defaultImage;
 
     if(!title) {
         return null;
@@ -30,7 +35,7 @@ const RowImage: FC<RowImageProps> = (
         <HStack>
             {!plain && (
                 (user)
-                    ? (<Avatar bg="purple.500" src={src} w={35} h={35} />)
+                    ? (<Avatar bg="gray.800" src={src} w={35} h={35} />)
                     : (<Image src={src} fallbackSrc={fallbackSrc} alt='...' maxW={35} maxH={35} />)
             )}
             <Stack spacing={0}>
@@ -55,6 +60,7 @@ interface RowImageProps {
     title?: string,
     description?: string,
     flag?: boolean,
+    logo?: boolean,
     user?: boolean,
     url: string,
     state: any,

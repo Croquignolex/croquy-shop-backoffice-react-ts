@@ -15,7 +15,7 @@ const DrawerForm: FC<DrawerFormProps> = ({isOpen, onClose, title, children, size
     const {t} = useTranslation();
 
     return (
-        <Drawer isOpen={isOpen} onClose={onClose} placement={"right"} closeOnOverlayClick={false} size={size}>
+        <Drawer isOpen={isOpen} onClose={onClose} placement={"right"} size={size}>
             <DrawerOverlay />
             <DrawerContent>
                 <DrawerCloseButton _hover={{color: "purple.500", bg: "purple.100"}} />

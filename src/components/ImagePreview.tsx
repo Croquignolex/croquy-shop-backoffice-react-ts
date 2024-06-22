@@ -1,11 +1,11 @@
 import React, { FC, ReactElement } from "react";
 import {Avatar, Image} from "@chakra-ui/react";
 
-import {MediaType, ShapeEnumType, SizeType} from "../helpers/globalTypesHelper";
-
-import {API_MEDIA_V1_URL} from "../helpers/apiRequestsHelpers";
 import defaultFlag from "../assets/img/default-flag.png";
 import defaultImage from "../assets/img/default-image.png";
+
+import {MediaType, ShapeEnumType, SizeType} from "../helpers/globalTypesHelper";
+import {API_MEDIA_V1_URL} from "../helpers/apiRequestsHelpers";
 
 const ImagePreview: FC<ImagePreviewProps> = (
     {

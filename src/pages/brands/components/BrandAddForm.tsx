@@ -9,9 +9,9 @@ import TextareaField from "../../../components/form/TextareaField";
 import DoubleSaveButton from "../../../components/form/DoubleSaveButton";
 import useBrandAddHook, {
     BrandAddHookType,
-    AddBrandFormType,
-    addBrandInitialStaticValues,
-    addBrandSchema
+    BrandAddFormType,
+    brandAddSchema,
+    brandAddInitialStaticValues
 } from "../hooks/useBrandAddHook";
 
 const BrandAddForm: FC<BrandAddFormProps> = ({added, finished}): ReactElement => {
@@ -29,8 +29,8 @@ const BrandAddForm: FC<BrandAddFormProps> = ({added, finished}): ReactElement =>
 
             <CustomAlert data={addBrandAlertData} />
 
-            <Formik initialValues={addBrandInitialStaticValues} validationSchema={addBrandSchema} onSubmit={handleAddBrand}>
-                {(props: FormikProps<AddBrandFormType>) => (
+            <Formik initialValues={brandAddInitialStaticValues} validationSchema={brandAddSchema} onSubmit={handleAddBrand}>
+                {(props: FormikProps<BrandAddFormType>) => (
                     <Form>
                         <TextField label={t("name")} name="name" formikProps={props} />
 

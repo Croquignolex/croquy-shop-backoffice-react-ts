@@ -8,7 +8,7 @@ import TextareaField from "../../form/TextareaField";
 import DoubleSaveButton from "../../form/DoubleSaveButton";
 import useStateCreateFormHook from "./useStateCreateFormHook";
 import SelectField from "../../form/SelectField";
-import useCountriesSelectListHook, {CountriesSelectListHookType} from "../../../hooks/useCountriesSelectListHook";
+// import useCountriesSelectListHook, {CountriesSelectListHookType} from "../../../hooks/useCountriesSelectListHook";
 import FormModal from "../../FormModal";
 // import CountryCreateForm from "../country/CountryCreateForm";
 import SelectLink from "../../form/SelectLink";
@@ -21,11 +21,7 @@ import {
 
 const StateCreateForm: FC<StateCreateFormProps> = ({modal = false, handleFinish, handleAdd}): ReactElement => {
     const { onOpen: onAddCountryModalOpen, isOpen: isAddCountryModalOpen, onClose: onAddCountryModalClose } = useDisclosure();
-    const {
-        selectListCountries,
-        isSelectListCountriesFetching,
-        reloadList
-    }: CountriesSelectListHookType = useCountriesSelectListHook();
+
     const {
         createStateAlertData,
         handleCreateState,

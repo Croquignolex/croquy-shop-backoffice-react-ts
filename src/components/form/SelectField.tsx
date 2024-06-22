@@ -39,17 +39,12 @@ const SelectField: FC<SelectFormFieldProps> = (
                )}
            </HStack>
 
-            {isLoading
-                ? <Skeleton height={"40px"} width={"100%"} rounded={"md"} mb={4} />
-                : (
-                    <Field as={Select} name={name} borderColor="gray.300">
-                        <option value="">Choisir</option>
-                        {values.map((item: FormSelectOptionType, key: number) => (
-                            <option value={item.key} key={key}>{item.label}</option>
-                        ))}
-                    </Field>
-                )
-            }
+            <Field as={Select} name={name} borderColor="gray.300">
+                <option value="">{isLoading ? t("loading") : t("chose")}</option>
+                {values.map((item: FormSelectOptionType, key: number) => (
+                    <option value={item.key} key={key}>{item.label}</option>
+                ))}
+            </Field>
 
             <FormErrorMessage>
                 <Icon mr="2" as={FiAlertCircle} />

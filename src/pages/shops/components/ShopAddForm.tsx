@@ -7,41 +7,40 @@ import CustomAlert from "../../../components/alert/CustomAlert";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
 import DoubleSaveButton from "../../../components/form/DoubleSaveButton";
-import useCountryAddHook, {
-    CountryAddFormType,
-    CountryAddHookType,
-    countryAddInitialStaticValues,
-    countryAddSchema,
-} from "../hooks/useCountryAddHook";
+import useShopAddHook, {
+    ShopAddHookType,
+    ShopAddFormType,
+    addShopSchema, shopAddInitialStaticValues
+} from "../hooks/useShopAddHook";
 
-const CountryAddForm: FC<CountryAddFormProps> = ({added, finished}): ReactElement => {
+const ShopAddForm: FC<ShopAddFormProps> = ({added, finished}): ReactElement => {
     const {t} = useTranslation();
     const {
-        addCountryAlertData,
-        handleAddCountry,
-        handleAddCountryAndContinue,
+        addShopAlertData,
+        handleAddShop,
+        handleAddShopAndContinue,
         sequence,
-        isAddCountryPending
-    }: CountryAddHookType = useCountryAddHook({added, finished});
+        isAddShopPending
+    }: ShopAddHookType = useShopAddHook({added, finished});
 
     return (
         <Box key={sequence}>
 
-            <CustomAlert data={addCountryAlertData} />
+            <CustomAlert data={addShopAlertData} />
 
-            <Formik initialValues={countryAddInitialStaticValues} validationSchema={countryAddSchema} onSubmit={handleAddCountry}>
-                {(props: FormikProps<CountryAddFormType>) => (
+            <Formik initialValues={shopAddInitialStaticValues} validationSchema={addShopSchema} onSubmit={handleAddShop}>
+                {(props: FormikProps<ShopAddFormType>) => (
                     <Form>
                         <TextField label={t("name")} name="name" formikProps={props} />
 
-                        <TextField label={t("phone_code")} name="phoneCode" formikProps={props} />
+                        <TextField label={t("slug")} name="slug" formikProps={props} />
 
                         <TextareaField label={t("description")} name="description" formikProps={props} />
 
                         <DoubleSaveButton
-                            isLoading={isAddCountryPending}
+                            isLoading={isAddShopPending}
                             formikProps={props}
-                            handleSaveAndContinue={() => handleAddCountryAndContinue(props.values)}
+                            handleSaveAndContinue={() => handleAddShopAndContinue(props.values)}
                         />
                     </Form>
                 )}
@@ -50,9 +49,9 @@ const CountryAddForm: FC<CountryAddFormProps> = ({added, finished}): ReactElemen
     );
 };
 
-interface CountryAddFormProps {
+interface ShopAddFormProps {
     finished: () => void;
     added: () => void;
 }
 
-export default CountryAddForm;
+export default ShopAddForm;

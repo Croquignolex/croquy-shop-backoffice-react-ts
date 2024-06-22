@@ -13,46 +13,6 @@ import {countriesApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
 import {CountryType} from "../show/showCountryData";
 
-// ######################################## STATICS DATA ######################################## //
-
-export const editCountrySchema: Yup.ObjectSchema<EditCountryFormType> = Yup.object().shape({
-    name: Yup.string().required(formValidationMessage.required),
-    phoneCode: Yup.string().nullable(),
-    description: Yup.string().nullable(),
-});
-
-export interface EditCountryFormType {
-    name: string,
-    phoneCode: string | null | undefined,
-    description: string | null | undefined,
-}
-
-interface EditCountryRequestDataType {
-    id: string,
-    name: string,
-    phoneCode: string | null | undefined,
-    description: string | null | undefined,
-}
-
-export interface CountryEditHookType {
-    editCountryAlertData: ErrorAlertType,
-    isEditCountryPending: boolean,
-    formCountry: EditCountryFormType,
-    handleEditCountry: (a: EditCountryFormType) => void,
-}
-
-interface CountryEditHookProps {
-    selectedCountry: CountryType;
-    finished: () => void;
-}
-
-export const updateCountryRequest = ({name, phoneCode, description, id}: EditCountryRequestDataType): Promise<any> => {
-    const params: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = v1URL(countriesApiURI.update, params);
-
-    return putRequest(url, {name, phoneCode, description});
-};
-
 // ######################################## HOOK ######################################## //
 
 const useCountryEditHook = ({selectedCountry, finished}: CountryEditHookProps): CountryEditHookType => {
@@ -61,12 +21,12 @@ const useCountryEditHook = ({selectedCountry, finished}: CountryEditHookProps): 
 
     const [editCountryAlertData, setEditCountryAlertData] = useState<ErrorAlertType>({show: false});
 
-    const updateCountryResponse: UseMutationResult<AxiosResponse, AxiosError, EditCountryRequestDataType, any> = useMutation({
+    const updateCountryResponse: UseMutationResult<AxiosResponse, AxiosError, CountryEditRequestDataType, any> = useMutation({
         mutationFn: updateCountryRequest,
         onError: (error: AxiosError): void => {
             setEditCountryAlertData(errorAlert(error));
         },
-        onSuccess: (data: AxiosResponse, variables: EditCountryRequestDataType): void => {
+        onSuccess: (data: AxiosResponse, variables: CountryEditRequestDataType): void => {
             setEditCountryAlertData({show: false});
 
             finished();
@@ -78,11 +38,11 @@ const useCountryEditHook = ({selectedCountry, finished}: CountryEditHookProps): 
         }
     });
 
-    const handleEditCountry = ({name, phoneCode, description}: EditCountryFormType): void =>
+    const handleEditCountry = ({name, phoneCode, description}: CountryEditFormType): void =>
         updateCountryResponse.mutate({name, phoneCode, description, id: selectedCountry.id});
 
     const isEditCountryPending: boolean = updateCountryResponse.isPending;
-    const formCountry: EditCountryFormType = selectedCountry;
+    const formCountry: CountryEditFormType = selectedCountry;
 
     return {
         formCountry,
@@ -90,6 +50,43 @@ const useCountryEditHook = ({selectedCountry, finished}: CountryEditHookProps): 
         handleEditCountry,
         isEditCountryPending
     };
+};
+
+// ######################################## STATICS DATA ######################################## //
+
+export const countryEditSchema: Yup.ObjectSchema<CountryEditFormType> = Yup.object().shape({
+    name: Yup.string().required(formValidationMessage.required),
+    phoneCode: Yup.string().nullable(),
+    description: Yup.string().nullable(),
+});
+
+export interface CountryEditFormType {
+    name: string,
+    phoneCode: string | null | undefined,
+    description: string | null | undefined,
+}
+
+interface CountryEditRequestDataType extends CountryEditFormType {
+    id: string,
+}
+
+export interface CountryEditHookType {
+    editCountryAlertData: ErrorAlertType,
+    isEditCountryPending: boolean,
+    formCountry: CountryEditFormType,
+    handleEditCountry: (a: CountryEditFormType) => void,
+}
+
+interface CountryEditHookProps {
+    selectedCountry: CountryType;
+    finished: () => void;
+}
+
+export const updateCountryRequest = ({name, phoneCode, description, id}: CountryEditRequestDataType): Promise<any> => {
+    const params: Array<URLParamType> = [{param: "id", value: id}];
+    const url: string = v1URL(countriesApiURI.update, params);
+
+    return putRequest(url, {name, phoneCode, description});
 };
 
 export default useCountryEditHook;

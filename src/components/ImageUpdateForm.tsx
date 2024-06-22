@@ -12,16 +12,16 @@ import DeleteIconButton from "./form/DeleteButtonIcon";
 import ConfirmAlertDialog from "./ConfirmAlertDialog";
 import useImageUpdateHook, {
     ImageUpdateHookType,
-    UpdateImageFormType,
-    updateImageInitialStaticValues,
-    updateImageSchema
+    imageUpdateInitialStaticValues,
+    imageUpdateSchema,
+    ImageUpdateFormType
 } from "../hooks/useImageUpdateHook";
 import useIDActionRequestHook, {
     IDActionRequestHookType,
     IDActionRequestType
 } from "../hooks/useIDActionRequestHook";
 
-const ImageUpdateForm: FC<CountryFlagFormProps> = (
+const ImageUpdateForm: FC<ImageUpdateFormProps> = (
     {
         flag = false,
         logo = false,
@@ -81,8 +81,8 @@ const ImageUpdateForm: FC<CountryFlagFormProps> = (
     return (
         <Box>
             <CustomAlert data={updateImageAlertData} />
-            <Formik initialValues={updateImageInitialStaticValues} validationSchema={updateImageSchema} onSubmit={handleUpdateImage} enableReinitialize>
-                {(props: FormikProps<UpdateImageFormType>) => (
+            <Formik initialValues={imageUpdateInitialStaticValues} validationSchema={imageUpdateSchema} onSubmit={handleUpdateImage} enableReinitialize>
+                {(props: FormikProps<ImageUpdateFormType>) => (
                     <Form>
                         <DropzoneField
                             formikProps={props}
@@ -115,7 +115,7 @@ const ImageUpdateForm: FC<CountryFlagFormProps> = (
                             type="submit"
                             leftIcon={<FiCheck />}
                         >
-                            {t("confirm")}
+                            {t("change")}
                         </Button>
                     </Form>
                 )}
@@ -134,7 +134,7 @@ const ImageUpdateForm: FC<CountryFlagFormProps> = (
     );
 };
 
-interface CountryFlagFormProps {
+interface ImageUpdateFormProps {
     baseUrl: string,
     image: MediaType | null,
     flag?: boolean,

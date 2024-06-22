@@ -6,20 +6,20 @@ import CustomAlert from "../../../components/alert/CustomAlert";
 import TableActions from "../../../components/table/TableActions";
 import Pagination from "../../../components/Pagination";
 import DrawerForm from "../../../components/DrawerForm";
-import BrandAddForm from "././BrandAddForm";
+import ShopAddForm from "./ShopAddForm";
 import useTableListHook, {TableListHookType} from "../../../hooks/useTableListHook";
 import useSortAndFilterHook, {SortAndFilterHookType} from "../../../hooks/useSortAndFilterHook";
-import BrandsCustomTable from "./BrandsCustomTable";
+import ShopsCustomTable from "./ShopsCustomTable";
 import AddButton from "../../../components/form/AddButton";
 
-const BrandsTableList: FC<BrandsTableListProps> = (
+const ShopsTableList: FC<ShopsTableListProps> = (
     {
         showCreator = false,
-        fetchBrands = false,
-        brandsBaseUrl
+        fetchShops = false,
+        shopsBaseUrl
     }): ReactElement => {
 
-    const {onOpen: onAddBrandDrawerOpen, isOpen: isAddBrandDrawerOpen, onClose: onAddBrandDrawerClose} = useDisclosure();
+    const {onOpen: onAddShopDrawerOpen, isOpen: isAddShopDrawerOpen, onClose: onAddShopDrawerClose} = useDisclosure();
     const {t} = useTranslation();
 
     const {
@@ -28,53 +28,53 @@ const BrandsTableList: FC<BrandsTableListProps> = (
         handleSearch,
         handleSort,
         sortAndFilterData
-    }: SortAndFilterHookType = useSortAndFilterHook({baseUrl: brandsBaseUrl});
+    }: SortAndFilterHookType = useSortAndFilterHook({baseUrl: shopsBaseUrl});
     const {
-        responseData: brandsResponseData,
-        isFetching: isBrandsFetching,
-        alertData: brandsAlertData,
+        responseData: shopsResponseData,
+        isFetching: isShopsFetching,
+        alertData: shopsAlertData,
         reloadList,
-    }: TableListHookType = useTableListHook({fetch: fetchBrands, sortAndFilterData});
+    }: TableListHookType = useTableListHook({fetch: fetchShops, sortAndFilterData});
 
     return (
         <Box py={4} rounded="lg" shadow="default" bg="white">
-            <TableActions handleShowItems={handleShowItems} handleSearch={handleSearch} baseUrl={brandsBaseUrl}>
-                <AddButton onAddDrawerOpen={onAddBrandDrawerOpen} title={t("add_brand")} />
+            <TableActions handleShowItems={handleShowItems} handleSearch={handleSearch} baseUrl={shopsBaseUrl}>
+                <AddButton onAddDrawerOpen={onAddShopDrawerOpen} title={t("add_shop")} />
             </TableActions>
 
             <Divider mt={6} />
 
             <Box px={6}>
-                <CustomAlert data={brandsAlertData} />
+                <CustomAlert data={shopsAlertData} />
             </Box>
 
-            <BrandsCustomTable
+            <ShopsCustomTable
                 handleSort={handleSort}
-                isBrandsPending={isBrandsFetching}
+                isShopsPending={isShopsFetching}
                 showCreator={showCreator}
                 reloadList={reloadList}
                 sortAndFilterData={sortAndFilterData}
-                brandsResponseData={brandsResponseData}
+                shopsResponseData={shopsResponseData}
             />
 
             <Pagination
-                show={!brandsResponseData.empty}
+                show={!shopsResponseData.empty}
                 handleGotoPage={handleChangePage}
-                currentPage={brandsResponseData.number + 1}
-                totalPages={brandsResponseData.totalPages}
-                totalElements={brandsResponseData.totalElements}
-                currentPageElements={brandsResponseData.numberOfElements}
+                currentPage={shopsResponseData.number + 1}
+                totalPages={shopsResponseData.totalPages}
+                totalElements={shopsResponseData.totalElements}
+                currentPageElements={shopsResponseData.numberOfElements}
             />
 
             <DrawerForm
-                title={t("add_brand")}
-                isOpen={isAddBrandDrawerOpen}
-                onClose={onAddBrandDrawerClose}
+                title={t("add_shop")}
+                isOpen={isAddShopDrawerOpen}
+                onClose={onAddShopDrawerClose}
             >
-                <BrandAddForm
+                <ShopAddForm
                     added={reloadList}
                     finished={(): void => {
-                        onAddBrandDrawerClose();
+                        onAddShopDrawerClose();
                         reloadList();
                     }}
                 />
@@ -83,10 +83,10 @@ const BrandsTableList: FC<BrandsTableListProps> = (
     );
 };
 
-interface BrandsTableListProps {
+interface ShopsTableListProps {
     showCreator?: boolean;
-    fetchBrands?: boolean;
-    brandsBaseUrl: string;
+    fetchShops?: boolean;
+    shopsBaseUrl: string;
 }
 
-export default BrandsTableList;
+export default ShopsTableList;

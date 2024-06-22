@@ -1,48 +1,11 @@
 import { AxiosError, AxiosResponse } from "axios";
 import {useQuery, UseQueryResult, keepPreviousData} from "@tanstack/react-query";
+
 import {defaultPaginationData, SortAndFilterRequestDataType} from "./useSortAndFilterHook";
 import {ErrorAlertType, PaginationType, URLParamType} from "../helpers/globalTypesHelper";
 import {v1URL} from "../helpers/apiRequestsHelpers";
 import {getRequest} from "../helpers/axiosHelpers";
 import {errorAlert} from "../helpers/generalHelpers";
-
-
-// ######################################## STATICS DATA ######################################## //
-
-const defaultResponseData: ResponseDataType = {
-    content: [],
-    ...defaultPaginationData
-}
-
-interface ResponseDataType extends PaginationType {
-    content: Array<any>,
-}
-
-export interface TableListHookType {
-    responseData: ResponseDataType,
-    isFetching: boolean,
-    isPending: boolean,
-    alertData: ErrorAlertType,
-    reloadList: () => void,
-}
-
-interface TableListHookProps {
-    fetch: boolean,
-    sortAndFilterData: SortAndFilterRequestDataType,
-}
-
-const request = ({page, size, needle, baseUrl, sort, direction}: SortAndFilterRequestDataType): Promise<any> => {
-    const queries: Array<URLParamType> = [];
-    if(page) queries.push({param: "page", value: page});
-    if(size) queries.push({param: "size", value: size});
-    if(needle) queries.push({param: "needle", value: needle});
-    if(sort) queries.push({param: "sort", value: sort});
-    if(direction) queries.push({param: "direction", value: direction});
-
-    const url: string = v1URL(baseUrl, [], queries);
-
-    return getRequest(url);
-}
 
 // ######################################## HOOK ######################################## //
 
@@ -81,5 +44,42 @@ const useTableListHook = ({fetch, sortAndFilterData}: TableListHookProps): Table
         reloadList,
     };
 };
+
+// ######################################## STATICS DATA ######################################## //
+
+const defaultResponseData: ResponseDataType = {
+    content: [],
+    ...defaultPaginationData
+}
+
+interface ResponseDataType extends PaginationType {
+    content: Array<any>,
+}
+
+export interface TableListHookType {
+    responseData: ResponseDataType,
+    isFetching: boolean,
+    isPending: boolean,
+    alertData: ErrorAlertType,
+    reloadList: () => void,
+}
+
+interface TableListHookProps {
+    fetch: boolean,
+    sortAndFilterData: SortAndFilterRequestDataType,
+}
+
+const request = ({page, size, needle, baseUrl, sort, direction}: SortAndFilterRequestDataType): Promise<any> => {
+    const queries: Array<URLParamType> = [];
+    if(page) queries.push({param: "page", value: page});
+    if(size) queries.push({param: "size", value: size});
+    if(needle) queries.push({param: "needle", value: needle});
+    if(sort) queries.push({param: "sort", value: sort});
+    if(direction) queries.push({param: "direction", value: direction});
+
+    const url: string = v1URL(baseUrl, [], queries);
+
+    return getRequest(url);
+}
 
 export default useTableListHook;

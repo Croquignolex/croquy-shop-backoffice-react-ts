@@ -39,7 +39,7 @@ const CountriesTableList: FC<CountriesTableListProps> = (
     return (
         <Box py={4} rounded="lg" shadow="default" bg="white">
             <TableActions handleShowItems={handleShowItems} handleSearch={handleSearch} baseUrl={countriesBaseUrl}>
-                <AddButton onAddDrawerOpen={onAddCountryDrawerOpen} />
+                <AddButton onAddDrawerOpen={onAddCountryDrawerOpen} title={t("add_country")} />
             </TableActions>
 
             <Divider mt={6} />

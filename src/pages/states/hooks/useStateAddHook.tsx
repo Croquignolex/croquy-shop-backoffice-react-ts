@@ -12,51 +12,6 @@ import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {statesApiURI} from "../../../constants/apiURIConstants";
 import {postRequest} from "../../../helpers/axiosHelpers";
 
-// ######################################## STATICS DATA ######################################## //
-
-export const addStateInitialStaticValues: AddStateFormType = {
-    name: "",
-    countryId: "",
-    description: ""
-};
-
-export const addStateSchema: Yup.ObjectSchema<AddStateFormType> = Yup.object().shape({
-    name: Yup.string().required(formValidationMessage.required),
-    countryId: Yup.string().required(formValidationMessage.required),
-    description: Yup.string().nullable(),
-});
-
-export interface AddStateFormType {
-    name: string,
-    countryId: string,
-    description: string | null | undefined,
-}
-
-interface AddStateRequestDataType {
-    name: string,
-    countryId: string,
-    description: string | null | undefined,
-}
-
-export interface StateAddHookType {
-    addStateAlertData: ErrorAlertType,
-    isAddStatePending: boolean,
-    sequence: number,
-    handleAddState: (a: AddStateFormType) => void,
-    handleAddStateAndContinue: (a: AddStateFormType) => void,
-}
-
-interface StateAddHookProps {
-    added: () => void;
-    finished: () => void;
-}
-
-const storeStateRequest = ({name, countryId, description}: AddStateRequestDataType): Promise<any> => {
-    const url: string = v1URL(statesApiURI.store);
-
-    return postRequest(url, {name, countryId, description});
-};
-
 // ######################################## HOOK ######################################## //
 
 const useStateAddHook = ({added, finished}: StateAddHookProps): StateAddHookType => {
@@ -67,12 +22,12 @@ const useStateAddHook = ({added, finished}: StateAddHookProps): StateAddHookType
     const [next, setNext] = useState<boolean>(false);
     const [sequence, setSequence] = useState<number>(0);
 
-    const storeStateResponse: UseMutationResult<AxiosResponse, AxiosError, AddStateRequestDataType, any> = useMutation({
+    const storeStateResponse: UseMutationResult<AxiosResponse, AxiosError, StateAddRequestDataType, any> = useMutation({
         mutationFn: storeStateRequest,
         onError: (error: AxiosError): void => {
             setAddStateAlertData(errorAlert(error));
         },
-        onSuccess: (data: AxiosResponse, variables: AddStateRequestDataType): void => {
+        onSuccess: (data: AxiosResponse, variables: StateAddRequestDataType): void => {
             setAddStateAlertData({show: false});
 
             // Reload component
@@ -91,15 +46,15 @@ const useStateAddHook = ({added, finished}: StateAddHookProps): StateAddHookType
         }
     });
 
-    const save = ({name, countryId, description}: AddStateFormType, next: boolean = false): void => {
+    const save = ({name, countryId, description}: StateAddFormType, next: boolean = false): void => {
         setAddStateAlertData({show: false});
         setNext(next);
 
         storeStateResponse.mutate({name, countryId, description});
     }
 
-    const handleAddState = (values: AddStateFormType): void => save(values);
-    const handleAddStateAndContinue = (values: AddStateFormType): void => save(values, true);
+    const handleAddState = (values: StateAddFormType): void => save(values);
+    const handleAddStateAndContinue = (values: StateAddFormType): void => save(values, true);
 
     const isAddStatePending: boolean = storeStateResponse.isPending;
 
@@ -110,6 +65,47 @@ const useStateAddHook = ({added, finished}: StateAddHookProps): StateAddHookType
         sequence,
         isAddStatePending
     };
+};
+
+// ######################################## STATICS DATA ######################################## //
+
+export const stateAddInitialStaticValues: StateAddFormType = {
+    name: "",
+    countryId: "",
+    description: ""
+};
+
+export const stateAddSchema: Yup.ObjectSchema<StateAddFormType> = Yup.object().shape({
+    name: Yup.string().required(formValidationMessage.required),
+    countryId: Yup.string().required(formValidationMessage.required),
+    description: Yup.string().nullable(),
+});
+
+export interface StateAddFormType {
+    name: string,
+    countryId: string,
+    description: string | null | undefined,
+}
+
+interface StateAddRequestDataType extends StateAddFormType {}
+
+export interface StateAddHookType {
+    addStateAlertData: ErrorAlertType,
+    isAddStatePending: boolean,
+    sequence: number,
+    handleAddState: (a: StateAddFormType) => void,
+    handleAddStateAndContinue: (a: StateAddFormType) => void,
+}
+
+interface StateAddHookProps {
+    added: () => void;
+    finished: () => void;
+}
+
+const storeStateRequest = ({name, countryId, description}: StateAddRequestDataType): Promise<any> => {
+    const url: string = v1URL(statesApiURI.store);
+
+    return postRequest(url, {name, countryId, description});
 };
 
 export default useStateAddHook;

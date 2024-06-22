@@ -13,10 +13,10 @@ import {countriesApiURI} from "../../../constants/apiURIConstants";
 import DrawerForm from "../../../components/DrawerForm";
 import CountryAddForm from "../../countries/components/CountryAddForm";
 import useStateAddHook, {
-    AddStateFormType,
-    addStateInitialStaticValues,
-    addStateSchema,
-    StateAddHookType
+    StateAddFormType,
+    StateAddHookType,
+    stateAddInitialStaticValues,
+    stateAddSchema
 } from "../hooks/useStateAddHook";
 
 const StateAddForm: FC<StateAddFormProps> = ({added, finished}): ReactElement => {
@@ -42,8 +42,8 @@ const StateAddForm: FC<StateAddFormProps> = ({added, finished}): ReactElement =>
 
             <CustomAlert data={addStateAlertData} />
 
-            <Formik initialValues={addStateInitialStaticValues} validationSchema={addStateSchema} onSubmit={handleAddState}>
-                {(props: FormikProps<AddStateFormType>) => (
+            <Formik initialValues={stateAddInitialStaticValues} validationSchema={stateAddSchema} onSubmit={handleAddState}>
+                {(props: FormikProps<StateAddFormType>) => (
                     <Form>
                         <TextField label={t("name")} name="name" formikProps={props} />
 

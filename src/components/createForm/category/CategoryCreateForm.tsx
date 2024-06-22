@@ -8,7 +8,6 @@ import TextareaField from "../../form/TextareaField";
 import DoubleSaveButton from "../../form/DoubleSaveButton";
 import useCategoryCreateFormHook from "./useCategoryCreateFormHook";
 import SelectLink from "../../form/SelectLink";
-import useGroupsSelectListHook, {GroupsSelectListHookType} from "../../../hooks/useGroupsSelectListHook";
 import SelectField from "../../form/SelectField";
 import FormModal from "../../FormModal";
 import GroupCreateForm from "../group/GroupCreateForm";
@@ -21,11 +20,7 @@ import {
 
 const CategoryCreateForm: FC<CategoryCreateFormProps> = ({modal = false, handleFinish, handleAdd}): ReactElement => {
     const { onOpen: onAddGroupModalOpen, isOpen: isAddGroupModalOpen, onClose: onAddGroupModalClose } = useDisclosure();
-    const {
-        selectListGroups,
-        isSelectListGroupsFetching,
-        reloadList
-    }: GroupsSelectListHookType = useGroupsSelectListHook();
+
     const {
         createCategoryAlertData,
         handleCreateCategory,

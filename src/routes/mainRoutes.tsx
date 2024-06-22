@@ -4,16 +4,16 @@ import {
     IconMap,
     IconAd2,
     IconBadgeTm,
-    IconTool
+    IconTool,
+    IconBuildingWarehouse,
+    IconAdjustments
 } from '@tabler/icons-react';
 import {
-    FiShoppingCart,
     FiUsers,
     FiPercent,
     FiTruck,
     FiColumns,
     FiTag,
-    FiSliders,
     FiGrid,
     FiPieChart,
     FiUser,
@@ -26,10 +26,8 @@ const profile: MainRouteType = {title: "my_profile", path: "/profile", icon: FiU
 const settings: MainRouteType = {title: "my_parameters", path: "/settings", icon: FiSettings, component: lazy(() => import("../pages/settings/SettingsPage"))};
 const help: MainRouteType = {title: "help_center", path: "/help", icon: FiHelpCircle, component: lazy(() => import("../pages/help/HelpPage"))};
 
-const shops: MainRouteType = {title: "shops", path: "/shops", icon: FiShoppingCart, component: lazy(() => import("../pages/shops/ShopsPage"))};
-const addShop: MainRouteType = {path: "/shops/create", component: lazy(() => import("../pages/shops/CreateShopPage"))};
+const shops: MainRouteType = {title: "shops", path: "/shops", icon: IconBuildingWarehouse, component: lazy(() => import("../pages/shops/components/ShopsListPage"))};
 const showShop: MainRouteType = {path: "/shops/:id", component: lazy(() => import("../pages/shops/show/ShowShopPage"))};
-const editShop: MainRouteType = {path: "/shops/:id/edit", component: lazy(() => import("../pages/shops/edit/EditShopPage"))};
 
 const users: MainRouteType = {title: "users", path: "/users", icon: FiUsers, component: lazy(() => import("../pages/users/UsersPage"))};
 const addUser: MainRouteType = {path: "/users/create", component: lazy(() => import("../pages/users/CreateUserPage"))};
@@ -70,7 +68,7 @@ const addAttribute: MainRouteType = {path: "/attributes/create", component: lazy
 const showAttribute: MainRouteType = {path: "/attributes/:id", component: lazy(() => import("../pages/attributes/show/ShowAttributePage"))};
 const editAttribute: MainRouteType = {path: "/attributes/:id/edit", component: lazy(() => import("../pages/attributes/edit/EditAttributePage"))};
 
-const attributeValues: MainRouteType = {title: "attribute_values", path: "/attribute-values", icon: FiSliders, component: lazy(() => import("../pages/attributeValues/AttributeValuesPage"))};
+const attributeValues: MainRouteType = {title: "attribute_values", path: "/attribute-values", icon: IconAdjustments, component: lazy(() => import("../pages/attributeValues/AttributeValuesPage"))};
 const addAttributeValue: MainRouteType = {path: "/attribute-values/create", component: lazy(() => import("../pages/attributeValues/CreateAttributeValuePage"))};
 const showAttributeValue: MainRouteType = {path: "/attribute-values/:id", component: lazy(() => import("../pages/attributeValues/show/ShowAttributeValuePage"))};
 const editAttributeValue: MainRouteType = {path: "/attribute-values/:id/edit", component: lazy(() => import("../pages/attributeValues/edit/EditAttributeValuePage"))};
@@ -84,9 +82,8 @@ export interface MainRouteType {
 
 export const administrationSubMenu = {
     subMenuLabel: "administration",
-    subMenuIcon: FiSliders,
-    // subMenuItems: [users, shops]
-    subMenuItems: []
+    subMenuIcon: IconAdjustments,
+    subMenuItems: [users, shops],
 };
 
 export const settingsSubMenu = {
@@ -119,18 +116,15 @@ export const mainRoutes: any = {
     profile, settings, help,
     countries, showCountry,
     states, showState,
-    // coupons, addCoupon, showCoupon, editCoupon,
     brands, showBrand,
+    shops, showShop,
 
 
     users, addUser, showUser, editUser,
-    shops, addShop, showShop, editShop,
-
     groups, addGroup, showGroup, editGroup,
     categories, addCategory, showCategory, editCategory,
     attributes, addAttribute, showAttribute, editAttribute,
     attributeValues, addAttributeValue, showAttributeValue, editAttributeValue,
     vendors, addVendor, showVendor, editVendor,
-
-
+    coupons, addCoupon, showCoupon, editCoupon,
 };

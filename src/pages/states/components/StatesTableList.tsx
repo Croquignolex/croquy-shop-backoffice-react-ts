@@ -40,7 +40,7 @@ const StatesTableList: FC<StatesTableListProps> = (
     return (
         <Box py={4} rounded="lg" shadow="default" bg="white">
             <TableActions handleShowItems={handleShowItems} handleSearch={handleSearch} baseUrl={statesBaseUrl}>
-                <AddButton onAddDrawerOpen={onAddStateDrawerOpen} />
+                <AddButton onAddDrawerOpen={onAddStateDrawerOpen} title={t("add_state")} />
             </TableActions>
 
             <Divider mt={6} />

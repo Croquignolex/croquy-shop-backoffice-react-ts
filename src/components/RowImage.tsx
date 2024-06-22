@@ -18,6 +18,7 @@ const RowImage: FC<RowImageProps> = (
         logo = false,
         user = false,
         plain = false,
+        unlink = false,
         state
     }): ReactElement | null => {
 
@@ -39,16 +40,22 @@ const RowImage: FC<RowImageProps> = (
                     : (<Image src={src} fallbackSrc={fallbackSrc} alt='...' maxW={35} maxH={35} />)
             )}
             <Stack spacing={0}>
-                <Text
-                    as={Link}
-                    to={url}
-                    state={state}
-                    fontSize={"sm"}
-                    fontWeight={"bold"}
-                    _hover={{color: "purple.500"}}
-                >
-                    {title}
-                </Text>
+                {unlink ? (
+                    <Text fontSize={"sm"} fontWeight={"bold"}>
+                        {title}
+                    </Text>
+                ) : (
+                    <Text
+                        as={Link}
+                        to={url}
+                        state={state}
+                        fontSize={"sm"}
+                        fontWeight={"bold"}
+                        _hover={{color: "purple.500"}}
+                    >
+                        {title}
+                    </Text>
+                )}
                 <Text fontSize={"xs"} title={description}>{formatString(description, 30)}</Text>
             </Stack>
         </HStack>
@@ -62,9 +69,10 @@ interface RowImageProps {
     flag?: boolean,
     logo?: boolean,
     user?: boolean,
-    url: string,
-    state: any,
+    url?: string,
+    state?: any,
     plain?: boolean,
+    unlink?: boolean
 }
 
 export default RowImage;

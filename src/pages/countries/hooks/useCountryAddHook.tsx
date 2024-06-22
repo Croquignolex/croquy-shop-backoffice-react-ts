@@ -12,51 +12,6 @@ import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {countriesApiURI} from "../../../constants/apiURIConstants";
 import {postRequest} from "../../../helpers/axiosHelpers";
 
-// ######################################## STATICS DATA ######################################## //
-
-export const addCountryInitialStaticValues: AddCountryFormType = {
-    name: '',
-    phoneCode: '',
-    description: ''
-};
-
-export const addCountrySchema: Yup.ObjectSchema<AddCountryFormType> = Yup.object().shape({
-    name: Yup.string().required(formValidationMessage.required),
-    phoneCode: Yup.string().nullable(),
-    description: Yup.string().nullable(),
-});
-
-export interface AddCountryFormType {
-    name: string,
-    phoneCode: string | null | undefined,
-    description: string | null | undefined,
-}
-
-interface AddCountryRequestDataType {
-    name: string,
-    phoneCode: string | null | undefined,
-    description: string | null | undefined,
-}
-
-export interface CountryAddHookType {
-    addCountryAlertData: ErrorAlertType,
-    isAddCountryPending: boolean,
-    sequence: number,
-    handleAddCountry: (a: AddCountryFormType) => void,
-    handleAddCountryAndContinue: (a: AddCountryFormType) => void,
-}
-
-interface CountryAddHookProps {
-    added: () => void;
-    finished: () => void;
-}
-
-const storeCountryRequest = ({name, phoneCode, description}: AddCountryRequestDataType): Promise<any> => {
-    const url: string = v1URL(countriesApiURI.store);
-
-    return postRequest(url, {name, phoneCode, description});
-};
-
 // ######################################## HOOK ######################################## //
 
 const useCountryAddHook = ({added, finished}: CountryAddHookProps): CountryAddHookType => {
@@ -67,12 +22,12 @@ const useCountryAddHook = ({added, finished}: CountryAddHookProps): CountryAddHo
     const [next, setNext] = useState<boolean>(false);
     const [sequence, setSequence] = useState<number>(0);
 
-    const storeCountryResponse: UseMutationResult<AxiosResponse, AxiosError, AddCountryRequestDataType, any> = useMutation({
+    const storeCountryResponse: UseMutationResult<AxiosResponse, AxiosError, CountryAddRequestDataType, any> = useMutation({
         mutationFn: storeCountryRequest,
         onError: (error: AxiosError): void => {
             setAddCountryAlertData(errorAlert(error));
         },
-        onSuccess: (data: AxiosResponse, variables: AddCountryRequestDataType): void => {
+        onSuccess: (data: AxiosResponse, variables: CountryAddRequestDataType): void => {
             setAddCountryAlertData({show: false});
 
             // Reload component
@@ -91,15 +46,15 @@ const useCountryAddHook = ({added, finished}: CountryAddHookProps): CountryAddHo
         }
     });
 
-    const save = ({name, phoneCode, description}: AddCountryFormType, next: boolean = false): void => {
+    const save = ({name, phoneCode, description}: CountryAddFormType, next: boolean = false): void => {
         setAddCountryAlertData({show: false});
         setNext(next);
 
         storeCountryResponse.mutate({name, phoneCode, description});
     }
 
-    const handleAddCountry = (values: AddCountryFormType): void => save(values);
-    const handleAddCountryAndContinue = (values: AddCountryFormType): void => save(values, true);
+    const handleAddCountry = (values: CountryAddFormType): void => save(values);
+    const handleAddCountryAndContinue = (values: CountryAddFormType): void => save(values, true);
 
     const isAddCountryPending: boolean = storeCountryResponse.isPending;
 
@@ -110,6 +65,47 @@ const useCountryAddHook = ({added, finished}: CountryAddHookProps): CountryAddHo
         sequence,
         isAddCountryPending
     };
+};
+
+// ######################################## STATICS DATA ######################################## //
+
+export const countryAddInitialStaticValues: CountryAddFormType = {
+    name: "",
+    phoneCode: "",
+    description: ""
+};
+
+export const countryAddSchema: Yup.ObjectSchema<CountryAddFormType> = Yup.object().shape({
+    name: Yup.string().required(formValidationMessage.required),
+    phoneCode: Yup.string().nullable(),
+    description: Yup.string().nullable(),
+});
+
+export interface CountryAddFormType {
+    name: string,
+    phoneCode: string | null | undefined,
+    description: string | null | undefined,
+}
+
+interface CountryAddRequestDataType extends CountryAddFormType {}
+
+export interface CountryAddHookType {
+    addCountryAlertData: ErrorAlertType,
+    isAddCountryPending: boolean,
+    sequence: number,
+    handleAddCountry: (a: CountryAddFormType) => void,
+    handleAddCountryAndContinue: (a: CountryAddFormType) => void,
+}
+
+interface CountryAddHookProps {
+    added: () => void;
+    finished: () => void;
+}
+
+const storeCountryRequest = ({name, phoneCode, description}: CountryAddRequestDataType): Promise<any> => {
+    const url: string = v1URL(countriesApiURI.store);
+
+    return postRequest(url, {name, phoneCode, description});
 };
 
 export default useCountryAddHook;

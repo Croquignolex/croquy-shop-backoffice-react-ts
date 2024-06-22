@@ -3,7 +3,7 @@ import {Button, Icon} from "@chakra-ui/react";
 import {IconTablePlus} from "@tabler/icons-react";
 import {useTranslation} from "react-i18next";
 
-const AddButton: FC<EditIconButtonProps> = ({onAddDrawerOpen}): ReactElement => {
+const AddButton: FC<EditIconButtonProps> = ({onAddDrawerOpen, title}): ReactElement => {
     const {t} = useTranslation();
 
    return (
@@ -12,13 +12,14 @@ const AddButton: FC<EditIconButtonProps> = ({onAddDrawerOpen}): ReactElement => 
            onClick={onAddDrawerOpen}
        >
            <Icon as={IconTablePlus} mr={2} fontSize={"lg"} />
-           {t("add_state")}
+           {title}
        </Button>
     );
 };
 
 interface EditIconButtonProps {
     onAddDrawerOpen: () => void;
+    title: string;
 }
 
 export default AddButton;

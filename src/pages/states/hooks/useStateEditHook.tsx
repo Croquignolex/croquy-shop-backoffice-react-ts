@@ -13,46 +13,6 @@ import {statesApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
 import {StateType} from "../show/showStateData";
 
-// ######################################## STATICS DATA ######################################## //
-
-export const editStateSchema: Yup.ObjectSchema<EditStateFormType> = Yup.object().shape({
-    name: Yup.string().required(formValidationMessage.required),
-    countryId: Yup.string().required(formValidationMessage.required),
-    description: Yup.string().nullable(),
-});
-
-export interface EditStateFormType {
-    name: string,
-    countryId: string,
-    description: string | null | undefined,
-}
-
-interface EditStateRequestDataType {
-    id: string,
-    name: string,
-    countryId: string,
-    description: string | null | undefined,
-}
-
-export interface StateEditHookType {
-    editStateAlertData: ErrorAlertType,
-    isEditStatePending: boolean,
-    formState: EditStateFormType,
-    handleEditState: (a: EditStateFormType) => void,
-}
-
-interface StateEditHookProps {
-    selectedState: StateType;
-    finished: () => void;
-}
-
-export const updateStateRequest = ({name, countryId, description, id}: EditStateRequestDataType): Promise<any> => {
-    const params: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = v1URL(statesApiURI.update, params);
-
-    return putRequest(url, {name, countryId, description});
-};
-
 // ######################################## HOOK ######################################## //
 
 const useStateEditHook = ({selectedState, finished}: StateEditHookProps): StateEditHookType => {
@@ -61,12 +21,12 @@ const useStateEditHook = ({selectedState, finished}: StateEditHookProps): StateE
 
     const [editStateAlertData, setEditStateAlertData] = useState<ErrorAlertType>({show: false});
 
-    const updateStateResponse: UseMutationResult<AxiosResponse, AxiosError, EditStateRequestDataType, any> = useMutation({
+    const updateStateResponse: UseMutationResult<AxiosResponse, AxiosError, StateEditRequestDataType, any> = useMutation({
         mutationFn: updateStateRequest,
         onError: (error: AxiosError): void => {
             setEditStateAlertData(errorAlert(error));
         },
-        onSuccess: (data: AxiosResponse, variables: EditStateRequestDataType): void => {
+        onSuccess: (data: AxiosResponse, variables: StateEditRequestDataType): void => {
             setEditStateAlertData({show: false});
 
             finished();
@@ -78,11 +38,11 @@ const useStateEditHook = ({selectedState, finished}: StateEditHookProps): StateE
         }
     });
 
-    const handleEditState = ({name, countryId, description}: EditStateFormType): void =>
+    const handleEditState = ({name, countryId, description}: StateEditFormType): void =>
         updateStateResponse.mutate({name, countryId, description, id: selectedState.id});
 
     const isEditStatePending: boolean = updateStateResponse.isPending;
-    const formState: EditStateFormType = {...selectedState, countryId: selectedState.country?.id || ""};
+    const formState: StateEditFormType = {...selectedState, countryId: selectedState.country?.id || ""};
 
     return {
         formState,
@@ -90,6 +50,43 @@ const useStateEditHook = ({selectedState, finished}: StateEditHookProps): StateE
         handleEditState,
         isEditStatePending
     };
+};
+
+// ######################################## STATICS DATA ######################################## //
+
+export const stateEditSchema: Yup.ObjectSchema<StateEditFormType> = Yup.object().shape({
+    name: Yup.string().required(formValidationMessage.required),
+    countryId: Yup.string().required(formValidationMessage.required),
+    description: Yup.string().nullable(),
+});
+
+export interface StateEditFormType {
+    name: string,
+    countryId: string,
+    description: string | null | undefined,
+}
+
+interface StateEditRequestDataType extends StateEditFormType{
+    id: string,
+}
+
+export interface StateEditHookType {
+    editStateAlertData: ErrorAlertType,
+    isEditStatePending: boolean,
+    formState: StateEditFormType,
+    handleEditState: (a: StateEditFormType) => void,
+}
+
+interface StateEditHookProps {
+    selectedState: StateType;
+    finished: () => void;
+}
+
+export const updateStateRequest = ({name, countryId, description, id}: StateEditRequestDataType): Promise<any> => {
+    const params: Array<URLParamType> = [{param: "id", value: id}];
+    const url: string = v1URL(statesApiURI.update, params);
+
+    return putRequest(url, {name, countryId, description});
 };
 
 export default useStateEditHook;

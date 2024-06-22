@@ -2,6 +2,36 @@ import {useState} from "react";
 
 import {PaginationType} from "../helpers/globalTypesHelper";
 
+// ######################################## HOOK ######################################## //
+
+const useSortAndFilterHook = ({baseUrl}: {baseUrl: string}): SortAndFilterHookType => {
+    const [sortAndFilterData, setSortAndFilterData] = useState<SortAndFilterRequestDataType>({
+        baseUrl,
+        size: defaultPaginationData.size,
+        page: defaultPaginationData.number,
+        sort: "createdAt",
+        direction: "desc",
+    });
+
+    const handleShowItems = (size: number): void => {
+        setSortAndFilterData({...sortAndFilterData, size, page: defaultPaginationData.number});
+    }
+
+    const handleSearch = (needle: string): void => {
+        setSortAndFilterData({...sortAndFilterData, needle, page: defaultPaginationData.number});
+    }
+
+    const handleSort = (sort: string, direction: string): void => {
+        setSortAndFilterData({...sortAndFilterData, sort, direction});
+    }
+
+    const handleChangePage = (page: number): void => {
+        setSortAndFilterData({...sortAndFilterData, page});
+    }
+
+    return {handleShowItems, handleSearch, handleSort, handleChangePage, sortAndFilterData};
+};
+
 // ######################################## STATICS DATA ######################################## //
 
 export const defaultPaginationData: PaginationType = {
@@ -31,39 +61,5 @@ export interface SortAndFilterHookType {
     handleSort: (a: string, b: string) => void,
     sortAndFilterData: SortAndFilterRequestDataType
 }
-
-export interface SortAndFilterHookProps {
-    baseUrl: string,
-}
-
-// ######################################## HOOK ######################################## //
-
-const useSortAndFilterHook = ({baseUrl}: SortAndFilterHookProps): SortAndFilterHookType => {
-    const [sortAndFilterData, setSortAndFilterData] = useState<SortAndFilterRequestDataType>({
-        baseUrl,
-        size: defaultPaginationData.size,
-        page: defaultPaginationData.number,
-        sort: "createdAt",
-        direction: "desc",
-    });
-
-    const handleShowItems = (size: number): void => {
-        setSortAndFilterData({...sortAndFilterData, size, page: defaultPaginationData.number});
-    }
-
-    const handleSearch = (needle: string): void => {
-        setSortAndFilterData({...sortAndFilterData, needle, page: defaultPaginationData.number});
-    }
-
-    const handleSort = (sort: string, direction: string): void => {
-        setSortAndFilterData({...sortAndFilterData, sort, direction});
-    }
-
-    const handleChangePage = (page: number): void => {
-        setSortAndFilterData({...sortAndFilterData, page});
-    }
-
-    return {handleShowItems, handleSearch, handleSort, handleChangePage, sortAndFilterData};
-};
 
 export default useSortAndFilterHook;

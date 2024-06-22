@@ -9,11 +9,44 @@ import {formValidationMessage} from "../constants/generalConstants";
 import {v1URL} from "../helpers/apiRequestsHelpers";
 import {patchRequest} from "../helpers/axiosHelpers";
 
+// ######################################## HOOK ######################################## //
+
+const useImageUpdateHook = ({baseUrl, done, item}: ImageUpdateHookProps): ImageUpdateHookType => {
+    const [updateImageAlertData, setUpdateImageAlertData] = useState<ErrorAlertType>({show: false});
+
+    const updateImageResponse: UseMutationResult<AxiosResponse, AxiosError, ImageUpdateRequestDataType, any> = useMutation({
+        mutationFn: changeImageRequest,
+        onError: (error: AxiosError): void => {
+            setUpdateImageAlertData(errorAlert(error));
+        },
+        onSuccess: (): void => {
+            setUpdateImageAlertData({show: false});
+            done();
+        }
+    });
+
+    const handleUpdateImage = ({image}: ImageUpdateFormType): void => {
+        if(image instanceof File) {
+            updateImageResponse.mutate({image, baseUrl, id: item?.id});
+        } else {
+            setUpdateImageAlertData({show: true, status: AlertStatusEnumType.ERROR, message: "image_unreadable"});
+        }
+    };
+
+    const isUpdateImagePending: boolean = updateImageResponse.isPending;
+
+    return {
+        isUpdateImagePending,
+        updateImageAlertData,
+        handleUpdateImage,
+    };
+};
+
 // ######################################## STATICS DATA ######################################## //
 
-export const updateImageInitialStaticValues: UpdateImageFormType = { image: "" };
+export const imageUpdateInitialStaticValues: ImageUpdateFormType = { image: "" };
 
-export const updateImageSchema: Yup.ObjectSchema<UpdateImageFormType> = Yup.object().shape({
+export const imageUpdateSchema: Yup.ObjectSchema<ImageUpdateFormType> = Yup.object().shape({
     image: Yup.mixed().required(formValidationMessage.required)
         .test("FILE_TYPE", formValidationMessage.imageAllowedFormat, (value: any): boolean => {
             if (value) {
@@ -30,11 +63,11 @@ export const updateImageSchema: Yup.ObjectSchema<UpdateImageFormType> = Yup.obje
         }),
 });
 
-export interface UpdateImageFormType {
+export interface ImageUpdateFormType {
     image: unknown | File,
 }
 
-export interface UpdateImageRequestDataType {
+interface ImageUpdateRequestDataType {
     id?: string,
     image: File,
     baseUrl: string,
@@ -43,7 +76,7 @@ export interface UpdateImageRequestDataType {
 export interface ImageUpdateHookType {
     updateImageAlertData: ErrorAlertType,
     isUpdateImagePending: boolean,
-    handleUpdateImage: (a: UpdateImageFormType) => void,
+    handleUpdateImage: (a: ImageUpdateFormType) => void,
 }
 
 interface ImageUpdateHookProps {
@@ -52,7 +85,7 @@ interface ImageUpdateHookProps {
     item: any,
 }
 
-export const changeImageRequest = ({image, baseUrl, id}: UpdateImageRequestDataType): Promise<any> => {
+const changeImageRequest = ({image, baseUrl, id}: ImageUpdateRequestDataType): Promise<any> => {
     const params: Array<URLParamType> = [{param: "id", value: id}];
     const url: string = v1URL(baseUrl, params);
 
@@ -60,39 +93,6 @@ export const changeImageRequest = ({image, baseUrl, id}: UpdateImageRequestDataT
     bodyFormData.append("image", image);
 
     return patchRequest(url, bodyFormData, {headers: {file: true}});
-};
-
-// ######################################## HOOK ######################################## //
-
-const useImageUpdateHook = ({baseUrl, done, item}: ImageUpdateHookProps): ImageUpdateHookType => {
-    const [updateImageAlertData, setUpdateImageAlertData] = useState<ErrorAlertType>({show: false});
-
-    const updateImageResponse: UseMutationResult<AxiosResponse, AxiosError, UpdateImageRequestDataType, any> = useMutation({
-        mutationFn: changeImageRequest,
-        onError: (error: AxiosError): void => {
-            setUpdateImageAlertData(errorAlert(error));
-        },
-        onSuccess: (): void => {
-            setUpdateImageAlertData({show: false});
-            done();
-        }
-    });
-
-    const handleUpdateImage = ({image}: UpdateImageFormType): void => {
-        if(image instanceof File) {
-            updateImageResponse.mutate({image, baseUrl, id: item?.id});
-        } else {
-            setUpdateImageAlertData({show: true, status: AlertStatusEnumType.ERROR, message: "image_unreadable"});
-        }
-    };
-
-    const isUpdateImagePending: boolean = updateImageResponse.isPending;
-
-    return {
-        isUpdateImagePending,
-        updateImageAlertData,
-        handleUpdateImage,
-    };
 };
 
 export default useImageUpdateHook;

@@ -7,46 +7,40 @@ import {useTranslation} from "react-i18next";
 import CustomAlert from "../../../components/alert/CustomAlert";
 import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
-import {BrandType} from "../show/showBrandData";
-import useBrandEditHook, {
-    BrandEditFormType,
-    BrandEditHookType,
-    brandEditSchema,
-} from "../hooks/useBrandEditHook";
+import {ShopType} from "../show/showShopData";
+import useShopEditHook, {
+    ShopEditFormType,
+    ShopEditHookType,
+    shopEditSchema
+} from "../hooks/useShopEditHook";
 
-const BrandEditForm: FC<BrandEditFormProps> = ({selectedBrand, finished}): ReactElement => {
+const ShopEditForm: FC<ShopEditFormProps> = ({selectedShop, finished}): ReactElement => {
     const {t} = useTranslation();
 
     const {
-        editBrandAlertData,
-        handleEditBrand,
-        formBrand,
-        isEditBrandPending
-    }: BrandEditHookType = useBrandEditHook({selectedBrand, finished});
+        editShopAlertData,
+        handleEditShop,
+        formShop,
+        isEditShopPending
+    }: ShopEditHookType = useShopEditHook({selectedShop, finished});
 
     return (
         <Box>
 
-            <CustomAlert data={editBrandAlertData} />
+            <CustomAlert data={editShopAlertData} />
 
-            <Formik initialValues={formBrand} validationSchema={brandEditSchema} onSubmit={handleEditBrand} enableReinitialize>
-                {(props: FormikProps<BrandEditFormType>) => (
+            <Formik initialValues={formShop} validationSchema={shopEditSchema} onSubmit={handleEditShop} enableReinitialize>
+                {(props: FormikProps<ShopEditFormType>) => (
                     <Form>
                         <TextField label={t("name")} name="name" formikProps={props} />
 
                         <TextField label={t("slug")} name="slug" formikProps={props} />
 
-                        <TextField label={t("website")} name="website" formikProps={props} />
-
-                        <TextField label={t("seo_title")} name="seoTitle" formikProps={props} />
-
-                        <TextareaField label={t("seo_description")} name="seoDescription" formikProps={props} />
-
                         <TextareaField label={t("description")} name="description" formikProps={props} />
 
                         <ButtonGroup>
                             <Button
-                                isLoading={isEditBrandPending}
+                                isLoading={isEditShopPending}
                                 type='submit'
                                 leftIcon={<FiCheck />}
                             >
@@ -60,9 +54,9 @@ const BrandEditForm: FC<BrandEditFormProps> = ({selectedBrand, finished}): React
     );
 };
 
-interface BrandEditFormProps {
-    selectedBrand: BrandType;
+interface ShopEditFormProps {
+    selectedShop: ShopType;
     finished: () => void;
 }
 
-export default BrandEditForm;
+export default ShopEditForm;

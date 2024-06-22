@@ -13,56 +13,6 @@ import {brandsApiURI} from "../../../constants/apiURIConstants";
 import {putRequest} from "../../../helpers/axiosHelpers";
 import {BrandType} from "../show/showBrandData";
 
-// ######################################## STATICS DATA ######################################## //
-
-export const editBrandSchema: Yup.ObjectSchema<EditBrandFormType> = Yup.object().shape({
-    name: Yup.string().required(formValidationMessage.required),
-    slug: Yup.string().required(formValidationMessage.required),
-    website: Yup.string().nullable(),
-    seoTitle: Yup.string().nullable(),
-    seoDescription: Yup.string().nullable(),
-    description: Yup.string().nullable(),
-});
-
-export interface EditBrandFormType {
-    name: string,
-    slug: string,
-    website: string | null | undefined,
-    seoTitle: string | null | undefined,
-    seoDescription: string | null | undefined,
-    description: string | null | undefined,
-}
-
-interface EditBrandRequestDataType {
-    id: string,
-    name: string,
-    slug: string,
-    website: string | null | undefined,
-    seoTitle: string | null | undefined,
-    seoDescription: string | null | undefined,
-    description: string | null | undefined,
-}
-
-export interface BrandEditHookType {
-    editBrandAlertData: ErrorAlertType,
-    isEditBrandPending: boolean,
-    formBrand: EditBrandFormType,
-    handleEditBrand: (a: EditBrandFormType) => void,
-}
-
-interface BrandEditHookProps {
-    selectedBrand: BrandType;
-    finished: () => void;
-}
-
-export const updateBrandRequest = (values: EditBrandRequestDataType): Promise<any> => {
-    const {name, slug, website, seoTitle, seoDescription, description, id}: EditBrandRequestDataType = values;
-    const params: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = v1URL(brandsApiURI.update, params);
-
-    return putRequest(url, {name, slug, website, seoTitle, seoDescription, description});
-};
-
 // ######################################## HOOK ######################################## //
 
 const useBrandEditHook = ({selectedBrand, finished}: BrandEditHookProps): BrandEditHookType => {
@@ -71,12 +21,12 @@ const useBrandEditHook = ({selectedBrand, finished}: BrandEditHookProps): BrandE
 
     const [editBrandAlertData, setEditBrandAlertData] = useState<ErrorAlertType>({show: false});
 
-    const updateBrandResponse: UseMutationResult<AxiosResponse, AxiosError, EditBrandRequestDataType, any> = useMutation({
+    const updateBrandResponse: UseMutationResult<AxiosResponse, AxiosError, BrandEditRequestDataType, any> = useMutation({
         mutationFn: updateBrandRequest,
         onError: (error: AxiosError): void => {
             setEditBrandAlertData(errorAlert(error));
         },
-        onSuccess: (data: AxiosResponse, variables: EditBrandRequestDataType): void => {
+        onSuccess: (data: AxiosResponse, variables: BrandEditRequestDataType): void => {
             setEditBrandAlertData({show: false});
 
             finished();
@@ -88,13 +38,13 @@ const useBrandEditHook = ({selectedBrand, finished}: BrandEditHookProps): BrandE
         }
     });
 
-    const handleEditBrand = (values: EditBrandFormType): void => {
-        const {name, slug, website, seoTitle, seoDescription, description}: EditBrandFormType = values;
+    const handleEditBrand = (values: BrandEditFormType): void => {
+        const {name, slug, website, seoTitle, seoDescription, description}: BrandEditFormType = values;
         updateBrandResponse.mutate({name, slug, website, seoTitle, seoDescription, description, id: selectedBrand.id});
     }
 
     const isEditBrandPending: boolean = updateBrandResponse.isPending;
-    const formBrand: EditBrandFormType = selectedBrand;
+    const formBrand: BrandEditFormType = selectedBrand;
 
     return {
         formBrand,
@@ -102,6 +52,52 @@ const useBrandEditHook = ({selectedBrand, finished}: BrandEditHookProps): BrandE
         handleEditBrand,
         isEditBrandPending
     };
+};
+
+// ######################################## STATICS DATA ######################################## //
+
+export const brandEditSchema: Yup.ObjectSchema<BrandEditFormType> = Yup.object().shape({
+    name: Yup.string().required(formValidationMessage.required),
+    slug: Yup.string()
+        .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/ , formValidationMessage.match)
+        .required(formValidationMessage.required),
+    website: Yup.string().nullable(),
+    seoTitle: Yup.string().nullable(),
+    seoDescription: Yup.string().nullable(),
+    description: Yup.string().nullable(),
+});
+
+export interface BrandEditFormType {
+    name: string,
+    slug: string,
+    website: string | null | undefined,
+    seoTitle: string | null | undefined,
+    seoDescription: string | null | undefined,
+    description: string | null | undefined,
+}
+
+interface BrandEditRequestDataType extends BrandEditFormType {
+    id: string,
+}
+
+export interface BrandEditHookType {
+    editBrandAlertData: ErrorAlertType,
+    isEditBrandPending: boolean,
+    formBrand: BrandEditFormType,
+    handleEditBrand: (a: BrandEditFormType) => void,
+}
+
+interface BrandEditHookProps {
+    selectedBrand: BrandType;
+    finished: () => void;
+}
+
+export const updateBrandRequest = (values: BrandEditRequestDataType): Promise<any> => {
+    const {name, slug, website, seoTitle, seoDescription, description, id}: BrandEditRequestDataType = values;
+    const params: Array<URLParamType> = [{param: "id", value: id}];
+    const url: string = v1URL(brandsApiURI.update, params);
+
+    return putRequest(url, {name, slug, website, seoTitle, seoDescription, description});
 };
 
 export default useBrandEditHook;

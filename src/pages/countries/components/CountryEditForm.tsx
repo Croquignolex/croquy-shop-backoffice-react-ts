@@ -9,9 +9,9 @@ import TextField from "../../../components/form/TextField";
 import TextareaField from "../../../components/form/TextareaField";
 import {CountryType} from "../show/showCountryData";
 import useCountryEditHook, {
+    CountryEditFormType,
     CountryEditHookType,
-    EditCountryFormType,
-    editCountrySchema
+    countryEditSchema,
 } from "../hooks/useCountryEditHook";
 
 const CountryEditForm: FC<CountryEditFormProps> = ({selectedCountry, finished}): ReactElement => {
@@ -29,8 +29,8 @@ const CountryEditForm: FC<CountryEditFormProps> = ({selectedCountry, finished}):
 
             <CustomAlert data={editCountryAlertData} />
 
-            <Formik initialValues={formCountry} validationSchema={editCountrySchema} onSubmit={handleEditCountry} enableReinitialize>
-                {(props: FormikProps<EditCountryFormType>) => (
+            <Formik initialValues={formCountry} validationSchema={countryEditSchema} onSubmit={handleEditCountry} enableReinitialize>
+                {(props: FormikProps<CountryEditFormType>) => (
                     <Form>
                         <TextField label="Nom" name="name" formikProps={props} />
 

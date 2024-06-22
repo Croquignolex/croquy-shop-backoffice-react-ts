@@ -8,53 +8,12 @@ import {ErrorAlertType, URLParamType} from "../helpers/globalTypesHelper";
 import {v1URL} from "../helpers/apiRequestsHelpers";
 import {errorAlert} from "../helpers/generalHelpers";
 
-// ######################################## STATICS DATA ######################################## //
-
-export enum IDActionRequestType {
-    DELETE = "DELETE",
-    TOGGLE = "TOGGLE",
-}
-
-export interface IDActionRequestHookType {
-    showModal: () => void,
-    isModalOpen: boolean,
-    alertData: ErrorAlertType,
-    isPending: boolean,
-    handleRequest: () => void,
-    onModalClose: () => void,
-}
-
-export interface IDActionRequestHookProps {
-    done: () => void,
-    type: IDActionRequestType,
-    baseUrl: string,
-    item: any,
-}
-
-export interface IDActionRequestDataType {
-    id?: string,
-    baseUrl: string,
-    type: IDActionRequestType
-}
-
-const request = ({id, baseUrl, type}: IDActionRequestDataType): Promise<any> => {
-    const params: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = v1URL(baseUrl, params);
-
-    switch (type) {
-        case IDActionRequestType.DELETE: return deleteRequest(url);
-        case IDActionRequestType.TOGGLE: return patchRequest(url);
-        default: return postRequest(url);
-    }
-};
-
 // ######################################## HOOK ######################################## //
 
 const useIDActionRequestHook = ({done, baseUrl, type, item}: IDActionRequestHookProps): IDActionRequestHookType => {
     const {onOpen: onModalOpen, isOpen: isModalOpen, onClose: onModalClose} = useDisclosure();
 
     const [alertData, setAlertData] = useState<ErrorAlertType>({show: false});
-    // const [item, setItem] = useState<any>(null);
 
     const response: UseMutationResult<AxiosResponse, AxiosError, IDActionRequestDataType, any> = useMutation({
         mutationFn: request,
@@ -88,6 +47,46 @@ const useIDActionRequestHook = ({done, baseUrl, type, item}: IDActionRequestHook
         isPending,
         handleRequest,
     };
+};
+
+// ######################################## STATICS DATA ######################################## //
+
+export enum IDActionRequestType {
+    DELETE = "DELETE",
+    TOGGLE = "TOGGLE",
+}
+
+export interface IDActionRequestHookType {
+    showModal: () => void,
+    isModalOpen: boolean,
+    alertData: ErrorAlertType,
+    isPending: boolean,
+    handleRequest: () => void,
+    onModalClose: () => void,
+}
+
+interface IDActionRequestHookProps {
+    done: () => void,
+    type: IDActionRequestType,
+    baseUrl: string,
+    item: any,
+}
+
+interface IDActionRequestDataType {
+    id?: string,
+    baseUrl: string,
+    type: IDActionRequestType
+}
+
+const request = ({id, baseUrl, type}: IDActionRequestDataType): Promise<any> => {
+    const params: Array<URLParamType> = [{param: "id", value: id}];
+    const url: string = v1URL(baseUrl, params);
+
+    switch (type) {
+        case IDActionRequestType.DELETE: return deleteRequest(url);
+        case IDActionRequestType.TOGGLE: return patchRequest(url);
+        default: return postRequest(url);
+    }
 };
 
 export default useIDActionRequestHook;

@@ -8,24 +8,6 @@ import {AlertStatusEnumType, FileType} from "../helpers/globalTypesHelper";
 import {errorAlert} from "../helpers/generalHelpers";
 import {v1URL} from "../helpers/apiRequestsHelpers";
 
-// ######################################## STATICS DATA ######################################## //
-
-export interface DownloadFileHookType {
-    isDownloadFilePending: boolean,
-    handleDownload: (a: FileType) => void,
-}
-
-export interface TypeRequestDataType {
-    baseUrl: string,
-    type: FileType
-}
-
-export const downloadFile = ({type, baseUrl}: TypeRequestDataType): Promise<any> => {
-    const url: string = v1URL(baseUrl + "/download");
-
-    return patchRequest(url, {type});
-};
-
 // ######################################## HOOK ######################################## //
 
 const useDownloadFileHook = ({baseUrl}: {baseUrl: string}): DownloadFileHookType => {
@@ -69,6 +51,24 @@ const useDownloadFileHook = ({baseUrl}: {baseUrl: string}): DownloadFileHookType
     const isDownloadFilePending: boolean = downloadFileResponse.isPending;
 
     return {handleDownload, isDownloadFilePending};
+};
+
+// ######################################## STATICS DATA ######################################## //
+
+export interface DownloadFileHookType {
+    isDownloadFilePending: boolean,
+    handleDownload: (a: FileType) => void,
+}
+
+interface TypeRequestDataType {
+    baseUrl: string,
+    type: FileType
+}
+
+const downloadFile = ({type, baseUrl}: TypeRequestDataType): Promise<any> => {
+    const url: string = v1URL(baseUrl + "/download");
+
+    return patchRequest(url, {type});
 };
 
 export default useDownloadFileHook;

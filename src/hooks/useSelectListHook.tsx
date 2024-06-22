@@ -9,20 +9,6 @@ import {API_SELECT_V1_URL} from "../helpers/apiRequestsHelpers";
 import {errorAlert} from "../helpers/generalHelpers";
 import {AlertStatusEnumType} from "../helpers/globalTypesHelper";
 
-// ######################################## STATICS DATA ######################################## //
-
-export interface SelectListHookType {
-    selectList: Array<FormSelectOptionType>,
-    isSelectListFetching: boolean,
-    reloadList: () => void,
-}
-
-const request = ({baseUrl}: {baseUrl: string}): Promise<any> => {
-    const url: string = API_SELECT_V1_URL + baseUrl;
-
-    return getRequest(url, {headers: {public: true}});
-};
-
 // ######################################## HOOK ######################################## //
 
 const useSelectListHook = ({baseUrl}: {baseUrl: string}): SelectListHookType => {
@@ -56,6 +42,20 @@ const useSelectListHook = ({baseUrl}: {baseUrl: string}): SelectListHookType => 
     const isSelectListFetching: boolean = response.isFetching;
 
     return {selectList, isSelectListFetching, reloadList};
+};
+
+// ######################################## STATICS DATA ######################################## //
+
+export interface SelectListHookType {
+    selectList: Array<FormSelectOptionType>,
+    isSelectListFetching: boolean,
+    reloadList: () => void,
+}
+
+const request = ({baseUrl}: {baseUrl: string}): Promise<any> => {
+    const url: string = API_SELECT_V1_URL + baseUrl;
+
+    return getRequest(url, {headers: {public: true}});
 };
 
 export default useSelectListHook;

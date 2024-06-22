@@ -15,8 +15,8 @@ import CountryAddForm from "../../countries/components/CountryAddForm";
 import DrawerForm from "../../../components/DrawerForm";
 import useStateEditHook, {
     StateEditHookType,
-    EditStateFormType,
-    editStateSchema
+    StateEditFormType,
+    stateEditSchema
 } from "../hooks/useStateEditHook";
 
 const StateEditForm: FC<StateEditFormProps> = ({selectedState, finished}): ReactElement => {
@@ -41,8 +41,8 @@ const StateEditForm: FC<StateEditFormProps> = ({selectedState, finished}): React
 
             <CustomAlert data={editStateAlertData} />
 
-            <Formik initialValues={formState} validationSchema={editStateSchema} onSubmit={handleEditState} enableReinitialize>
-                {(props: FormikProps<EditStateFormType>) => (
+            <Formik initialValues={formState} validationSchema={stateEditSchema} onSubmit={handleEditState} enableReinitialize>
+                {(props: FormikProps<StateEditFormType>) => (
                     <Form>
                         <TextField label="Nom" name="name" formikProps={props} />
 

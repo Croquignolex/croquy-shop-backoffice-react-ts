@@ -15,6 +15,7 @@ const RowImage: FC<RowImageProps> = (
         url,
         flag = false,
         user = false,
+        plain = false,
         state
     }): ReactElement | null => {
 
@@ -27,10 +28,11 @@ const RowImage: FC<RowImageProps> = (
 
     return (
         <HStack>
-            {user
-                ? (<Avatar bg="purple.500" src={src} w={35} h={35} />)
-                : (<Image src={src} fallbackSrc={fallbackSrc} alt='...' maxW={35} maxH={35} />)
-            }
+            {!plain && (
+                (user)
+                    ? (<Avatar bg="purple.500" src={src} w={35} h={35} />)
+                    : (<Image src={src} fallbackSrc={fallbackSrc} alt='...' maxW={35} maxH={35} />)
+            )}
             <Stack spacing={0}>
                 <Text
                     as={Link}
@@ -49,13 +51,14 @@ const RowImage: FC<RowImageProps> = (
 };
 
 interface RowImageProps {
-    image: MediaType | null | undefined,
+    image?: MediaType | null | undefined,
     title?: string,
     description?: string,
     flag?: boolean,
     user?: boolean,
     url: string,
     state: any,
+    plain?: boolean,
 }
 
 export default RowImage;

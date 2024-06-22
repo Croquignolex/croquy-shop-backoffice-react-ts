@@ -17,7 +17,7 @@ export interface SelectListHookType {
     reloadList: () => void,
 }
 
-const selectListRequest = ({baseUrl}: {baseUrl: string}): Promise<any> => {
+const request = ({baseUrl}: {baseUrl: string}): Promise<any> => {
     const url: string = API_SELECT_V1_URL + baseUrl;
 
     return getRequest(url, {headers: {public: true}});
@@ -33,14 +33,14 @@ const useSelectListHook = ({baseUrl}: {baseUrl: string}): SelectListHookType => 
 
     const response: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
         queryKey: ["select-list"],
-        queryFn: () => selectListRequest({baseUrl}),
+        queryFn: () => request({baseUrl}),
     });
 
     if(!response.isFetching && response.isError) {
         toast({
             status: AlertStatusEnumType.ERROR,
             title: t("error"),
-            description: errorAlert(response.error).message
+            description: t(errorAlert(response.error)?.message || "")
         });
     }
 

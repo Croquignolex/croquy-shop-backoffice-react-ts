@@ -26,13 +26,18 @@ const CountryEditForm: FC<CountryEditFormProps> = ({selectedCountry, finished}):
 
     return (
         <Box>
+
             <CustomAlert data={editCountryAlertData} />
+
             <Formik initialValues={formCountry} validationSchema={editCountrySchema} onSubmit={handleEditCountry} enableReinitialize>
                 {(props: FormikProps<EditCountryFormType>) => (
                     <Form>
                         <TextField label="Nom" name="name" formikProps={props} />
+
                         <TextField label="Indice téléphonique" name="phoneCode" formikProps={props} />
+
                         <TextareaField label="Description" name="description" formikProps={props} />
+
                         <ButtonGroup>
                             <Button
                                 isLoading={isEditCountryPending}

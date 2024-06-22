@@ -26,7 +26,7 @@ const TextField: FC<TextFieldProps> = (
     const isInvalid: boolean = !!formikProps.errors[name] && !!formikProps.touched[name];
 
     return (
-        <FormControl isInvalid={isInvalid} mb={6} px={1}>
+        <FormControl isInvalid={isInvalid} mb={4} px={1}>
             <FormLabel>{label}</FormLabel>
 
             {isLoading

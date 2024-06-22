@@ -26,13 +26,18 @@ const CountryAddForm: FC<CountryAddFormProps> = ({added, finished}): ReactElemen
 
     return (
         <Box key={sequence}>
+
             <CustomAlert data={addCountryAlertData} />
+
             <Formik initialValues={addCountryInitialStaticValues} validationSchema={addCountrySchema} onSubmit={handleAddCountry}>
                 {(props: FormikProps<AddCountryFormType>) => (
                     <Form>
                         <TextField label={t("name")} name="name" formikProps={props} />
+
                         <TextField label={t("phone_code")} name="phoneCode" formikProps={props} />
+
                         <TextareaField label={t("description")} name="description" formikProps={props} />
+
                         <DoubleSaveButton
                             isLoading={isAddCountryPending}
                             formikProps={props}

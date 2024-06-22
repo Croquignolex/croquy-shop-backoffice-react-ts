@@ -67,8 +67,8 @@
   "country_deleted": "Country {{name}} successfully deleted",
   "toggle_country_true": "Disable country",
   "toggle_country_false": "Enable country",
-  "country_toggled_true": "Country {{name}} successfully enabled",
-  "country_toggled_false": "Country {{name}} successfully disabled",
+  "country_toggled_true": "Country {{name}} successfully disabled",
+  "country_toggled_false": "Country {{name}} successfully enabled",
   "country_added": "Country {{name}} successfully added",
   "country_edited": "Country {{name}} successfully edited",
 
@@ -80,8 +80,8 @@
   "state_deleted": "State {{name}} successfully deleted",
   "toggle_state_true": "Disable state",
   "toggle_state_false": "Enable state",
-  "state_toggled_true": "State {{name}} successfully enabled",
-  "state_toggled_false": "State {{name}} successfully disabled",
+  "state_toggled_true": "State {{name}} successfully disabled",
+  "state_toggled_false": "State {{name}} successfully enabled",
   "state_added": "State {{name}} successfully added",
   "state_edited": "State {{name}} successfully edited",
 

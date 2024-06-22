@@ -1,25 +1,26 @@
 import React, {FC, ReactElement} from "react";
 import {useTranslation} from "react-i18next";
-import {IconFlagPlus} from "@tabler/icons-react";
+import {IconMapPlus} from "@tabler/icons-react";
 import {Box, Button, Divider, useDisclosure} from "@chakra-ui/react";
 
 import CustomAlert from "../../../components/alert/CustomAlert";
 import TableActions from "../../../components/table/TableActions";
 import Pagination from "../../../components/Pagination";
 import DrawerForm from "../../../components/DrawerForm";
-import CountryAddForm from "./CountryAddForm";
+import StateAddForm from "./StateAddForm";
 import useTableListHook, {TableListHookType} from "../../../hooks/useTableListHook";
 import useSortAndFilterHook, {SortAndFilterHookType} from "../../../hooks/useSortAndFilterHook";
-import CountriesCustomTable from "./CountriesCustomTable";
+import StatesCustomTable from "./StatesCustomTable";
 
-const CountriesTableList: FC<CountriesTableListProps> = (
+const StatesTableList: FC<StatesTableListProps> = (
     {
         showCreator = false,
-        fetchCountries = false,
-        countriesBaseUrl
+        showCountry = false,
+        fetchStates = false,
+        statesBaseUrl
     }): ReactElement => {
 
-    const {onOpen: onAddCountryDrawerOpen, isOpen: isAddCountryDrawerOpen, onClose: onAddCountryDrawerClose} = useDisclosure();
+    const {onOpen: onAddStateDrawerOpen, isOpen: isAddStateDrawerOpen, onClose: onAddStateDrawerClose} = useDisclosure();
     const {t} = useTranslation();
 
     const {
@@ -28,59 +29,60 @@ const CountriesTableList: FC<CountriesTableListProps> = (
         handleSearch,
         handleSort,
         sortAndFilterData
-    }: SortAndFilterHookType = useSortAndFilterHook({baseUrl: countriesBaseUrl});
+    }: SortAndFilterHookType = useSortAndFilterHook({baseUrl: statesBaseUrl});
     const {
-        responseData: countriesResponseData,
-        isFetching: isCountriesFetching,
-        alertData: countriesAlertData,
+        responseData: statesResponseData,
+        isFetching: isStatesFetching,
+        alertData: statesAlertData,
         reloadList,
-    }: TableListHookType = useTableListHook({fetch: fetchCountries, sortAndFilterData});
+    }: TableListHookType = useTableListHook({fetch: fetchStates, sortAndFilterData});
 
     return (
         <Box py={4} rounded="lg" shadow="default" bg="white">
-            <TableActions handleShowItems={handleShowItems} handleSearch={handleSearch} baseUrl={countriesBaseUrl}>
+            <TableActions handleShowItems={handleShowItems} handleSearch={handleSearch} baseUrl={statesBaseUrl}>
                 <Button
-                    leftIcon={<IconFlagPlus />}
+                    leftIcon={<IconMapPlus />}
                     px={{base: 4, sm: 6}}
-                    onClick={onAddCountryDrawerOpen}
+                    onClick={onAddStateDrawerOpen}
                 >
-                    {t("add_country")}
+                    {t("add_state")}
                 </Button>
             </TableActions>
 
             <Divider mt={6} />
 
             <Box px={6}>
-                <CustomAlert data={countriesAlertData} />
+                <CustomAlert data={statesAlertData} />
             </Box>
 
-            <CountriesCustomTable
+            <StatesCustomTable
                 handleSort={handleSort}
-                isCountriesPending={isCountriesFetching}
+                isStatesPending={isStatesFetching}
                 showCreator={showCreator}
+                showCountry={showCountry}
                 reloadList={reloadList}
                 sortAndFilterData={sortAndFilterData}
-                countriesResponseData={countriesResponseData}
+                statesResponseData={statesResponseData}
             />
 
             <Pagination
-                show={!countriesResponseData.empty}
+                show={!statesResponseData.empty}
                 handleGotoPage={handleChangePage}
-                currentPage={countriesResponseData.number + 1}
-                totalPages={countriesResponseData.totalPages}
-                totalElements={countriesResponseData.totalElements}
-                currentPageElements={countriesResponseData.numberOfElements}
+                currentPage={statesResponseData.number + 1}
+                totalPages={statesResponseData.totalPages}
+                totalElements={statesResponseData.totalElements}
+                currentPageElements={statesResponseData.numberOfElements}
             />
 
             <DrawerForm
-                title={t("add_country")}
-                isOpen={isAddCountryDrawerOpen}
-                onClose={onAddCountryDrawerClose}
+                title={t("add_state")}
+                isOpen={isAddStateDrawerOpen}
+                onClose={onAddStateDrawerClose}
             >
-                <CountryAddForm
+                <StateAddForm
                     added={reloadList}
                     finished={(): void => {
-                        onAddCountryDrawerClose();
+                        onAddStateDrawerClose();
                         reloadList();
                     }}
                 />
@@ -89,10 +91,11 @@ const CountriesTableList: FC<CountriesTableListProps> = (
     );
 };
 
-interface CountriesTableListProps {
+interface StatesTableListProps {
+    showCountry?: boolean;
     showCreator?: boolean;
-    fetchCountries?: boolean;
-    countriesBaseUrl: string;
+    fetchStates?: boolean;
+    statesBaseUrl: string;
 }
 
-export default CountriesTableList;
+export default StatesTableList;

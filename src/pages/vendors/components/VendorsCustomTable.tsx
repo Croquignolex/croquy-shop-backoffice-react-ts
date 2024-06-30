@@ -1,6 +1,6 @@
 import React, {FC, ReactElement, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {IconMapPin} from "@tabler/icons-react";
+import {IconMapPin, IconPhotoCog} from "@tabler/icons-react";
 import {
     Badge,
     CreateToastFnReturn,
@@ -18,57 +18,60 @@ import EmptyTableAlert from "../../../components/alert/EmptyTableAlert";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import TableSkeletonLoader from "../../../components/skeletonLoader/TableSkeletonLoader";
-import {ShopType, defaultSelectedShop} from "../show/showShopData";
+import {VendorType, defaultSelectedVendor} from "../show/showVendorData";
 import RowImage from "../../../components/RowImage";
 import EditIconButton from "../../../components/form/EditIconButton";
 import DeleteIconButton from "../../../components/form/DeleteButtonIcon";
 import MoreIconButton from "../../../components/form/MoreButtonIcon";
 import TableHeader from "../../../components/table/TableHeader";
 import DrawerForm from "../../../components/DrawerForm";
-import ShopEditForm from "./ShopEditForm";
-import {shopsApiURI} from "../../../constants/apiURIConstants";
+import VendorEditForm from "./VendorEditForm";
+import {shopsApiURI, vendorsApiURI} from "../../../constants/apiURIConstants";
 import MoreMenuItem from "../../../components/form/MoreMenuItem";
 import {PaginationType} from "../../../helpers/globalTypesHelper";
 import {SortAndFilterRequestDataType} from "../../../hooks/useSortAndFilterHook";
-import AddressUpdateForm from "../../../components/AddressUpdateForm";
+import ImageUpdateForm from "../../../components/ImageUpdateForm";
 import useIDActionRequestHook, {
     IDActionRequestHookType,
     IDActionRequestType
 } from "../../../hooks/useIDActionRequestHook";
+import AddressUpdateForm from "../../../components/AddressUpdateForm";
 
-const ShopsCustomTable: FC<CustomTableProps> = (
+const VendorsCustomTable: FC<CustomTableProps> = (
     {
         showCreator = false,
-        isShopsPending,
+        isVendorsPending,
         handleSort,
         reloadList,
         sortAndFilterData,
-        shopsResponseData
+        vendorsResponseData
     }): ReactElement => {
 
-    const {onOpen: onEditShopDrawerOpen, isOpen: isEditShopDrawerOpen, onClose: onEditShopDrawerClose} = useDisclosure();
+    const {onOpen: onEditVendorDrawerOpen, isOpen: isEditVendorDrawerOpen, onClose: onEditVendorDrawerClose} = useDisclosure();
+    const {onOpen: onChangeVendorLogoDrawerOpen, isOpen: isChangeVendorLogoDrawerOpen, onClose: onChangeVendorLogoDrawerClose} = useDisclosure();
     const {onOpen: onChangeShopAddressDrawerOpen, isOpen: isChangeShopAddressDrawerOpen, onClose: onChangeShopAddressDrawerClose} = useDisclosure();
     const {t} = useTranslation();
     const toast: CreateToastFnReturn = useToast();
 
-    const [selectedShop, setSelectedShop] = useState<ShopType>(defaultSelectedShop);
+    const [selectedVendor, setSelectedVendor] = useState<VendorType>(defaultSelectedVendor);
 
-    const addressBaseUrl: string = shopsApiURI.address;
-    const deleteBaseUrl: string = shopsApiURI.destroy;
-    const toggleBaseUrl: string = shopsApiURI.toggle;
+    const logoBaseUrl: string = vendorsApiURI.logo;
+    const addressBaseUrl: string = vendorsApiURI.address;
+    const deleteBaseUrl: string = vendorsApiURI.destroy;
+    const toggleBaseUrl: string = vendorsApiURI.toggle;
 
     const deleteDone = (): void => {
         toast({
             title: t("delete"),
-            description: `${t("shop_deleted", {name: selectedShop.name})}`
+            description: `${t("vendor_deleted", {name: selectedVendor.name})}`
         });
         reloadList();
     };
 
     const toggleDone = (): void => {
         toast({
-            title: t(`toggle_${selectedShop.enabled}`),
-            description: `${t(`shop_toggled_${selectedShop.enabled}`, {name: selectedShop.name})}`
+            title: t(`toggle_${selectedVendor.enabled}`),
+            description: `${t(`vendor_toggled_${selectedVendor.enabled}`, {name: selectedVendor.name})}`
         });
         reloadList();
     };
@@ -77,12 +80,12 @@ const ShopsCustomTable: FC<CustomTableProps> = (
         onModalClose: onDeleteModalClose,
         showModal: showDeleteModal,
         isModalOpen: isDeleteModalOpen,
-        alertData: deleteShopAlertData,
-        isPending: isDeleteShopPending,
-        handleRequest: handleDeleteShop,
+        alertData: deleteVendorAlertData,
+        isPending: isDeleteVendorPending,
+        handleRequest: handleDeleteVendor,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: deleteDone,
-        item: selectedShop,
+        item: selectedVendor,
         baseUrl: deleteBaseUrl,
         type: IDActionRequestType.DELETE
     });
@@ -91,18 +94,18 @@ const ShopsCustomTable: FC<CustomTableProps> = (
         onModalClose: onToggleModalClose,
         showModal: showToggleModal,
         isModalOpen: isToggleModalOpen,
-        alertData: toggleShopAlertData,
-        isPending: isToggleShopPending,
-        handleRequest: handleToggleShop,
+        alertData: toggleVendorAlertData,
+        isPending: isToggleVendorPending,
+        handleRequest: handleToggleVendor,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: toggleDone,
-        item: selectedShop,
+        item: selectedVendor,
         baseUrl: toggleBaseUrl,
         type: IDActionRequestType.TOGGLE
     });
 
     const fields: Array<{field: string, label: string, show: boolean, sort: boolean, search: boolean}> = [
-        {field: "name", label: "shop", show: true, sort: true, search: true},
+        {field: "name", label: "vendor", show: true, sort: true, search: true},
         {field: "address", label: "address", show: true, sort: false, search: false},
         {field: "enabled", label: "status", show: true, sort: true, search: false},
         {field: "createdAt", label: "created_at", show: true, sort: true, search: false},
@@ -114,42 +117,43 @@ const ShopsCustomTable: FC<CustomTableProps> = (
             <Table size={"sm"}>
                 <TableHeader fields={fields} handleSort={handleSort} sortAndFilterData={sortAndFilterData} />
                 <Tbody>
-                    {isShopsPending ? <TableSkeletonLoader /> : (
-                        shopsResponseData.empty ? <EmptyTableAlert /> : (
-                            shopsResponseData.content.map((shop: ShopType, index: number) => (
+                    {isVendorsPending ? <TableSkeletonLoader /> : (
+                        vendorsResponseData.empty ? <EmptyTableAlert /> : (
+                            vendorsResponseData.content.map((vendor: VendorType, index: number) => (
                                 <Tr key={index}>
                                     <Td>
                                         <RowImage
-                                            plain
-                                            title={shop.name}
-                                            state={shop}
-                                            url={`${mainRoutes.shops.path}/${shop.id}`}
-                                            description={shop.description}
+                                            logo
+                                            image={vendor.logo}
+                                            title={vendor.name}
+                                            state={vendor}
+                                            url={`${mainRoutes.vendors.path}/${vendor.id}`}
+                                            description={vendor.description}
                                         />
                                     </Td>
                                     <Td>
                                         <RowImage
                                             plain
                                             unlink
-                                            title={shop.address?.phoneNumberOne}
-                                            description={shop.address?.streetAddress}
+                                            title={vendor.address?.phoneNumberOne}
+                                            description={vendor.address?.streetAddress}
                                         />
                                     </Td>
                                     <Td>
-                                        <Badge colorScheme={`${shop.enabled ? "green" : "red"}`}>
-                                            {t(`status_${shop.enabled}`)}
+                                        <Badge colorScheme={`${vendor.enabled ? "green" : "red"}`}>
+                                            {t(`status_${vendor.enabled}`)}
                                         </Badge>
                                     </Td>
-                                    <Td>{t("date_time", {value: shop.createdAt})}</Td>
+                                    <Td>{t("date_time", {value: vendor.createdAt})}</Td>
                                     {showCreator && (
                                         <Td>
                                             <RowImage
                                                 user
-                                                image={shop.creator?.avatar}
-                                                title={shop.creator?.firstName}
-                                                state={shop.creator}
-                                                url={`${mainRoutes.users.path}/${shop.creator?.id}`}
-                                                description={shop.creator?.email || shop.creator?.username}
+                                                image={vendor.creator?.avatar}
+                                                title={vendor.creator?.firstName}
+                                                state={vendor.creator}
+                                                url={`${mainRoutes.users.path}/${vendor.creator?.id}`}
+                                                description={vendor.creator?.email || vendor.creator?.username}
                                             />
                                         </Td>
                                     )}
@@ -157,31 +161,39 @@ const ShopsCustomTable: FC<CustomTableProps> = (
                                         <HStack>
                                             <EditIconButton
                                                 showEditDrawer={(): void => {
-                                                    onEditShopDrawerOpen();
-                                                    setSelectedShop(shop);
+                                                    onEditVendorDrawerOpen();
+                                                    setSelectedVendor(vendor);
                                                 }}
                                             />
                                             <DeleteIconButton
                                                 showDeleteModal={(): void => {
                                                     showDeleteModal();
-                                                    setSelectedShop(shop);
+                                                    setSelectedVendor(vendor);
                                                 }}
                                             />
                                             <MoreIconButton
-                                                url={`${mainRoutes.shops.path}/${shop.id}`}
-                                                state={shop}
-                                                status={shop.enabled}
+                                                url={`${mainRoutes.vendors.path}/${vendor.id}`}
+                                                state={vendor}
+                                                status={vendor.enabled}
                                                 showStatusToggleModal={(): void => {
                                                     showToggleModal();
-                                                    setSelectedShop(shop);
+                                                    setSelectedVendor(vendor);
                                                 }}
                                             >
+                                                <MoreMenuItem
+                                                    label={t("change_logo")}
+                                                    icon={IconPhotoCog}
+                                                    showDrawer={(): void => {
+                                                        onChangeVendorLogoDrawerOpen();
+                                                        setSelectedVendor(vendor);
+                                                    }}
+                                                />
                                                 <MoreMenuItem
                                                     label={t("change_address")}
                                                     icon={IconMapPin}
                                                     showDrawer={(): void => {
                                                         onChangeShopAddressDrawerOpen();
-                                                        setSelectedShop(shop);
+                                                        setSelectedVendor(vendor);
                                                     }}
                                                 />
                                             </MoreIconButton>
@@ -196,37 +208,50 @@ const ShopsCustomTable: FC<CustomTableProps> = (
 
             <ConfirmAlertDialog
                 danger
-                handleConfirm={handleDeleteShop}
+                handleConfirm={handleDeleteVendor}
                 isOpen={isDeleteModalOpen}
                 onClose={onDeleteModalClose}
-                isLoading={isDeleteShopPending}
-                alertData={deleteShopAlertData}
+                isLoading={isDeleteVendorPending}
+                alertData={deleteVendorAlertData}
             >
-                {t("delete_shop")} <strong>{selectedShop.name}</strong>?
+                {t("delete_vendor")} <strong>{selectedVendor.name}</strong>?
             </ConfirmAlertDialog>
 
             <ConfirmAlertDialog
-                title={t(`toggle_${selectedShop.enabled}`)}
-                handleConfirm={handleToggleShop}
+                title={t(`toggle_${selectedVendor.enabled}`)}
+                handleConfirm={handleToggleVendor}
                 isOpen={isToggleModalOpen}
                 onClose={onToggleModalClose}
-                isLoading={isToggleShopPending}
-                alertData={toggleShopAlertData}
+                isLoading={isToggleVendorPending}
+                alertData={toggleVendorAlertData}
             >
-                {t(`toggle_shop_${selectedShop.enabled}`)} <strong>{selectedShop.name}</strong>?
+                {t(`toggle_vendor_${selectedVendor.enabled}`)} <strong>{selectedVendor.name}</strong>?
             </ConfirmAlertDialog>
 
             <DrawerForm
-                title={t("edit_shop")}
-                isOpen={isEditShopDrawerOpen}
-                onClose={onEditShopDrawerClose}
+                title={t("edit_vendor")}
+                isOpen={isEditVendorDrawerOpen}
+                onClose={onEditVendorDrawerClose}
             >
-                <ShopEditForm
-                    selectedShop={selectedShop}
+                <VendorEditForm
+                    selectedVendor={selectedVendor}
                     finished={(): void => {
-                        onEditShopDrawerClose();
+                        onEditVendorDrawerClose();
                         reloadList();
                     }}
+                />
+            </DrawerForm>
+
+            <DrawerForm
+                title={t("change_logo")}
+                isOpen={isChangeVendorLogoDrawerOpen}
+                onClose={onChangeVendorLogoDrawerClose}
+            >
+                <ImageUpdateForm
+                    logo
+                    item={selectedVendor}
+                    image={selectedVendor.logo}
+                    baseUrl={logoBaseUrl}
                 />
             </DrawerForm>
 
@@ -236,8 +261,8 @@ const ShopsCustomTable: FC<CustomTableProps> = (
                 onClose={onChangeShopAddressDrawerClose}
             >
                 <AddressUpdateForm
-                    item={selectedShop}
-                    address={selectedShop.address}
+                    item={selectedVendor}
+                    address={selectedVendor.address}
                     baseUrl={addressBaseUrl}
                     finished={(): void => {
                         onChangeShopAddressDrawerClose();
@@ -250,18 +275,18 @@ const ShopsCustomTable: FC<CustomTableProps> = (
 };
 
 
-interface ShopsResponseDataType extends PaginationType {
-    content: Array<ShopType>,
+interface VendorsResponseDataType extends PaginationType {
+    content: Array<VendorType>,
 }
 
 interface CustomTableProps {
     showCreator?: boolean;
     reloadList: () => void,
-    isShopsPending: boolean;
+    isVendorsPending: boolean;
     handleSort: (a: string, b: string) => void
     sortAndFilterData: SortAndFilterRequestDataType,
-    shopsResponseData: ShopsResponseDataType,
+    vendorsResponseData: VendorsResponseDataType,
 
 }
 
-export default ShopsCustomTable;
+export default VendorsCustomTable;

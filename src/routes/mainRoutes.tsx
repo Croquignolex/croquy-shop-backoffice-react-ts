@@ -10,11 +10,11 @@ import {
     IconBrandShopee,
     IconPropeller,
     IconCards,
+    IconTruck,
 } from '@tabler/icons-react';
 import {
     FiUsers,
     FiPercent,
-    FiTruck,
     FiTag,
     FiPieChart,
     FiUser,
@@ -46,10 +46,8 @@ const addCoupon: MainRouteType = {path: "/coupons/create", component: lazy(() =>
 const showCoupon: MainRouteType = {path: "/coupons/:id", component: lazy(() => import("../pages/coupons/show/ShowCouponPage"))};
 const editCoupon: MainRouteType = {path: "/coupons/:id/edit", component: lazy(() => import("../pages/coupons/edit/EditCouponPage"))};
 
-const vendors: MainRouteType = {title: "vendors", path: "/vendors", icon: FiTruck, component: lazy(() => import("../pages/vendors/VendorsPage"))};
-const addVendor: MainRouteType = {path: "/vendors/create", component: lazy(() => import("../pages/vendors/CreateVendorPage"))};
+const vendors: MainRouteType = {title: "vendors", path: "/vendors", icon: IconTruck, component: lazy(() => import("../pages/vendors/components/VendorsListPage"))};
 const showVendor: MainRouteType = {path: "/vendors/:id", component: lazy(() => import("../pages/vendors/show/ShowVendorPage"))};
-const editVendor: MainRouteType = {path: "/vendors/:id/edit", component: lazy(() => import("../pages/vendors/edit/EditVendorPage"))};
 
 const brands: MainRouteType = {title: "brands", path: "/brands", icon: IconBadgeTm, component: lazy(() => import("../pages/brands/components/BrandsListPage"))};
 const showBrand: MainRouteType = {path: "/brands/:id", component: lazy(() => import("../pages/brands/show/ShowBrandPage"))};
@@ -80,7 +78,7 @@ export interface MainRouteType {
 export const administrationSubMenu = {
     subMenuLabel: "administration",
     subMenuIcon: IconAdjustments,
-    subMenuItems: [shops],
+    subMenuItems: [shops, vendors],
 };
 
 export const ecommerceSubMenu = {
@@ -122,6 +120,7 @@ export const mainRoutes: any = {
     shops, showShop,
     groups, showGroup,
     categories, showCategory,
+    vendors, showVendor,
 
     dashboard,
     profile, settings, help,
@@ -129,6 +128,5 @@ export const mainRoutes: any = {
     users, addUser, showUser, editUser,
     attributes, addAttribute, showAttribute, editAttribute,
     attributeValues, addAttributeValue, showAttributeValue, editAttributeValue,
-    vendors, addVendor, showVendor, editVendor,
     coupons, addCoupon, showCoupon, editCoupon,
 };

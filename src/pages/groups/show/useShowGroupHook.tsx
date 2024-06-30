@@ -8,7 +8,7 @@ import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 import {AlertStatusEnumType, ErrorAlertType, MediaType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {DestroyGroupRequestDataType} from "../../../components/tableList/groups/groupsTableListData";
+// import {DestroyGroupRequestDataType} from "../../../components/tableList/groups/groupsTableListData";
 import {
     groupRequest,
     GroupType,
@@ -41,7 +41,7 @@ const useShowGroupHook = (): ShowGroupHookType => {
         enabled: groupQueryEnabled,
     });
 
-    const destroyGroupGroupResponse: UseMutationResult<AxiosResponse, AxiosError, DestroyGroupRequestDataType, any> = useMutation({
+    const destroyGroupGroupResponse: UseMutationResult<AxiosResponse, AxiosError, any, any> = useMutation({
         mutationFn: destroyGroup,
         onError: (error: AxiosError): void => {
             setDeleteGroupAlertData(errorAlert(error));

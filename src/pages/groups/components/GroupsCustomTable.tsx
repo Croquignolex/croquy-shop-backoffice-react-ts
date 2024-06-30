@@ -18,57 +18,59 @@ import EmptyTableAlert from "../../../components/alert/EmptyTableAlert";
 import ConfirmAlertDialog from "../../../components/ConfirmAlertDialog";
 import {mainRoutes} from "../../../routes/mainRoutes";
 import TableSkeletonLoader from "../../../components/skeletonLoader/TableSkeletonLoader";
-import {BrandType, defaultSelectedBrand} from "../show/showBrandData";
+import {GroupType, defaultSelectedGroup} from "../show/showGroupData";
 import RowImage from "../../../components/RowImage";
 import EditIconButton from "../../../components/form/EditIconButton";
 import DeleteIconButton from "../../../components/form/DeleteButtonIcon";
 import MoreIconButton from "../../../components/form/MoreButtonIcon";
 import TableHeader from "../../../components/table/TableHeader";
 import DrawerForm from "../../../components/DrawerForm";
-import BrandEditForm from "./BrandEditForm";
-import ImageUpdateForm from "../../../components/ImageUpdateForm";
-import {brandsApiURI} from "../../../constants/apiURIConstants";
+import GroupEditForm from "./GroupEditForm";
+import {groupsApiURI} from "../../../constants/apiURIConstants";
 import MoreMenuItem from "../../../components/form/MoreMenuItem";
 import {PaginationType} from "../../../helpers/globalTypesHelper";
 import {SortAndFilterRequestDataType} from "../../../hooks/useSortAndFilterHook";
+import ImageUpdateForm from "../../../components/ImageUpdateForm";
 import useIDActionRequestHook, {
     IDActionRequestHookType,
     IDActionRequestType
 } from "../../../hooks/useIDActionRequestHook";
 
-const BrandsCustomTable: FC<CustomTableProps> = (
+const GroupsCustomTable: FC<CustomTableProps> = (
     {
         showCreator = false,
-        isBrandsPending,
+        isGroupsPending,
         handleSort,
         reloadList,
         sortAndFilterData,
-        brandsResponseData
+        groupsResponseData
     }): ReactElement => {
 
-    const {onOpen: onEditBrandDrawerOpen, isOpen: isEditBrandDrawerOpen, onClose: onEditBrandDrawerClose} = useDisclosure();
-    const {onOpen: onChangeBrandLogoDrawerOpen, isOpen: isChangeBrandLogoDrawerOpen, onClose: onChangeBrandLogoDrawerClose} = useDisclosure();
+    const {onOpen: onEditGroupDrawerOpen, isOpen: isEditGroupDrawerOpen, onClose: onEditGroupDrawerClose} = useDisclosure();
+    const {onOpen: onChangeGroupLogoDrawerOpen, isOpen: isChangeGroupLogoDrawerOpen, onClose: onChangeGroupLogoDrawerClose} = useDisclosure();
+    const {onOpen: onChangeGroupBannerDrawerOpen, isOpen: isChangeGroupBannerDrawerOpen, onClose: onChangeGroupBannerDrawerClose} = useDisclosure();
     const {t} = useTranslation();
     const toast: CreateToastFnReturn = useToast();
 
-    const [selectedBrand, setSelectedBrand] = useState<BrandType>(defaultSelectedBrand);
+    const [selectedGroup, setSelectedGroup] = useState<GroupType>(defaultSelectedGroup);
 
-    const logoBaseUrl: string = brandsApiURI.logo;
-    const deleteBaseUrl: string = brandsApiURI.destroy;
-    const toggleBaseUrl: string = brandsApiURI.toggle;
+    const logoBaseUrl: string = groupsApiURI.logo;
+    const bannerBaseUrl: string = groupsApiURI.banner;
+    const deleteBaseUrl: string = groupsApiURI.destroy;
+    const toggleBaseUrl: string = groupsApiURI.toggle;
 
     const deleteDone = (): void => {
         toast({
             title: t("delete"),
-            description: `${t("brand_deleted", {name: selectedBrand.name})}`
+            description: `${t("group_deleted", {name: selectedGroup.name})}`
         });
         reloadList();
     };
 
     const toggleDone = (): void => {
         toast({
-            title: t(`toggle_${selectedBrand.enabled}`),
-            description: `${t(`brand_toggled_${selectedBrand.enabled}`, {name: selectedBrand.name})}`
+            title: t(`toggle_${selectedGroup.enabled}`),
+            description: `${t(`group_toggled_${selectedGroup.enabled}`, {name: selectedGroup.name})}`
         });
         reloadList();
     };
@@ -77,12 +79,12 @@ const BrandsCustomTable: FC<CustomTableProps> = (
         onModalClose: onDeleteModalClose,
         showModal: showDeleteModal,
         isModalOpen: isDeleteModalOpen,
-        alertData: deleteBrandAlertData,
-        isPending: isDeleteBrandPending,
-        handleRequest: handleDeleteBrand,
+        alertData: deleteGroupAlertData,
+        isPending: isDeleteGroupPending,
+        handleRequest: handleDeleteGroup,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: deleteDone,
-        item: selectedBrand,
+        item: selectedGroup,
         baseUrl: deleteBaseUrl,
         type: IDActionRequestType.DELETE
     });
@@ -91,19 +93,18 @@ const BrandsCustomTable: FC<CustomTableProps> = (
         onModalClose: onToggleModalClose,
         showModal: showToggleModal,
         isModalOpen: isToggleModalOpen,
-        alertData: toggleBrandAlertData,
-        isPending: isToggleBrandPending,
-        handleRequest: handleToggleBrand,
+        alertData: toggleGroupAlertData,
+        isPending: isToggleGroupPending,
+        handleRequest: handleToggleGroup,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: toggleDone,
-        item: selectedBrand,
+        item: selectedGroup,
         baseUrl: toggleBaseUrl,
         type: IDActionRequestType.TOGGLE
     });
 
     const fields: Array<{field: string, label: string, show: boolean, sort: boolean, search: boolean}> = [
-        {field: "name", label: "brand", show: true, sort: true, search: true},
-        {field: "website", label: "website", show: true, sort: true, search: true},
+        {field: "name", label: "group", show: true, sort: true, search: true},
         {field: "seo", label: "seo", show: true, sort: false, search: false},
         {field: "enabled", label: "status", show: true, sort: true, search: false},
         {field: "createdAt", label: "created_at", show: true, sort: true, search: false},
@@ -115,44 +116,43 @@ const BrandsCustomTable: FC<CustomTableProps> = (
             <Table size={"sm"}>
                 <TableHeader fields={fields} handleSort={handleSort} sortAndFilterData={sortAndFilterData} />
                 <Tbody>
-                    {isBrandsPending ? <TableSkeletonLoader /> : (
-                        brandsResponseData.empty ? <EmptyTableAlert /> : (
-                            brandsResponseData.content.map((brand: BrandType, index: number) => (
+                    {isGroupsPending ? <TableSkeletonLoader /> : (
+                        groupsResponseData.empty ? <EmptyTableAlert /> : (
+                            groupsResponseData.content.map((group: GroupType, index: number) => (
                                 <Tr key={index}>
                                     <Td>
                                         <RowImage
                                             logo
-                                            image={brand.logo}
-                                            title={brand.name}
-                                            state={brand}
-                                            url={`${mainRoutes.brands.path}/${brand.id}`}
-                                            description={brand.description}
+                                            image={group.logo}
+                                            title={group.name}
+                                            state={group}
+                                            url={`${mainRoutes.groups.path}/${group.id}`}
+                                            description={group.description}
                                         />
                                     </Td>
-                                    <Td>{brand.website}</Td>
                                     <Td>
                                         <RowImage
                                             plain
                                             unlink
-                                            title={brand.seoTitle}
-                                            description={brand.seoDescription}
+                                            title={group.seoTitle}
+                                            description={group.seoDescription}
                                         />
                                     </Td>
                                     <Td>
-                                        <Badge colorScheme={`${brand.enabled ? "green" : "red"}`}>
-                                            {t(`status_${brand.enabled}`)}
+                                        <Badge colorScheme={`${group.enabled ? "green" : "red"}`}>
+                                            {t(`status_${group.enabled}`)}
                                         </Badge>
                                     </Td>
-                                    <Td>{t("date_time", {value: brand.createdAt})}</Td>
+                                    <Td>{t("date_time", {value: group.createdAt})}</Td>
                                     {showCreator && (
                                         <Td>
                                             <RowImage
                                                 user
-                                                image={brand.creator?.avatar}
-                                                title={brand.creator?.firstName}
-                                                state={brand.creator}
-                                                url={`${mainRoutes.users.path}/${brand.creator?.id}`}
-                                                description={brand.creator?.email || brand.creator?.username}
+                                                image={group.creator?.avatar}
+                                                title={group.creator?.firstName}
+                                                state={group.creator}
+                                                url={`${mainRoutes.users.path}/${group.creator?.id}`}
+                                                description={group.creator?.email || group.creator?.username}
                                             />
                                         </Td>
                                     )}
@@ -160,31 +160,39 @@ const BrandsCustomTable: FC<CustomTableProps> = (
                                         <HStack>
                                             <EditIconButton
                                                 showEditDrawer={(): void => {
-                                                    onEditBrandDrawerOpen();
-                                                    setSelectedBrand(brand);
+                                                    onEditGroupDrawerOpen();
+                                                    setSelectedGroup(group);
                                                 }}
                                             />
                                             <DeleteIconButton
                                                 showDeleteModal={(): void => {
                                                     showDeleteModal();
-                                                    setSelectedBrand(brand);
+                                                    setSelectedGroup(group);
                                                 }}
                                             />
                                             <MoreIconButton
-                                                url={`${mainRoutes.brands.path}/${brand.id}`}
-                                                state={brand}
-                                                status={brand.enabled}
+                                                url={`${mainRoutes.groups.path}/${group.id}`}
+                                                state={group}
+                                                status={group.enabled}
                                                 showStatusToggleModal={(): void => {
                                                     showToggleModal();
-                                                    setSelectedBrand(brand);
+                                                    setSelectedGroup(group);
                                                 }}
                                             >
                                                 <MoreMenuItem
                                                     label={t("change_logo")}
                                                     icon={IconPhotoCog}
                                                     showDrawer={(): void => {
-                                                        onChangeBrandLogoDrawerOpen();
-                                                        setSelectedBrand(brand);
+                                                        onChangeGroupLogoDrawerOpen();
+                                                        setSelectedGroup(group);
+                                                    }}
+                                                />
+                                                <MoreMenuItem
+                                                    label={t("change_banner")}
+                                                    icon={IconPhotoCog}
+                                                    showDrawer={(): void => {
+                                                        onChangeGroupBannerDrawerOpen();
+                                                        setSelectedGroup(group);
                                                     }}
                                                 />
                                             </MoreIconButton>
@@ -199,35 +207,35 @@ const BrandsCustomTable: FC<CustomTableProps> = (
 
             <ConfirmAlertDialog
                 danger
-                handleConfirm={handleDeleteBrand}
+                handleConfirm={handleDeleteGroup}
                 isOpen={isDeleteModalOpen}
                 onClose={onDeleteModalClose}
-                isLoading={isDeleteBrandPending}
-                alertData={deleteBrandAlertData}
+                isLoading={isDeleteGroupPending}
+                alertData={deleteGroupAlertData}
             >
-                {t("delete_brand")} <strong>{selectedBrand.name}</strong>?
+                {t("delete_group")} <strong>{selectedGroup.name}</strong>?
             </ConfirmAlertDialog>
 
             <ConfirmAlertDialog
-                title={t(`toggle_${selectedBrand.enabled}`)}
-                handleConfirm={handleToggleBrand}
+                title={t(`toggle_${selectedGroup.enabled}`)}
+                handleConfirm={handleToggleGroup}
                 isOpen={isToggleModalOpen}
                 onClose={onToggleModalClose}
-                isLoading={isToggleBrandPending}
-                alertData={toggleBrandAlertData}
+                isLoading={isToggleGroupPending}
+                alertData={toggleGroupAlertData}
             >
-                {t(`toggle_brand_${selectedBrand.enabled}`)} <strong>{selectedBrand.name}</strong>?
+                {t(`toggle_group_${selectedGroup.enabled}`)} <strong>{selectedGroup.name}</strong>?
             </ConfirmAlertDialog>
 
             <DrawerForm
-                title={t("edit_brand")}
-                isOpen={isEditBrandDrawerOpen}
-                onClose={onEditBrandDrawerClose}
+                title={t("edit_group")}
+                isOpen={isEditGroupDrawerOpen}
+                onClose={onEditGroupDrawerClose}
             >
-                <BrandEditForm
-                    selectedBrand={selectedBrand}
+                <GroupEditForm
+                    selectedGroup={selectedGroup}
                     finished={(): void => {
-                        onEditBrandDrawerClose();
+                        onEditGroupDrawerClose();
                         reloadList();
                     }}
                 />
@@ -235,14 +243,27 @@ const BrandsCustomTable: FC<CustomTableProps> = (
 
             <DrawerForm
                 title={t("change_logo")}
-                isOpen={isChangeBrandLogoDrawerOpen}
-                onClose={onChangeBrandLogoDrawerClose}
+                isOpen={isChangeGroupLogoDrawerOpen}
+                onClose={onChangeGroupLogoDrawerClose}
             >
                 <ImageUpdateForm
                     logo
-                    item={selectedBrand}
-                    image={selectedBrand.logo}
+                    item={selectedGroup}
+                    image={selectedGroup.logo}
                     baseUrl={logoBaseUrl}
+                />
+            </DrawerForm>
+
+            <DrawerForm
+                title={t("change_banner")}
+                isOpen={isChangeGroupBannerDrawerOpen}
+                onClose={onChangeGroupBannerDrawerClose}
+            >
+                <ImageUpdateForm
+                    banner
+                    item={selectedGroup}
+                    image={selectedGroup.banner}
+                    baseUrl={bannerBaseUrl}
                 />
             </DrawerForm>
         </TableContainer>
@@ -250,18 +271,18 @@ const BrandsCustomTable: FC<CustomTableProps> = (
 };
 
 
-interface BrandsResponseDataType extends PaginationType {
-    content: Array<BrandType>,
+interface GroupsResponseDataType extends PaginationType {
+    content: Array<GroupType>,
 }
 
 interface CustomTableProps {
     showCreator?: boolean;
     reloadList: () => void,
-    isBrandsPending: boolean;
+    isGroupsPending: boolean;
     handleSort: (a: string, b: string) => void
     sortAndFilterData: SortAndFilterRequestDataType,
-    brandsResponseData: BrandsResponseDataType,
+    groupsResponseData: GroupsResponseDataType,
 
 }
 
-export default BrandsCustomTable;
+export default GroupsCustomTable;

@@ -8,7 +8,7 @@ import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 import {AddressType, AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {DestroyShopRequestDataType} from "../../../components/tableList/shops/shopsTableListData";
+// import {DestroyShopRequestDataType} from "../../../components/tableList/shops/shopsTableListData";
 import {
     shopRequest,
     ShopType,
@@ -41,7 +41,7 @@ const useShowShopHook = (): ShowShopHookType => {
         enabled: shopQueryEnabled,
     });
 
-    const destroyShopShopResponse: UseMutationResult<AxiosResponse, AxiosError, DestroyShopRequestDataType, any> = useMutation({
+    const destroyShopShopResponse: UseMutationResult<AxiosResponse, AxiosError, any, any> = useMutation({
         mutationFn: destroyShop,
         onError: (error: AxiosError): void => {
             setDeleteShopAlertData(errorAlert(error));

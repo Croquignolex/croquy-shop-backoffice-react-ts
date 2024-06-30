@@ -23,6 +23,7 @@
   "marketing": "Marketing",
   "change_flag": "Change flag",
   "change_logo": "Change logo",
+  "change_banner": "Change banner",
   "change_address": "Change address",
   "add": "Add",
   "name": "Name",
@@ -133,6 +134,19 @@
   "shop_added": "Shop {{name}} successfully added",
   "shop_edited": "Shop {{name}} successfully edited",
 
+  "group": "Group",
+  "add_group": "Add group",
+  "new_group": "New group",
+  "edit_group": "Edit group",
+  "delete_group": "Delete group",
+  "group_deleted": "Group {{name}} successfully deleted",
+  "toggle_group_true": "Disable group",
+  "toggle_group_false": "Enable group",
+  "group_toggled_true": "Group {{name}} successfully disabled",
+  "group_toggled_false": "Group {{name}} successfully enabled",
+  "group_added": "Group {{name}} successfully added",
+  "group_edited": "Group {{name}} successfully edited",
+
   "image_deleted": "Image successfully deleted",
   "delete_image": "Delete image",
   "delete_address": "Delete address",
@@ -140,6 +154,7 @@
   "change": "Change",
 
   "administration": "Administration",
+  "ecommerce": "E-commerce",
   "settings": "Settings",
 
   "details": "Details",

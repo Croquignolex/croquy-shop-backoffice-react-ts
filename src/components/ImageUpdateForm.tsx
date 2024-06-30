@@ -25,6 +25,7 @@ const ImageUpdateForm: FC<ImageUpdateFormProps> = (
     {
         flag = false,
         logo = false,
+        banner = false,
         image,
         baseUrl,
         item
@@ -95,6 +96,7 @@ const ImageUpdateForm: FC<ImageUpdateFormProps> = (
                                     <ImagePreview
                                         flag={flag}
                                         logo={logo}
+                                        banner={banner}
                                         image={preview}
                                         size={SizeType.MEDIUM}
                                         shape={shape}
@@ -139,6 +141,7 @@ interface ImageUpdateFormProps {
     image: MediaType | null,
     flag?: boolean,
     logo?: boolean,
+    banner?: boolean,
     item: any,
 }
 

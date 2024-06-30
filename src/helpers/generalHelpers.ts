@@ -28,8 +28,8 @@ export const stringDateFormat = (stringDate: string = "", withHour: boolean = fa
 };
 
 // Format long string to avoid trim
-export const formatString = (text: string = "", maxCharacters: number): string => {
-    let stringText: string = text.toString();
+export const formatString = (text: string|null|undefined, maxCharacters: number): string => {
+    let stringText: string = text?.toString() || "";
 
     return (stringText.length > maxCharacters)
         ? stringText.substring(0, maxCharacters) + "..."

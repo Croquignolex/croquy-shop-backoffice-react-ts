@@ -21,7 +21,7 @@ import ListSkeletonLoader from "../../../components/skeletonLoader/ListSkeletonL
 import DoubleActionButton from "../../../components/form/DoubleActionButton";
 import {ShowVendorHookType} from "./showVendorData";
 import NotFoundPage from "../../NotFoundPage";
-import ShowAddress from "../../../components/showAddress/ShowAddress";
+// import ShowAddress from "../../../components/showAddress/ShowAddress";
 import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
 import {vendorsApiURI} from "../../../constants/apiURIConstants";
 import ShowImage from "../../../components/showImage/ShowImage";
@@ -118,12 +118,12 @@ const ShowVendorPage = (): ReactElement => {
                             <Box>
                                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                                     <strong>Addresse</strong>
-                                    <ShowAddress
+                                    {/*<ShowAddress
                                         isLoading={isVendorPending}
                                         address={vendorResponseData.address}
                                         addressBaseUrl={addressBaseUrl}
                                         handleAddressUpdate={handleAddressUpdate}
-                                    />
+                                    />*/}
                                 </Stack>
                             </Box>
                         </SimpleGrid>

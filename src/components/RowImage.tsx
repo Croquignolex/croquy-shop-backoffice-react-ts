@@ -2,9 +2,11 @@ import React, { FC, ReactElement } from "react";
 import {Link} from "react-router-dom";
 import {HStack, Stack, Image, Text, Avatar} from "@chakra-ui/react";
 
-import {MediaType} from "../helpers/globalTypesHelper";
 import defaultFlag from "../assets/img/default-flag.png";
-import defaultImage from "../assets/img/default-image.png";
+import defaultSquareImage from "../assets/img/default-square-image.png.png";
+import defaultRectangleImage from "../assets/img/default-retangle-image.png";
+
+import {MediaType} from "../helpers/globalTypesHelper";
 import {API_MEDIA_V1_URL} from "../helpers/apiRequestsHelpers";
 import {formatString} from "../helpers/generalHelpers";
 
@@ -16,6 +18,7 @@ const RowImage: FC<RowImageProps> = (
         url,
         flag = false,
         logo = false,
+        banner = false,
         user = false,
         plain = false,
         unlink = false,
@@ -26,7 +29,8 @@ const RowImage: FC<RowImageProps> = (
     let fallbackSrc: string = "";
 
     if(flag) fallbackSrc = defaultFlag;
-    if(logo) fallbackSrc = defaultImage;
+    if(logo) fallbackSrc = defaultSquareImage;
+    if(banner) fallbackSrc = defaultRectangleImage;
 
     if(!title) {
         return null;
@@ -41,7 +45,7 @@ const RowImage: FC<RowImageProps> = (
             )}
             <Stack spacing={0}>
                 {unlink ? (
-                    <Text fontSize={"sm"} fontWeight={"bold"}>
+                    <Text fontSize={"sm"}>
                         {title}
                     </Text>
                 ) : (
@@ -68,6 +72,7 @@ interface RowImageProps {
     description?: string,
     flag?: boolean,
     logo?: boolean,
+    banner?: boolean,
     user?: boolean,
     url?: string,
     state?: any,

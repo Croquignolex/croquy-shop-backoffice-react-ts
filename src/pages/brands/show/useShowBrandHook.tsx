@@ -8,7 +8,7 @@ import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 import {AlertStatusEnumType, ErrorAlertType, MediaType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {DestroyBrandRequestDataType} from "../../../components/tableList/brands/brandsTableListData";
+// import {DestroyBrandRequestDataType} from "../../../components/tableList/brands/brandsTableListData";
 import {
     brandRequest,
     BrandType,
@@ -41,7 +41,7 @@ const useShowBrandHook = (): ShowBrandHookType => {
         enabled: brandQueryEnabled,
     });
 
-    const destroyBrandBrandResponse: UseMutationResult<AxiosResponse, AxiosError, DestroyBrandRequestDataType, any> = useMutation({
+    const destroyBrandBrandResponse: UseMutationResult<AxiosResponse, AxiosError, any, any> = useMutation({
         mutationFn: destroyBrand,
         onError: (error: AxiosError): void => {
             setDeleteBrandAlertData(errorAlert(error));

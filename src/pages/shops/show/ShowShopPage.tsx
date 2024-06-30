@@ -21,7 +21,7 @@ import ListSkeletonLoader from "../../../components/skeletonLoader/ListSkeletonL
 import DoubleActionButton from "../../../components/form/DoubleActionButton";
 import {ShowShopHookType} from "./showShopData";
 import NotFoundPage from "../../NotFoundPage";
-import ShowAddress from "../../../components/showAddress/ShowAddress";
+// import ShowAddress from "../../../components/showAddress/ShowAddress";
 import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
 import {shopsApiURI} from "../../../constants/apiURIConstants";
 
@@ -102,12 +102,12 @@ const ShowShopPage = (): ReactElement => {
                             <Box>
                                 <Stack as={Box} p={4} boxShadow="xl" borderWidth='1px' borderRadius='xl' bg={"white"}>
                                     <strong>Addresse</strong>
-                                    <ShowAddress
+                                   {/* <ShowAddress
                                         isLoading={isShopPending}
                                         address={shopResponseData.address}
                                         addressBaseUrl={addressBaseUrl}
                                         handleAddressUpdate={handleAddressUpdate}
-                                    />
+                                    />*/}
                                 </Stack>
                             </Box>
                         </SimpleGrid>

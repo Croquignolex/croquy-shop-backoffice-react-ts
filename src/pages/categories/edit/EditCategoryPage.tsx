@@ -12,17 +12,12 @@ import {EditCategoryFormType, EditCategoryHookType, editCategorySchema} from "./
 import NotFoundPage from "../../NotFoundPage";
 import SelectField from "../../../components/form/SelectField";
 import SelectLink from "../../../components/form/SelectLink";
-import useGroupsSelectListHook, {GroupsSelectListHookType} from "../../../hooks/useGroupsSelectListHook";
+// import useGroupsSelectListHook, {GroupsSelectListHookType} from "../../../hooks/useGroupsSelectListHook";
 import FormModal from "../../../components/FormModal";
-import GroupCreateForm from "../../../components/createForm/group/GroupCreateForm";
+// import GroupCreateForm from "../../../components/createForm/group/GroupCreateForm";
 
 const EditCategoryPage = (): ReactElement => {
     const { onOpen: onAddGroupModalOpen, isOpen: isAddGroupModalOpen, onClose: onAddGroupModalClose } = useDisclosure();
-    const {
-        selectListGroups,
-        isSelectListGroupsFetching,
-        reloadList
-    }: GroupsSelectListHookType = useGroupsSelectListHook();
     const {
         editCategoryAlertData,
         handleEditCategory,

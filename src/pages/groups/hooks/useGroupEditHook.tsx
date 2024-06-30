@@ -58,7 +58,9 @@ const useGroupEditHook = ({selectedGroup, finished}: GroupEditHookProps): GroupE
 
 export const groupEditSchema: Yup.ObjectSchema<GroupEditFormType> = Yup.object().shape({
     name: Yup.string().required(formValidationMessage.required),
-    slug: Yup.string().required(formValidationMessage.required),
+    slug: Yup.string()
+        .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/ , formValidationMessage.match)
+        .required(formValidationMessage.required),
     seoTitle: Yup.string().nullable(),
     seoDescription: Yup.string().nullable(),
     description: Yup.string().nullable(),
@@ -88,7 +90,7 @@ interface GroupEditHookProps {
     finished: () => void;
 }
 
-export const updateGroupRequest = (values: GroupEditRequestDataType): Promise<any> => {
+const updateGroupRequest = (values: GroupEditRequestDataType): Promise<any> => {
     const {name, slug, seoTitle, seoDescription, description, id}: GroupEditRequestDataType = values;
     const params: Array<URLParamType> = [{param: "id", value: id}];
     const url: string = v1URL(groupsApiURI.update, params);

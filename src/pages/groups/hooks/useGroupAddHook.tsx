@@ -80,7 +80,9 @@ export const groupAddInitialStaticValues: GroupAddFormType = {
 
 export const addGroupSchema: Yup.ObjectSchema<GroupAddFormType> = Yup.object().shape({
     name: Yup.string().required(formValidationMessage.required),
-    slug: Yup.string().required(formValidationMessage.required),
+    slug: Yup.string()
+        .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/ , formValidationMessage.match)
+        .required(formValidationMessage.required),
     seoTitle: Yup.string().nullable(),
     seoDescription: Yup.string().nullable(),
     description: Yup.string().nullable(),

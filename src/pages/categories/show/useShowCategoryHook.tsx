@@ -8,7 +8,7 @@ import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 import {AlertStatusEnumType, ErrorAlertType, MediaType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {DestroyCategoryRequestDataType} from "../../../components/tableList/categories/categoriesTableListData";
+// import {DestroyCategoryRequestDataType} from "../../../components/tableList/categories/categoriesTableListData";
 import {
     categoryRequest,
     CategoryType,
@@ -41,7 +41,7 @@ const useShowCategoryHook = (): ShowCategoryHookType => {
         enabled: categoryQueryEnabled,
     });
 
-    const destroyCategoryCategoryResponse: UseMutationResult<AxiosResponse, AxiosError, DestroyCategoryRequestDataType, any> = useMutation({
+    const destroyCategoryCategoryResponse: UseMutationResult<AxiosResponse, AxiosError, any, any> = useMutation({
         mutationFn: destroyCategory,
         onError: (error: AxiosError): void => {
             setDeleteCategoryAlertData(errorAlert(error));

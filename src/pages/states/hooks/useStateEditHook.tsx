@@ -82,7 +82,7 @@ interface StateEditHookProps {
     finished: () => void;
 }
 
-export const updateStateRequest = ({name, countryId, description, id}: StateEditRequestDataType): Promise<any> => {
+const updateStateRequest = ({name, countryId, description, id}: StateEditRequestDataType): Promise<any> => {
     const params: Array<URLParamType> = [{param: "id", value: id}];
     const url: string = v1URL(statesApiURI.update, params);
 

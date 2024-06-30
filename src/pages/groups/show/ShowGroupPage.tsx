@@ -36,7 +36,6 @@ import ShowImage from "../../../components/showImage/ShowImage";
 import {ImageSizeEnumType} from "../../../helpers/globalTypesHelper";
 import FormModal from "../../../components/FormModal";
 import GroupCategoryCreateForm from "../../../components/createForm/category/group/GroupCategoryCreateForm";
-import CategoriesTableList from "../../../components/tableList/categories/CategoriesTableList";
 import SeoTable from "../../../components/SeoTable";
 
 const ShowGroupPage = (): ReactElement => {
@@ -163,7 +162,7 @@ const ShowGroupPage = (): ReactElement => {
                                     </TabList>
                                     <TabPanels>
                                         <TabPanel key={categoriesSequence}>
-                                            {groupResponseData.id && (
+                                            {/*{groupResponseData.id && (
                                                 <CategoriesTableList
                                                     fetchCategories
                                                     showCreator
@@ -179,7 +178,7 @@ const ShowGroupPage = (): ReactElement => {
                                                         Ajouter une catégorie
                                                     </Button>
                                                 </CategoriesTableList>
-                                            )}
+                                            )}*/}
                                         </TabPanel>
                                         {/*<TabPanel>
                                         <p>two!</p>

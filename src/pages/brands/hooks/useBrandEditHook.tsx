@@ -92,7 +92,7 @@ interface BrandEditHookProps {
     finished: () => void;
 }
 
-export const updateBrandRequest = (values: BrandEditRequestDataType): Promise<any> => {
+const updateBrandRequest = (values: BrandEditRequestDataType): Promise<any> => {
     const {name, slug, website, seoTitle, seoDescription, description, id}: BrandEditRequestDataType = values;
     const params: Array<URLParamType> = [{param: "id", value: id}];
     const url: string = v1URL(brandsApiURI.update, params);

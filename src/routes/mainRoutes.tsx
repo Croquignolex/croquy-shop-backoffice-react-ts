@@ -9,14 +9,13 @@ import {
     IconAdjustments,
     IconBrandShopee,
     IconPropeller,
+    IconCards,
 } from '@tabler/icons-react';
 import {
     FiUsers,
     FiPercent,
     FiTruck,
-    FiColumns,
     FiTag,
-    FiGrid,
     FiPieChart,
     FiUser,
     FiSettings,
@@ -58,10 +57,8 @@ const showBrand: MainRouteType = {path: "/brands/:id", component: lazy(() => imp
 const groups: MainRouteType = {title: "groups", path: "/groups", icon: IconPropeller, component: lazy(() => import("../pages/groups/components/GroupsListPage"))};
 const showGroup: MainRouteType = {path: "/groups/:id", component: lazy(() => import("../pages/groups/show/ShowGroupPage"))};
 
-const categories: MainRouteType = {title: "categories", path: "/categories", icon: FiGrid, component: lazy(() => import("../pages/categories/CategoriesPage"))};
-const addCategory: MainRouteType = {path: "/categories/create", component: lazy(() => import("../pages/categories/CreateCategoryPage"))};
+const categories: MainRouteType = {title: "categories", path: "/categories", icon: IconCards, component: lazy(() => import("../pages/categories/components/CategoriesListPage"))};
 const showCategory: MainRouteType = {path: "/categories/:id", component: lazy(() => import("../pages/categories/show/ShowCategoryPage"))};
-const editCategory: MainRouteType = {path: "/categories/:id/edit", component: lazy(() => import("../pages/categories/edit/EditCategoryPage"))};
 
 const attributes: MainRouteType = {title: "attributes", path: "/attributes", icon: FiTag, component: lazy(() => import("../pages/attributes/AttributesPage"))};
 const addAttribute: MainRouteType = {path: "/attributes/create", component: lazy(() => import("../pages/attributes/CreateAttributePage"))};
@@ -89,7 +86,7 @@ export const administrationSubMenu = {
 export const ecommerceSubMenu = {
     subMenuLabel: "ecommerce",
     subMenuIcon: IconBrandShopee,
-    subMenuItems: [groups],
+    subMenuItems: [groups, categories],
 };
 
 export const settingsSubMenu = {
@@ -124,12 +121,12 @@ export const mainRoutes: any = {
     brands, showBrand,
     shops, showShop,
     groups, showGroup,
+    categories, showCategory,
 
     dashboard,
     profile, settings, help,
 
     users, addUser, showUser, editUser,
-    categories, addCategory, showCategory, editCategory,
     attributes, addAttribute, showAttribute, editAttribute,
     attributeValues, addAttributeValue, showAttributeValue, editAttributeValue,
     vendors, addVendor, showVendor, editVendor,

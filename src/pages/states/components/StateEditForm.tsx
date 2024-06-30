@@ -44,10 +44,8 @@ const StateEditForm: FC<StateEditFormProps> = ({selectedState, finished}): React
             <Formik initialValues={formState} validationSchema={stateEditSchema} onSubmit={handleEditState} enableReinitialize>
                 {(props: FormikProps<StateEditFormType>) => (
                     <Form>
-                        <TextField label="Nom" name="name" formikProps={props} />
-
                         <SelectField
-                            label={t("countries")}
+                            label={t("country")}
                             linkLabel={t("add_country")}
                             onLinkOpen={onAddCountryDrawerOpen}
                             name="countryId"
@@ -56,7 +54,9 @@ const StateEditForm: FC<StateEditFormProps> = ({selectedState, finished}): React
                             isLoading={isCountriesSelectListFetching}
                         />
 
-                        <TextareaField label="Description" name="description" formikProps={props} />
+                        <TextField label={t("name")} name="name" formikProps={props} />
+
+                        <TextareaField label={t("description")} name="description" formikProps={props} />
 
                         <ButtonGroup>
                             <Button

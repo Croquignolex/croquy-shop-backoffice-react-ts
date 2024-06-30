@@ -86,7 +86,7 @@ interface ShopEditHookProps {
     finished: () => void;
 }
 
-export const updateShopRequest = (values: ShopEditRequestDataType): Promise<any> => {
+const updateShopRequest = (values: ShopEditRequestDataType): Promise<any> => {
     const {name, slug, description, id}: ShopEditRequestDataType = values;
     const params: Array<URLParamType> = [{param: "id", value: id}];
     const url: string = v1URL(shopsApiURI.update, params);

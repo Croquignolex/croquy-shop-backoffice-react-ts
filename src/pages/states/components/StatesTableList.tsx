@@ -11,13 +11,15 @@ import useTableListHook, {TableListHookType} from "../../../hooks/useTableListHo
 import useSortAndFilterHook, {SortAndFilterHookType} from "../../../hooks/useSortAndFilterHook";
 import StatesCustomTable from "./StatesCustomTable";
 import AddButton from "../../../components/form/AddButton";
+import {CountryType} from "../../countries/show/showCountryData";
 
 const StatesTableList: FC<StatesTableListProps> = (
     {
         showCreator = false,
         showCountry = false,
         fetchStates = false,
-        statesBaseUrl
+        statesBaseUrl,
+        country,
     }): ReactElement => {
 
     const {onOpen: onAddStateDrawerOpen, isOpen: isAddStateDrawerOpen, onClose: onAddStateDrawerClose} = useDisclosure();
@@ -74,6 +76,7 @@ const StatesTableList: FC<StatesTableListProps> = (
                 onClose={onAddStateDrawerClose}
             >
                 <StateAddForm
+                    selectedCountry={country}
                     added={reloadList}
                     finished={(): void => {
                         onAddStateDrawerClose();
@@ -90,6 +93,7 @@ interface StatesTableListProps {
     showCreator?: boolean;
     fetchStates?: boolean;
     statesBaseUrl: string;
+    country?: CountryType;
 }
 
 export default StatesTableList;

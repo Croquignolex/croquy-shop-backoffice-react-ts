@@ -27,8 +27,7 @@ const ImageUpdateForm: FC<ImageUpdateFormProps> = (
         logo = false,
         banner = false,
         image,
-        baseUrl,
-        item
+        uri,
     }): ReactElement => {
 
     const [loading, setLoading] = useState<boolean>(false);
@@ -57,11 +56,7 @@ const ImageUpdateForm: FC<ImageUpdateFormProps> = (
         isUpdateImagePending,
         updateImageAlertData,
         handleUpdateImage,
-    }: ImageUpdateHookType = useImageUpdateHook({
-        item,
-        baseUrl,
-        done: updateDone
-    });
+    }: ImageUpdateHookType = useImageUpdateHook({uri, done: updateDone});
 
     const {
         onModalClose: onDeleteModalClose,
@@ -71,9 +66,8 @@ const ImageUpdateForm: FC<ImageUpdateFormProps> = (
         isPending: isDeleteImagePending,
         handleRequest: handleDeleteImage,
     }: IDActionRequestHookType = useIDActionRequestHook({
+        uri,
         done: deleteDone,
-        item,
-        baseUrl,
         type: IDActionRequestType.DELETE
     });
 
@@ -137,12 +131,11 @@ const ImageUpdateForm: FC<ImageUpdateFormProps> = (
 };
 
 interface ImageUpdateFormProps {
-    baseUrl: string,
+    uri: string,
     image: MediaType | null,
     flag?: boolean,
     logo?: boolean,
     banner?: boolean,
-    item: any,
 }
 
 export default ImageUpdateForm;

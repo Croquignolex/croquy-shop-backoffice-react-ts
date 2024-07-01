@@ -14,6 +14,7 @@
   "FORM_IMAGE_UPLOAD_ABORT": "Image upload aborted",
   "FORM_IMAGE_UPLOAD_ERROR": "Error occur when uploaded",
 
+  "country_states": "{{name}} states",
   "MALE": "Male",
   "FEMALE": "Female",
   "UNKNOWN": "Unknown",

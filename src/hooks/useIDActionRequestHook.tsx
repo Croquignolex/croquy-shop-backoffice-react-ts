@@ -4,13 +4,13 @@ import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {useDisclosure} from "@chakra-ui/react";
 
 import {patchRequest, deleteRequest, postRequest} from "../helpers/axiosHelpers";
-import {ErrorAlertType, URLParamType} from "../helpers/globalTypesHelper";
+import {ErrorAlertType} from "../helpers/globalTypesHelper";
 import {v1URL} from "../helpers/apiRequestsHelpers";
 import {errorAlert} from "../helpers/generalHelpers";
 
 // ######################################## HOOK ######################################## //
 
-const useIDActionRequestHook = ({done, baseUrl, type, item}: IDActionRequestHookProps): IDActionRequestHookType => {
+const useIDActionRequestHook = ({done, uri, type}: IDActionRequestHookProps): IDActionRequestHookType => {
     const {onOpen: onModalOpen, isOpen: isModalOpen, onClose: onModalClose} = useDisclosure();
 
     const [alertData, setAlertData] = useState<ErrorAlertType>({show: false});
@@ -29,7 +29,7 @@ const useIDActionRequestHook = ({done, baseUrl, type, item}: IDActionRequestHook
 
     const handleRequest = (): void => {
         setAlertData({show: false});
-        response.mutate({id: item?.id, baseUrl, type});
+        response.mutate({uri, type});
     }
 
     const showModal = (): void => {
@@ -68,19 +68,17 @@ export interface IDActionRequestHookType {
 interface IDActionRequestHookProps {
     done: () => void,
     type: IDActionRequestType,
-    baseUrl: string,
-    item: any,
+    uri: string,
 }
 
 interface IDActionRequestDataType {
     id?: string,
-    baseUrl: string,
+    uri: string,
     type: IDActionRequestType
 }
 
-const request = ({id, baseUrl, type}: IDActionRequestDataType): Promise<any> => {
-    const params: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = v1URL(baseUrl, params);
+const request = ({uri, type}: IDActionRequestDataType): Promise<any> => {
+    const url: string = v1URL(uri);
 
     switch (type) {
         case IDActionRequestType.DELETE: return deleteRequest(url);

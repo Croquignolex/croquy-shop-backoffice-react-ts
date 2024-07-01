@@ -43,6 +43,9 @@ const theme: Dict = extendTheme({
                 h: "6vh",
                 bg: "gray.50",
             },
+            hr: {
+                borderColor: "#CBD5E0"
+            }
         },
     },
     fonts: {

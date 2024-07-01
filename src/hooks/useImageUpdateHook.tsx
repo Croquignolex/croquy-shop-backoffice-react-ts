@@ -3,7 +3,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import * as Yup from "yup";
 
-import {AlertStatusEnumType, ErrorAlertType, URLParamType} from "../helpers/globalTypesHelper";
+import {AlertStatusEnumType, ErrorAlertType} from "../helpers/globalTypesHelper";
 import {errorAlert} from "../helpers/generalHelpers";
 import {formValidationMessage} from "../constants/generalConstants";
 import {v1URL} from "../helpers/apiRequestsHelpers";
@@ -11,7 +11,7 @@ import {patchRequest} from "../helpers/axiosHelpers";
 
 // ######################################## HOOK ######################################## //
 
-const useImageUpdateHook = ({baseUrl, done, item}: ImageUpdateHookProps): ImageUpdateHookType => {
+const useImageUpdateHook = ({uri, done}: ImageUpdateHookProps): ImageUpdateHookType => {
     const [updateImageAlertData, setUpdateImageAlertData] = useState<ErrorAlertType>({show: false});
 
     const updateImageResponse: UseMutationResult<AxiosResponse, AxiosError, ImageUpdateRequestDataType, any> = useMutation({
@@ -27,7 +27,7 @@ const useImageUpdateHook = ({baseUrl, done, item}: ImageUpdateHookProps): ImageU
 
     const handleUpdateImage = ({image}: ImageUpdateFormType): void => {
         if(image instanceof File) {
-            updateImageResponse.mutate({image, baseUrl, id: item?.id});
+            updateImageResponse.mutate({image, uri});
         } else {
             setUpdateImageAlertData({show: true, status: AlertStatusEnumType.ERROR, message: "image_unreadable"});
         }
@@ -68,9 +68,8 @@ export interface ImageUpdateFormType {
 }
 
 interface ImageUpdateRequestDataType {
-    id?: string,
     image: File,
-    baseUrl: string,
+    uri: string,
 }
 
 export interface ImageUpdateHookType {
@@ -80,14 +79,12 @@ export interface ImageUpdateHookType {
 }
 
 interface ImageUpdateHookProps {
-    baseUrl: string,
+    uri: string,
     done: () => void,
-    item: any,
 }
 
-const changeImageRequest = ({image, baseUrl, id}: ImageUpdateRequestDataType): Promise<any> => {
-    const params: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = v1URL(baseUrl, params);
+const changeImageRequest = ({image, uri}: ImageUpdateRequestDataType): Promise<any> => {
+    const url: string = v1URL(uri);
 
     const bodyFormData: FormData = new FormData();
     bodyFormData.append("image", image);

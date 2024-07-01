@@ -1,10 +1,10 @@
 import React, {FC, ReactElement, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {IconFlagCog} from "@tabler/icons-react";
+import {IconFlagCog, IconMap} from "@tabler/icons-react";
 import {
     Badge,
     CreateToastFnReturn,
-    HStack,
+    HStack, MenuDivider,
     Table,
     TableContainer,
     Tbody,
@@ -31,6 +31,9 @@ import {countriesApiURI} from "../../../constants/apiURIConstants";
 import MoreMenuItem from "../../../components/form/MoreMenuItem";
 import {PaginationType} from "../../../helpers/globalTypesHelper";
 import {SortAndFilterRequestDataType} from "../../../hooks/useSortAndFilterHook";
+import FormModal from "../../../components/FormModal";
+import StatesTableList from "../../states/components/StatesTableList";
+import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
 import useIDActionRequestHook, {
     IDActionRequestHookType,
     IDActionRequestType
@@ -48,14 +51,16 @@ const CountriesCustomTable: FC<CustomTableProps> = (
 
     const {onOpen: onEditCountryDrawerOpen, isOpen: isEditCountryDrawerOpen, onClose: onEditCountryDrawerClose} = useDisclosure();
     const {onOpen: onChangeCountryFlagDrawerOpen, isOpen: isChangeCountryFlagDrawerOpen, onClose: onChangeCountryFlagDrawerClose} = useDisclosure();
+    const {onOpen: onStatesModalOpen, isOpen: isStatesModalOpen, onClose: onStatesModalClose} = useDisclosure();
     const {t} = useTranslation();
     const toast: CreateToastFnReturn = useToast();
 
     const [selectedCountry, setSelectedCountry] = useState<CountryType>(defaultSelectedCountry);
 
-    const flagBaseUrl: string = countriesApiURI.flag;
-    const deleteBaseUrl: string = countriesApiURI.destroy;
-    const toggleBaseUrl: string = countriesApiURI.toggle;
+    const statesUri: string = joinBaseUrlWithParams(countriesApiURI.states, [{param: "id", value: selectedCountry.id}]);
+    const flagUri: string = joinBaseUrlWithParams(countriesApiURI.flag, [{param: "id", value: selectedCountry.id}]);
+    const deleteUri: string = joinBaseUrlWithParams(countriesApiURI.destroy, [{param: "id", value: selectedCountry.id}]);
+    const toggleUri: string = joinBaseUrlWithParams(countriesApiURI.toggle, [{param: "id", value: selectedCountry.id}]);
 
     const deleteDone = (): void => {
         toast({
@@ -82,8 +87,7 @@ const CountriesCustomTable: FC<CustomTableProps> = (
         handleRequest: handleDeleteCountry,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: deleteDone,
-        item: selectedCountry,
-        baseUrl: deleteBaseUrl,
+        uri: deleteUri,
         type: IDActionRequestType.DELETE
     });
 
@@ -96,8 +100,7 @@ const CountriesCustomTable: FC<CustomTableProps> = (
         handleRequest: handleToggleCountry,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: toggleDone,
-        item: selectedCountry,
-        baseUrl: toggleBaseUrl,
+        uri: toggleUri,
         type: IDActionRequestType.TOGGLE
     });
 
@@ -170,11 +173,21 @@ const CountriesCustomTable: FC<CustomTableProps> = (
                                                     setSelectedCountry(country);
                                                 }}
                                             >
+                                                <MenuDivider />
                                                 <MoreMenuItem
                                                     label={t("change_flag")}
                                                     icon={IconFlagCog}
                                                     showDrawer={(): void => {
                                                         onChangeCountryFlagDrawerOpen();
+                                                        setSelectedCountry(country);
+                                                    }}
+                                                />
+                                                <MenuDivider />
+                                                <MoreMenuItem
+                                                    label={t("states")}
+                                                    icon={IconMap}
+                                                    showDrawer={(): void => {
+                                                        onStatesModalOpen();
                                                         setSelectedCountry(country);
                                                     }}
                                                 />
@@ -231,11 +244,23 @@ const CountriesCustomTable: FC<CustomTableProps> = (
             >
                 <ImageUpdateForm
                     flag
-                    item={selectedCountry}
                     image={selectedCountry.flag}
-                    baseUrl={flagBaseUrl}
+                    uri={flagUri}
                 />
             </DrawerForm>
+
+            <FormModal
+                title={t("country_states", {name: selectedCountry.name})}
+                isOpen={isStatesModalOpen}
+                onClose={onStatesModalClose}
+            >
+                <StatesTableList
+                    fetchStates
+                    showCreator
+                    statesBaseUrl={statesUri}
+                    country={selectedCountry}
+                />
+            </FormModal>
         </TableContainer>
     );
 };

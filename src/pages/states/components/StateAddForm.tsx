@@ -12,14 +12,14 @@ import useSelectListHook, {SelectListHookType} from "../../../hooks/useSelectLis
 import {countriesApiURI} from "../../../constants/apiURIConstants";
 import DrawerForm from "../../../components/DrawerForm";
 import CountryAddForm from "../../countries/components/CountryAddForm";
+import {CountryType} from "../../countries/show/showCountryData";
 import useStateAddHook, {
     StateAddFormType,
     StateAddHookType,
-    stateAddInitialStaticValues,
     stateAddSchema
 } from "../hooks/useStateAddHook";
 
-const StateAddForm: FC<StateAddFormProps> = ({added, finished}): ReactElement => {
+const StateAddForm: FC<StateAddFormProps> = ({selectedCountry, added, finished}): ReactElement => {
     const {onOpen: onAddCountryDrawerOpen, isOpen: isAddCountryDrawerOpen, onClose: onAddCountryDrawerClose} = useDisclosure();
     const {t} = useTranslation();
 
@@ -28,8 +28,9 @@ const StateAddForm: FC<StateAddFormProps> = ({added, finished}): ReactElement =>
         handleAddState,
         handleAddStateAndContinue,
         sequence,
+        formState,
         isAddStatePending
-    }: StateAddHookType = useStateAddHook({added, finished});
+    }: StateAddHookType = useStateAddHook({selectedCountry, added, finished});
 
     const {
         selectList: countriesSelectList,
@@ -42,7 +43,7 @@ const StateAddForm: FC<StateAddFormProps> = ({added, finished}): ReactElement =>
 
             <CustomAlert data={addStateAlertData} />
 
-            <Formik initialValues={stateAddInitialStaticValues} validationSchema={stateAddSchema} onSubmit={handleAddState}>
+            <Formik initialValues={formState} validationSchema={stateAddSchema} onSubmit={handleAddState}>
                 {(props: FormikProps<StateAddFormType>) => (
                     <Form>
                         <SelectField
@@ -87,6 +88,7 @@ const StateAddForm: FC<StateAddFormProps> = ({added, finished}): ReactElement =>
 interface StateAddFormProps {
     finished: () => void;
     added: () => void;
+    selectedCountry?: CountryType;
 }
 
 export default StateAddForm;

@@ -30,7 +30,6 @@ import {
     AccordionIcon,
     AccordionPanel,
     AccordionButton,
-    Badge,
 } from "@chakra-ui/react";
 
 import Footer from "../components/Footer";

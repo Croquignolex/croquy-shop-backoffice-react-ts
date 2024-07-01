@@ -10,10 +10,10 @@ import {
 
 const FormModal: FC<FormModalProps> = ({ isOpen, onClose, title, children}): ReactElement => {
     return (
-        <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} isCentered size={"2xl"}>
+        <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} isCentered size={"6xl"}>
             <ModalOverlay>
                 <ModalContent>
-                    <ModalHeader>{title}</ModalHeader>
+                    <ModalHeader fontSize={"md"} color={"purple.500"}>{title}</ModalHeader>
 
                     <ModalCloseButton />
 

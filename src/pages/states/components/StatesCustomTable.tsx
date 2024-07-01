@@ -28,6 +28,7 @@ import StateEditForm from "./StateEditForm";
 import {statesApiURI} from "../../../constants/apiURIConstants";
 import {PaginationType} from "../../../helpers/globalTypesHelper";
 import {SortAndFilterRequestDataType} from "../../../hooks/useSortAndFilterHook";
+import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
 import useIDActionRequestHook, {
     IDActionRequestHookType,
     IDActionRequestType
@@ -50,8 +51,8 @@ const StatesCustomTable: FC<CustomTableProps> = (
 
     const [selectedState, setSelectedState] = useState<StateType>(defaultSelectedState);
 
-    const deleteBaseUrl: string = statesApiURI.destroy;
-    const toggleBaseUrl: string = statesApiURI.toggle;
+    const deleteUri: string = joinBaseUrlWithParams(statesApiURI.destroy, [{param: "id", value: selectedState.id}]);
+    const toggleUri: string = joinBaseUrlWithParams(statesApiURI.toggle, [{param: "id", value: selectedState.id}]);
 
     const deleteDone = (): void => {
         toast({
@@ -78,8 +79,7 @@ const StatesCustomTable: FC<CustomTableProps> = (
         handleRequest: handleDeleteState,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: deleteDone,
-        item: selectedState,
-        baseUrl: deleteBaseUrl,
+        uri: deleteUri,
         type: IDActionRequestType.DELETE
     });
 
@@ -92,8 +92,7 @@ const StatesCustomTable: FC<CustomTableProps> = (
         handleRequest: handleToggleState,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: toggleDone,
-        item: selectedState,
-        baseUrl: toggleBaseUrl,
+        uri: toggleUri,
         type: IDActionRequestType.TOGGLE
     });
 

@@ -14,6 +14,7 @@
   "FORM_IMAGE_UPLOAD_ABORT": "Intéruption dans le téléchargement de l'image",
   "FORM_IMAGE_UPLOAD_ERROR": "Erreur durant le téléchargement de l'image",
 
+  "country_states": "Villes du pays {{name}}",
   "MALE": "Mâle",
   "FEMALE": "Femelle",
   "UNKNOWN": "Inconnu",

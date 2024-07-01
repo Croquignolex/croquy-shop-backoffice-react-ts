@@ -1,11 +1,13 @@
 import React, { FC, ReactElement } from "react";
-import { Text } from "@chakra-ui/react";
+import {Badge} from "@chakra-ui/react";
 import {AttributeTypeEnumType, GenderTypeEnumType, RoleTypeEnumType} from "../helpers/globalTypesHelper";
+import {useTranslation} from "react-i18next";
 
 const EnumBadge: FC<StatusBadgeProps> = ({ data, attribute, role, gender }): ReactElement | null => {
-    let str: string = "";
-    let color: string = "black";
-    let bg: string = "gray.300";
+    const {t} = useTranslation();
+
+    let str: string = "default";
+    let colorScheme: string = "gray";
 
     if(attribute) {
         switch (data) {
@@ -19,22 +21,22 @@ const EnumBadge: FC<StatusBadgeProps> = ({ data, attribute, role, gender }): Rea
         switch (data) {
             case RoleTypeEnumType.SUPER_ADMIN:
                 str = "Super Admin";
-                bg = "red.300";
+                colorScheme = "red.300";
                 break;
             case RoleTypeEnumType.SELLER:
                 str = "Vendeur";
-                bg = "blue.300";
+                colorScheme = "blue.300";
                 break;
             case RoleTypeEnumType.CUSTOMER:
                 str = "Client";
                 break;
             case RoleTypeEnumType.MANAGER:
                 str = "Gestionnaire";
-                bg = "purple.300";
+                colorScheme = "purple.300";
                 break;
             case RoleTypeEnumType.ADMIN:
                 str = "Administrateur";
-                bg = "orange.300";
+                colorScheme = "orange.300";
                 break;
         }
     }
@@ -47,7 +49,11 @@ const EnumBadge: FC<StatusBadgeProps> = ({ data, attribute, role, gender }): Rea
         }
     }
 
-    return <Text color={color} rounded="md" px={2} fontSize="0.8rem" bg={bg} fontWeight="bold">{str}</Text>
+    return (
+        <Badge colorScheme={colorScheme}>
+            {t(str)}
+        </Badge>
+    );
 };
 
 interface StatusBadgeProps {

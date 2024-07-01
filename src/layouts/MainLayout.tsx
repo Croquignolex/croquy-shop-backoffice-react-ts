@@ -30,6 +30,7 @@ import {
     AccordionIcon,
     AccordionPanel,
     AccordionButton,
+    Badge,
 } from "@chakra-ui/react";
 
 import Footer from "../components/Footer";
@@ -38,7 +39,6 @@ import {headerMenu, mainRoutes, MainRouteType, sideMenu} from "../routes/mainRou
 import {USER_GLOBAL_STATE_CLEAR_DATA, UserContext} from "../contexts/UserContext";
 import {removeAllLocaleStorageItems} from "../helpers/localStorageHelpers";
 import {authRoutes} from "../routes/authRoutes";
-import {roleEnumConverter} from "../helpers/enumsHelpers";
 import LocaleSwitcher from "../components/LocaleSwitcher";
 import {API_MEDIA_V1_URL} from "../helpers/apiRequestsHelpers";
 
@@ -103,7 +103,7 @@ const SideMenu: FC = (): ReactElement => {
                         <Avatar size="sm" bg="purple.500" src={API_MEDIA_V1_URL + globalUserState.avatar?.path} />
                         <Box ml={3}>
                             <Text fontSize="md" fontWeight={"bold"}>{globalUserState.firstName}</Text>
-                            <Text fontSize="sm" color="gray.400">{roleEnumConverter(globalUserState.role).label}</Text>
+                            <Text fontSize="sm" color="gray.400"> {t(globalUserState.role)}</Text>
                         </Box>
                     </Flex>
                 </MenuItem>

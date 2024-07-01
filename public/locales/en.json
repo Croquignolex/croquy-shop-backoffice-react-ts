@@ -14,6 +14,19 @@
   "FORM_IMAGE_UPLOAD_ABORT": "Image upload aborted",
   "FORM_IMAGE_UPLOAD_ERROR": "Error occur when uploaded",
 
+  "MALE": "Male",
+  "FEMALE": "Female",
+  "UNKNOWN": "Unknown",
+  "TEXT": "Text",
+  "SELECT": "Select",
+  "COLOR": "Color",
+  "SUPER_ADMIN": "Super Admin",
+  "ADMIN": "Administrator",
+  "MANAGER": "Manager",
+  "SELLER": "Seller",
+  "CUSTOMER": "Customer",
+
+  "type": "Type",
   "street_address": "Street address",
   "zipcode": "Zipcode",
   "phoneNumber_one": "Phone number 1",
@@ -176,6 +189,20 @@
   "vendor_added": "Vendor {{name}} successfully added",
   "vendor_edited": "Vendor {{name}} successfully edited",
 
+  "attributes": "Attributes",
+  "attribute": "Attribute",
+  "add_attribute": "Add attribute",
+  "new_attribute": "New attribute",
+  "edit_attribute": "Edit attribute",
+  "delete_attribute": "Delete attribute",
+  "attribute_deleted": "Attribute {{name}} successfully deleted",
+  "toggle_attribute_true": "Disable attribute",
+  "toggle_attribute_false": "Enable attribute",
+  "attribute_toggled_true": "Attribute {{name}} successfully disabled",
+  "attribute_toggled_false": "Attribute {{name}} successfully enabled",
+  "attribute_added": "Attribute {{name}} successfully added",
+  "attribute_edited": "Attribute {{name}} successfully edited",
+
   "image_deleted": "Image successfully deleted",
   "delete_image": "Delete image",
   "delete_address": "Delete address",
@@ -202,7 +229,6 @@
   "help_center": "Help center",
   "users": "Users",
   "coupons": "Coupons",
-  "attributes": "Attributs",
   "attribute_values": "Attribute values",
   "not_found": "Not found",
 
@@ -271,5 +297,5 @@
   "ERR_NETWORK": "Network error",
   "ETIMEDOUT": "Timed out",
   "ERR_CANCELED": "Request canceled",
-  "UNKNOWN": "Unknown error"
+  "ERR_UNKNOWN": "Unknown error"
 }

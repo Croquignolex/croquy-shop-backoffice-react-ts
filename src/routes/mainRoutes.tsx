@@ -8,14 +8,15 @@ import {
     IconBuildingStore,
     IconAdjustments,
     IconBrandShopee,
-    IconPropeller,
+    IconCategory,
     IconCards,
     IconTruck,
+    IconTag,
+    IconTagStarred,
 } from '@tabler/icons-react';
 import {
     FiUsers,
     FiPercent,
-    FiTag,
     FiPieChart,
     FiUser,
     FiSettings,
@@ -52,21 +53,17 @@ const showVendor: MainRouteType = {path: "/vendors/:id", component: lazy(() => i
 const brands: MainRouteType = {title: "brands", path: "/brands", icon: IconBadgeTm, component: lazy(() => import("../pages/brands/components/BrandsListPage"))};
 const showBrand: MainRouteType = {path: "/brands/:id", component: lazy(() => import("../pages/brands/show/ShowBrandPage"))};
 
-const groups: MainRouteType = {title: "groups", path: "/groups", icon: IconPropeller, component: lazy(() => import("../pages/groups/components/GroupsListPage"))};
+const groups: MainRouteType = {title: "groups", path: "/groups", icon: IconCategory, component: lazy(() => import("../pages/groups/components/GroupsListPage"))};
 const showGroup: MainRouteType = {path: "/groups/:id", component: lazy(() => import("../pages/groups/show/ShowGroupPage"))};
 
 const categories: MainRouteType = {title: "categories", path: "/categories", icon: IconCards, component: lazy(() => import("../pages/categories/components/CategoriesListPage"))};
 const showCategory: MainRouteType = {path: "/categories/:id", component: lazy(() => import("../pages/categories/show/ShowCategoryPage"))};
 
-const attributes: MainRouteType = {title: "attributes", path: "/attributes", icon: FiTag, component: lazy(() => import("../pages/attributes/AttributesPage"))};
-const addAttribute: MainRouteType = {path: "/attributes/create", component: lazy(() => import("../pages/attributes/CreateAttributePage"))};
+const attributes: MainRouteType = {title: "attributes", path: "/attributes", icon: IconTag, component: lazy(() => import("../pages/attributes/components/AttributesListPage"))};
 const showAttribute: MainRouteType = {path: "/attributes/:id", component: lazy(() => import("../pages/attributes/show/ShowAttributePage"))};
-const editAttribute: MainRouteType = {path: "/attributes/:id/edit", component: lazy(() => import("../pages/attributes/edit/EditAttributePage"))};
 
-const attributeValues: MainRouteType = {title: "attribute_values", path: "/attribute-values", icon: IconAdjustments, component: lazy(() => import("../pages/attributeValues/AttributeValuesPage"))};
-const addAttributeValue: MainRouteType = {path: "/attribute-values/create", component: lazy(() => import("../pages/attributeValues/CreateAttributeValuePage"))};
+const attributeValues: MainRouteType = {title: "attribute_values", path: "/attribute-values", icon: IconTagStarred, component: lazy(() => import("../pages/attributeValues/AttributeValuesPage"))};
 const showAttributeValue: MainRouteType = {path: "/attribute-values/:id", component: lazy(() => import("../pages/attributeValues/show/ShowAttributeValuePage"))};
-const editAttributeValue: MainRouteType = {path: "/attribute-values/:id/edit", component: lazy(() => import("../pages/attributeValues/edit/EditAttributeValuePage"))};
 
 export interface MainRouteType {
     icon?: any,
@@ -84,7 +81,7 @@ export const administrationSubMenu = {
 export const ecommerceSubMenu = {
     subMenuLabel: "ecommerce",
     subMenuIcon: IconBrandShopee,
-    subMenuItems: [groups, categories],
+    subMenuItems: [groups, categories, attributes],
 };
 
 export const settingsSubMenu = {
@@ -121,12 +118,12 @@ export const mainRoutes: any = {
     groups, showGroup,
     categories, showCategory,
     vendors, showVendor,
+    attributes, showAttribute,
 
     dashboard,
     profile, settings, help,
 
     users, addUser, showUser, editUser,
-    attributes, addAttribute, showAttribute, editAttribute,
-    attributeValues, addAttributeValue, showAttributeValue, editAttributeValue,
+    attributeValues, showAttributeValue,
     coupons, addCoupon, showCoupon, editCoupon,
 };

@@ -11,7 +11,6 @@ import {formValidationMessage} from "../../../constants/generalConstants";
 import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {categoriesApiURI} from "../../../constants/apiURIConstants";
 import {postRequest} from "../../../helpers/axiosHelpers";
-import {CreateCategoryRequestDataType} from "../../../components/createForm/category/categoryCreateFormData";
 
 // ######################################## HOOK ######################################## //
 
@@ -115,8 +114,8 @@ interface CategoryAddHookProps {
     finished: () => void;
 }
 
-const storeCategoryRequest = (values: CreateCategoryRequestDataType): Promise<any> => {
-    const {name, slug, groupId, seoTitle, seoDescription, description}: CreateCategoryRequestDataType = values;
+const storeCategoryRequest = (values: CategoryAddRequestDataType): Promise<any> => {
+    const {name, slug, groupId, seoTitle, seoDescription, description}: CategoryAddRequestDataType = values;
     const url: string = v1URL(categoriesApiURI.store);
 
     return postRequest(url, {name, slug, groupId, seoTitle, seoDescription, description});

@@ -14,6 +14,19 @@
   "FORM_IMAGE_UPLOAD_ABORT": "Intéruption dans le téléchargement de l'image",
   "FORM_IMAGE_UPLOAD_ERROR": "Erreur durant le téléchargement de l'image",
 
+  "MALE": "Mâle",
+  "FEMALE": "Femelle",
+  "UNKNOWN": "Inconnu",
+  "TEXT": "Texte",
+  "SELECT": "Selection",
+  "COLOR": "Couleur",
+  "SUPER_ADMIN": "Super Admin",
+  "ADMIN": "Administrateur",
+  "MANAGER": "Gestionnaire",
+  "SELLER": "Vendeur",
+  "CUSTOMER": "Client",
+
+  "type": "Type",
   "street_address": "Addresse complète",
   "zipcode": "Boite postale",
   "phoneNumber_one": "Téléphone 1",
@@ -171,10 +184,24 @@
   "vendor_deleted": "Fourniseur {{name}} supprimé avec succès",
   "toggle_vendor_true": "Désactiver le fourniseur",
   "toggle_vendor_false": "Activer le fourniseur",
-  "vendor_toggled_true": "Catégorie {{name}} désactivé avec succès",
-  "vendor_toggled_false": "Catégorie {{name}} activé avec succès",
+  "vendor_toggled_true": "Fourniseur {{name}} désactivé avec succès",
+  "vendor_toggled_false": "Fourniseur {{name}} activé avec succès",
   "vendor_added": "Fourniseur {{name}} ajouté avec succès",
   "vendor_edited": "Fourniseur {{name}} modifié avec succès",
+
+  "attributes": "Attributs",
+  "attribute": "Attribut",
+  "add_attribute": "Ajouter un attribut",
+  "new_attribute": "Nouveau attribut",
+  "edit_attribute": "Modifier un attribut",
+  "delete_attribute": "Supprimer un attribut",
+  "attribute_deleted": "Attribut {{name}} supprimé avec succès",
+  "toggle_attribute_true": "Désactiver le attribut",
+  "toggle_attribute_false": "Activer le attribut",
+  "attribute_toggled_true": "Attribut {{name}} désactivé avec succès",
+  "attribute_toggled_false": "Attribut {{name}} activé avec succès",
+  "attribute_added": "Attribut {{name}} ajouté avec succès",
+  "attribute_edited": "Attribut {{name}} modifié avec succès",
 
   "image_deleted": "Image supprimée avec succès",
   "delete_image": "Supprimer l'image",
@@ -202,7 +229,6 @@
   "help_center": "Centre d'aide",
   "users": "Utilisateurs",
   "coupons": "Coupons",
-  "attributes": "Attributes",
   "attribute_values": "Valeurs d'Attribut",
   "not_found": "Introuvable",
 
@@ -271,5 +297,5 @@
   "ERR_NETWORK": "Erreur réseau",
   "ETIMEDOUT": "Temps expiré",
   "ERR_CANCELED": "Requête Annulée",
-  "UNKNOWN": "Erreur inconnu"
+  "ERR_UNKNOWN": "Erreur inconnu"
 }

@@ -35,7 +35,7 @@ import {countriesApiURI} from "../../../constants/apiURIConstants";
 import { joinBaseUrlWithParams } from "../../../helpers/apiRequestsHelpers";
 import NotFoundPage from "../../NotFoundPage";
 import FormModal from "../../../components/FormModal";
-import CountryStateCreateForm from "../../../components/createForm/state/country/CountryStateCreateForm";
+// import CountryStateCreateForm from "../../../components/createForm/state/country/CountryStateCreateForm";
 import {ImageSizeEnumType} from "../../../helpers/globalTypesHelper";
 
 const ShowCountryPage = (): ReactElement => {
@@ -166,7 +166,7 @@ const ShowCountryPage = (): ReactElement => {
                                 </Tabs>
                             )}
                         </Stack>
-                        <FormModal
+                        {/*<FormModal
                             title={"Ajouter une ville"}
                             isOpen={isAddStateModalOpen}
                             onClose={onAddStateModalClose}
@@ -179,7 +179,7 @@ const ShowCountryPage = (): ReactElement => {
                                     setStatesSequence(statesSequence + 1);
                                 }}
                             />
-                        </FormModal>
+                        </FormModal>*/}
                         <ConfirmAlertDialog
                             handleConfirm={handleDeleteCountry}
                             isOpen={isDeleteModalOpen}

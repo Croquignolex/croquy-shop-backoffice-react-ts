@@ -15,6 +15,7 @@
   "FORM_IMAGE_UPLOAD_ERROR": "Erreur durant le téléchargement de l'image",
 
   "country_states": "Villes du pays {{name}}",
+  "group_categories": "Categories du groupe {name}}",
   "MALE": "Mâle",
   "FEMALE": "Femelle",
   "UNKNOWN": "Inconnu",

@@ -18,7 +18,7 @@ const useSelectListHook = ({baseUrl}: {baseUrl: string}): SelectListHookType => 
     let selectList: Array<FormSelectOptionType> = [];
 
     const response: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
-        queryKey: ["select-list"],
+        queryKey: ["select-list", baseUrl],
         queryFn: () => request({baseUrl}),
     });
 

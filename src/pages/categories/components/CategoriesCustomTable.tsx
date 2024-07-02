@@ -4,6 +4,7 @@ import {
     Badge,
     CreateToastFnReturn,
     HStack,
+    MenuDivider,
     Table,
     TableContainer,
     Tbody,
@@ -31,6 +32,7 @@ import {SortAndFilterRequestDataType} from "../../../hooks/useSortAndFilterHook"
 import ImageUpdateForm from "../../../components/ImageUpdateForm";
 import MoreMenuItem from "../../../components/form/MoreMenuItem";
 import {IconPhotoCog} from "@tabler/icons-react";
+import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
 import useIDActionRequestHook, {
     IDActionRequestHookType,
     IDActionRequestType
@@ -55,10 +57,11 @@ const CategoriesCustomTable: FC<CustomTableProps> = (
 
     const [selectedCategory, setSelectedCategory] = useState<CategoryType>(defaultSelectedCategory);
 
-    const logoBaseUrl: string = categoriesApiURI.logo;
-    const bannerBaseUrl: string = categoriesApiURI.banner;
-    const deleteBaseUrl: string = categoriesApiURI.destroy;
-    const toggleBaseUrl: string = categoriesApiURI.toggle;
+    const logoUri: string = joinBaseUrlWithParams(categoriesApiURI.logo, [{param: "id", value: selectedCategory.id}]);
+    const bannerUri: string = joinBaseUrlWithParams(categoriesApiURI.banner, [{param: "id", value: selectedCategory.id}]);
+    const deleteUri: string = joinBaseUrlWithParams(categoriesApiURI.destroy, [{param: "id", value: selectedCategory.id}]);
+    const toggleUri: string = joinBaseUrlWithParams(categoriesApiURI.toggle, [{param: "id", value: selectedCategory.id}]);
+
 
     const deleteDone = (): void => {
         toast({
@@ -85,8 +88,7 @@ const CategoriesCustomTable: FC<CustomTableProps> = (
         handleRequest: handleDeleteCategory,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: deleteDone,
-        item: selectedCategory,
-        baseUrl: deleteBaseUrl,
+        uri: deleteUri,
         type: IDActionRequestType.DELETE
     });
 
@@ -99,8 +101,7 @@ const CategoriesCustomTable: FC<CustomTableProps> = (
         handleRequest: handleToggleCategory,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: toggleDone,
-        item: selectedCategory,
-        baseUrl: toggleBaseUrl,
+        uri: toggleUri,
         type: IDActionRequestType.TOGGLE
     });
 
@@ -193,6 +194,7 @@ const CategoriesCustomTable: FC<CustomTableProps> = (
                                                     setSelectedCategory(category);
                                                 }}
                                             >
+                                                <MenuDivider />
                                                 <MoreMenuItem
                                                     label={t("change_logo")}
                                                     icon={IconPhotoCog}
@@ -262,9 +264,8 @@ const CategoriesCustomTable: FC<CustomTableProps> = (
             >
                 <ImageUpdateForm
                     logo
-                    item={selectedCategory}
                     image={selectedCategory.logo}
-                    baseUrl={logoBaseUrl}
+                    uri={logoUri}
                 />
             </DrawerForm>
 
@@ -275,9 +276,8 @@ const CategoriesCustomTable: FC<CustomTableProps> = (
             >
                 <ImageUpdateForm
                     banner
-                    item={selectedCategory}
                     image={selectedCategory.banner}
-                    baseUrl={bannerBaseUrl}
+                    uri={bannerUri}
                 />
             </DrawerForm>
         </TableContainer>

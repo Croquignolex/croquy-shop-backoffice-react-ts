@@ -1,10 +1,11 @@
 import React, {FC, ReactElement, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {IconPhotoCog} from "@tabler/icons-react";
+import {IconCards, IconMap, IconPhotoCog} from "@tabler/icons-react";
 import {
     Badge,
     CreateToastFnReturn,
     HStack,
+    MenuDivider,
     Table,
     TableContainer,
     Tbody,
@@ -26,15 +27,19 @@ import MoreIconButton from "../../../components/form/MoreButtonIcon";
 import TableHeader from "../../../components/table/TableHeader";
 import DrawerForm from "../../../components/DrawerForm";
 import GroupEditForm from "./GroupEditForm";
-import {groupsApiURI} from "../../../constants/apiURIConstants";
+import {countriesApiURI, groupsApiURI} from "../../../constants/apiURIConstants";
 import MoreMenuItem from "../../../components/form/MoreMenuItem";
 import {PaginationType} from "../../../helpers/globalTypesHelper";
 import {SortAndFilterRequestDataType} from "../../../hooks/useSortAndFilterHook";
 import ImageUpdateForm from "../../../components/ImageUpdateForm";
+import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
 import useIDActionRequestHook, {
     IDActionRequestHookType,
     IDActionRequestType
 } from "../../../hooks/useIDActionRequestHook";
+import StatesTableList from "../../states/components/StatesTableList";
+import FormModal from "../../../components/FormModal";
+import CategoriesTableList from "../../categories/components/CategoriesTableList";
 
 const GroupsCustomTable: FC<CustomTableProps> = (
     {
@@ -49,15 +54,18 @@ const GroupsCustomTable: FC<CustomTableProps> = (
     const {onOpen: onEditGroupDrawerOpen, isOpen: isEditGroupDrawerOpen, onClose: onEditGroupDrawerClose} = useDisclosure();
     const {onOpen: onChangeGroupLogoDrawerOpen, isOpen: isChangeGroupLogoDrawerOpen, onClose: onChangeGroupLogoDrawerClose} = useDisclosure();
     const {onOpen: onChangeGroupBannerDrawerOpen, isOpen: isChangeGroupBannerDrawerOpen, onClose: onChangeGroupBannerDrawerClose} = useDisclosure();
+    const {onOpen: onCategoriesModalOpen, isOpen: isCategoriesModalOpen, onClose: onCategoriesModalClose} = useDisclosure();
+
     const {t} = useTranslation();
     const toast: CreateToastFnReturn = useToast();
 
     const [selectedGroup, setSelectedGroup] = useState<GroupType>(defaultSelectedGroup);
 
-    const logoBaseUrl: string = groupsApiURI.logo;
-    const bannerBaseUrl: string = groupsApiURI.banner;
-    const deleteBaseUrl: string = groupsApiURI.destroy;
-    const toggleBaseUrl: string = groupsApiURI.toggle;
+    const categoriesUri: string = joinBaseUrlWithParams(groupsApiURI.categories, [{param: "id", value: selectedGroup.id}]);
+    const logoUri: string = joinBaseUrlWithParams(groupsApiURI.logo, [{param: "id", value: selectedGroup.id}]);
+    const bannerUri: string = joinBaseUrlWithParams(groupsApiURI.banner, [{param: "id", value: selectedGroup.id}]);
+    const deleteUri: string = joinBaseUrlWithParams(groupsApiURI.destroy, [{param: "id", value: selectedGroup.id}]);
+    const toggleUri: string = joinBaseUrlWithParams(groupsApiURI.toggle, [{param: "id", value: selectedGroup.id}]);
 
     const deleteDone = (): void => {
         toast({
@@ -84,8 +92,7 @@ const GroupsCustomTable: FC<CustomTableProps> = (
         handleRequest: handleDeleteGroup,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: deleteDone,
-        item: selectedGroup,
-        baseUrl: deleteBaseUrl,
+        uri: deleteUri,
         type: IDActionRequestType.DELETE
     });
 
@@ -98,8 +105,7 @@ const GroupsCustomTable: FC<CustomTableProps> = (
         handleRequest: handleToggleGroup,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: toggleDone,
-        item: selectedGroup,
-        baseUrl: toggleBaseUrl,
+        uri: toggleUri,
         type: IDActionRequestType.TOGGLE
     });
 
@@ -179,6 +185,7 @@ const GroupsCustomTable: FC<CustomTableProps> = (
                                                     setSelectedGroup(group);
                                                 }}
                                             >
+                                                <MenuDivider />
                                                 <MoreMenuItem
                                                     label={t("change_logo")}
                                                     icon={IconPhotoCog}
@@ -192,6 +199,15 @@ const GroupsCustomTable: FC<CustomTableProps> = (
                                                     icon={IconPhotoCog}
                                                     showDrawer={(): void => {
                                                         onChangeGroupBannerDrawerOpen();
+                                                        setSelectedGroup(group);
+                                                    }}
+                                                />
+                                                <MenuDivider />
+                                                <MoreMenuItem
+                                                    label={t("categories")}
+                                                    icon={IconCards}
+                                                    showDrawer={(): void => {
+                                                        onCategoriesModalOpen();
                                                         setSelectedGroup(group);
                                                     }}
                                                 />
@@ -248,9 +264,8 @@ const GroupsCustomTable: FC<CustomTableProps> = (
             >
                 <ImageUpdateForm
                     logo
-                    item={selectedGroup}
                     image={selectedGroup.logo}
-                    baseUrl={logoBaseUrl}
+                    uri={logoUri}
                 />
             </DrawerForm>
 
@@ -261,11 +276,23 @@ const GroupsCustomTable: FC<CustomTableProps> = (
             >
                 <ImageUpdateForm
                     banner
-                    item={selectedGroup}
                     image={selectedGroup.banner}
-                    baseUrl={bannerBaseUrl}
+                    uri={bannerUri}
                 />
             </DrawerForm>
+
+            <FormModal
+                title={t("group_categories", {name: selectedGroup.name})}
+                isOpen={isCategoriesModalOpen}
+                onClose={onCategoriesModalClose}
+            >
+                <CategoriesTableList
+                    fetchCategories
+                    showCreator
+                    categoriesBaseUrl={categoriesUri}
+                    group={selectedGroup}
+                />
+            </FormModal>
         </TableContainer>
     );
 };

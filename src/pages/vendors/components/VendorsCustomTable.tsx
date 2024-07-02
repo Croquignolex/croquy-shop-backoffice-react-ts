@@ -4,7 +4,7 @@ import {IconMapPin, IconPhotoCog} from "@tabler/icons-react";
 import {
     Badge,
     CreateToastFnReturn,
-    HStack,
+    HStack, MenuDivider,
     Table,
     TableContainer,
     Tbody,
@@ -26,16 +26,17 @@ import MoreIconButton from "../../../components/form/MoreButtonIcon";
 import TableHeader from "../../../components/table/TableHeader";
 import DrawerForm from "../../../components/DrawerForm";
 import VendorEditForm from "./VendorEditForm";
-import {shopsApiURI, vendorsApiURI} from "../../../constants/apiURIConstants";
+import {vendorsApiURI} from "../../../constants/apiURIConstants";
 import MoreMenuItem from "../../../components/form/MoreMenuItem";
 import {PaginationType} from "../../../helpers/globalTypesHelper";
 import {SortAndFilterRequestDataType} from "../../../hooks/useSortAndFilterHook";
 import ImageUpdateForm from "../../../components/ImageUpdateForm";
+import AddressUpdateForm from "../../../components/AddressUpdateForm";
+import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
 import useIDActionRequestHook, {
     IDActionRequestHookType,
     IDActionRequestType
 } from "../../../hooks/useIDActionRequestHook";
-import AddressUpdateForm from "../../../components/AddressUpdateForm";
 
 const VendorsCustomTable: FC<CustomTableProps> = (
     {
@@ -55,10 +56,10 @@ const VendorsCustomTable: FC<CustomTableProps> = (
 
     const [selectedVendor, setSelectedVendor] = useState<VendorType>(defaultSelectedVendor);
 
-    const logoBaseUrl: string = vendorsApiURI.logo;
-    const addressBaseUrl: string = vendorsApiURI.address;
-    const deleteBaseUrl: string = vendorsApiURI.destroy;
-    const toggleBaseUrl: string = vendorsApiURI.toggle;
+    const logoUri: string = joinBaseUrlWithParams(vendorsApiURI.logo, [{param: "id", value: selectedVendor.id}]);
+    const addressUri: string = joinBaseUrlWithParams(vendorsApiURI.address, [{param: "id", value: selectedVendor.id}]);
+    const deleteUri: string = joinBaseUrlWithParams(vendorsApiURI.destroy, [{param: "id", value: selectedVendor.id}]);
+    const toggleUri: string = joinBaseUrlWithParams(vendorsApiURI.toggle, [{param: "id", value: selectedVendor.id}]);
 
     const deleteDone = (): void => {
         toast({
@@ -85,8 +86,7 @@ const VendorsCustomTable: FC<CustomTableProps> = (
         handleRequest: handleDeleteVendor,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: deleteDone,
-        item: selectedVendor,
-        baseUrl: deleteBaseUrl,
+        uri: deleteUri,
         type: IDActionRequestType.DELETE
     });
 
@@ -99,8 +99,7 @@ const VendorsCustomTable: FC<CustomTableProps> = (
         handleRequest: handleToggleVendor,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: toggleDone,
-        item: selectedVendor,
-        baseUrl: toggleBaseUrl,
+        uri: toggleUri,
         type: IDActionRequestType.TOGGLE
     });
 
@@ -180,6 +179,7 @@ const VendorsCustomTable: FC<CustomTableProps> = (
                                                     setSelectedVendor(vendor);
                                                 }}
                                             >
+                                                <MenuDivider />
                                                 <MoreMenuItem
                                                     label={t("change_logo")}
                                                     icon={IconPhotoCog}
@@ -249,9 +249,8 @@ const VendorsCustomTable: FC<CustomTableProps> = (
             >
                 <ImageUpdateForm
                     logo
-                    item={selectedVendor}
                     image={selectedVendor.logo}
-                    baseUrl={logoBaseUrl}
+                    uri={logoUri}
                 />
             </DrawerForm>
 
@@ -261,9 +260,8 @@ const VendorsCustomTable: FC<CustomTableProps> = (
                 onClose={onChangeShopAddressDrawerClose}
             >
                 <AddressUpdateForm
-                    item={selectedVendor}
                     address={selectedVendor.address}
-                    baseUrl={addressBaseUrl}
+                    uri={addressUri}
                     finished={(): void => {
                         onChangeShopAddressDrawerClose();
                         reloadList();

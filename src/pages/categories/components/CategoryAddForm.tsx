@@ -12,14 +12,14 @@ import useSelectListHook, {SelectListHookType} from "../../../hooks/useSelectLis
 import {groupsApiURI} from "../../../constants/apiURIConstants";
 import DrawerForm from "../../../components/DrawerForm";
 import GroupAddForm from "../../groups/components/GroupAddForm";
+import {GroupType} from "../../groups/show/showGroupData";
 import useCategoryAddHook, {
     CategoryAddFormType,
     CategoryAddHookType,
-    categoryAddInitialStaticValues,
     categoryAddSchema
 } from "../hooks/useCategoryAddHook";
 
-const CategoryAddForm: FC<CategoryAddFormProps> = ({added, finished}): ReactElement => {
+const CategoryAddForm: FC<CategoryAddFormProps> = ({selectedGroup, added, finished}): ReactElement => {
     const {onOpen: onAddGroupDrawerOpen, isOpen: isAddGroupDrawerOpen, onClose: onAddGroupDrawerClose} = useDisclosure();
     const {t} = useTranslation();
 
@@ -28,8 +28,9 @@ const CategoryAddForm: FC<CategoryAddFormProps> = ({added, finished}): ReactElem
         handleAddCategory,
         handleAddCategoryAndContinue,
         sequence,
+        formCategory,
         isAddCategoryPending
-    }: CategoryAddHookType = useCategoryAddHook({added, finished});
+    }: CategoryAddHookType = useCategoryAddHook({selectedGroup, added, finished});
 
     const {
         selectList: groupsSelectList,
@@ -42,7 +43,7 @@ const CategoryAddForm: FC<CategoryAddFormProps> = ({added, finished}): ReactElem
 
             <CustomAlert data={addCategoryAlertData} />
 
-            <Formik initialValues={categoryAddInitialStaticValues} validationSchema={categoryAddSchema} onSubmit={handleAddCategory}>
+            <Formik initialValues={formCategory} validationSchema={categoryAddSchema} onSubmit={handleAddCategory}>
                 {(props: FormikProps<CategoryAddFormType>) => (
                     <Form>
                         <SelectField
@@ -93,6 +94,7 @@ const CategoryAddForm: FC<CategoryAddFormProps> = ({added, finished}): ReactElem
 interface CategoryAddFormProps {
     finished: () => void;
     added: () => void;
+    selectedGroup?: GroupType;
 }
 
 export default CategoryAddForm;

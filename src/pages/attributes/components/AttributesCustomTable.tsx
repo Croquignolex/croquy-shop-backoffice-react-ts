@@ -25,13 +25,14 @@ import MoreIconButton from "../../../components/form/MoreButtonIcon";
 import TableHeader from "../../../components/table/TableHeader";
 import DrawerForm from "../../../components/DrawerForm";
 import AttributeEditForm from "./AttributeEditForm";
-import {attributesApiURI} from "../../../constants/apiURIConstants";
+import {attributesApiURI, countriesApiURI} from "../../../constants/apiURIConstants";
 import {PaginationType} from "../../../helpers/globalTypesHelper";
 import {SortAndFilterRequestDataType} from "../../../hooks/useSortAndFilterHook";
 import useIDActionRequestHook, {
     IDActionRequestHookType,
     IDActionRequestType
 } from "../../../hooks/useIDActionRequestHook";
+import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
 
 const AttributesCustomTable: FC<CustomTableProps> = (
     {
@@ -49,8 +50,8 @@ const AttributesCustomTable: FC<CustomTableProps> = (
 
     const [selectedAttribute, setSelectedAttribute] = useState<AttributeType>(defaultSelectedAttribute);
 
-    const deleteBaseUrl: string = attributesApiURI.destroy;
-    const toggleBaseUrl: string = attributesApiURI.toggle;
+    const deleteUri: string = joinBaseUrlWithParams(attributesApiURI.destroy, [{param: "id", value: selectedAttribute.id}]);
+    const toggleUri: string = joinBaseUrlWithParams(attributesApiURI.toggle, [{param: "id", value: selectedAttribute.id}]);
 
     const deleteDone = (): void => {
         toast({
@@ -77,8 +78,7 @@ const AttributesCustomTable: FC<CustomTableProps> = (
         handleRequest: handleDeleteAttribute,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: deleteDone,
-        item: selectedAttribute,
-        baseUrl: deleteBaseUrl,
+        uri: deleteUri,
         type: IDActionRequestType.DELETE
     });
 
@@ -91,8 +91,7 @@ const AttributesCustomTable: FC<CustomTableProps> = (
         handleRequest: handleToggleAttribute,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: toggleDone,
-        item: selectedAttribute,
-        baseUrl: toggleBaseUrl,
+        uri: toggleUri,
         type: IDActionRequestType.TOGGLE
     });
 

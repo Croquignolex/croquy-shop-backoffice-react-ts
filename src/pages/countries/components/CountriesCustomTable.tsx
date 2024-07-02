@@ -4,7 +4,8 @@ import {IconFlagCog, IconMap} from "@tabler/icons-react";
 import {
     Badge,
     CreateToastFnReturn,
-    HStack, MenuDivider,
+    HStack,
+    MenuDivider,
     Table,
     TableContainer,
     Tbody,

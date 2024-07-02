@@ -11,10 +11,11 @@ import {formValidationMessage} from "../../../constants/generalConstants";
 import {v1URL} from "../../../helpers/apiRequestsHelpers";
 import {categoriesApiURI} from "../../../constants/apiURIConstants";
 import {postRequest} from "../../../helpers/axiosHelpers";
+import {GroupType} from "../../groups/show/showGroupData";
 
 // ######################################## HOOK ######################################## //
 
-const useCategoryAddHook = ({added, finished}: CategoryAddHookProps): CategoryAddHookType => {
+const useCategoryAddHook = ({selectedGroup, added, finished}: CategoryAddHookProps): CategoryAddHookType => {
     const {t} = useTranslation();
     const toast: CreateToastFnReturn = useToast();
 
@@ -58,19 +59,21 @@ const useCategoryAddHook = ({added, finished}: CategoryAddHookProps): CategoryAd
     const handleAddCategoryAndContinue = (values: CategoryAddFormType): void => save(values, true);
 
     const isAddCategoryPending: boolean = storeCategoryResponse.isPending;
+    const formCategory: CategoryAddFormType = {...categoryAddInitialStaticValues, groupId: selectedGroup?.id || ""};
 
     return {
         addCategoryAlertData,
         handleAddCategory,
         handleAddCategoryAndContinue,
         sequence,
+        formCategory,
         isAddCategoryPending
     };
 };
 
 // ######################################## STATICS DATA ######################################## //
 
-export const categoryAddInitialStaticValues: CategoryAddFormType = {
+const categoryAddInitialStaticValues: CategoryAddFormType = {
     name: '',
     slug: '',
     groupId: '',
@@ -105,6 +108,7 @@ export interface CategoryAddHookType {
     addCategoryAlertData: ErrorAlertType,
     isAddCategoryPending: boolean,
     sequence: number,
+    formCategory: CategoryAddFormType,
     handleAddCategory: (a: CategoryAddFormType) => void,
     handleAddCategoryAndContinue: (a: CategoryAddFormType) => void,
 }
@@ -112,6 +116,7 @@ export interface CategoryAddHookType {
 interface CategoryAddHookProps {
     added: () => void;
     finished: () => void;
+    selectedGroup?: GroupType
 }
 
 const storeCategoryRequest = (values: CategoryAddRequestDataType): Promise<any> => {

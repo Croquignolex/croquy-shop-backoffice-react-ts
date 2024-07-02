@@ -4,7 +4,7 @@ import {IconPhotoCog} from "@tabler/icons-react";
 import {
     Badge,
     CreateToastFnReturn,
-    HStack,
+    HStack, MenuDivider,
     Table,
     TableContainer,
     Tbody,
@@ -31,6 +31,7 @@ import {brandsApiURI} from "../../../constants/apiURIConstants";
 import MoreMenuItem from "../../../components/form/MoreMenuItem";
 import {PaginationType} from "../../../helpers/globalTypesHelper";
 import {SortAndFilterRequestDataType} from "../../../hooks/useSortAndFilterHook";
+import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
 import useIDActionRequestHook, {
     IDActionRequestHookType,
     IDActionRequestType
@@ -53,9 +54,9 @@ const BrandsCustomTable: FC<CustomTableProps> = (
 
     const [selectedBrand, setSelectedBrand] = useState<BrandType>(defaultSelectedBrand);
 
-    const logoBaseUrl: string = brandsApiURI.logo;
-    const deleteBaseUrl: string = brandsApiURI.destroy;
-    const toggleBaseUrl: string = brandsApiURI.toggle;
+    const logoUri: string = joinBaseUrlWithParams(brandsApiURI.logo, [{param: "id", value: selectedBrand.id}]);
+    const deleteUri: string = joinBaseUrlWithParams(brandsApiURI.destroy, [{param: "id", value: selectedBrand.id}]);
+    const toggleUri: string = joinBaseUrlWithParams(brandsApiURI.toggle, [{param: "id", value: selectedBrand.id}]);
 
     const deleteDone = (): void => {
         toast({
@@ -82,8 +83,7 @@ const BrandsCustomTable: FC<CustomTableProps> = (
         handleRequest: handleDeleteBrand,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: deleteDone,
-        item: selectedBrand,
-        baseUrl: deleteBaseUrl,
+        uri: deleteUri,
         type: IDActionRequestType.DELETE
     });
 
@@ -96,8 +96,7 @@ const BrandsCustomTable: FC<CustomTableProps> = (
         handleRequest: handleToggleBrand,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: toggleDone,
-        item: selectedBrand,
-        baseUrl: toggleBaseUrl,
+        uri: toggleUri,
         type: IDActionRequestType.TOGGLE
     });
 
@@ -179,6 +178,7 @@ const BrandsCustomTable: FC<CustomTableProps> = (
                                                     setSelectedBrand(brand);
                                                 }}
                                             >
+                                                <MenuDivider />
                                                 <MoreMenuItem
                                                     label={t("change_logo")}
                                                     icon={IconPhotoCog}
@@ -240,9 +240,8 @@ const BrandsCustomTable: FC<CustomTableProps> = (
             >
                 <ImageUpdateForm
                     logo
-                    item={selectedBrand}
                     image={selectedBrand.logo}
-                    baseUrl={logoBaseUrl}
+                    uri={logoUri}
                 />
             </DrawerForm>
         </TableContainer>

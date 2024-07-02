@@ -5,16 +5,15 @@ import * as Yup from "yup";
 import {useTranslation} from "react-i18next";
 import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 
-import {AddressType, ErrorAlertType, URLParamType} from "../helpers/globalTypesHelper";
+import {AddressType, ErrorAlertType} from "../helpers/globalTypesHelper";
 import {patchRequest} from "../helpers/axiosHelpers";
 import {errorAlert} from "../helpers/generalHelpers";
 import {formValidationMessage} from "../constants/generalConstants";
 import {v1URL} from "../helpers/apiRequestsHelpers";
 
-
 // ######################################## HOOK ######################################## //
 
-const useAddressUpdateHook = ({baseUrl, address, item, finished}: AddressUpdateHookProps): AddressUpdateHookType => {
+const useAddressUpdateHook = ({uri, address, finished}: AddressUpdateHookProps): AddressUpdateHookType => {
     const [updateAddressAlertData, setUpdateAddressAlertData] = useState<ErrorAlertType>({show: false});
 
     const {t} = useTranslation();
@@ -40,7 +39,7 @@ const useAddressUpdateHook = ({baseUrl, address, item, finished}: AddressUpdateH
     const handleUpdateAddress = (values: AddressUpdateFormType): void => {
         const {streetAddress, phoneNumberOne, stateId, zipcode, phoneNumberTwo, description}: AddressUpdateFormType = values;
 
-        updateAddressResponse.mutate({streetAddress, phoneNumberOne, stateId, zipcode, phoneNumberTwo, description, baseUrl, id: item?.id});
+        updateAddressResponse.mutate({streetAddress, phoneNumberOne, stateId, zipcode, phoneNumberTwo, description, uri});
     }
 
     const isUpdateAddressPending: boolean = updateAddressResponse.isPending;
@@ -92,8 +91,7 @@ export interface AddressUpdateFormType {
 }
 
 interface AddressUpdateRequestDataType extends AddressUpdateFormType {
-    id?: string,
-    baseUrl: string
+    uri: string
 }
 
 export interface AddressUpdateHookType {
@@ -105,15 +103,13 @@ export interface AddressUpdateHookType {
 
 interface AddressUpdateHookProps {
     address: AddressType | null,
-    baseUrl: string;
+    uri: string;
     finished: () => void;
-    item: any,
 }
 
 export const updateAddressRequest = (values: AddressUpdateRequestDataType): Promise<any> => {
-    const {streetAddress, phoneNumberOne, stateId, zipcode, phoneNumberTwo, description, baseUrl, id}: AddressUpdateRequestDataType = values;
-    const params: Array<URLParamType> = [{param: "id", value: id}];
-    const url: string = v1URL(baseUrl, params);
+    const {streetAddress, phoneNumberOne, stateId, zipcode, phoneNumberTwo, description, uri}: AddressUpdateRequestDataType = values;
+    const url: string = v1URL(uri);
 
     return patchRequest(url, {streetAddress, phoneNumberOne, stateId, zipcode, phoneNumberTwo, description});
 };

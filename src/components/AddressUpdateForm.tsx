@@ -24,7 +24,7 @@ import useIDActionRequestHook, {
     IDActionRequestType
 } from "../hooks/useIDActionRequestHook";
 
-const AddressUpdateForm: FC<AddressUpdateFormProps> = ({address, item, baseUrl, finished}): ReactElement => {
+const AddressUpdateForm: FC<AddressUpdateFormProps> = ({address, uri, finished}): ReactElement => {
     const {onOpen: onAddStateDrawerOpen, isOpen: isAddStateDrawerOpen, onClose: onAddStateDrawerClose} = useDisclosure();
 
     const {t} = useTranslation();
@@ -43,7 +43,7 @@ const AddressUpdateForm: FC<AddressUpdateFormProps> = ({address, item, baseUrl, 
         isUpdateAddressPending,
         handleUpdateAddress,
         updateAddressAlertData
-    }: AddressUpdateHookType = useAddressUpdateHook({baseUrl, address, item, finished});
+    }: AddressUpdateHookType = useAddressUpdateHook({uri, address, finished});
 
     const {
         selectList: statesSelectList,
@@ -59,9 +59,8 @@ const AddressUpdateForm: FC<AddressUpdateFormProps> = ({address, item, baseUrl, 
         isPending: isDeleteImagePending,
         handleRequest: handleDeleteImage,
     }: IDActionRequestHookType = useIDActionRequestHook({
+        uri,
         done: deleteDone,
-        item,
-        baseUrl,
         type: IDActionRequestType.DELETE
     });
 
@@ -144,8 +143,7 @@ const AddressUpdateForm: FC<AddressUpdateFormProps> = ({address, item, baseUrl, 
 interface AddressUpdateFormProps {
     finished: () => void;
     address: AddressType | null,
-    baseUrl: string;
-    item: any,
+    uri: string;
 }
 
 export default AddressUpdateForm;

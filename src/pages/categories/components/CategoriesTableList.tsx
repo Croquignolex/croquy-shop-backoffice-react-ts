@@ -11,13 +11,15 @@ import useTableListHook, {TableListHookType} from "../../../hooks/useTableListHo
 import useSortAndFilterHook, {SortAndFilterHookType} from "../../../hooks/useSortAndFilterHook";
 import CategoriesCustomTable from "./CategoriesCustomTable";
 import AddButton from "../../../components/form/AddButton";
+import {GroupType} from "../../groups/show/showGroupData";
 
 const CategoriesTableList: FC<CategoriesTableListProps> = (
     {
         showCreator = false,
         showGroup = false,
         fetchCategories = false,
-        categoriesBaseUrl
+        categoriesBaseUrl,
+        group
     }): ReactElement => {
 
     const {onOpen: onAddCategoryDrawerOpen, isOpen: isAddCategoryDrawerOpen, onClose: onAddCategoryDrawerClose} = useDisclosure();
@@ -74,6 +76,7 @@ const CategoriesTableList: FC<CategoriesTableListProps> = (
                 onClose={onAddCategoryDrawerClose}
             >
                 <CategoryAddForm
+                    selectedGroup={group}
                     added={reloadList}
                     finished={(): void => {
                         onAddCategoryDrawerClose();
@@ -90,6 +93,7 @@ interface CategoriesTableListProps {
     showCreator?: boolean;
     fetchCategories?: boolean;
     categoriesBaseUrl: string;
+    group?: GroupType;
 }
 
 export default CategoriesTableList;

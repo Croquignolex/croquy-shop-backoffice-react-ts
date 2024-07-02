@@ -35,7 +35,7 @@ import {groupsApiURI} from "../../../constants/apiURIConstants";
 import ShowImage from "../../../components/showImage/ShowImage";
 import {ImageSizeEnumType} from "../../../helpers/globalTypesHelper";
 import FormModal from "../../../components/FormModal";
-import GroupCategoryCreateForm from "../../../components/createForm/category/group/GroupCategoryCreateForm";
+// import GroupCategoryCreateForm from "../../../components/createForm/category/group/GroupCategoryCreateForm";
 import SeoTable from "../../../components/SeoTable";
 
 const ShowGroupPage = (): ReactElement => {
@@ -187,7 +187,7 @@ const ShowGroupPage = (): ReactElement => {
                                 </Tabs>
                             )}
                         </Stack>
-                        <FormModal
+                        {/*<FormModal
                             title={"Ajouter une catégorie"}
                             isOpen={isAddCategoryModalOpen}
                             onClose={onAddCategoryModalClose}
@@ -200,7 +200,7 @@ const ShowGroupPage = (): ReactElement => {
                                     setCategoriesSequence(categoriesSequence + 1);
                                 }}
                             />
-                        </FormModal>
+                        </FormModal>*/}
                         <ConfirmAlertDialog
                             handleConfirm={handleDeleteGroup}
                             isOpen={isDeleteModalOpen}

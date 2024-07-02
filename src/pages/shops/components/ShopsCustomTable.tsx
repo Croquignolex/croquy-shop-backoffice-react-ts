@@ -5,6 +5,7 @@ import {
     Badge,
     CreateToastFnReturn,
     HStack,
+    MenuDivider,
     Table,
     TableContainer,
     Tbody,
@@ -31,6 +32,7 @@ import MoreMenuItem from "../../../components/form/MoreMenuItem";
 import {PaginationType} from "../../../helpers/globalTypesHelper";
 import {SortAndFilterRequestDataType} from "../../../hooks/useSortAndFilterHook";
 import AddressUpdateForm from "../../../components/AddressUpdateForm";
+import {joinBaseUrlWithParams} from "../../../helpers/apiRequestsHelpers";
 import useIDActionRequestHook, {
     IDActionRequestHookType,
     IDActionRequestType
@@ -53,9 +55,10 @@ const ShopsCustomTable: FC<CustomTableProps> = (
 
     const [selectedShop, setSelectedShop] = useState<ShopType>(defaultSelectedShop);
 
-    const addressBaseUrl: string = shopsApiURI.address;
-    const deleteBaseUrl: string = shopsApiURI.destroy;
-    const toggleBaseUrl: string = shopsApiURI.toggle;
+    const addressUri: string = joinBaseUrlWithParams(shopsApiURI.address, [{param: "id", value: selectedShop.id}]);
+    const deleteUri: string = joinBaseUrlWithParams(shopsApiURI.destroy, [{param: "id", value: selectedShop.id}]);
+    const toggleUri: string = joinBaseUrlWithParams(shopsApiURI.toggle, [{param: "id", value: selectedShop.id}]);
+
 
     const deleteDone = (): void => {
         toast({
@@ -82,8 +85,7 @@ const ShopsCustomTable: FC<CustomTableProps> = (
         handleRequest: handleDeleteShop,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: deleteDone,
-        item: selectedShop,
-        baseUrl: deleteBaseUrl,
+        uri: deleteUri,
         type: IDActionRequestType.DELETE
     });
 
@@ -96,8 +98,7 @@ const ShopsCustomTable: FC<CustomTableProps> = (
         handleRequest: handleToggleShop,
     }: IDActionRequestHookType = useIDActionRequestHook({
         done: toggleDone,
-        item: selectedShop,
-        baseUrl: toggleBaseUrl,
+        uri: toggleUri,
         type: IDActionRequestType.TOGGLE
     });
 
@@ -176,6 +177,7 @@ const ShopsCustomTable: FC<CustomTableProps> = (
                                                     setSelectedShop(shop);
                                                 }}
                                             >
+                                                <MenuDivider />
                                                 <MoreMenuItem
                                                     label={t("change_address")}
                                                     icon={IconMapPin}
@@ -236,9 +238,8 @@ const ShopsCustomTable: FC<CustomTableProps> = (
                 onClose={onChangeShopAddressDrawerClose}
             >
                 <AddressUpdateForm
-                    item={selectedShop}
                     address={selectedShop.address}
-                    baseUrl={addressBaseUrl}
+                    uri={addressUri}
                     finished={(): void => {
                         onChangeShopAddressDrawerClose();
                         reloadList();

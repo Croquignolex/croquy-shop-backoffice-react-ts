@@ -14,6 +14,7 @@
   "FORM_IMAGE_UPLOAD_ABORT": "Image upload aborted",
   "FORM_IMAGE_UPLOAD_ERROR": "Error occur when uploaded",
 
+  "value": "Value",
   "country_states": "{{name}} states",
   "group_categories": "{{name}} categories",
   "MALE": "Male",
@@ -205,6 +206,20 @@
   "attribute_added": "Attribute {{name}} successfully added",
   "attribute_edited": "Attribute {{name}} successfully edited",
 
+  "attribute_values": "Attribute values",
+  "attribute_value": "Attribute value",
+  "add_attribute_value": "Add attribute value",
+  "new_attribute_value": "New attribute value",
+  "edit_attribute_value": "Edit attribute value",
+  "delete_attribute_value": "Delete attribute value",
+  "attribute_value_deleted": "Attribute value {{name}} successfully deleted",
+  "toggle_attribute_value_true": "Disable attribute value",
+  "toggle_attribute_value_false": "Enable attribute value",
+  "attribute_value_toggled_true": "Attribute value {{name}} successfully disabled",
+  "attribute_value_toggled_false": "Attribute value {{name}} successfully enabled",
+  "attribute_value_added": "Attribute value {{name}} successfully added",
+  "attribute_value_edited": "Attribute value {{name}} successfully edited",
+
   "image_deleted": "Image successfully deleted",
   "delete_image": "Delete image",
   "delete_address": "Delete address",
@@ -231,7 +246,6 @@
   "help_center": "Help center",
   "users": "Users",
   "coupons": "Coupons",
-  "attribute_values": "Attribute values",
   "not_found": "Not found",
 
   "authentication": "Authentication",

@@ -62,7 +62,7 @@ const showCategory: MainRouteType = {path: "/categories/:id", component: lazy(()
 const attributes: MainRouteType = {title: "attributes", path: "/attributes", icon: IconTag, component: lazy(() => import("../pages/attributes/components/AttributesListPage"))};
 const showAttribute: MainRouteType = {path: "/attributes/:id", component: lazy(() => import("../pages/attributes/show/ShowAttributePage"))};
 
-const attributeValues: MainRouteType = {title: "attribute_values", path: "/attribute-values", icon: IconTagStarred, component: lazy(() => import("../pages/attributeValues/AttributeValuesPage"))};
+const attributeValues: MainRouteType = {title: "attribute_values", path: "/attribute-values", icon: IconTagStarred, component: lazy(() => import("../pages/attributeValues/components/AttributeValuesListPage"))};
 const showAttributeValue: MainRouteType = {path: "/attribute-values/:id", component: lazy(() => import("../pages/attributeValues/show/ShowAttributeValuePage"))};
 
 export interface MainRouteType {
@@ -81,7 +81,7 @@ export const administrationSubMenu = {
 export const ecommerceSubMenu = {
     subMenuLabel: "ecommerce",
     subMenuIcon: IconBrandShopee,
-    subMenuItems: [groups, categories, attributes],
+    subMenuItems: [groups, categories, attributes, attributeValues],
 };
 
 export const settingsSubMenu = {

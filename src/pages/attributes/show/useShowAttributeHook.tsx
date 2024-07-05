@@ -8,7 +8,7 @@ import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {DestroyAttributeRequestDataType} from "../../../components/tableList/attributes/attributesTableListData";
+// import {DestroyAttributeRequestDataType} from "../../../components/tableList/attributes/attributesTableListData";
 import {
     attributeRequest,
     AttributeType,
@@ -41,7 +41,7 @@ const useShowAttributeHook = (): ShowAttributeHookType => {
         enabled: attributeQueryEnabled,
     });
 
-    const destroyAttributeAttributeResponse: UseMutationResult<AxiosResponse, AxiosError, DestroyAttributeRequestDataType, any> = useMutation({
+    const destroyAttributeAttributeResponse: UseMutationResult<AxiosResponse, AxiosError, any, any> = useMutation({
         mutationFn: destroyAttribute,
         onError: (error: AxiosError): void => {
             setDeleteAttributeAlertData(errorAlert(error));

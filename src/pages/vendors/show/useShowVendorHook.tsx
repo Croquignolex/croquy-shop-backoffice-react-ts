@@ -8,7 +8,7 @@ import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 import {AddressType, AlertStatusEnumType, ErrorAlertType, MediaType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {DestroyVendorRequestDataType} from "../../../components/tableList/vendors/vendorsTableListData";
+// import {DestroyVendorRequestDataType} from "../../../components/tableList/vendors/vendorsTableListData";
 import {
     vendorRequest,
     VendorType,
@@ -41,7 +41,7 @@ const useShowVendorHook = (): ShowVendorHookType => {
         enabled: vendorQueryEnabled,
     });
 
-    const destroyVendorVendorResponse: UseMutationResult<AxiosResponse, AxiosError, DestroyVendorRequestDataType, any> = useMutation({
+    const destroyVendorVendorResponse: UseMutationResult<AxiosResponse, AxiosError, any, any> = useMutation({
         mutationFn: destroyVendor,
         onError: (error: AxiosError): void => {
             setDeleteVendorAlertData(errorAlert(error));

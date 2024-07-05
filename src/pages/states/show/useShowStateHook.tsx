@@ -8,7 +8,7 @@ import {CreateToastFnReturn, useDisclosure, useToast} from "@chakra-ui/react";
 import {AlertStatusEnumType, ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {errorAlert, log, toastAlert} from "../../../helpers/generalHelpers";
 import {mainRoutes} from "../../../routes/mainRoutes";
-import {DestroyStateRequestDataType} from "../../../components/tableList/states/statesTableListData";
+// import {DestroyStateRequestDataType} from "../../../components/tableList/states/statesTableListData";
 import {
     stateRequest,
     StateType,
@@ -41,7 +41,7 @@ const useShowStateHook = (): ShowStateHookType => {
         enabled: stateQueryEnabled,
     });
 
-    const destroyStateStateResponse: UseMutationResult<AxiosResponse, AxiosError, DestroyStateRequestDataType, any> = useMutation({
+    const destroyStateStateResponse: UseMutationResult<AxiosResponse, AxiosError, any, any> = useMutation({
         mutationFn: destroyState,
         onError: (error: AxiosError): void => {
             setDeleteStateAlertData(errorAlert(error));

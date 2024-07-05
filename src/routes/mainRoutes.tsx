@@ -13,9 +13,10 @@ import {
     IconTruck,
     IconTag,
     IconTagStarred,
+    IconUsers,
+    IconUsersGroup,
 } from '@tabler/icons-react';
 import {
-    FiUsers,
     FiPercent,
     FiPieChart,
     FiUser,
@@ -31,10 +32,8 @@ const help: MainRouteType = {title: "help_center", path: "/help", icon: FiHelpCi
 const shops: MainRouteType = {title: "shops", path: "/shops", icon: IconBuildingStore, component: lazy(() => import("../pages/shops/components/ShopsListPage"))};
 const showShop: MainRouteType = {path: "/shops/:id", component: lazy(() => import("../pages/shops/show/ShowShopPage"))};
 
-const users: MainRouteType = {title: "users", path: "/users", icon: FiUsers, component: lazy(() => import("../pages/users/UsersPage"))};
-const addUser: MainRouteType = {path: "/users/create", component: lazy(() => import("../pages/users/CreateUserPage"))};
+const users: MainRouteType = {title: "users", path: "/users", icon: IconUsers, component: lazy(() => import("../pages/users/components/UsersListPage"))};
 const showUser: MainRouteType = {path: "/users/:id", component: lazy(() => import("../pages/users/show/ShowUserPage"))};
-const editUser: MainRouteType = {path: "/users/:id/edit", component: lazy(() => import("../pages/users/edit/EditUserPage"))};
 
 const countries: MainRouteType = {title: "countries", path: "/countries", icon: IconFlag, component: lazy(() => import("../pages/countries/components/CountriesListPage"))};
 const showCountry: MainRouteType = {path: "/countries/:id", component: lazy(() => import("../pages/countries/show/ShowCountryPage"))};
@@ -75,7 +74,7 @@ export interface MainRouteType {
 export const administrationSubMenu = {
     subMenuLabel: "administration",
     subMenuIcon: IconAdjustments,
-    subMenuItems: [shops, vendors],
+    subMenuItems: [users, shops, vendors],
 };
 
 export const ecommerceSubMenu = {
@@ -119,11 +118,11 @@ export const mainRoutes: any = {
     categories, showCategory,
     vendors, showVendor,
     attributes, showAttribute,
+    attributeValues, showAttributeValue,
 
     dashboard,
     profile, settings, help,
 
-    users, addUser, showUser, editUser,
-    attributeValues, showAttributeValue,
+    users, showUser,
     coupons, addCoupon, showCoupon, editCoupon,
 };

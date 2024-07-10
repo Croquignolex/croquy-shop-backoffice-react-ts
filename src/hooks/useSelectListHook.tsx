@@ -4,10 +4,10 @@ import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 import {useQuery, UseQueryResult} from "@tanstack/react-query";
 
 import {getRequest} from "../helpers/axiosHelpers";
-import {FormSelectOptionType} from "../components/form/SelectField";
 import {API_SELECT_V1_URL} from "../helpers/apiRequestsHelpers";
 import {errorAlert} from "../helpers/generalHelpers";
 import {AlertStatusEnumType} from "../helpers/globalTypesHelper";
+import {SelectInputOptionType} from "../components/form/SelectInput";
 
 // ######################################## HOOK ######################################## //
 
@@ -15,7 +15,7 @@ const useSelectListHook = ({baseUrl}: {baseUrl: string}): SelectListHookType => 
     const toast: CreateToastFnReturn = useToast();
     const {t} = useTranslation();
 
-    let selectList: Array<FormSelectOptionType> = [];
+    let selectList: Array<SelectInputOptionType> = [];
 
     const response: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
         queryKey: ["select-list", baseUrl],
@@ -32,7 +32,7 @@ const useSelectListHook = ({baseUrl}: {baseUrl: string}): SelectListHookType => 
 
     if(!response.isFetching && response.isSuccess) {
         const data: Array<any> = response.data.data || [];
-        selectList = data.map((item: any): FormSelectOptionType => ({label: item?.name, key: item.id}));
+        selectList = data.map((item: any): SelectInputOptionType => ({label: item?.name, value: item.id}));
     }
 
     const reloadList = (): void => {
@@ -47,7 +47,7 @@ const useSelectListHook = ({baseUrl}: {baseUrl: string}): SelectListHookType => 
 // ######################################## STATICS DATA ######################################## //
 
 export interface SelectListHookType {
-    selectList: Array<FormSelectOptionType>,
+    selectList: Array<SelectInputOptionType>,
     isSelectListFetching: boolean,
     reloadList: () => void,
 }

@@ -40,7 +40,7 @@ const AttributeEditForm: FC<AttributeEditFormProps> = ({selectedAttribute, finis
                             label={t("type")}
                             name="type"
                             formikProps={props}
-                            values={staticSelectListAttributeTypes}
+                            options={staticSelectListAttributeTypes}
                         />
 
                         <TextareaField label={t("description")} name="description" formikProps={props} />

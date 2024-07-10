@@ -1,4 +1,4 @@
-import React, {FC, ReactElement, useState} from "react";
+import React, {FC, ReactElement} from "react";
 import {Box} from "@chakra-ui/react";
 import {Form, Formik, FormikProps} from "formik";
 import {useTranslation} from "react-i18next";
@@ -28,8 +28,6 @@ const UserAddForm: FC<UserAddFormProps> = ({added, finished}): ReactElement => {
         isAddUserPending
     }: UserAddHookType = useUserAddHook({added, finished});
 
-    const [date, setDate] = useState(new Date())
-
     return (
         <Box key={sequence}>
 
@@ -52,14 +50,14 @@ const UserAddForm: FC<UserAddFormProps> = ({added, finished}): ReactElement => {
                             label={t("role")}
                             name="role"
                             formikProps={props}
-                            values={staticSelectListRoleTypes}
+                            options={staticSelectListRoleTypes}
                         />
 
                         <SelectField
                             label={t("gender")}
                             name="gender"
                             formikProps={props}
-                            values={staticSelectListGenderTypes}
+                            options={staticSelectListGenderTypes}
                         />
 
                         <PasswordField label={t("password")} name="password" formikProps={props} />

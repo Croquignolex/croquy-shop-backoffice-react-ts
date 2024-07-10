@@ -47,14 +47,14 @@ const UserEditForm: FC<UserEditFormProps> = ({selectedUser, finished}): ReactEle
                             label={t("role")}
                             name="role"
                             formikProps={props}
-                            values={staticSelectListRoleTypes}
+                            options={staticSelectListRoleTypes}
                         />
 
                         <SelectField
                             label={t("name")}
                             name="gender"
                             formikProps={props}
-                            values={staticSelectListGenderTypes}
+                            options={staticSelectListGenderTypes}
                         />
 
                         <TextareaField label={t("description")} name="description" formikProps={props} />

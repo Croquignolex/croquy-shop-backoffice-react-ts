@@ -1,11 +1,12 @@
 import {AttributeTypeEnumType, GenderTypeEnumType, RoleTypeEnumType} from "../helpers/globalTypesHelper";
-import {FormSelectOptionType} from "../components/form/SelectField";
+import {SelectInputOptionType} from "../components/form/SelectInput";
 
 export const formValidationMessage = {
     required: "FORM_REQUIRED",
     match: "FORM_MATCH",
     minNumber: "FORM_MIN_NUMBER",
     minDate: "FORM_DATE_AFTER",
+    passDate: "FORM_DATE_PASSED",
     dateAfter: "FORM_DATE_BEFORE",
     maxNumber: "FORM_MAX_NUMBER",
     email: "FORM_EMAIL",
@@ -17,28 +18,28 @@ export const formValidationMessage = {
 };
 
 export const format = {
-    datePicker: "YYYY-MM-DD",
+    datePicker: "YYYY/MM/DD",
     frDateDisplay: "DD/MM/YYYY HH:mm",
     frDateTimeDisplay: "DD/MM/YYYY",
     enDateDisplay: "DD/MM/YYYY HH:mm",
     enDateTimeDisplay: "DD/MM/YYYY",
 };
 
-export const staticSelectListAttributeTypes: Array<FormSelectOptionType> = [
-    {label: "Texte", key: AttributeTypeEnumType.TEXT},
-    {label: "Couleur", key: AttributeTypeEnumType.COLOR},
-    {label: "Sélection", key: AttributeTypeEnumType.SELECT}
+export const staticSelectListAttributeTypes: Array<SelectInputOptionType> = [
+    {label: "text", value: AttributeTypeEnumType.TEXT},
+    {label: "color", value: AttributeTypeEnumType.COLOR},
+    {label: "selection", value: AttributeTypeEnumType.SELECT}
 ];
 
-export const staticSelectListGenderTypes: Array<FormSelectOptionType> = [
-    {label: "Masculin", key: GenderTypeEnumType.MALE},
-    {label: "Féminin", key: GenderTypeEnumType.FEMALE},
-    {label: "Autre", key: GenderTypeEnumType.UNKNOWN}
+export const staticSelectListGenderTypes: Array<SelectInputOptionType> = [
+    {label: "male", value: GenderTypeEnumType.MALE},
+    {label: "female", value: GenderTypeEnumType.FEMALE},
+    {label: "other", value: GenderTypeEnumType.UNKNOWN}
 ];
 
-export const staticSelectListRoleTypes: Array<FormSelectOptionType> = [
-    {label: "Administrateur", key: RoleTypeEnumType.ADMIN},
-    {label: "Vendeur", key: RoleTypeEnumType.SELLER},
-    {label: "Super admin", key: RoleTypeEnumType.SUPER_ADMIN},
-    {label: "Gestionnaire", key: RoleTypeEnumType.MANAGER},
+export const staticSelectListRoleTypes: Array<SelectInputOptionType> = [
+    {label: "admin", value: RoleTypeEnumType.ADMIN},
+    {label: "seller", value: RoleTypeEnumType.SELLER},
+    {label: "super_admin", value: RoleTypeEnumType.SUPER_ADMIN},
+    {label: "manager", value: RoleTypeEnumType.MANAGER},
 ];

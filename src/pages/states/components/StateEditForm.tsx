@@ -50,7 +50,7 @@ const StateEditForm: FC<StateEditFormProps> = ({selectedState, finished}): React
                             onLinkOpen={onAddCountryDrawerOpen}
                             name="countryId"
                             formikProps={props}
-                            values={countriesSelectList}
+                            options={countriesSelectList}
                             isLoading={isCountriesSelectListFetching}
                         />
 

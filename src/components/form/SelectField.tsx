@@ -2,24 +2,26 @@ import React, { ReactElement, FC } from "react";
 import {FiAlertCircle} from "react-icons/fi";
 import { Field } from "formik";
 import {useTranslation} from "react-i18next";
+import {FieldAttributes} from "formik/dist/Field";
 import {
     FormLabel,
     HStack,
     FormErrorMessage,
     FormControl,
-    Select,
     Icon,
-    Skeleton, Text,
+    Text,
+    Skeleton,
 } from "@chakra-ui/react";
 
 import {DefaultFieldProps} from "../../helpers/globalTypesHelper";
+import SelectInput, {SelectInputOptionType} from "./SelectInput";
 
 const SelectField: FC<SelectFormFieldProps> = (
     {
         name,
         label,
         linkLabel,
-        values,
+        options,
         isLoading = false,
         formikProps,
         onLinkOpen,
@@ -39,12 +41,21 @@ const SelectField: FC<SelectFormFieldProps> = (
                )}
            </HStack>
 
-            <Field as={Select} name={name} borderColor="gray.300">
-                <option value="">{isLoading ? t("loading") : t("chose")}</option>
-                {values.map((item: FormSelectOptionType, key: number) => (
-                    <option value={item.key} key={key}>{item.label}</option>
-                ))}
-            </Field>
+            {isLoading
+                ? <Skeleton height={"40px"} width={"100%"} rounded={"md"} mb={4} />
+                : (
+                    <Field name={name} borderColor="gray.300">
+                        {({field, form}: FieldAttributes<any>) => (
+                            <SelectInput
+                                handleSelect={(v: string) => form.setFieldValue(field.name, v)}
+                                name={field.name}
+                                defaultValue={options.find(((o: SelectInputOptionType): boolean => o.value === field.value))}
+                                options={options}
+                            />
+                        )}
+                    </Field>
+                )
+            }
 
             <FormErrorMessage>
                 <Icon mr="2" as={FiAlertCircle} />
@@ -55,14 +66,9 @@ const SelectField: FC<SelectFormFieldProps> = (
 };
 
 interface SelectFormFieldProps extends DefaultFieldProps {
-    values: Array<FormSelectOptionType>;
+    options: Array<SelectInputOptionType>;
     linkLabel?: string
     onLinkOpen?: () => void
-}
-
-export interface FormSelectOptionType {
-    label: string;
-    key: string,
 }
 
 export default SelectField;

@@ -59,6 +59,7 @@ const NumberField: FC<NumberFieldProps> = (
                     </Field>
                 )
             }
+
             <FormErrorMessage>
                 <Icon mr="2" as={FiAlertCircle} />
                 {t(formikProps.errors[name]?.toString() || "")}

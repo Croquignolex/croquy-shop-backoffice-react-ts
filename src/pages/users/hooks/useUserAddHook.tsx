@@ -4,6 +4,7 @@ import {useMutation, UseMutationResult} from "@tanstack/react-query";
 import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 import {useTranslation} from "react-i18next";
 import * as Yup from "yup";
+import dayjs from "dayjs";
 
 import {ErrorAlertType} from "../../../helpers/globalTypesHelper";
 import {errorAlert} from "../../../helpers/generalHelpers";
@@ -77,7 +78,7 @@ export const userAddInitialStaticValues: UserAddFormType = {
     password: "",
     confirmPassword: "",
     profession: "",
-    birthdate: "",
+    birthdate: dayjs().format("YYYY/MM/DD"),
     role: "",
     gender: "",
     description: "",
@@ -88,7 +89,10 @@ export const userAddSchema: Yup.ObjectSchema<UserAddFormType> = Yup.object().sha
     firstName: Yup.string().required(formValidationMessage.required),
     lastName: Yup.string(),
     profession: Yup.string(),
-    birthdate: Yup.string(),
+    birthdate: Yup.string()
+        .test("FORMAT", formValidationMessage.passDate, (value: string | undefined): boolean => {
+            return (dayjs(value).isValid() && dayjs(value).isBefore(dayjs()));
+        }),
     role: Yup.string().required(formValidationMessage.required),
     gender: Yup.string().required(formValidationMessage.required),
     description: Yup.string().nullable(),

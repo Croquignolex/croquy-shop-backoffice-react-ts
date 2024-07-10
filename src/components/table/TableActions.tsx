@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, ReactElement, ReactNode} from "react";
+import React, {FC, ReactElement, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 import {IconFileTypePdf, IconFileTypeCsv} from "@tabler/icons-react";
 import {FiChevronDown, FiDownload} from "react-icons/fi";
@@ -12,7 +12,6 @@ import {
     MenuButton,
     MenuItem,
     MenuList,
-    Select,
     Stack,
     Text
 } from "@chakra-ui/react";
@@ -20,6 +19,7 @@ import {
 import SearchField from "../form/SearchField";
 import useDownloadFileHook, {DownloadFileHookType} from "../../hooks/useDownloadFileHook";
 import {FileType} from "../../helpers/globalTypesHelper";
+import SelectInput, {SelectInputOptionType} from "../form/SelectInput";
 
 const TableActions: FC<TableActionsProps> = ({handleShowItems, handleSearch, baseUrl, children}): ReactElement => {
     return (
@@ -43,21 +43,24 @@ const TableActions: FC<TableActionsProps> = ({handleShowItems, handleSearch, bas
 const ShowItemsSelect: FC<{handleShowItems: (a: number) => void}> = ({handleShowItems}): ReactElement => {
     const {t} = useTranslation();
 
-    const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        handleShowItems(parseInt(event.target.value));
-    };
+    const options: Array<SelectInputOptionType> =[
+        {value: "7", label: "7"},
+        {value: "10", label: "10"},
+        {value: "20", label: "20"},
+        {value: "50", label: "50"},
+        {value: "100", label: "100"},
+        {value: "250", label: "250"}
+    ];
 
     return (
         <HStack>
             <Text>{t("show")}</Text>
-            <Select name={"sort"} borderColor="gray.300" onChange={handleChange}>
-                <option value={7}>7</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-                <option value={50}>50</option>
-                <option value={100}>100</option>
-                <option value={250}>250</option>
-            </Select>
+            <SelectInput
+                options={options}
+                name={"sort"}
+                defaultValue={options[0]}
+                handleSelect={(v: string) => handleShowItems(parseInt(v))}
+            />
             <Text>{t("items")}</Text>
         </HStack>
     );

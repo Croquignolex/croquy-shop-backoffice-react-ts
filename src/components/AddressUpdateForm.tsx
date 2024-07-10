@@ -78,7 +78,7 @@ const AddressUpdateForm: FC<AddressUpdateFormProps> = ({address, uri, finished})
                             onLinkOpen={onAddStateDrawerOpen}
                             name="stateId"
                             formikProps={props}
-                            values={statesSelectList}
+                            options={statesSelectList}
                             isLoading={isStatesSelectListFetching}
                         />
 

@@ -10,7 +10,8 @@ import {
     InputGroup,
     InputRightElement,
     Icon,
-    IconButton, Skeleton, Button
+    Skeleton,
+    Button
 } from "@chakra-ui/react";
 
 import {DefaultFieldProps} from "../../helpers/globalTypesHelper";
@@ -35,7 +36,7 @@ const PasswordField: FC<DefaultFieldProps> = (
                 ? <Skeleton height={"40px"} width={"100%"} rounded={"md"} mb={4} />
                 : (
                     <InputGroup>
-                        <Field as={Input} name={name} type={showPassword ? "text" : "password"}  borderColor="gray.300" />
+                        <Field as={Input} name={name} type={showPassword ? "text" : "password"}  borderColor="gray.300" autoComplete={""} />
                         
                         <InputRightElement>
                             <Button

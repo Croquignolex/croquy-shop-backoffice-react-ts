@@ -52,7 +52,7 @@ const StateAddForm: FC<StateAddFormProps> = ({selectedCountry, added, finished})
                             onLinkOpen={onAddCountryDrawerOpen}
                             name="countryId"
                             formikProps={props}
-                            values={countriesSelectList}
+                            options={countriesSelectList}
                             isLoading={isCountriesSelectListFetching}
                         />
 

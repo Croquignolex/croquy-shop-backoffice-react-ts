@@ -52,7 +52,7 @@ const CategoryAddForm: FC<CategoryAddFormProps> = ({selectedGroup, added, finish
                             onLinkOpen={onAddGroupDrawerOpen}
                             name="groupId"
                             formikProps={props}
-                            values={groupsSelectList}
+                            options={groupsSelectList}
                             isLoading={isGroupsSelectListFetching}
                         />
 

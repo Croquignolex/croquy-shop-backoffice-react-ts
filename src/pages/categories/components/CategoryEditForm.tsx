@@ -50,7 +50,7 @@ const CategoryEditForm: FC<CategoryEditFormProps> = ({selectedCategory, finished
                             onLinkOpen={onAddGroupDrawerOpen}
                             name="groupId"
                             formikProps={props}
-                            values={groupsSelectList}
+                            options={groupsSelectList}
                             isLoading={isGroupsSelectListFetching}
                         />
 
